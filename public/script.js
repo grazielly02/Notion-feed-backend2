@@ -3,7 +3,7 @@
     let totalSlides = 0;
 
     async function loadPosts() {
-      const res = await fetch('https://notion-feed-backend2.onrender.com/posts');
+      const res = await fetch('/posts');
       const posts = await res.json();
       const grid = document.getElementById("grid");
       grid.innerHTML = "";
