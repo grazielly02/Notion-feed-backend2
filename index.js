@@ -114,16 +114,35 @@ app.get("/widget/:clientId/view", async (req, res) => {
   try {
     const dbResults = await queryDatabase(configData.token, configData.databaseId);
 
-    const postsHtml = Object.values(dbResults?.recordMap?.block || {})
-      .filter(block => block.value && block.value.type === "page")
-      .map(block => {
-        const title = block.value.properties?.title?.[0]?.[0] || "Sem título";
+    const postsHtml = dbResults
+      .map(page => {
+        const props = page.properties;
+
+        const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
+
+        const dataPublicacao = props["Data de Publicação"]?.date?.start || null;
+
+        const midias = props["Mídia"]?.files?.map(file =>
+          file.file?.url || file.external?.url
+        ) || [];
+
+        const linkDireto = props["Link Direto"]?.url || null;
+
+        // Gera HTML das mídias
+        const midiasHtml = midias.map(url => `
+          <img src="${url}" alt="${title}" style="width:100%; max-height:300px; object-fit:cover; margin-bottom:10px;">
+        `).join("");
+
         return `
           <div style="border:1px solid #ccc; padding:10px; margin:10px; width:300px;">
             <h3>${title}</h3>
+            ${dataPublicacao ? `<p><strong>Data:</strong> ${dataPublicacao}</p>` : ""}
+            ${midiasHtml || "<p>Sem mídia.</p>"}
+            ${linkDireto ? `<p><a href="${linkDireto}" target="_blank">Ver mais</a></p>` : ""}
           </div>
         `;
       })
+      .filter(Boolean)
       .join("");
 
     res.send(`
@@ -141,8 +160,9 @@ app.get("/widget/:clientId/view", async (req, res) => {
       </body>
       </html>
     `);
+
   } catch (error) {
-    console.error(`Erro ao gerar o widget de ${clientId}:`, error);
+    console.error(`Erro ao gerar o widget de ${clientId}:`, error.response?.data || error.message);
     res.status(500).send("Erro ao gerar o widget visual.");
   }
 });
