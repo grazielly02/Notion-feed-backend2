@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Configuração do Widget</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: 30px auto; }
+    input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
+    button { background-color: black; color: white; }
+  </style>
+</head>
+<body>
+  <h2>Configuração do Widget</h2>
+  <form method="POST" action="/save-config">
+    <label>Identificador do Cliente:</label><br>
+    <input type="text" name="clientId" required><br><br>
+
+    <label>Token de Integração do Notion:</label><br>
+    <textarea name="token" required></textarea><br><br>
+
+    <label>Database ID:</label><br>
+    <input type="text" name="databaseId" required><br><br>
+
+    <button type="submit">Salvar Configuração</button>
+  </form>
+</body>
+</html>
