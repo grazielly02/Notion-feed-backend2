@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
+const axios = require("axios");
 const { Client } = require("@notionhq/client");
 require("dotenv").config();
 
@@ -12,6 +13,26 @@ app.use(express.urlencoded({ extended: true }));
 
 // === Notion padrão (só pra quem ainda não configurou cliente específico) ===
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
+
+// Função para consulta à API Notion via HTTP manual (aceita ntn_ ou secret_)
+async function queryDatabase(token, databaseId) {
+  const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+
+  try {
+    const response = await axios.post(url, {}, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Notion-Version": "2022-06-28",
+        "Content-Type": "application/json"
+      }
+    });
+
+    return response.data.results;
+  } catch (error) {
+    console.error("Erro ao consultar Notion API:", error.response?.data || error.message);
+    throw error;
+  }
+}
 
 // Rota inicial
 app.get("/", (req, res) => {
@@ -94,14 +115,11 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   }
 
   const configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
-  const clientNotion = new Client({ auth: configData.token });
 
   try {
-    const db = await clientNotion.databases.query({
-      database_id: configData.databaseId
-    });
+    const dbResults = await queryDatabase(configData.token, configData.databaseId);
 
-    const posts = db.results
+    const posts = dbResults
       .map(page => {
         const props = page.properties;
 
@@ -128,8 +146,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
 
     res.json(posts);
   } catch (error) {
-    console.error(`Erro ao buscar posts do cliente ${clientId}:`, error);
-    res.status(500).json({ error: "Erro ao buscar posts" });
+    res.status(500).json({ error: "Erro ao buscar posts via Notion API." });
   }
 });
 
@@ -142,14 +159,11 @@ app.get("/widget/:clientId/view", async (req, res) => {
   }
 
   const configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
-  const clientNotion = new Client({ auth: configData.token });
 
   try {
-    const db = await clientNotion.databases.query({
-      database_id: configData.databaseId
-    });
+    const dbResults = await queryDatabase(configData.token, configData.databaseId);
 
-    const posts = db.results
+    const posts = dbResults
       .map(page => {
         const props = page.properties;
 
@@ -190,7 +204,7 @@ app.get("/widget/:clientId/view", async (req, res) => {
       </html>
     `);
   } catch (error) {
-    console.error(`Erro ao gerar o widget visual de ${clientId}:`, error);
+    console.error(`Erro ao gerar o widget visual de ${clientId}:`, error.response?.data || error.message);
     res.status(500).send("Erro ao gerar o widget visual.");
   }
 });
