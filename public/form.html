@@ -11,15 +11,15 @@
 </head>
 <body>
   <h2>Configuração do Widget</h2>
-  <form method="POST" action="https://notion-feed-backend2.onrender.com/save-config">
+  <form method="POST" action="/save-config">
     <label>Identificador do Cliente:</label><br>
     <input type="text" name="clientId" required><br><br>
 
     <label>Token de Integração do Notion:</label><br>
     <textarea name="token" required></textarea><br><br>
 
-    <label>Database ID:</label><br>
-    <input type="text" name="databaseId" required><br><br>
+    <label>URL do Banco de Dados:</label><br>
+    <input type="text" name="databaseUrl" required><br><br>
 
     <button type="submit">Salvar Configuração</button>
   </form>
