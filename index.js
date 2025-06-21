@@ -2,33 +2,48 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
-const { NotionClient } = require("@dragonwocky/notion-client");
+const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Função para consultar o banco de dados com o novo Notion Client
+// === Função para extrair o ID puro de uma URL de database do Notion ===
+function extractDatabaseId(input) {
+  const regex = /([a-f0-9]{32})/;
+  const match = input.match(regex);
+  return match ? match[1] : input; // Se for URL, extrai. Se já for o ID puro, mantém.
+}
+
+// === Função para consultar a API Notion usando token ntn_ ou secret_ ===
 async function queryDatabase(token, databaseId) {
-  const notion = new NotionClient({ auth: token });
+  const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
   try {
-    const response = await notion.databases.query(databaseId);
-    return response.results;
+    const response = await axios.post(url, {}, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Notion-Version": "2022-06-28",
+        "Content-Type": "application/json"
+      }
+    });
+
+    return response.data.results;
   } catch (error) {
-    console.error("Erro ao consultar o Notion API:", error);
-    throw error;
+    console.error("Erro na API do Notion:", error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
   }
 }
 
-// Rota inicial (formulário)
+// === Rota inicial ===
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Rota para salvar a configuração do cliente
+// === Rota para salvar a configuração de cada cliente ===
 app.post("/save-config", (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
@@ -37,19 +52,20 @@ app.post("/save-config", (req, res) => {
   }
 
   const configDir = path.join(__dirname, "configs");
-  if (!fs.existsSync(configDir)) {
-    fs.mkdirSync(configDir);
-  }
+  if (!fs.existsSync(configDir)) fs.mkdirSync(configDir);
+
+  const configData = {
+    token,
+    databaseId: extractDatabaseId(databaseId)
+  };
 
   const configPath = path.join(configDir, `${clientId}.json`);
-  const configData = { token, databaseId };
-
   fs.writeFileSync(configPath, JSON.stringify(configData, null, 2));
 
   res.redirect(`/widget/${clientId}/view`);
 });
 
-// Rota para gerar o JSON de posts por cliente
+// === Rota para buscar os posts JSON de um cliente específico ===
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
   const configPath = path.join(__dirname, "configs", `${clientId}.json`);
@@ -61,12 +77,11 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   const configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
 
   try {
-    const dbResults = await queryDatabase(configData.token, configData.databaseId);
+    const results = await queryDatabase(configData.token, configData.databaseId);
 
-    const posts = dbResults
+    const posts = results
       .map(page => {
         const props = page.properties;
-
         const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
         const date = props["Data de Publicação"]?.date?.start || null;
 
@@ -74,28 +89,22 @@ app.get("/widget/:clientId/posts", async (req, res) => {
           file.file?.url || file.external?.url
         ) || [];
 
-        const linkDireto = props["Link Direto"]?.url || null;
+        const linkDireto = props["Link Direto"]?.url ? [props["Link Direto"].url] : [];
+        const media = [...files, ...linkDireto];
 
-        if (files.length === 0 && !linkDireto) return null;
+        if (media.length === 0) return null;
 
-        return {
-          id: page.id,
-          title,
-          date,
-          media: files,
-          link: linkDireto
-        };
+        return { id: page.id, title, date, media };
       })
       .filter(Boolean);
 
     res.json(posts);
   } catch (error) {
-    console.error("Erro ao gerar JSON de posts:", error);
-    res.status(500).json({ error: "Erro ao gerar JSON de posts." });
+    res.status(500).json({ error: error.message });
   }
 });
 
-// Rota para renderizar o widget visual (HTML)
+// === Rota para visualizar o widget de um cliente ===
 app.get("/widget/:clientId/view", async (req, res) => {
   const clientId = req.params.clientId;
   const configPath = path.join(__dirname, "configs", `${clientId}.json`);
@@ -107,31 +116,30 @@ app.get("/widget/:clientId/view", async (req, res) => {
   const configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
 
   try {
-    const dbResults = await queryDatabase(configData.token, configData.databaseId);
+    const results = await queryDatabase(configData.token, configData.databaseId);
 
-    const postsHtml = dbResults
+    const postsHtml = results
       .map(page => {
         const props = page.properties;
-
         const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
-        const date = props["Data de Publicação"]?.date?.start || null;
 
         const files = props["Mídia"]?.files?.map(file =>
           file.file?.url || file.external?.url
         ) || [];
 
-        const linkDireto = props["Link Direto"]?.url || null;
+        const linkDireto = props["Link Direto"]?.url ? [props["Link Direto"].url] : [];
+        const media = [...files, ...linkDireto];
 
-        const midiasHtml = files.map(url => `
-          <img src="${url}" alt="${title}" style="width:100%; max-height:300px; object-fit:cover; margin-bottom:10px;">
-        `).join("");
+        if (media.length === 0) return null;
+
+        const mediaHtml = media
+          .map(url => `<img src="${url}" alt="${title}" style="width:100%; max-height:300px; object-fit:cover; margin-bottom:10px;">`)
+          .join("");
 
         return `
           <div style="border:1px solid #ccc; padding:10px; margin:10px; width:300px;">
             <h3>${title}</h3>
-            ${date ? `<p><strong>Data:</strong> ${date}</p>` : ""}
-            ${midiasHtml || "<p>Sem mídia.</p>"}
-            ${linkDireto ? `<p><a href="${linkDireto}" target="_blank">Ver mais</a></p>` : ""}
+            ${mediaHtml}
           </div>
         `;
       })
@@ -143,9 +151,9 @@ app.get("/widget/:clientId/view", async (req, res) => {
       <html lang="pt-BR">
       <head>
         <meta charset="UTF-8">
-        <title>Feed de ${clientId}</title>
+        <title>Widget de ${clientId}</title>
         <style>
-          body { font-family: Arial; display: flex; flex-wrap: wrap; justify-content: center; background: #f9f9f9; }
+          body { font-family: Arial, sans-serif; display: flex; flex-wrap: wrap; justify-content: center; background: #f9f9f9; }
         </style>
       </head>
       <body>
@@ -153,16 +161,14 @@ app.get("/widget/:clientId/view", async (req, res) => {
       </body>
       </html>
     `);
-
   } catch (error) {
-    console.error(`Erro ao gerar o widget visual de ${clientId}:`, error);
+    console.error(error);
     res.status(500).send("Erro ao gerar o widget visual.");
   }
 });
 
-// Porta
+// === Porta ===
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
