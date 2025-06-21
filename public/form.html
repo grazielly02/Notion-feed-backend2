@@ -6,20 +6,20 @@
   <style>
     body { font-family: Arial; max-width: 600px; margin: 30px auto; }
     input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
-    button { background-color: black; color: white; }
+    button { background-color: black; color: white; cursor: pointer; }
   </style>
 </head>
 <body>
   <h2>Configuração do Widget</h2>
   <form method="POST" action="/save-config">
-    <label>Identificador do Cliente:</label><br>
-    <input type="text" name="clientId" required><br><br>
+    <label>Identificador do Cliente (exemplo: cliente1, lojaXYZ):</label><br>
+    <input type="text" name="clientId" required placeholder="Exemplo: cliente1"><br><br>
 
-    <label>Token de Integração do Notion:</label><br>
-    <textarea name="token" required></textarea><br><br>
+    <label>Token de Integração do Notion (secret_ ou ntn_):</label><br>
+    <textarea name="token" required placeholder="Cole aqui o token do Notion..."></textarea><br><br>
 
-    <label>Database ID ou URL:</label><br>
-    <input type="text" name="databaseId" required><br><br>
+    <label>URL Completa ou ID da Database do Notion:</label><br>
+    <input type="text" name="databaseId" required placeholder="Ex: https://www.notion.so/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"><br><br>
 
     <button type="submit">Salvar Configuração</button>
   </form>
