@@ -11,14 +11,14 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// === Função para extrair o ID puro de uma URL de database do Notion ===
+// === Extrair ID puro da database Notion mesmo quando o cliente cola a URL inteira ===
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
   const match = input.match(regex);
-  return match ? match[1] : input; // Se for URL, extrai. Se já for o ID puro, mantém.
+  return match ? match[1] : input;
 }
 
-// === Função para consultar a API Notion usando token ntn_ ou secret_ ===
+// === Consulta à API Notion com token ntn_ ou secret_ ===
 async function queryDatabase(token, databaseId) {
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
@@ -38,12 +38,12 @@ async function queryDatabase(token, databaseId) {
   }
 }
 
-// === Rota inicial ===
+// === Página inicial ===
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// === Rota para salvar a configuração de cada cliente ===
+// === Salvar configuração de cliente ===
 app.post("/save-config", (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
@@ -65,7 +65,7 @@ app.post("/save-config", (req, res) => {
   res.redirect(`/widget/${clientId}/view`);
 });
 
-// === Rota para buscar os posts JSON de um cliente específico ===
+// === Retornar posts JSON para o cliente ===
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
   const configPath = path.join(__dirname, "configs", `${clientId}.json`);
@@ -104,7 +104,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   }
 });
 
-// === Rota para visualizar o widget de um cliente ===
+// === Visualizar widget HTML ===
 app.get("/widget/:clientId/view", async (req, res) => {
   const clientId = req.params.clientId;
   const configPath = path.join(__dirname, "configs", `${clientId}.json`);
