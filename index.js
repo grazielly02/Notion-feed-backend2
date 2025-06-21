@@ -111,7 +111,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
 
 // === Rota: renderizar o widget visual (abre o widget.html que contém seu grid antigo + script.js) ===
 app.get("/widget/:clientId/view", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "widget.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // === Porta ===
