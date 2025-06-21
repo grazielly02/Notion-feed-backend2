@@ -1,9 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const fs = require("fs");
 const axios = require("axios");
 require("dotenv").config();
+const db = require("./db");
 
 const app = express();
 app.use(cors());
@@ -48,7 +48,7 @@ app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
 
-// === Salvar configuração de cliente ===
+// === Salvar configuração de cliente no SQLite ===
 app.post("/save-config", (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
@@ -56,33 +56,33 @@ app.post("/save-config", (req, res) => {
     return res.status(400).send("Todos os campos são obrigatórios.");
   }
 
-  const configDir = path.join(__dirname, "configs");
-  if (!fs.existsSync(configDir)) fs.mkdirSync(configDir);
+  const cleanDatabaseId = extractDatabaseId(databaseId);
 
-  const configData = {
-    token,
-    databaseId: extractDatabaseId(databaseId)
-  };
+  try {
+    db.prepare(`
+      INSERT OR REPLACE INTO configs (clientId, token, databaseId)
+      VALUES (?, ?, ?)
+    `).run(clientId, token, cleanDatabaseId);
 
-  const configPath = path.join(configDir, `${clientId}.json`);
-  fs.writeFileSync(configPath, JSON.stringify(configData, null, 2));
-
-  res.redirect(`/widget/${clientId}/view`);
+    res.redirect(`/widget/${clientId}/view`);
+  } catch (error) {
+    console.error("Erro ao salvar config no banco:", error);
+    res.status(500).send("Erro ao salvar configuração.");
+  }
 });
 
 // === Rota: API de posts em JSON para o frontend montar o grid ===
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
-  const configPath = path.join(__dirname, "configs", `${clientId}.json`);
 
-  if (!fs.existsSync(configPath)) {
+  const configRow = db.prepare('SELECT * FROM configs WHERE clientId = ?').get(clientId);
+
+  if (!configRow) {
     return res.status(404).send("Configuração deste cliente não encontrada.");
   }
 
-  const configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
-
   try {
-    const results = await queryDatabase(configData.token, configData.databaseId);
+    const results = await queryDatabase(configRow.token, configRow.databaseId);
 
     const posts = results
       .map(page => {
@@ -109,7 +109,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   }
 });
 
-// === Rota: renderizar o widget visual (abre o widget.html que contém seu grid antigo + script.js) ===
+// === Rota: renderizar o widget visual (grid + frontend) ===
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
