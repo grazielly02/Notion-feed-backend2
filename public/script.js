@@ -1,16 +1,17 @@
 const pathParts = window.location.pathname.split('/');
 let clientId = null;
 
+// Captura o clientId a partir da URL tipo: /widget/:clientId/view
 if (pathParts.includes('widget')) {
   clientId = pathParts[pathParts.indexOf('widget') + 1];
 }
 
-// Se não tiver clientId na URL, usa um cliente padrão pra teste (muda esse valor pro seu cliente real)
+// Se não tiver clientId na URL (teste local), usa um cliente fictício só pra testes offline
 if (!clientId) {
-  clientId = 'CLIENTE_PADRAO_AQUI';  // <-- Troque por um clientId válido da sua pasta configs
+  clientId = 'CLIENTE_PADRAO_AQUI';  // <-- Coloque aqui um clientId válido caso queira testar local
 }
 
-const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
+const API_URL = `/widget/${clientId}/posts`;
 
 let currentSlide = 0;
 let totalSlides = 0;

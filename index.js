@@ -11,14 +11,14 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// === Extrair ID puro da database Notion mesmo quando o cliente cola a URL inteira ===
+// === Função: extrair o ID puro da database mesmo quando o cliente cola a URL inteira ===
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
   const match = input.match(regex);
   return match ? match[1] : input;
 }
 
-// === Consulta à API Notion com token ntn_ ou secret_ ===
+// === Função: consulta ao Notion (aceita tokens ntn_ ou secret_) ===
 async function queryDatabase(token, databaseId) {
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
@@ -33,14 +33,19 @@ async function queryDatabase(token, databaseId) {
 
     return response.data.results;
   } catch (error) {
-    console.error("Erro na API do Notion:", error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
+    console.error("Erro ao consultar API do Notion:", error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || "Erro ao consultar o Notion");
   }
 }
 
-// === Página inicial ===
+// === Rota inicial (exibe o index.html ou redireciona pro form) ===
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// === Rota: formulário de configuração ===
+app.get("/config", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "form.html"));
 });
 
 // === Salvar configuração de cliente ===
@@ -65,7 +70,7 @@ app.post("/save-config", (req, res) => {
   res.redirect(`/widget/${clientId}/view`);
 });
 
-// === Retornar posts JSON para o cliente ===
+// === Rota: API de posts em JSON para o frontend montar o grid ===
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
   const configPath = path.join(__dirname, "configs", `${clientId}.json`);
@@ -104,67 +109,9 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   }
 });
 
-// === Visualizar widget HTML ===
-app.get("/widget/:clientId/view", async (req, res) => {
-  const clientId = req.params.clientId;
-  const configPath = path.join(__dirname, "configs", `${clientId}.json`);
-
-  if (!fs.existsSync(configPath)) {
-    return res.status(404).send("Configuração deste cliente não encontrada.");
-  }
-
-  const configData = JSON.parse(fs.readFileSync(configPath, "utf8"));
-
-  try {
-    const results = await queryDatabase(configData.token, configData.databaseId);
-
-    const postsHtml = results
-      .map(page => {
-        const props = page.properties;
-        const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
-
-        const files = props["Mídia"]?.files?.map(file =>
-          file.file?.url || file.external?.url
-        ) || [];
-
-        const linkDireto = props["Link Direto"]?.url ? [props["Link Direto"].url] : [];
-        const media = [...files, ...linkDireto];
-
-        if (media.length === 0) return null;
-
-        const mediaHtml = media
-          .map(url => `<img src="${url}" alt="${title}" style="width:100%; max-height:300px; object-fit:cover; margin-bottom:10px;">`)
-          .join("");
-
-        return `
-          <div style="border:1px solid #ccc; padding:10px; margin:10px; width:300px;">
-            <h3>${title}</h3>
-            ${mediaHtml}
-          </div>
-        `;
-      })
-      .filter(Boolean)
-      .join("");
-
-    res.send(`
-      <!DOCTYPE html>
-      <html lang="pt-BR">
-      <head>
-        <meta charset="UTF-8">
-        <title>Widget de ${clientId}</title>
-        <style>
-          body { font-family: Arial, sans-serif; display: flex; flex-wrap: wrap; justify-content: center; background: #f9f9f9; }
-        </style>
-      </head>
-      <body>
-        ${postsHtml || "<p>Sem posts disponíveis.</p>"}
-      </body>
-      </html>
-    `);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Erro ao gerar o widget visual.");
-  }
+// === Rota: renderizar o widget visual (abre o widget.html que contém seu grid antigo + script.js) ===
+app.get("/widget/:clientId/view", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "widget.html"));
 });
 
 // === Porta ===
