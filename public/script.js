@@ -1,24 +1,28 @@
+let currentSlide = 0;
+let totalSlides = 0;
+
+// Capturar clientId a partir da URL tipo: /widget/:clientId/view
 const pathParts = window.location.pathname.split('/');
 let clientId = null;
 
-// Captura o clientId a partir da URL tipo: /widget/:clientId/view
 if (pathParts.includes('widget')) {
   clientId = pathParts[pathParts.indexOf('widget') + 1];
 }
 
-// Se não tiver clientId na URL (teste local), usa um cliente fictício só pra testes offline
+// Se não tiver clientId na URL (ex: testes locais), usar um clientId fictício
 if (!clientId) {
-  clientId = 'CLIENTE_PADRAO_AQUI';  // <-- Coloque aqui um clientId válido caso queira testar local
+  clientId = 'CLIENTE_PADRAO_AQUI';  // Caso queira testar local, coloque um ID de cliente válido aqui
 }
 
 const API_URL = `/widget/${clientId}/posts`;
 
-let currentSlide = 0;
-let totalSlides = 0;
-
 async function loadPosts() {
   try {
     const res = await fetch(API_URL);
+    if (!res.ok) {
+      throw new Error(`Erro ao buscar posts: ${res.statusText}`);
+    }
+
     const posts = await res.json();
     const grid = document.getElementById("grid");
     grid.innerHTML = "";
@@ -69,8 +73,8 @@ async function loadPosts() {
       }
 
       container.appendChild(iconContainer);
-      container.onclick = () => openModal(post.media);
 
+      container.onclick = () => openModal(post.media);
       grid.appendChild(container);
     });
   } catch (error) {

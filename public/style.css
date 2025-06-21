@@ -17,19 +17,16 @@ body {
 
 #grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr)/* Sempre 3 colunas fixas */
-  gap: 2px;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: transparent;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .grid-item {
   position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
   overflow: hidden;
+  border-radius: 8px;
+  aspect-ratio: 4 / 5;
+  background-color: #e0e0e0;
 }
 
 .grid-item img,
@@ -47,10 +44,10 @@ body {
   right: 0;
   background: rgba(0, 0, 0, 0.6);
   color: white;
-  padding: 2px;
+  padding: 6px;
   opacity: 0;
   transition: opacity 0.3s;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .grid-item:hover .overlay {
@@ -59,8 +56,8 @@ body {
 
 .icon-container {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 8px;
+  right: 8px;
   display: flex;
   flex-direction: column;
   gap: 4px;
