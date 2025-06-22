@@ -88,6 +88,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
 
   try {
     const configRow = await db.getConfig(clientId);
+    console.log("Config carregada do banco:", configRow);
 
     if (!configRow) {
       return res.status(404).send("Configuração deste cliente não encontrada.");
