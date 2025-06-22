@@ -1,22 +1,30 @@
-const Database = require('better-sqlite3');
-const path = require('path');
-const fs = require('fs');
+const { Pool } = require('pg');
+require('dotenv').config();
 
-// Usar o diretório /tmp que é gravável no Render
-const dataDir = '/tmp';
-const dbPath = path.join(dataDir, 'database.sqlite');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Importante para o Render conseguir conectar ao Supabase
+  },
+});
 
-// Garantir que a pasta /tmp exista (ela sempre existe, mas só por segurança)
-console.log(`Usando banco de dados em: ${dbPath}`);
+module.exports = {
+  query: (text, params) => pool.query(text, params),
 
-const db = new Database(dbPath);
+  getConfig: async (clientId) => {
+    const res = await pool.query('SELECT * FROM configs WHERE clientId = $1', [clientId]);
+    return res.rows[0];
+  },
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS configs (
-    clientId TEXT PRIMARY KEY,
-    token TEXT NOT NULL,
-    databaseId TEXT NOT NULL
-  )
-`);
-
-module.exports = db;
+  saveConfig: async (clientId, token, databaseId) => {
+    await pool.query(
+      `
+      INSERT INTO configs (clientId, token, databaseId)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (clientId)
+      DO UPDATE SET token = EXCLUDED.token, databaseId = EXCLUDED.databaseId
+      `,
+      [clientId, token, databaseId]
+    );
+  },
+};

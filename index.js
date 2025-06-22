@@ -8,19 +8,19 @@ const db = require("./db");
 const app = express();
 app.use(cors());
 app.use(express.static("public"));
-// Middleware para corrigir caminhos estáticos em rotas dinâmicas tipo /widget/:clientId/view
+// Corrige carregamento de arquivos estáticos nas rotas dinâmicas
 app.use("/widget/:clientId", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// === Função: extrair o ID puro da database mesmo quando o cliente cola a URL inteira ===
+// === Função: extrair ID puro da database (mesmo quando o cliente cola a URL inteira) ===
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
   const match = input.match(regex);
   return match ? match[1] : input;
 }
 
-// === Função: consulta ao Notion (aceita tokens ntn_ ou secret_) ===
+// === Função: consulta API do Notion ===
 async function queryDatabase(token, databaseId) {
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
@@ -40,7 +40,7 @@ async function queryDatabase(token, databaseId) {
   }
 }
 
-// === Rota inicial (exibe o index.html ou redireciona pro form) ===
+// === Rota inicial ===
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
@@ -50,8 +50,8 @@ app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
 
-// === Salvar configuração de cliente no SQLite ===
-app.post("/save-config", (req, res) => {
+// === Rota: salvar configuração de cliente no PostgreSQL ===
+app.post("/save-config", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
   if (!clientId || !token || !databaseId) {
@@ -61,11 +61,7 @@ app.post("/save-config", (req, res) => {
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
   try {
-    db.prepare(`
-      INSERT OR REPLACE INTO configs (clientId, token, databaseId)
-      VALUES (?, ?, ?)
-    `).run(clientId, token, cleanDatabaseId);
-
+    await db.saveConfig(clientId, token, cleanDatabaseId);
     res.redirect(`/widget/${clientId}/view`);
   } catch (error) {
     console.error("Erro ao salvar config no banco:", error);
@@ -73,17 +69,17 @@ app.post("/save-config", (req, res) => {
   }
 });
 
-// === Rota: API de posts em JSON para o frontend montar o grid ===
+// === Rota: retornar posts em JSON ===
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
 
-  const configRow = db.prepare('SELECT * FROM configs WHERE clientId = ?').get(clientId);
-
-  if (!configRow) {
-    return res.status(404).send("Configuração deste cliente não encontrada.");
-  }
-
   try {
+    const configRow = await db.getConfig(clientId);
+
+    if (!configRow) {
+      return res.status(404).send("Configuração deste cliente não encontrada.");
+    }
+
     const results = await queryDatabase(configRow.token, configRow.databaseId);
 
     const posts = results
@@ -107,11 +103,12 @@ app.get("/widget/:clientId/posts", async (req, res) => {
 
     res.json(posts);
   } catch (error) {
+    console.error("Erro ao buscar posts:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
-// === Rota: renderizar o widget visual (grid + frontend) ===
+// === Rota: exibir o widget visual ===
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });

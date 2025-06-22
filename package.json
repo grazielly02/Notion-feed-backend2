@@ -16,7 +16,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "notion-client": "^7.4.2"
+    "notion-client": "^7.4.2",
+    "pg": "^8.16.2"
   },
   "description": ""
 }
