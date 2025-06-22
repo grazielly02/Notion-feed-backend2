@@ -8,6 +8,8 @@ const db = require("./db");
 const app = express();
 app.use(cors());
 app.use(express.static("public"));
+// Middleware para corrigir caminhos estáticos em rotas dinâmicas tipo /widget/:clientId/view
+app.use("/widget/:clientId", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
