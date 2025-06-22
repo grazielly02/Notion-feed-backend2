@@ -1,7 +1,16 @@
 const Database = require('better-sqlite3');
 const path = require('path');
+const fs = require('fs');
 
-const dbPath = path.join('/data', 'database.sqlite');
+// Caminho seguro para o banco no Render Free
+const dataDir = '/data';
+
+// Verifica se a pasta /data existe, se não existir cria
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+
+const dbPath = path.join(dataDir, 'database.sqlite');
 
 const db = new Database(dbPath);
 
