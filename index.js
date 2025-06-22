@@ -8,19 +8,16 @@ const db = require("./db");
 const app = express();
 app.use(cors());
 app.use(express.static("public"));
-// Corrige carregamento de arquivos estáticos nas rotas dinâmicas
 app.use("/widget/:clientId", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// === Função: extrair ID puro da database (mesmo quando o cliente cola a URL inteira) ===
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
   const match = input.match(regex);
   return match ? match[1] : input;
 }
 
-// === Função: consulta API do Notion ===
 async function queryDatabase(token, databaseId) {
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
@@ -35,22 +32,19 @@ async function queryDatabase(token, databaseId) {
 
     return response.data.results;
   } catch (error) {
-    console.error("Erro ao consultar API do Notion:", error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || "Erro ao consultar o Notion");
+    console.error("Erro ao consultar Notion:", error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
   }
 }
 
-// === Rota inicial ===
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// === Rota: formulário de configuração ===
 app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
 
-// === Rota: salvar configuração de cliente no PostgreSQL ===
 app.post("/save-config", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
@@ -69,7 +63,6 @@ app.post("/save-config", async (req, res) => {
   }
 });
 
-// === Rota: retornar posts em JSON ===
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
 
@@ -108,12 +101,10 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   }
 });
 
-// === Rota: exibir o widget visual ===
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// === Porta ===
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
