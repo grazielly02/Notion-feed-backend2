@@ -4,6 +4,22 @@ const path = require("path");
 const axios = require("axios");
 require("dotenv").config();
 const db = require("./db");
+async function ensureTableExists() {
+  try {
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS configs (
+        clientId TEXT PRIMARY KEY,
+        token TEXT NOT NULL,
+        databaseId TEXT NOT NULL
+      );
+    `);
+    console.log("✅ Tabela configs verificada/criada com sucesso.");
+  } catch (error) {
+    console.error("❌ Erro ao criar/verificar tabela configs:", error);
+  }
+}
+
+ensureTableExists();
 
 const app = express();
 app.use(cors());
