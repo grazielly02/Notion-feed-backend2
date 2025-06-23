@@ -94,7 +94,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
       return res.status(404).send("Configuração deste cliente não encontrada.");
     }
 
-    const results = await queryDatabase(configRow.token, configRow.databaseId);
+    const results = await queryDatabase(configRow.token, configRow.databaseid);
 
     const posts = results
       .map(page => {
