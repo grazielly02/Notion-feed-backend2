@@ -14,7 +14,7 @@ if (!clientId) {
   clientId = 'CLIENTE_PADRAO_AQUI';  // Caso queira testar local, coloque um ID de cliente válido aqui
 }
 
-const API_URL = `/widget/${clientId}/posts`;
+const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
 
 async function loadPosts() {
   try {
