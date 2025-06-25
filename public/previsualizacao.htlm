@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pré-visualização do Widget</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #grid {
+      margin-bottom: 40px;
+    }
+
+    #linkContainer {
+      background: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    input {
+      padding: 10px;
+      width: 300px;
+    }
+
+    button {
+      padding: 10px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    #info {
+      margin-bottom: 20px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="info">Seu widget está pronto! Aqui está o preview:</h2>
+
+  <!-- Grid do widget -->
+  <div id="grid"></div>
+
+  <!-- Link para copiar -->
+  <div id="linkContainer">
+    <input id="embedLink" readonly />
+    <button onclick="copiarLink()">Copiar link</button>
+  </div>
+
+  <div id="modal">
+    <button id="closeModal">✕</button>
+    <div id="modalContent">
+      <button class="arrow left">❮</button>
+      <div id="slidesContainer"></div>
+      <div id="slideCount" class="slide-count"></div>
+      <div id="dotsContainer" class="dots-container"></div>
+      <button class="arrow right">❯</button>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+  <script>
+    const pathParts = window.location.search.split("clientId=");
+    const clientId = pathParts[1] || "CLIENTE_PADRAO";
+    const link = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
+    document.getElementById("embedLink").value = link;
+
+    function copiarLink() {
+      const input = document.getElementById("embedLink");
+      input.select();
+      input.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      alert("Link copiado!");
+    }
+  </script>
+</body>
+</html>

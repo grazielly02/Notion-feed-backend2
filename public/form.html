@@ -1,27 +1,66 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Configuração do Widget</title>
-  <style>
-    body { font-family: Arial; max-width: 600px; margin: 30px auto; }
-    input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
-    button { background-color: black; color: white; cursor: pointer; }
-  </style>
-</head>
-<body>
-  <h2>Configuração do Widget</h2>
-  <form method="POST" action="https://notion-feed-backend2.onrender.com/save-config">
-    <label>Identificador do Cliente (exemplo: cliente1, lojaXYZ):</label><br>
-    <input type="text" name="clientId" required placeholder="Exemplo: cliente1"><br><br>
-
-    <label>Token de Integração do Notion (secret_ ou ntn_):</label><br>
-    <textarea name="token" required placeholder="Cole aqui o token do Notion..."></textarea><br><br>
-
-    <label>URL Completa ou ID da Database do Notion:</label><br>
-    <input type="text" name="databaseId" required placeholder="Ex: https://www.notion.so/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"><br><br>
-
-    <button type="submit">Salvar Configuração</button>
-  </form>
-</body>
+<!DOCTYPE html>    
+<html lang="pt-BR">    
+<head>    
+  <meta charset="UTF-8" />    
+  <title>Configuração do Widget</title>    
+  <style>    
+    body {    
+      font-family: 'Segoe UI', sans-serif;    
+      background: #f9f9f9;    
+      max-width: 600px;    
+      margin: 40px auto;    
+      padding: 20px;    
+      border-radius: 12px;    
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);    
+    }    
+    h2 {    
+      text-align: center;    
+      margin-bottom: 24px;    
+    }    
+    label {    
+      font-weight: 600;    
+      display: block;    
+      margin-top: 20px;    
+    }    
+    input, textarea, button {    
+      width: 100%;    
+      padding: 10px;    
+      margin-top: 6px;    
+      border: 1px solid #ccc;    
+      border-radius: 8px;    
+      font-size: 14px;    
+    }    
+    button {    
+      background-color: black;    
+      color: white;    
+      margin-top: 30px;    
+      cursor: pointer;    
+      font-size: 16px;    
+    }    
+    .tooltip {    
+      font-size: 12px;    
+      color: #555;    
+      margin-top: 4px;    
+    }    
+  </style>    
+</head>    
+<body>    
+  <h2>Configuração do Widget</h2>    
+    
+  <!-- ⚠️ Envio tradicional via POST -->    
+  <form method="POST" action="https://notion-feed-backend2.onrender.com/save-config">    
+    <label>👤 Identificador do Cliente</label>    
+    <input type="text" name="clientId" required placeholder="Ex: cliente1">    
+    
+    <label>🔐 Token de Integração Notion</label>    
+    <textarea name="token" required placeholder="Cole aqui o token (ntn_ ou secret_)"></textarea>    
+    <div class="tooltip">Crie seu token na página de integrações do Notion.</div>    
+    
+    <label>🔗 URL ou ID da Database</label>    
+    <input type="text" name="databaseId" required placeholder="Cole aqui a URL da sua database no Notion">    
+    <div class="tooltip">Abra a database no modo página e copie o link da barra do navegador.</div>    
+    
+    <button type="submit">Salvar Configuração</button>    
+  </form>    
+</body>    
 </html>
