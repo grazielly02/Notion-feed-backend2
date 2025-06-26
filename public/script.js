@@ -19,7 +19,7 @@ if (!clientId) {
   clientId = "CLIENTE_PADRAO";
 }
 
-const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
+const API_URL = window.feedPostsUrl || `/widget/${clientId}/posts`;
 
 async function loadPosts() {
   try {
