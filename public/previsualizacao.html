@@ -3,81 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <title>Pré-visualização do Widget</title>
-  <link rel="stylesheet" href="/style.css" />
   <style>
-    #info {
-      margin: 20px auto;
-      font-size: 1.2em;
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+      background: #f9f9f9;
+      text-align: center;
     }
-
+    h2 {
+      margin-bottom: 30px;
+    }
     #linkContainer {
-      background: #f1f1f1;
-      border: 1px solid #ccc;
-      padding: 15px;
+      margin-top: 30px;
+      background: #fff;
+      padding: 20px;
       border-radius: 10px;
       display: inline-block;
-      margin-top: 30px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-
-    #linkContainer input {
-      padding: 10px;
+    input {
+      padding: 8px;
       width: 300px;
+      font-size: 14px;
     }
-
-    #linkContainer button {
-      padding: 10px;
+    button {
+      padding: 8px 12px;
+      margin-left: 10px;
       background: black;
       color: white;
       border: none;
       cursor: pointer;
-      margin-left: 10px;
+    }
+    iframe {
+      width: 100%;
+      max-width: 900px;
+      height: 600px;
+      border: none;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h2 id="info">Seu widget está pronto! Aqui está o preview:</h2>
+  <h2>Visualização do Widget: <span id="clientName"></span></h2>
 
-  <button id="refresh">⟳ Atualizar</button>
+  <iframe id="previewFrame"></iframe>
 
-  <!-- Grid -->
-  <div id="grid"></div>
-
-  <!-- Modal -->
-  <div id="modal">
-    <button id="closeModal">✕</button>
-    <div id="modalContent">
-      <button class="arrow left">❮</button>
-      <div id="slidesContainer"></div>
-      <div id="slideCount" class="slide-count"></div>
-      <div id="dotsContainer" class="dots-container"></div>
-      <button class="arrow right">❯</button>
-    </div>
-  </div>
-
-  <!-- Caixa de copiar o link -->
   <div id="linkContainer">
+    <label for="embedLink">🔗 Link do seu widget:</label><br>
     <input id="embedLink" readonly />
-    <button onclick="copiarLink()">Copiar link</button>
+    <button onclick="copiarLink()">Copiar</button>
   </div>
 
-  <!-- Define clientId e configura feedPostsUrl -->
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const clientId = urlParams.get('clientId') || 'CLIENTE_PADRAO';
-    window.clientId = clientId;
+    const params = new URLSearchParams(window.location.search);
+    const clientId = params.get("clientId") || "CLIENTE_PADRAO";
 
-    // 👇 Define a URL do backend Render aqui corretamente:
-    window.feedPostsUrl = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
+    document.getElementById("clientName").innerText = clientId;
+    const finalLink = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
+    document.getElementById("previewFrame").src = finalLink;
+    document.getElementById("embedLink").value = finalLink;
 
-    // Define link para embed
-    const link = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("embedLink").value = link;
-      if (window.self !== window.top) {
-        document.getElementById("linkContainer").style.display = "none";
-        document.getElementById("info").style.display = "none";
-      }
-    });
+    if (window.self !== window.top) {
+      document.getElementById("linkContainer").style.display = "none";
+    }
 
     function copiarLink() {
       const input = document.getElementById("embedLink");
@@ -86,14 +74,6 @@
       document.execCommand("copy");
       alert("Link copiado!");
     }
-  </script>
-
-  <!-- Garante que script.js funcione corretamente -->
-  <script src="/script.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (typeof loadPosts === "function") loadPosts();
-    });
   </script>
 </body>
 </html>
