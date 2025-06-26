@@ -1,6 +1,7 @@
 let currentSlide = 0;
 let totalSlides = 0;
 
+// Captura o clientId global
 let clientId = window.clientId || null;
 
 if (!clientId) {

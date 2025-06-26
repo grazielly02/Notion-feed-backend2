@@ -4,45 +4,13 @@
   <meta charset="UTF-8" />
   <title>Pré-visualização do Widget</title>
   <link rel="stylesheet" href="/style.css" />
-  <style>
-    #info {
-      margin: 20px auto;
-      font-size: 1.2em;
-    }
-
-    #linkContainer {
-      background: #f1f1f1;
-      border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 10px;
-      display: inline-block;
-      margin-top: 30px;
-    }
-
-    #linkContainer input {
-      padding: 10px;
-      width: 300px;
-    }
-
-    #linkContainer button {
-      padding: 10px;
-      background: black;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-  </style>
 </head>
 <body>
   <h2 id="info">Seu widget está pronto! Aqui está o preview:</h2>
 
   <button id="refresh">⟳ Atualizar</button>
-
-  <!-- Grid -->
   <div id="grid"></div>
 
-  <!-- Modal -->
   <div id="modal">
     <button id="closeModal">✕</button>
     <div id="modalContent">
@@ -54,10 +22,9 @@
     </div>
   </div>
 
-  <!-- Caixa de copiar o link -->
-  <div id="linkContainer">
-    <input id="embedLink" readonly />
-    <button onclick="copiarLink()">Copiar link</button>
+  <div id="linkContainer" style="margin-top: 30px;">
+    <input id="embedLink" readonly style="width:300px; padding:10px;" />
+    <button onclick="copiarLink()" style="padding:10px; background:black; color:white; border:none; margin-left:10px;">Copiar link</button>
   </div>
 
   <script>
@@ -65,6 +32,7 @@
     const clientId = urlParams.get('clientId') || 'CLIENTE_PADRAO';
     const link = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
     document.getElementById("embedLink").value = link;
+    window.clientId = clientId;
 
     function copiarLink() {
       const input = document.getElementById("embedLink");
@@ -78,8 +46,6 @@
       document.getElementById("linkContainer").style.display = "none";
       document.getElementById("info").style.display = "none";
     }
-
-    window.clientId = clientId;
   </script>
 
   <script src="/script.js"></script>
