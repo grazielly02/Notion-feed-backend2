@@ -1,43 +1,33 @@
 body {
   font-family: sans-serif;
   background: transparent;
-  padding: 20px;
+  padding: 0;
   margin: 0;
 }
 
-/* Novo botão visualmente diferente */
 #refresh {
-  background: #007AFF;
+  background: #0047ff;
   color: white;
-  padding: 8px 18px;
+  padding: 10px 16px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  margin: 12px;
   font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: background 0.3s;
-}
-#refresh:hover {
-  background: #0059c2;
 }
 
 #grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 1px;
+  justify-content: center;
 }
 
 .grid-item {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
   aspect-ratio: 4 / 5;
-  background-color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #dcdcdc;
 }
 
 .grid-item img,
