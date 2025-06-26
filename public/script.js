@@ -4,8 +4,9 @@ let totalSlides = 0;
 let clientId = window.clientId || null;
 
 if (!clientId) {
-  const pathParts = window.location.pathname.split('/');
   const params = new URLSearchParams(window.location.search);
+  const pathParts = window.location.pathname.split('/');
+
   if (params.has("clientId")) {
     clientId = params.get("clientId");
   } else if (pathParts.includes("widget")) {
@@ -14,7 +15,7 @@ if (!clientId) {
 }
 
 if (!clientId) {
-  clientId = "CLIENTE_PADRAO_AQUI";
+  clientId = "CLIENTE_PADRAO";
 }
 
 const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
@@ -172,3 +173,4 @@ function formatDate(dateString) {
 }
 
 document.getElementById("refresh")?.addEventListener("click", loadPosts);
+loadPosts();
