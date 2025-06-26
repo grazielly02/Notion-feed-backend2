@@ -1,16 +1,17 @@
 let currentSlide = 0;
 let totalSlides = 0;
 
-// Captura clientId da URL: tanto via /widget/:clientId/view quanto ?clientId=...
-let clientId = null;
+let clientId = window.clientId || null;
 
-const pathParts = window.location.pathname.split('/');
-const params = new URLSearchParams(window.location.search);
+if (!clientId) {
+  const pathParts = window.location.pathname.split('/');
+  const params = new URLSearchParams(window.location.search);
 
-if (params.has("clientId")) {
-  clientId = params.get("clientId");
-} else if (pathParts.includes("widget")) {
-  clientId = pathParts[pathParts.indexOf("widget") + 1];
+  if (params.has("clientId")) {
+    clientId = params.get("clientId");
+  } else if (pathParts.includes("widget")) {
+    clientId = pathParts[pathParts.indexOf("widget") + 1];
+  }
 }
 
 if (!clientId) {
