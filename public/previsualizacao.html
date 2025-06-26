@@ -60,12 +60,16 @@
     <button onclick="copiarLink()">Copiar link</button>
   </div>
 
-  <!-- Define clientId e oculta caixa se embed -->
+  <!-- Define clientId e configura feedPostsUrl -->
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const clientId = urlParams.get('clientId') || 'CLIENTE_PADRAO';
-    window.clientId = clientId; // define para script.js usar
+    window.clientId = clientId;
 
+    // 👇 Define a URL do backend Render aqui corretamente:
+    window.feedPostsUrl = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
+
+    // Define link para embed
     const link = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("embedLink").value = link;
@@ -84,10 +88,9 @@
     }
   </script>
 
-  <!-- Garante que script.js só roda após clientId estar definido -->
+  <!-- Garante que script.js funcione corretamente -->
   <script src="/script.js"></script>
   <script>
-    // Roda após carregar tudo
     document.addEventListener("DOMContentLoaded", () => {
       if (typeof loadPosts === "function") loadPosts();
     });
