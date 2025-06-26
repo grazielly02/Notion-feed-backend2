@@ -1,7 +1,7 @@
-/widget/*               /index.html              200
-/previsualizacao.html   /previsualizacao.html    200
-/form.html              /form.html               200
-/widget.html            /widget.html             200
-/script.js              /script.js               200
-/style.css              /style.css               200
-/*                      /index.html              200
+/previsualizacao.html  /previsualizacao.html  200
+/widget/*               /index.html            200
+/script.js              /script.js             200
+/style.css              /style.css             200
+/form.html              /form.html             200
+/widget.html            /widget.html           200
+/*                      /index.html            200
