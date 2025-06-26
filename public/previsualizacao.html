@@ -5,14 +5,9 @@
   <title>Pré-visualização do Widget</title>
   <link rel="stylesheet" href="/style.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      text-align: center;
-    }
-
-    #grid {
-      margin-bottom: 40px;
+    #info {
+      margin: 20px auto;
+      font-size: 1.2em;
     }
 
     #linkContainer {
@@ -21,14 +16,15 @@
       padding: 15px;
       border-radius: 10px;
       display: inline-block;
+      margin-top: 30px;
     }
 
-    input {
+    #linkContainer input {
       padding: 10px;
       width: 300px;
     }
 
-    button {
+    #linkContainer button {
       padding: 10px;
       background: black;
       color: white;
@@ -36,25 +32,17 @@
       cursor: pointer;
       margin-left: 10px;
     }
-
-    #info {
-      margin-bottom: 20px;
-      font-size: 1.2em;
-    }
   </style>
 </head>
 <body>
   <h2 id="info">Seu widget está pronto! Aqui está o preview:</h2>
 
-  <!-- Grid do widget -->
+  <button id="refresh">⟳ Atualizar</button>
+
+  <!-- Grid -->
   <div id="grid"></div>
 
-  <!-- Link para copiar -->
-  <div id="linkContainer">
-    <input id="embedLink" readonly />
-    <button onclick="copiarLink()">Copiar link</button>
-  </div>
-
+  <!-- Modal -->
   <div id="modal">
     <button id="closeModal">✕</button>
     <div id="modalContent">
@@ -66,10 +54,17 @@
     </div>
   </div>
 
-  <script src="/script.js"></script>
+  <!-- Caixa de copiar o link -->
+  <div id="linkContainer">
+    <input id="embedLink" readonly />
+    <button onclick="copiarLink()">Copiar link</button>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    const pathParts = window.location.search.split("clientId=");
-    const clientId = pathParts[1] || "CLIENTE_PADRAO";
+    // Detecta clientId da URL: ?clientId=algum_id
+    const urlParams = new URLSearchParams(window.location.search);
+    const clientId = urlParams.get('clientId') || 'CLIENTE_PADRAO';
     const link = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
     document.getElementById("embedLink").value = link;
 
@@ -81,9 +76,24 @@
       alert("Link copiado!");
     }
 
-    // 🔁 Remove o botão "Atualizar", se existir, e força carregar o grid
-    document.getElementById("refresh")?.remove();
-    loadPosts();
+    // Oculta a caixinha se embutido (Notion)
+    if (window.self !== window.top) {
+      document.getElementById("linkContainer").style.display = "none";
+      document.getElementById("info").style.display = "none";
+    }
+
+    // Define o clientId globalmente para o script.js
+    window.clientId = clientId;
   </script>
-  </body>
-  </html>
+
+  <script src="/script.js"></script>
+  <script>
+  // Aguarda DOM carregar antes de rodar o loadPosts
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof loadPosts === "function") {
+      loadPosts();
+    }
+  });
+  </script>
+</body>
+</html>
