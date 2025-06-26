@@ -1,21 +1,18 @@
 let currentSlide = 0;
 let totalSlides = 0;
 
+// Captura clientId da URL: tanto via /widget/:clientId/view quanto ?clientId=...
 let clientId = null;
 
-// 1. Tenta pegar da URL /widget/:clientId/view
 const pathParts = window.location.pathname.split('/');
-if (pathParts.includes('widget')) {
-  clientId = pathParts[pathParts.indexOf('widget') + 1];
-}
+const params = new URLSearchParams(window.location.search);
 
-// 2. Se não achou, tenta pegar de ?clientId=cliente
-if (!clientId) {
-  const params = new URLSearchParams(window.location.search);
+if (params.has("clientId")) {
   clientId = params.get("clientId");
+} else if (pathParts.includes("widget")) {
+  clientId = pathParts[pathParts.indexOf("widget") + 1];
 }
 
-// 3. Se ainda não achou, usa um fallback
 if (!clientId) {
   clientId = "CLIENTE_PADRAO_AQUI";
 }
@@ -31,7 +28,7 @@ async function loadPosts() {
     const grid = document.getElementById("grid");
     grid.innerHTML = "";
 
-    if (posts.length === 0) {
+    if (!posts.length) {
       grid.innerHTML = `<p style="text-align:center; font-size:1.2em; color:#777">Nenhum post encontrado para este cliente ainda.</p>`;
       return;
     }
@@ -45,22 +42,16 @@ async function loadPosts() {
 
       const el = isVideo ? document.createElement("video") : document.createElement("img");
       el.src = mediaUrl;
-
       if (isVideo) {
         el.muted = true;
         el.playsInline = true;
         el.preload = "metadata";
       }
-
       container.appendChild(el);
 
       const overlay = document.createElement("div");
       overlay.className = "overlay";
-
-      const title = post.title || "";
-      const date = post.date ? formatDate(post.date) : "";
-
-      overlay.innerHTML = `<strong>${title}</strong><br>${date}`;
+      overlay.innerHTML = `<strong>${post.title || ""}</strong><br>${post.date ? formatDate(post.date) : ""}`;
       container.appendChild(overlay);
 
       const iconContainer = document.createElement("div");
@@ -103,12 +94,10 @@ function openModal(mediaUrls) {
   mediaUrls.forEach((url, index) => {
     const isVideo = url.endsWith(".mp4");
     const slide = document.createElement(isVideo ? "video" : "img");
-
     slide.src = url;
     slide.className = "slide";
     if (isVideo) slide.controls = true;
     if (index === 0) slide.classList.add("active");
-
     slidesContainer.appendChild(slide);
 
     if (totalSlides > 1) {
@@ -130,11 +119,9 @@ function showSlide(index) {
 
   slides.forEach(slide => slide.classList.remove("active"));
   dots.forEach(dot => dot.classList.remove("active"));
-
   slides[index].classList.add("active");
-  if (dots[index]) dots[index].classList.add("active");
+  dots[index]?.classList.add("active");
   currentSlide = index;
-
   updateSlideUI();
 }
 
@@ -181,10 +168,7 @@ document.querySelector(".arrow.right").onclick = () => {
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+  return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
 }
 
 document.getElementById("refresh")?.addEventListener("click", loadPosts);
