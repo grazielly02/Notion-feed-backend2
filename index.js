@@ -76,7 +76,8 @@ app.post("/save-config", async (req, res) => {
   try {
     await db.saveConfig(clientId, token, cleanDatabaseId);
     console.log(`✅ Configuração salva: clientId=${clientId}, databaseId=${cleanDatabaseId}`);
-    res.redirect(`https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${clientId}`);
+const finalUrl = `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
+res.status(303).setHeader("Location", finalUrl).end();
   } catch (error) {
     console.error("Erro ao salvar config no banco:", error);
     res.status(500).send("Erro ao salvar configuração.");

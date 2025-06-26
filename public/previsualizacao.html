@@ -80,6 +80,10 @@
       document.execCommand("copy");
       alert("Link copiado!");
     }
+
+    // 🔁 Remove o botão "Atualizar", se existir, e força carregar o grid
+    document.getElementById("refresh")?.remove();
+    loadPosts();
   </script>
-</body>
-</html>
+  </body>
+  </html>
