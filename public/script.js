@@ -1,7 +1,7 @@
 let currentSlide = 0;
 let totalSlides = 0;
 
-// Captura o clientId global
+// Captura o clientId da URL ou caminho
 let clientId = window.clientId || null;
 
 if (!clientId) {
@@ -32,10 +32,7 @@ async function loadPosts() {
 
     grid.innerHTML = "";
 
-    if (!posts.length) {
-      grid.innerHTML = `<p style="text-align:center; font-size:1.2em; color:#777">Nenhum post encontrado para este cliente ainda.</p>`;
-      return;
-    }
+    const postCount = posts.length;
 
     posts.forEach(post => {
       const mediaUrl = post.media[0];
@@ -80,6 +77,15 @@ async function loadPosts() {
       container.onclick = () => openModal(post.media);
       grid.appendChild(container);
     });
+
+    // Preencher com placeholders se tiver menos de 12 posts
+    const placeholders = 12 - postCount;
+    for (let i = 0; i < placeholders; i++) {
+      const placeholder = document.createElement("div");
+      placeholder.className = "grid-item";
+      placeholder.style.border = "1px dashed #bbb";
+      grid.appendChild(placeholder);
+    }
   } catch (error) {
     console.error("Erro ao carregar posts:", error);
   }
