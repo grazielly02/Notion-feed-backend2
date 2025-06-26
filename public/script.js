@@ -1,13 +1,11 @@
 let currentSlide = 0;
 let totalSlides = 0;
 
-// Garante clientId vindo do HTML (pré-visualização) ou rota (view)
-let clientId = typeof window !== 'undefined' && window.clientId ? window.clientId : null;
+let clientId = window.clientId || null;
 
 if (!clientId) {
   const pathParts = window.location.pathname.split('/');
   const params = new URLSearchParams(window.location.search);
-
   if (params.has("clientId")) {
     clientId = params.get("clientId");
   } else if (pathParts.includes("widget")) {
@@ -174,4 +172,3 @@ function formatDate(dateString) {
 }
 
 document.getElementById("refresh")?.addEventListener("click", loadPosts);
-loadPosts();

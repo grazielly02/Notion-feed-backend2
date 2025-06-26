@@ -67,6 +67,9 @@
     const link = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
     document.getElementById("embedLink").value = link;
 
+    // Define clientId para script.js
+    window.clientId = clientId;
+
     function copiarLink() {
       const input = document.getElementById("embedLink");
       input.select();
@@ -75,14 +78,19 @@
       alert("Link copiado!");
     }
 
+    // Oculta a caixinha se embutido (Notion)
     if (window.self !== window.top) {
       document.getElementById("linkContainer").style.display = "none";
       document.getElementById("info").style.display = "none";
     }
-
-    window.clientId = clientId;
   </script>
 
+  <!-- Script principal -->
   <script src="/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof loadPosts === "function") loadPosts();
+    });
+  </script>
 </body>
 </html>

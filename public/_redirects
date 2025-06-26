@@ -1,5 +1,3 @@
-/widget/*           /index.html                200
-/previsualizacao    /previsualizacao.html      200
-/previsualizacao*   /previsualizacao.html      200
-/previsualizacao.html  /previsualizacao.html   200
-/*                  /index.html                200
+/widget/*    /index.html    200
+/previsualizacao.html    /previsualizacao.html   200
+/*          /index.html    200
