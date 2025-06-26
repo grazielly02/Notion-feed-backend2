@@ -29,7 +29,6 @@ app.use("/widget/:clientId", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Função para extrair o ID puro da database, mesmo que o cliente cole a URL completa
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
   const match = input.match(regex);
@@ -70,29 +69,28 @@ app.post("/save-config", async (req, res) => {
     return res.status(400).send("Todos os campos são obrigatórios.");
   }
 
-  // ✅ Limpeza do databaseId ANTES de salvar
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
   try {
     await db.saveConfig(clientId, token, cleanDatabaseId);
     console.log(`✅ Configuração salva: clientId=${clientId}, databaseId=${cleanDatabaseId}`);
-const finalUrl = `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
-res.send(`
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="UTF-8" />
-      <title>Redirecionando...</title>
-      <meta http-equiv="refresh" content="0; url=${finalUrl}" />
-      <script>
-        window.location.href = "${finalUrl}";
-      </script>
-    </head>
-    <body>
-      <p>Redirecionando para seu widget...</p>
-    </body>
-  </html>
-`);
+
+    const finalUrl = `https://iget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
+    
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8" />
+          <title>Redirecionando...</title>
+          <meta http-equiv="refresh" content="0; url=${finalUrl}" />
+          <script>window.location.href = "${finalUrl}";</script>
+        </head>
+        <body>
+          <p>Redirecionando para seu widget...</p>
+        </body>
+      </html>
+    `);
   } catch (error) {
     console.error("Erro ao salvar config no banco:", error);
     res.status(500).send("Erro ao salvar configuração.");
