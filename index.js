@@ -75,7 +75,7 @@ app.post("/save-config", async (req, res) => {
     await db.saveConfig(clientId, token, cleanDatabaseId);
     console.log(`✅ Configuração salva: clientId=${clientId}, databaseId=${cleanDatabaseId}`);
 
-    const finalUrl = `https://https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
+    const finalUrl = `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
     
     res.send(`
       <!DOCTYPE html>
