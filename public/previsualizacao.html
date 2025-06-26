@@ -62,7 +62,6 @@
 
   <!-- Scripts -->
   <script>
-    // Detecta clientId da URL: ?clientId=algum_id
     const urlParams = new URLSearchParams(window.location.search);
     const clientId = urlParams.get('clientId') || 'CLIENTE_PADRAO';
     const link = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
@@ -76,24 +75,14 @@
       alert("Link copiado!");
     }
 
-    // Oculta a caixinha se embutido (Notion)
     if (window.self !== window.top) {
       document.getElementById("linkContainer").style.display = "none";
       document.getElementById("info").style.display = "none";
     }
 
-    // Define o clientId globalmente para o script.js
     window.clientId = clientId;
   </script>
 
   <script src="/script.js"></script>
-  <script>
-  // Aguarda DOM carregar antes de rodar o loadPosts
-  document.addEventListener("DOMContentLoaded", () => {
-    if (typeof loadPosts === "function") {
-      loadPosts();
-    }
-  });
-  </script>
 </body>
 </html>
