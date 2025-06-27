@@ -77,18 +77,23 @@ app.post("/save-config", async (req, res) => {
 
     const finalUrl = `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
     
+    // Retorna HTML que redireciona via JavaScript
     res.send(`
       <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="UTF-8" />
-          <title>Redirecionando...</title>
-          <meta http-equiv="refresh" content="0; url=${finalUrl}" />
-          <script>window.location.href = "${finalUrl}";</script>
-        </head>
-        <body>
-          <p>Redirecionando para seu widget...</p>
-        </body>
+      <html lang="pt-BR">
+      <head>
+        <meta charset="UTF-8" />
+        <title>Redirecionando...</title>
+        <style>
+          body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        </style>
+      </head>
+      <body>
+        <p>Redirecionando para seu widget...</p>
+        <script>
+          window.location.href = "${finalUrl}";
+        </script>
+      </body>
       </html>
     `);
   } catch (error) {
