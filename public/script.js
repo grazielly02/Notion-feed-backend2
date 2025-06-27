@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", loadPosts);
 const refreshBtn = document.getElementById("refresh");
 refreshBtn?.addEventListener("click", async () => {
   refreshBtn.disabled = true;
-  refreshBtn.innerHTML = '<span class="loading-icon">⟳</span>'; // ícone girando
+  refreshBtn.innerHTML = '<span class="loading-spinner"></span>';
 
   await loadPosts();
 
