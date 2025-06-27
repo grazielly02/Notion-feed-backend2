@@ -187,3 +187,5 @@ function formatDate(dateString) {
 }
 
 document.addEventListener("DOMContentLoaded", loadPosts);
+
+document.getElementById("refresh")?.addEventListener("click", loadPosts);
