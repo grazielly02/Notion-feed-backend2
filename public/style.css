@@ -11,9 +11,10 @@ body {
   left: 0;
   width: 100%;
   background: black;
-  padding: 8px 16px;
+  padding: 8px 24px;
   text-align: right;
   border-bottom: 1px solid rgba(255,255,255,0.2);
+  box-sizing: border-box;
   z-index: 100;
 }
 
