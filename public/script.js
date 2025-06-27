@@ -188,4 +188,10 @@ function formatDate(dateString) {
 
 document.addEventListener("DOMContentLoaded", loadPosts);
 
-document.getElementById("refresh")?.addEventListener("click", loadPosts);
+document.getElementById("refresh")?.addEventListener("click", () => {
+  const btn = document.getElementById("refresh");
+  btn.classList.add("rotating");
+  loadPosts().finally(() => {
+    setTimeout(() => btn.classList.remove("rotating"), 500);
+  });
+});
