@@ -1,11 +1,14 @@
 body {
   font-family: sans-serif;
-  background: transparent;
+  background: transparent;git add public/style.css public/script.js public/widget.html
+git commit -m "Faixa fixa preta com botão Atualizar contornado branco e spinner traços"
+git push
   padding: 0;
   margin: 0;
 }
 
 #topBar {
+  position: fixed;
   background: black;
   padding: 8px 16px;
   text-align: right;
