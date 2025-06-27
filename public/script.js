@@ -188,10 +188,13 @@ function formatDate(dateString) {
 
 document.addEventListener("DOMContentLoaded", loadPosts);
 
-document.getElementById("refresh")?.addEventListener("click", () => {
-  const btn = document.getElementById("refresh");
-  btn.classList.add("rotating");
-  loadPosts().finally(() => {
-    setTimeout(() => btn.classList.remove("rotating"), 500);
-  });
+const refreshBtn = document.getElementById("refresh");
+refreshBtn?.addEventListener("click", async () => {
+  refreshBtn.disabled = true;
+  refreshBtn.innerHTML = '<span class="loading-icon">⟳</span>'; // ícone girando
+
+  await loadPosts();
+
+  refreshBtn.innerHTML = 'Atualizar';
+  refreshBtn.disabled = false;
 });
