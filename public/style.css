@@ -42,6 +42,7 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 1px;
   justify-content: center;
+  padding-top: 48px;
 }
 
 .grid-item {
