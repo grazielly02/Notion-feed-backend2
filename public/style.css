@@ -5,15 +5,22 @@ body {
   margin: 0;
 }
 
+#topBar {
+  text-align: rigth;
+  margin-bottom: 10px;
+}
+
 #refresh {
-  background: #0047ff;
-  color: white;
-  padding: 10px 16px;
-  border: none;
+  background: white;
+  color: 333;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
   border-radius: 6px;
+  font-size: 14px;
   cursor: pointer;
-  margin: 12px;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 #grid {
