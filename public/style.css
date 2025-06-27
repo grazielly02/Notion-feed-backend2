@@ -6,49 +6,30 @@ body {
 }
 
 #topBar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background-color: rgba(255,255,255,0.8); /* transparente no modo claro */
-  backdrop-filter: blur(4px); /* opcional, dá efeito de vidro fosco */
+  background: black;
   padding: 8px 16px;
   text-align: right;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-@media (prefers-color-scheme: dark) {
-  #topBar {
-    background-color: rgba(18,18,18,0.8); /* quase preto transparente no dark */
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
+  border-bottom: 1px solid rgba(255,255,255,0.2); /* linha sutil separando feed */
 }
 
 #refresh {
   background: transparent;
-  color: inherit;
-  padding: 6px 16px;
-  border: 1px solid currentColor;
-  border-radius: 50px;
-  cursor: pointer;
+  color: white;
+  border: 1px solid white;
+  padding: 6px 14px;
+  border-radius: 20px;
   font-size: 14px;
-  min-width: 90px; /* fixa a largura */
+  cursor: pointer;
+  min-width: 80px; /* garante tamanho fixo */
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
-#refresh .loading-spinner {
-  border: 2px solid currentColor;
-  border-top: 2px solid transparent;
-  border-radius: 50%;
-  width: 14px;
-  height: 14px;
-  animation: spin 1s linear infinite;
+#refresh.loading {
+  pointer-events: none;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
 
 #grid {
   display: grid;
