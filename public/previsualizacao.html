@@ -16,8 +16,8 @@
   <div class="link-box">
     <div class="link-container">
       <span class="link-icon">🔗</span>
-      <input type="text" id="embedLink" readonly />
-      <button id="copyBtn">Copiar</button>
+      <input type="text" id="embedLink" readonly aria-label="Link do widget" />
+      <button id="copyBtn" aria-label="Copiar link do widget">Copiar</button>
     </div>
     <div class="tooltip" id="tooltip">Link copiado</div>
   </div>
@@ -25,7 +25,6 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const clientId = params.get("clientId") || "CLIENTE_PADRAO";
-
     const finalLink = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
 
     document.getElementById("previewFrame").src = finalLink;
