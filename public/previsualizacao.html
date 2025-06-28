@@ -6,42 +6,45 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>CRIADO!</h1>
-  <p class="sub">Visualize abaixo a prévia do seu feed (caso já tenha conteúdo na sua database) e copie o link para integrar no Notion.</p>
+  <div class="preview-header">
+    <h1>CRIADO!</h1>
+    <p>Visualize abaixo a prévia do seu feed (caso já tenha conteúdo na sua database) e copie o link para integrar no Notion.</p>
+  </div>
 
   <iframe id="previewFrame" loading="lazy"></iframe>
 
-  <div id="linkContainer">
-    <span class="icon">🔗</span>
-    <input id="embedLink" readonly />
-    <button onclick="copiarLink()">Copiar</button>
-    <div id="tooltip">Link copiado!</div>
+  <div class="link-box">
+    <div class="link-container">
+      <span class="link-icon">🔗</span>
+      <input type="text" id="embedLink" readonly />
+      <button id="copyBtn">Copiar</button>
+    </div>
+    <div class="tooltip" id="tooltip">Link copiado</div>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const clientId = params.get("clientId") || "CLIENTE_PADRAO";
+
     const finalLink = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
 
     document.getElementById("previewFrame").src = finalLink;
     document.getElementById("embedLink").value = finalLink;
 
     if (window.self !== window.top) {
-      document.getElementById("linkContainer").style.display = "none";
+      document.querySelector(".link-box").style.display = "none";
     }
 
-    function copiarLink() {
+    document.getElementById("copyBtn").addEventListener("click", () => {
       const input = document.getElementById("embedLink");
       input.select();
       input.setSelectionRange(0, 99999);
       document.execCommand("copy");
 
       const tooltip = document.getElementById("tooltip");
-      tooltip.style.opacity = "1";
-      setTimeout(() => {
-        tooltip.style.opacity = "0";
-      }, 1500);
-    }
+      tooltip.style.opacity = 1;
+      setTimeout(() => { tooltip.style.opacity = 0; }, 2000);
+    });
   </script>
 </body>
 </html>
