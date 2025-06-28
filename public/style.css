@@ -240,7 +240,7 @@ body {
 
 .preview-header p {
   font-size: 14px;
-  color: #333; /* contraste melhor */
+  color: #555; /* contraste melhor */
   max-width: 90%;
   margin: 0 auto;
 }
@@ -254,14 +254,14 @@ body {
   border-radius: 10px;
   margin: 30px auto;
   display: block;
-  box-shadow: 0 0 6px rgba(0,0,0,0.1); /* profundidade */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* profundidade */
 }
 
 /* Caixa copiar link */
 .link-box {
   display: flex;
   justify-content: center;
-  margin: 25px auto;
+  margin: 40px auto 25px;
   position: relative;
 }
 
@@ -287,9 +287,9 @@ body {
   flex: 1;
   border: none;
   outline: none;
-  padding: 8px;
-  font-size: clamp(12px, 2vw, 13px); /* responsivo */
-  background: transparent;
+  padding: 10px;
+  font-size: 14px;
+  background: #fafafa;
 }
 
 #copyBtn {
@@ -302,6 +302,7 @@ body {
   height: 100%;
   border-radius: 0 8px 8px 0; /* cantos arredondados do lado direito */
   transition: background 0.3s ease;
+  max-width: 80px;
 }
 
 #copyBtn:hover {
@@ -314,11 +315,11 @@ body {
   top: -35px;
   right: 50%;
   transform: translateX(50%);
-  background: black;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 12px;
+  background: rgba (0,0,0,0.85);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
