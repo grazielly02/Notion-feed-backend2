@@ -313,14 +313,15 @@ body {
 .tooltip {
   position: absolute;
   top: -35px;
-  right: 50%;
-  transform: translateX(50%);
-  background: rgba (0,0,0,0.85);
-  color: #fff;
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-size: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  white-space: nowrap; /* evita quebrar texto */
 }
