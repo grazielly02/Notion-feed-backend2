@@ -325,3 +325,15 @@ body {
   pointer-events: none;
   white-space: nowrap; /* evita quebrar texto */
 }
+
+/* ===== Placeholder "Sem conteúdo" no grid ===== */
+.grid-item.empty::before {
+  content: "Sem conteúdo";
+  color: #666;
+  font-size: 13px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

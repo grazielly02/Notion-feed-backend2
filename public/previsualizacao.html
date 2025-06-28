@@ -8,7 +8,7 @@
 <body>
   <div class="preview-header">
     <h1>CRIADO!</h1>
-    <p>Visualize abaixo a prévia do seu feed (caso já tenha conteúdo na sua database) e copie o link para integrar no Notion.</p>
+    <p>Visualize abaixo a prévia do seu feed. Caso sua database ainda não tenha conteúdo, o feed aparecerá vazio. Copie o link para integrar no Notion.</p>
   </div>
 
   <iframe id="previewFrame" loading="lazy"></iframe>
@@ -17,7 +17,7 @@
     <div class="link-container">
       <span class="link-icon">🔗</span>
       <input type="text" id="embedLink" readonly aria-label="Link do widget" />
-      <button id="copyBtn" aria-label="Copiar link do widget">Copiar</button>
+      <button id="copyBtn" aria-label="Copiar link do widget" title="Copiar link">Copiar</button>
     </div>
     <div class="tooltip" id="tooltip">Link copiado</div>
   </div>
