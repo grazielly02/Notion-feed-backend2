@@ -1,7 +1,7 @@
 /* Estilo global */
 body {
   font-family: sans-serif;
-  background: transparent;
+  background: #000;
   padding: 0;
   margin: 0;
 }
@@ -334,4 +334,8 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+#formBody {
+  margin: 40px auto;
 }
