@@ -79,29 +79,13 @@ async function loadPosts() {
     });
 
     // Preencher com placeholders se tiver menos de 12 posts
-    const placeholders = 12 - postCount;
-    for (let i = 0; i < placeholders; i++) {
-      const placeholder = document.createElement("div");
-      placeholder.className = "grid-item empty";
-      placeholder.style.display = "flex";
-      placeholder.style.flexDirection = "column";
-      placeholder.style.alignItems = "center";
-      placeholder.style.justifyContent = "center";
-      placeholder.style.color = "white";
-      placeholder.style.fontSize = "12px";
-      placeholder.style.textAlign = "center";
-      placeholder.style.border = "1px dashed #bbb";
-
-      placeholder.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="28" viewBox="0 0 24 24">
-          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 
-          1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 
-          4l-7 4.5L5 7V5l7 4.5L19 5v2z"/>
-        </svg>
-        <div style="margin-top:4px;">Vazio</div>
-      `;
-      grid.appendChild(placeholder);
-    }
+const placeholders = 12 - postCount;
+for (let i = 0; i < placeholders; i++) {
+  const placeholder = document.createElement("div");
+  placeholder.className = "grid-item empty";
+  placeholder.textContent = "Vazio"; // apenas texto
+  grid.appendChild(placeholder);
+}
     
     
   } catch (error) {
