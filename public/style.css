@@ -44,7 +44,7 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 1px;
   justify-content: center;
-  padding-top: 48px; /* espaço para a faixa fixa */
+  padding-top: 48px;
 }
 
 .grid-item {
@@ -227,38 +227,36 @@ body {
 }
 
 /* ===== NOVO: Estilo para página de pré-visualização ===== */
-
-/* Header da pré-visualização */
 .preview-header {
   text-align: center;
-  margin: 20px 0;
+  margin: 30px 0 10px;
 }
 
 .preview-header h1 {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
   margin-bottom: 6px;
 }
 
 .preview-header p {
   font-size: 14px;
-  color: #666;
+  color: #444;
   max-width: 90%;
   margin: 0 auto;
 }
 
-/* Iframe do feed */
+/* Iframe */
 #previewFrame {
   width: 100%;
   max-width: 900px;
-  height: 1200px;
+  height: 1100px;
   border: 1px solid #ccc;
   border-radius: 10px;
   margin: 20px auto;
   display: block;
 }
 
-/* Caixa de copiar link */
+/* Caixa copiar link */
 .link-box {
   display: flex;
   justify-content: center;
@@ -274,13 +272,14 @@ body {
   width: 90%;
   max-width: 900px;
   overflow: hidden;
-  background: transparent;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
 }
 
 .link-icon {
   padding: 0 8px;
   font-size: 16px;
-  color: #333;
+  color: #888;
 }
 
 #embedLink {
