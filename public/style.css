@@ -1,3 +1,4 @@
+/* Estilo global */
 body {
   font-family: sans-serif;
   background: transparent;
@@ -5,6 +6,7 @@ body {
   margin: 0;
 }
 
+/* Top bar do widget */
 #topBar {
   position: fixed;
   top: 0;
@@ -26,7 +28,7 @@ body {
   border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
-  min-width: 80px; /* garante tamanho fixo */
+  min-width: 80px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -36,13 +38,13 @@ body {
   pointer-events: none;
 }
 
-
+/* Grid do feed */
 #grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   gap: 1px;
   justify-content: center;
-  padding-top: 48px;
+  padding-top: 48px; /* espaço para a faixa fixa */
 }
 
 .grid-item {
@@ -60,6 +62,7 @@ body {
   display: block;
 }
 
+/* Overlay ao passar mouse */
 .overlay {
   position: absolute;
   bottom: 0;
@@ -77,6 +80,7 @@ body {
   opacity: 1;
 }
 
+/* Ícones de vídeo/carrossel */
 .icon-container {
   position: absolute;
   top: 8px;
@@ -92,6 +96,7 @@ body {
   fill: white;
 }
 
+/* Modal */
 #modal {
   display: none;
   position: fixed;
@@ -123,6 +128,7 @@ body {
   display: block;
 }
 
+/* Botão fechar modal */
 #closeModal {
   color: white;
   font-size: 18px;
@@ -142,6 +148,7 @@ body {
   z-index: 1001;
 }
 
+/* Setas do carrossel */
 .arrow {
   position: absolute;
   top: 50%;
@@ -182,6 +189,7 @@ body {
   }
 }
 
+/* Contador e dots do carrossel */
 .slide-count {
   position: absolute;
   top: 12px;
@@ -216,4 +224,95 @@ body {
 
 .dot.active {
   opacity: 1;
+}
+
+/* ===== NOVO: Estilo para página de pré-visualização ===== */
+
+/* Header da pré-visualização */
+.preview-header {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.preview-header h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.preview-header p {
+  font-size: 14px;
+  color: #666;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Iframe do feed */
+#previewFrame {
+  width: 100%;
+  max-width: 900px;
+  height: 1200px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 20px auto;
+  display: block;
+}
+
+/* Caixa de copiar link */
+.link-box {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  position: relative;
+}
+
+.link-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 900px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.link-icon {
+  padding: 0 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+#embedLink {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 13px;
+  background: transparent;
+}
+
+#copyBtn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  height: 100%;
+}
+
+/* Tooltip balão "Link copiado" */
+.tooltip {
+  position: absolute;
+  top: -30px;
+  right: 10px;
+  background: black;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }

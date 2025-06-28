@@ -3,57 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>Pré-visualização do Widget</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 30px;
-      background: #f9f9f9;
-      text-align: center;
-    }
-    h2 {
-      margin-bottom: 20px;
-    }
-    #linkContainer {
-      margin-top: 30px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      display: inline-block;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    input {
-      padding: 8px;
-      width: 300px;
-      font-size: 14px;
-    }
-    button {
-      padding: 8px 12px;
-      margin-left: 10px;
-      background: black;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    iframe {
-      width: 100%;
-      max-width: 900px;
-      height: 1200px; /* AQUI está o aumento da altura do widget */
-      border: 1px solid #ccc;
-      margin-top: 20px;
-      border-radius: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Visualização do Widget: <span id="clientName"></span></h2>
+  <div class="preview-header">
+    <h1>CRIADO!</h1>
+    <p>Visualize abaixo a prévia do seu feed (caso já tenha conteúdo na sua database) e copie o link para integrar no Notion.</p>
+  </div>
 
   <iframe id="previewFrame" loading="lazy"></iframe>
 
-  <div id="linkContainer">
-    <label for="embedLink">🔗 Link do seu widget:</label><br>
-    <input id="embedLink" readonly />
-    <button onclick="copiarLink()">Copiar</button>
+  <div class="link-box">
+    <div class="link-container">
+      <span class="link-icon">🔗</span>
+      <input type="text" id="embedLink" readonly />
+      <button id="copyBtn">Copiar</button>
+    </div>
+    <div class="tooltip" id="tooltip">Link copiado</div>
   </div>
 
   <script>
@@ -62,21 +28,23 @@
 
     const finalLink = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
 
-    document.getElementById("clientName").innerText = clientId;
     document.getElementById("previewFrame").src = finalLink;
     document.getElementById("embedLink").value = finalLink;
 
     if (window.self !== window.top) {
-      document.getElementById("linkContainer").style.display = "none";
+      document.querySelector(".link-box").style.display = "none";
     }
 
-    function copiarLink() {
+    document.getElementById("copyBtn").addEventListener("click", () => {
       const input = document.getElementById("embedLink");
       input.select();
       input.setSelectionRange(0, 99999);
       document.execCommand("copy");
-      alert("Link copiado!");
-    }
+
+      const tooltip = document.getElementById("tooltip");
+      tooltip.style.opacity = 1;
+      setTimeout(() => { tooltip.style.opacity = 0; }, 2000);
+    });
   </script>
 </body>
 </html>
