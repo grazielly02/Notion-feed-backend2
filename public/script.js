@@ -78,30 +78,30 @@ async function loadPosts() {
       grid.appendChild(container);
     });
 
-// Preencher com placeholders se tiver menos de 12 posts
-const placeholders = 12 - postCount;
-for (let i = 0; i < placeholders; i++) {
-  const placeholder = document.createElement("div");
-  placeholder.className = "grid-item empty";
-  placeholder.style.display = "flex";
-  placeholder.style.flexDirection = "column";
-  placeholder.style.alignItems = "center";
-  placeholder.style.justifyContent = "center";
-  placeholder.style.color = "white";
-  placeholder.style.fontSize = "12px";
-  placeholder.style.textAlign = "center";
-  placeholder.style.border = "1px dashed #bbb";
+    // Preencher com placeholders se tiver menos de 12 posts
+    const placeholders = 12 - postCount;
+    for (let i = 0; i < placeholders; i++) {
+      const placeholder = document.createElement("div");
+      placeholder.className = "grid-item empty";
+      placeholder.style.display = "flex";
+      placeholder.style.flexDirection = "column";
+      placeholder.style.alignItems = "center";
+      placeholder.style.justifyContent = "center";
+      placeholder.style.color = "white";
+      placeholder.style.fontSize = "12px";
+      placeholder.style.textAlign = "center";
+      placeholder.style.border = "1px dashed #bbb";
 
-  // Ícone SVG branco de caixa vazia
-  placeholder.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="24" viewBox="0 0 24 24">
-      <path d="M19 3H4.99C3.89 3 3 3.9 3 5v13.99C3 20.1 3.9 21 4.99 21H19c1.1 
-      0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 15H4.99V5H19v13z"/>
-    </svg>
-    <div>Vazio</div>
-  `;
-  grid.appendChild(placeholder);
-}
+      placeholder.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="28" viewBox="0 0 24 24">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 
+          1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 
+          4l-7 4.5L5 7V5l7 4.5L19 5v2z"/>
+        </svg>
+        <div style="margin-top:4px;">Vazio</div>
+      `;
+      grid.appendChild(placeholder);
+    }
     
     
   } catch (error) {
