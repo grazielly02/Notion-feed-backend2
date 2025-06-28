@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <title>Crie seu widget personalizado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
   <style>
-    body {
+    html, body {
       background: #000;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
+      height: 100%;
+      overflow: hidden; /* impede rolagem */
+    }
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
     }
     .form-box {
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       max-width: 450px;
-      width: 100%;
+      width: 90%;
       padding: 30px;
       box-sizing: border-box;
     }
@@ -43,12 +47,20 @@
     }
     input, textarea, button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 6px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 16px; /* evita zoom no mobile */
       box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: black;
+    }
+    input:invalid, textarea:invalid {
+      border-color: #e74c3c; /* vermelho suave */
     }
     textarea {
       resize: none;
@@ -60,11 +72,12 @@
       cursor: pointer;
       font-size: 16px;
       border: none;
+      border-radius: 8px;
+      padding: 12px;
+      transition: background 0.3s;
     }
-    .tooltip {
-      font-size: 12px;
-      color: #555;
-      margin-top: 4px;
+    button:hover {
+      background-color: #222;
     }
   </style>
 </head>
@@ -77,15 +90,12 @@
       
       <label>Nome ou nome do projeto</label>
       <input type="text" name="clientId" required placeholder="Ex: Grazielly, MarcaX" maxlength="30">
-      <div class="tooltip">Usado como identificador do seu widget.</div>
 
       <label>Token de integração do Notion</label>
       <textarea name="token" required placeholder="ntn_000000000000..." maxlength="60" onkeypress="return event.key !== 'Enter';"></textarea>
-      <div class="tooltip">Exemplo: ntn_</div>
 
       <label>Link da database do Notion</label>
       <input type="text" name="databaseId" required placeholder="https://www.notion.so/..." maxlength="150">
-      <div class="tooltip">Cole o link completo da sua database.</div>
 
       <button type="submit">Gerar meu widget</button>
     </form>
