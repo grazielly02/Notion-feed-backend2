@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Ajustes</title>
+  <title>Crie seu widget personalizado</title>
   <style>
     body {
       background: #000;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 40px 20px;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,14 +18,22 @@
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      max-width: 400px;
+      max-width: 450px;
       width: 100%;
       padding: 30px;
+      box-sizing: border-box;
     }
     h2 {
       text-align: center;
-      margin-bottom: 24px;
-      font-size: 24px;
+      margin-bottom: 8px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    p.subtitulo {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
     }
     label {
       font-weight: 600;
@@ -41,6 +49,9 @@
       border-radius: 8px;
       font-size: 14px;
       box-sizing: border-box;
+    }
+    textarea {
+      resize: none;
     }
     button {
       background-color: black;
@@ -59,20 +70,22 @@
 </head>
 <body>
   <div class="form-box">
-    <h2>Ajustes</h2>
+    <h2>CRIE SEU WIDGET PERSONALIZADO</h2>
+    <p class="subtitulo">Preencha os dados abaixo e gere seu widget em segundos!</p>
     <!-- ⚠️ Envio tradicional via POST -->
     <form method="POST" action="https://notion-feed-backend2.onrender.com/save-config">
-      <label>👤 Nome ou nome do projeto</label>
-      <input type="text" name="clientId" required placeholder="Ex: Grazielly, MarcaX">
+      
+      <label>Nome ou nome do projeto</label>
+      <input type="text" name="clientId" required placeholder="Ex: Grazielly, MarcaX" maxlength="30">
       <div class="tooltip">Usado como identificador do seu widget.</div>
 
-      <label>🔐 Token de integração Notion</label>
-      <textarea name="token" required placeholder="Cole aqui o token (ntn_)"></textarea>
-      <div class="tooltip">Crie seu token na página de integrações do Notion.</div>
+      <label>Token de integração do Notion</label>
+      <textarea name="token" required placeholder="ntn_000000000000..." maxlength="60" onkeypress="return event.key !== 'Enter';"></textarea>
+      <div class="tooltip">Exemplo: ntn_</div>
 
-      <label>🔗 URL da Database</label>
-      <input type="text" name="databaseId" required placeholder="Cole aqui a URL da sua database no Notion">
-      <div class="tooltip">Abra a database no modo página e copie o link da barra do navegador.</div>
+      <label>Link da database do Notion</label>
+      <input type="text" name="databaseId" required placeholder="https://www.notion.so/..." maxlength="150">
+      <div class="tooltip">Cole o link completo da sua database.</div>
 
       <button type="submit">Gerar meu widget</button>
     </form>
