@@ -359,3 +359,9 @@ body.form-page {
   max-width: 500px;
   box-sizing: border-box;
 }
+
+/* Correção para fundo claro na página de pré-visualização */
+body.previsualizacao {
+  background: #fff !important;
+  color: #000 !important;
+}
