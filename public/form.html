@@ -137,9 +137,9 @@
         } else if (field.name === 'token') {
           if (value.length !== 50) {
             customError = 'O token deve ter exatamente 50 caracteres.';
-          } else if (!/^[a-zA-Z0-9]+$/.test(value)) {
-            customError = 'O token deve conter apenas caracteres alfanuméricos.';
-          }
+          else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+  customError = 'O token deve conter apenas letras, números ou _.';
+    }
         } else if (field.name === 'databaseId') {
           if (value.length < 104) {
             customError = 'O link deve ter pelo menos 104 caracteres.';
