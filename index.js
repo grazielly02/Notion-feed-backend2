@@ -116,23 +116,24 @@ app.get("/widget/:clientId/posts", async (req, res) => {
     const results = await queryDatabase(configRow.token, configRow.databaseid);
 
     const posts = results
-      .map(page => {
-        const props = page.properties;
-        const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
-        const date = props["Data de Publicação"]?.date?.start || null;
+  .map(page => {
+    const props = page.properties;
+    const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
+    const date = props["Data de Publicação"]?.date?.start || null;
+    const editoria = props["Editoria"]?.select?.name || null;
 
-        const files = props["Mídia"]?.files?.map(file =>
-          file.file?.url || file.external?.url
-        ) || [];
+    const files = props["Mídia"]?.files?.map(file =>
+      file.file?.url || file.external?.url
+    ) || [];
 
-        const linkDireto = props["Link Direto"]?.url ? [props["Link Direto"].url] : [];
-        const media = [...files, ...linkDireto];
+    const linkDireto = props["Link Direto"]?.url ? [props["Link Direto"].url] : [];
+    const media = [...files, ...linkDireto];
 
-        if (media.length === 0) return null;
+    if (media.length === 0) return null;
 
-        return { id: page.id, title, date, media };
-      })
-      .filter(Boolean);
+    return { id: page.id, title, date, editoria, media };
+  })
+  .filter(Boolean);
 
     res.json(posts);
   } catch (error) {

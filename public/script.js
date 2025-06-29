@@ -52,9 +52,13 @@ async function loadPosts() {
 
       const overlay = document.createElement("div");
       overlay.className = "overlay";
-      overlay.innerHTML = `<strong>${post.title || ""}</strong><br>${post.date ? formatDate(post.date) : ""}`;
+      overlay.innerHTML = `
+        ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
+        <div class="title">${post.title || ""}</div>
+        ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
+      `;
       container.appendChild(overlay);
-
+  
       const iconContainer = document.createElement("div");
       iconContainer.className = "icon-container";
 
