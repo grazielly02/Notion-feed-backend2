@@ -107,7 +107,7 @@
   <script>
     const form = document.getElementById('widgetForm');
     const fields = form.querySelectorAll('input[name]');
-
+    
     fields.forEach((field, index) => {
       field.addEventListener('input', () => {
         field.nextElementSibling.style.display = 'none';
@@ -133,10 +133,18 @@
 
         if (!value) {
           customError = 'Este campo é obrigatório.';
-        } else if (field.name === 'token' && !/^ntn_/.test(value)) {
-          customError = 'O token deve começar com ntn_.';
-        } else if (field.name === 'databaseId' && !value.startsWith('https://www.notion.so/')) {
-          customError = 'O link deve começar com https://www.notion.so/';
+        } else if (field.name === 'token') {
+          if (value.length !== 50) {
+            customError = 'O token deve ter exatamente 50 caracteres.';
+          } else if (!/^[a-zA-Z0-9]+$/.test(value)) {
+            customError = 'O token deve conter apenas caracteres alfanuméricos.';
+          }
+        } else if (field.name === 'databaseId') {
+          if (value.length < 104) {
+            customError = 'O link deve ter pelo menos 104 caracteres.';
+          } else if (!value.startsWith('https://www.notion.so/')) {
+            customError = 'O link deve começar com https://www.notion.so/';
+          }
         }
 
         if (customError) {
