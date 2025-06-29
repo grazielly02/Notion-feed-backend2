@@ -34,8 +34,8 @@
     }
     p.subtitulo {
       text-align: center;
-      font-size: 14px;
-      color: #666;
+      font-size: 15px; /* levemente maior para hierarquia */
+      color: #555; /* contraste um pouco melhor */
       margin-bottom: 20px;
     }
     label {
@@ -50,7 +50,7 @@
       margin-top: 6px;
       border: none;
       border-bottom: 2px solid #ccc;
-      font-size: 16px; /* evita zoom no mobile */
+      font-size: 16px; /* >=16px evita zoom mobile */
       box-sizing: border-box;
       transition: border-color 0.3s;
     }
@@ -84,7 +84,7 @@
     <form id="widgetForm" method="POST" action="https://notion-feed-backend2.onrender.com/save-config" novalidate>
       
       <label>Nome ou nome do projeto</label>
-      <input type="text" name="clientId" required placeholder="Ex: Grazielly, MarcaX" maxlength="30">
+      <input type="text" name="clientId" required placeholder="Ex: Helena, MarcaX" maxlength="30">
       <div class="error-message">Este campo é obrigatório.</div>
 
       <label>Token de integração do Notion</label>
