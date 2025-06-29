@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Widget Personalizado</title>
+  <title>Seu Widget Exclusivo</title>
   <style>
     body {
       background: #000;
@@ -13,14 +13,15 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      overflow: hidden; /* evitar rolagem vertical */
     }
     .form-box {
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      max-width: 450px;
+      max-width: 500px; /* aumentei um pouco */
       width: 100%;
-      padding: 30px;
+      padding: 40px 30px; /* mais espaçoso */
       box-sizing: border-box;
     }
     h2 {
@@ -41,19 +42,23 @@
       margin-top: 16px;
       font-size: 14px;
     }
-    input, textarea {
+    input, textarea, button {
       width: 100%;
-      padding: 10px;
+      padding: 12px; /* maior para evitar zoom */
       margin-top: 6px;
-      border: none;
-      border-bottom: 2px solid #ccc;
-      font-size: 14px;
+      border: none; /* sem contorno inicial */
+      border-radius: 8px;
+      font-size: 16px; /* >=16px para evitar zoom no mobile */
       box-sizing: border-box;
-      transition: border-color 0.3s;
+      background: #f8f8f8;
     }
     input:focus, textarea:focus {
       outline: none;
-      border-bottom: 2px solid black;
+      border: 2px solid black; /* contorno preto ao focar */
+      background: #fff;
+    }
+    textarea {
+      resize: none;
     }
     button {
       background-color: black;
@@ -62,77 +67,34 @@
       cursor: pointer;
       font-size: 16px;
       border: none;
-      width: 100%;
-      padding: 10px;
       border-radius: 8px;
+      padding: 12px;
     }
     .error-message {
-      color: red;
+      color: #d00;
       font-size: 12px;
       margin-top: 4px;
-      display: none;
     }
   </style>
 </head>
 <body>
   <div class="form-box">
     <h2>Widget Visual</h2>
-    <p class="subtitulo">Preencha os dados abaixo para gerar o seu widget.</p>
-    <form id="widgetForm" method="POST" action="https://notion-feed-backend2.onrender.com/save-config" novalidate>
+    <p class="subtitulo">Configure abaixo e veja seu widget pronto para usar.</p>
+    <!-- ⚠️ Envio tradicional via POST -->
+    <form method="POST" action="https://notion-feed-backend2.onrender.com/save-config">
       
       <label>Nome ou nome do projeto</label>
-      <input type="text" name="clientId" required placeholder="Ex: Isadora, MarcaX" maxlength="30">
-      <div class="error-message">Este campo é obrigatório.</div>
+      <input type="text" name="clientId" required placeholder="Ex: Helena, MarcaX" maxlength="30">
 
       <label>Token de integração do Notion</label>
-      <input type="text" name="token" required placeholder="ntn_000000000000..." maxlength="60">
-      <div class="error-message">Este campo é obrigatório.</div>
+      <textarea name="token" required placeholder="ntn_000000000000..." maxlength="60" onkeypress="return event.key !== 'Enter';"></textarea>
 
       <label>Link da database do Notion</label>
       <input type="text" name="databaseId" required placeholder="https://www.notion.so/..." maxlength="150">
-      <div class="error-message">Este campo é obrigatório.</div>
 
       <button type="submit">Gerar meu widget</button>
     </form>
   </div>
-
-  <script>
-    const form = document.getElementById('widgetForm');
-    const fields = form.querySelectorAll('input[name]');
-    
-    fields.forEach((field, index) => {
-      field.addEventListener('input', () => {
-        // Remove mensagem de erro ao digitar
-        field.nextElementSibling.style.display = 'none';
-      });
-
-      field.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter') {
-          e.preventDefault();
-          // Se não for o último campo, foca no próximo
-          if(index + 1 < fields.length) {
-            fields[index+1].focus();
-          } else {
-            form.requestSubmit();
-          }
-        }
-      });
-    });
-
-    form.addEventListener('submit', (e) => {
-      let isValid = true;
-      fields.forEach((field) => {
-        if(!field.value.trim()) {
-          field.nextElementSibling.style.display = 'block';
-          isValid = false;
-        } else {
-          field.nextElementSibling.style.display = 'none';
-        }
-      });
-      if(!isValid) {
-        e.preventDefault();
-      }
-    });
-  </script>
 </body>
 </html>
