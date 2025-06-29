@@ -2,32 +2,34 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Seu Widget Exclusivo</title>
+  <title>Widget Exclusivo</title>
   <style>
-    body {
+    html, body {
       background: #000;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
+      height: 100%;
+      overflow: hidden; /* evita rolagem */
+    }
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      overflow: hidden; /* evitar rolagem vertical */
     }
     .form-box {
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      max-width: 500px; /* aumentei um pouco */
-      width: 100%;
-      padding: 40px 30px; /* mais espaçoso */
+      max-width: 500px;
+      width: 90%;
+      padding: 30px;
       box-sizing: border-box;
     }
     h2 {
       text-align: center;
       margin-bottom: 8px;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: bold;
     }
     p.subtitulo {
@@ -42,23 +44,19 @@
       margin-top: 16px;
       font-size: 14px;
     }
-    input, textarea, button {
+    input, textarea {
       width: 100%;
-      padding: 12px; /* maior para evitar zoom */
+      padding: 12px;
       margin-top: 6px;
-      border: none; /* sem contorno inicial */
-      border-radius: 8px;
-      font-size: 16px; /* >=16px para evitar zoom no mobile */
+      border: none;
+      border-bottom: 2px solid #ccc;
+      font-size: 16px; /* evita zoom no mobile */
       box-sizing: border-box;
-      background: #f8f8f8;
+      transition: border-color 0.3s;
     }
     input:focus, textarea:focus {
       outline: none;
-      border: 2px solid black; /* contorno preto ao focar */
-      background: #fff;
-    }
-    textarea {
-      resize: none;
+      border-bottom: 2px solid black;
     }
     button {
       background-color: black;
@@ -67,34 +65,75 @@
       cursor: pointer;
       font-size: 16px;
       border: none;
-      border-radius: 8px;
+      width: 100%;
       padding: 12px;
+      border-radius: 8px;
     }
     .error-message {
-      color: #d00;
+      color: red;
       font-size: 12px;
       margin-top: 4px;
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="form-box">
-    <h2>Widget Visual</h2>
-    <p class="subtitulo">Configure abaixo e veja seu widget pronto para usar.</p>
-    <!-- ⚠️ Envio tradicional via POST -->
-    <form method="POST" action="https://notion-feed-backend2.onrender.com/save-config">
+    <h2>Widget Exclusivo</h2>
+    <p class="subtitulo">Preencha os dados abaixo para gerar o seu widget.</p>
+    <form id="widgetForm" method="POST" action="https://notion-feed-backend2.onrender.com/save-config" novalidate>
       
       <label>Nome ou nome do projeto</label>
-      <input type="text" name="clientId" required placeholder="Ex: Helena, MarcaX" maxlength="30">
+      <input type="text" name="clientId" required placeholder="Ex: Grazielly, MarcaX" maxlength="30">
+      <div class="error-message">Este campo é obrigatório.</div>
 
       <label>Token de integração do Notion</label>
-      <textarea name="token" required placeholder="ntn_000000000000..." maxlength="60" onkeypress="return event.key !== 'Enter';"></textarea>
+      <input type="text" name="token" required placeholder="ntn_000000000000..." maxlength="60">
+      <div class="error-message">Este campo é obrigatório.</div>
 
       <label>Link da database do Notion</label>
       <input type="text" name="databaseId" required placeholder="https://www.notion.so/..." maxlength="150">
+      <div class="error-message">Este campo é obrigatório.</div>
 
       <button type="submit">Gerar meu widget</button>
     </form>
   </div>
+
+  <script>
+    const form = document.getElementById('widgetForm');
+    const fields = form.querySelectorAll('input[name]');
+    
+    fields.forEach((field, index) => {
+      field.addEventListener('input', () => {
+        field.nextElementSibling.style.display = 'none';
+      });
+
+      field.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') {
+          e.preventDefault();
+          if(index + 1 < fields.length) {
+            fields[index+1].focus();
+          } else {
+            form.requestSubmit();
+          }
+        }
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      let isValid = true;
+      fields.forEach((field) => {
+        if(!field.value.trim()) {
+          field.nextElementSibling.style.display = 'block';
+          isValid = false;
+        } else {
+          field.nextElementSibling.style.display = 'none';
+        }
+      });
+      if(!isValid) {
+        e.preventDefault();
+      }
+    });
+  </script>
 </body>
 </html>
