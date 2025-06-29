@@ -2,15 +2,16 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Widget Exclusivo</title>
+  <title>PAINEL DO WIDGET</title>
   <style>
     html, body {
-      background: #000;
+      background: #000 !important;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden; /* evita rolagem */
+      color-scheme: only light; /* força tema claro */
     }
     body {
       display: flex;
@@ -18,7 +19,7 @@
       align-items: center;
     }
     .form-box {
-      background: #fff;
+      background: #fff !important;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       max-width: 500px;
@@ -34,8 +35,8 @@
     }
     p.subtitulo {
       text-align: center;
-      font-size: 15px; /* levemente maior para hierarquia */
-      color: #555; /* contraste um pouco melhor */
+      font-size: 15px;
+      color: #555;
       margin-bottom: 20px;
     }
     label {
@@ -44,17 +45,17 @@
       margin-top: 16px;
       font-size: 14px;
     }
-    input, textarea {
+    input {
       width: 100%;
       padding: 12px;
       margin-top: 6px;
       border: none;
       border-bottom: 2px solid #ccc;
-      font-size: 16px; /* >=16px evita zoom mobile */
+      font-size: 16px; /* evita zoom mobile */
       box-sizing: border-box;
       transition: border-color 0.3s;
     }
-    input:focus, textarea:focus {
+    input:focus {
       outline: none;
       border-bottom: 2px solid black;
     }
@@ -68,6 +69,10 @@
       width: 100%;
       padding: 12px;
       border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #333;
     }
     .error-message {
       color: red;
@@ -79,7 +84,7 @@
 </head>
 <body>
   <div class="form-box">
-    <h2>Widget Exclusivo</h2>
+    <h2>PAINEL DO WIDGET</h2>
     <p class="subtitulo">Preencha os dados abaixo para gerar o seu widget.</p>
     <form id="widgetForm" method="POST" action="https://notion-feed-backend2.onrender.com/save-config" novalidate>
       
@@ -95,14 +100,14 @@
       <input type="text" name="databaseId" required placeholder="https://www.notion.so/..." maxlength="150">
       <div class="error-message">Este campo é obrigatório.</div>
 
-      <button type="submit">Gerar meu widget</button>
+      <button type="submit">GERAR MEU WIDGET</button>
     </form>
   </div>
 
   <script>
     const form = document.getElementById('widgetForm');
     const fields = form.querySelectorAll('input[name]');
-    
+
     fields.forEach((field, index) => {
       field.addEventListener('input', () => {
         field.nextElementSibling.style.display = 'none';
@@ -123,14 +128,26 @@
     form.addEventListener('submit', (e) => {
       let isValid = true;
       fields.forEach((field) => {
-        if(!field.value.trim()) {
+        const value = field.value.trim();
+        let customError = '';
+
+        if (!value) {
+          customError = 'Este campo é obrigatório.';
+        } else if (field.name === 'token' && !/^ntn_/.test(value)) {
+          customError = 'O token deve começar com ntn_.';
+        } else if (field.name === 'databaseId' && !value.startsWith('https://www.notion.so/')) {
+          customError = 'O link deve começar com https://www.notion.so/';
+        }
+
+        if (customError) {
+          field.nextElementSibling.textContent = customError;
           field.nextElementSibling.style.display = 'block';
           isValid = false;
         } else {
           field.nextElementSibling.style.display = 'none';
         }
       });
-      if(!isValid) {
+      if (!isValid) {
         e.preventDefault();
       }
     });
