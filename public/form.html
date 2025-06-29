@@ -11,8 +11,8 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden; /* evita rolagem */
-      color-scheme: only light; /* força tema claro */
+      overflow: hidden;
+      color-scheme: only light;
     }
     body {
       display: flex;
@@ -24,7 +24,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       max-width: 500px;
-      width: 95%; /* melhor em mobile */
+      width: 95%;
       padding: 30px;
       box-sizing: border-box;
     }
@@ -52,7 +52,7 @@
       margin-top: 6px;
       border: none;
       border-bottom: 2px solid #ccc;
-      font-size: 16px; /* evita zoom mobile */
+      font-size: 16px;
       box-sizing: border-box;
       transition: border-color 0.3s;
     }
@@ -87,7 +87,7 @@
   <div class="form-box">
     <h2>PAINEL DO WIDGET</h2>
     <p class="subtitulo">Preencha os dados abaixo para gerar o seu widget.</p>
-    <form id="widgetForm" method="POST" action="https://notion-feed-backend2.onrender.com/save-config" novalidate>
+    <form id="widgetForm" action="#" novalidate>
       
       <label>Nome ou nome do projeto</label>
       <input type="text" name="clientId" required placeholder="Ex: Helena, MarcaX" maxlength="30">
@@ -113,7 +113,6 @@
       field.addEventListener('input', () => {
         field.nextElementSibling.style.display = 'none';
       });
-
       field.addEventListener('keydown', (e) => {
         if(e.key === 'Enter') {
           e.preventDefault();
@@ -126,7 +125,9 @@
       });
     });
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // sempre evita submit padrão
+
       let isValid = true;
       fields.forEach((field) => {
         const value = field.value.trim();
@@ -156,8 +157,27 @@
           field.nextElementSibling.style.display = 'none';
         }
       });
-      if (!isValid) {
-        e.preventDefault(); // impede envio e mantém na mesma página
+
+      if (!isValid) return; // se inválido, não envia
+
+      // se passou validação, envia via fetch
+      const data = {
+        clientId: form.clientId.value.trim(),
+        token: form.token.value.trim(),
+        databaseId: form.databaseId.value.trim()
+      };
+      try {
+        const response = await fetch("https://notion-feed-backend2.onrender.com/save-config", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        const text = await response.text();
+        // backend responde com HTML que tem script → coloca na tela
+        document.write(text);
+      } catch (error) {
+        alert("Erro ao enviar. Tente novamente.");
+        console.error(error);
       }
     });
   </script>
