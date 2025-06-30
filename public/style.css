@@ -8,16 +8,25 @@ body {
 
 /* Top bar do widget */
 #topBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: black;
+  display: flex;
+  justify-content: space-between; /* espaço igual entre os 3 */
+  align-items: center;
   padding: 8px 24px;
-  text-align: right;
+  background: black;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   box-sizing: border-box;
   z-index: 100;
+}
+
+#topBar button svg {
+  width: 20px;
+  height: 20px;
+}
+
+#refresh, #filterBtn, #toggleTheme {
+  padding: 6px;
+  min-width: auto; /* não força largura */
+  border-radius: 50%;
 }
 
 #refresh {
