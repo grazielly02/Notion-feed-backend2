@@ -223,7 +223,8 @@ const filterBtn = document.getElementById("filterBtn");
 const filterMenu = document.getElementById("filterMenu");
 let currentFilter = "all";
 
-filterBtn?.addEventListener("click", () => {
+filterBtn?.addEventListener("click", (e) => {
+  e.stopPropagation(); // impede que o clique feche o menu imediatamente
   filterMenu.style.display = (filterMenu.style.display === "flex") ? "none" : "flex";
 });
 
