@@ -208,3 +208,10 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
   btn.innerHTML = "Atualizar"; // volta ao texto original
   btn.classList.remove("loading");
 });
+
+document.getElementById("toggleTheme")?.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+  const isLight = document.body.classList.contains("light-mode");
+  const btn = document.getElementById("toggleTheme");
+  if (btn) btn.textContent = isLight ? "☀️" : "🌙";
+});
