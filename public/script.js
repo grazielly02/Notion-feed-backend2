@@ -39,9 +39,9 @@ async function loadPosts() {
       const isVideo = mediaUrl.endsWith(".mp4");
 
       const container = document.createElement("div");
-      container.className = "grid-item";
-      container.dataset.type = post.media.length > 1 ? "carousel" :
-                               isVideo ? "video" : "image";
+container.className = "grid-item";
+container.dataset.type = post.media.length > 1 ? "carousel" :
+                         isVideo ? "video" : "image";
 
       const el = isVideo ? document.createElement("video") : document.createElement("img");
       el.src = mediaUrl;
@@ -60,7 +60,7 @@ async function loadPosts() {
         ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
       `;
       container.appendChild(overlay);
-
+  
       const iconContainer = document.createElement("div");
       iconContainer.className = "icon-container";
 
@@ -85,15 +85,15 @@ async function loadPosts() {
     });
 
     // Preencher com placeholders se tiver menos de 12 posts
-    const placeholders = 12 - postCount;
-    for (let i = 0; i < placeholders; i++) {
-      const placeholder = document.createElement("div");
-      placeholder.className = "grid-item empty";
-      placeholder.textContent = "Vazio";
-      grid.appendChild(placeholder);
-    }
-
-    applyFilter(); // aplica filtro após recarregar
+const placeholders = 12 - postCount;
+for (let i = 0; i < placeholders; i++) {
+  const placeholder = document.createElement("div");
+  placeholder.className = "grid-item empty";
+  placeholder.textContent = "Vazio"; // apenas texto
+  grid.appendChild(placeholder);
+}
+    
+    
   } catch (error) {
     console.error("Erro ao carregar posts:", error);
   }
@@ -158,10 +158,8 @@ function updateSlideUI() {
   if (dots[currentSlide]) dots[currentSlide].classList.add("active");
 
   if (totalSlides > 1) {
-    if (slideCount) {
-      slideCount.textContent = `${currentSlide + 1} / ${totalSlides}`;
-      slideCount.style.display = "block";
-    }
+    if (slideCount) slideCount.textContent = `${currentSlide + 1} / ${totalSlides}`;
+    if (slideCount) slideCount.style.display = "block";
     if (dotsContainer) dotsContainer.style.display = "flex";
   } else {
     if (slideCount) slideCount.style.display = "none";
@@ -198,22 +196,21 @@ function formatDate(dateString) {
 
 document.addEventListener("DOMContentLoaded", loadPosts);
 
-// Botão refresh
 document.getElementById("refresh")?.addEventListener("click", async () => {
   const btn = document.getElementById("refresh");
   btn.classList.add("loading");
+  const originalText = btn.innerHTML;
   btn.innerHTML = `<svg class="spinner" width="16" height="16" viewBox="0 0 50 50">
     <circle cx="25" cy="25" r="20" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)">
       <animateTransform attributeName="transform" type="rotate" values="0 25 25;360 25 25" dur="1s" repeatCount="indefinite"/>
     </circle>
   </svg>`;
-
-  await loadPosts();
-  btn.innerHTML = ""; // volta só ao ícone vazio
+  
+  await loadPosts(); // recarrega o grid
+  btn.innerHTML = "Atualizar"; // volta ao texto original
   btn.classList.remove("loading");
 });
 
-// Botão tema
 document.getElementById("toggleTheme")?.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
   const isLight = document.body.classList.contains("light-mode");
@@ -221,25 +218,23 @@ document.getElementById("toggleTheme")?.addEventListener("click", () => {
   if (btn) btn.textContent = isLight ? "☀️" : "🌙";
 });
 
-// Filtro
+// Toggle do menu
 const filterBtn = document.getElementById("filterBtn");
 const filterMenu = document.getElementById("filterMenu");
 let currentFilter = "all";
 
 filterBtn?.addEventListener("click", () => {
-  if (filterMenu) {
-    filterMenu.style.display = (filterMenu.style.display === "flex") ? "none" : "flex";
-  }
+  filterMenu.style.display = (filterMenu.style.display === "flex") ? "none" : "flex";
 });
 
-// Clicar fora fecha menu
+// Clicar fora fecha o menu
 document.addEventListener("click", (e) => {
-  if (filterMenu && !filterMenu.contains(e.target) && e.target !== filterBtn) {
+  if (!filterMenu.contains(e.target) && e.target !== filterBtn) {
     filterMenu.style.display = "none";
   }
 });
 
-// Opções
+// Clique nas opções
 filterMenu?.addEventListener("click", (e) => {
   if (e.target.dataset.filter) {
     currentFilter = e.target.dataset.filter;
@@ -248,10 +243,11 @@ filterMenu?.addEventListener("click", (e) => {
   }
 });
 
+// Filtra os posts já carregados
 function applyFilter() {
   const items = document.querySelectorAll(".grid-item");
   items.forEach(item => {
-    const type = item.dataset.type;
+    const type = item.dataset.type; // vamos incluir essa info no loadPosts
     if (currentFilter === "all" || type === currentFilter) {
       item.style.display = "";
     } else {

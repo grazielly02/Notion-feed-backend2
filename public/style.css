@@ -9,7 +9,7 @@ body {
 /* Top bar do widget */
 #topBar {
   display: flex;
-  justify-content: flex-end; /* alinhados à direita */
+  justify-content: space-between; /* espaço igual entre os 3 */
   align-items: center;
   padding: 8px 24px;
   background: black;
@@ -18,25 +18,94 @@ body {
   z-index: 100;
 }
 
-/* Botões da top bar: todos só ícones, sem contorno */
+#topBar button svg {
+  width: 20px;
+  height: 20px;
+}
+
 #refresh, #filterBtn, #toggleTheme {
+  padding: 6px;
+  min-width: auto; /* não força largura */
+  border-radius: 50%;
+}
+
+#refresh {
   background: transparent;
   color: white;
-  border: none;
-  font-size: 18px; /* tamanho bom de ícone */
+  border: 1px solid white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
   cursor: pointer;
-  margin-left: 12px;
-  padding: 6px;
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* No modo claro, ícones pretos */
-body.light-mode #refresh,
-body.light-mode #filterBtn,
+#refresh.loading {
+  pointer-events: none;
+}
+
+/* Top bar escura (padrão) */
+#topBar {
+  background: black;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Top bar no modo claro */
+body.light-mode #topBar {
+  background: white;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Botão atualizar no escuro */
+#refresh {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 0; /* garante alinhamento */
+}
+
+/* Botão atualizar no claro */
+body.light-mode #refresh {
+  color: black;
+  border: 1px solid black;
+}
+
+/* Botão de tema no escuro */
+#toggleTheme {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+/* Botão de tema no claro */
 body.light-mode #toggleTheme {
   color: black;
+  border: 1px solid black;
 }
 
-/* Grid */
+body.light-mode #grid {
+  gap: 1px;
+  background-color: white; /* para o grid ficar com filetes claros */
+}
+
+body.dark-mode #grid {
+  gap: 1px;
+  background-color: black; /* ou um cinza escuro */
+}
+
+/* Grid do feed */
 #grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
@@ -45,15 +114,6 @@ body.light-mode #toggleTheme {
   padding-top: 48px;
 }
 
-body.light-mode #grid {
-  background-color: white;
-}
-
-body.dark-mode #grid {
-  background-color: black;
-}
-
-/* Grid item */
 .grid-item {
   position: relative;
   overflow: hidden;
@@ -69,20 +129,20 @@ body.dark-mode #grid {
   display: block;
 }
 
-/* Overlay */
+/* Overlay ao passar mouse */
 .overlay {
   position: absolute;
   top: 0; 
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.4); /* fundo semi-transparente */
+  backdrop-filter: blur(4px);   /* efeito glass */
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* centraliza vertical */
+  align-items: center;     /* centraliza horizontal */
   opacity: 0;
   transition: opacity 0.3s;
   text-align: center;
@@ -175,16 +235,6 @@ body.dark-mode #grid {
   z-index: 1001;
 }
 
-@media (min-width: 768px) {
-  #closeModal {
-    top: 40px;
-    right: 30px;
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
-  }
-}
-
 /* Setas do carrossel */
 .arrow {
   position: absolute;
@@ -208,8 +258,23 @@ body.dark-mode #grid {
   display: flex;
 }
 
-.arrow.left { left: 10px; }
-.arrow.right { right: 10px; }
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+@media (min-width: 768px) {
+  #closeModal {
+    top: 40px;
+    right: 30px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+}
 
 /* Contador e dots do carrossel */
 .slide-count {
@@ -231,6 +296,7 @@ body.dark-mode #grid {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  justify-content: center;
   gap: 6px;
   z-index: 1001;
 }
@@ -247,7 +313,107 @@ body.dark-mode #grid {
   opacity: 1;
 }
 
-/* Placeholder "vazio" */
+/* ===== NOVO: Estilo para página de pré-visualização ===== */
+.preview-header {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.preview-header h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.preview-header p {
+  font-size: 14px;
+  color: #555; /* contraste melhor */
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Iframe */
+#previewFrame {
+  width: 100%;
+  max-width: 900px;
+  height: 1100px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 30px auto;
+  display: block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* profundidade */
+}
+
+/* Caixa copiar link */
+.link-box {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto 25px;
+  position: relative;
+}
+
+.link-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 900px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+}
+
+.link-icon {
+  padding: 0 8px;
+  font-size: 16px;
+  color: #888;
+}
+
+#embedLink {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 14px;
+  background: #fafafa;
+}
+
+#copyBtn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  height: 100%;
+  border-radius: 0 8px 8px 0; /* cantos arredondados do lado direito */
+  transition: background 0.3s ease;
+  max-width: 80px;
+}
+
+#copyBtn:hover {
+  background: #222;
+}
+
+/* Tooltip balão "Link copiado" */
+.tooltip {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap; /* evita quebrar texto */
+}
+
+/* ===== Placeholder "Vazio" no grid ===== */
 .grid-item.empty {
   color: #666;
   font-size: 13px;
@@ -257,10 +423,55 @@ body.dark-mode #grid {
   text-align: center;
 }
 
-/* ===== Estilo filtro ===== */
+#formBody {
+  margin: 40px auto;
+}
+
+/* ===== Estilo para página de formulário flutuante ===== */
+body.form-page {
+  background: black;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-container {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+/* Correção para fundo claro na página de pré-visualização */
+body.previsualizacao {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+#filterBtn {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+body.light-mode #filterBtn {
+  color: black;
+  border-color: black;
+}
+
 .filter-menu {
   position: absolute;
-  top: 42px;
+  top: 42px; /* logo abaixo da top bar */
   right: 24px;
   background: #222;
   color: white;
@@ -290,6 +501,3 @@ body.light-mode .filter-menu {
 body.light-mode .filter-menu div:hover {
   background: rgba(0,0,0,0.05);
 }
-
-/* ===== Restante permanece igual ===== */
-/* preview-header, iframe, link-box, tooltip, form-container etc. */
