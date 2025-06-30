@@ -39,7 +39,9 @@ async function loadPosts() {
       const isVideo = mediaUrl.endsWith(".mp4");
 
       const container = document.createElement("div");
-      container.className = "grid-item";
+container.className = "grid-item";
+container.dataset.type = post.media.length > 1 ? "carousel" :
+                         isVideo ? "video" : "image";
 
       const el = isVideo ? document.createElement("video") : document.createElement("img");
       el.src = mediaUrl;
@@ -215,3 +217,41 @@ document.getElementById("toggleTheme")?.addEventListener("click", () => {
   const btn = document.getElementById("toggleTheme");
   if (btn) btn.textContent = isLight ? "☀️" : "🌙";
 });
+
+// Toggle do menu
+const filterBtn = document.getElementById("filterBtn");
+const filterMenu = document.getElementById("filterMenu");
+let currentFilter = "all";
+
+filterBtn?.addEventListener("click", () => {
+  filterMenu.style.display = (filterMenu.style.display === "flex") ? "none" : "flex";
+});
+
+// Clicar fora fecha o menu
+document.addEventListener("click", (e) => {
+  if (!filterMenu.contains(e.target) && e.target !== filterBtn) {
+    filterMenu.style.display = "none";
+  }
+});
+
+// Clique nas opções
+filterMenu?.addEventListener("click", (e) => {
+  if (e.target.dataset.filter) {
+    currentFilter = e.target.dataset.filter;
+    applyFilter();
+    filterMenu.style.display = "none";
+  }
+});
+
+// Filtra os posts já carregados
+function applyFilter() {
+  const items = document.querySelectorAll(".grid-item");
+  items.forEach(item => {
+    const type = item.dataset.type; // vamos incluir essa info no loadPosts
+    if (currentFilter === "all" || type === currentFilter) {
+      item.style.display = "";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}

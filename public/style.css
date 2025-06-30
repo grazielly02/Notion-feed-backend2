@@ -443,3 +443,52 @@ body.previsualizacao {
   background: #fff !important;
   color: #000 !important;
 }
+
+#filterBtn {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+body.light-mode #filterBtn {
+  color: black;
+  border-color: black;
+}
+
+.filter-menu {
+  position: absolute;
+  top: 42px; /* logo abaixo da top bar */
+  right: 24px;
+  background: #222;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  z-index: 200;
+}
+
+body.light-mode .filter-menu {
+  background: #fff;
+  color: black;
+  border-color: #ccc;
+}
+
+.filter-menu div {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.filter-menu div:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+body.light-mode .filter-menu div:hover {
+  background: rgba(0,0,0,0.05);
+}
