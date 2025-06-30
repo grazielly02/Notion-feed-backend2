@@ -8,25 +8,16 @@ body {
 
 /* Top bar do widget */
 #topBar {
-  display: flex;
-  justify-content: space-between; /* espaço igual entre os 3 */
-  align-items: center;
-  padding: 8px 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background: black;
+  padding: 8px 24px;
+  text-align: right;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   box-sizing: border-box;
   z-index: 100;
-}
-
-#topBar button svg {
-  width: 20px;
-  height: 20px;
-}
-
-#refresh, #filterBtn, #toggleTheme {
-  padding: 6px;
-  min-width: auto; /* não força largura */
-  border-radius: 50%;
 }
 
 #refresh {
@@ -501,3 +492,4 @@ body.light-mode .filter-menu {
 body.light-mode .filter-menu div:hover {
   background: rgba(0,0,0,0.05);
 }
+
