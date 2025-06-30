@@ -6,17 +6,28 @@
   <link rel="stylesheet" href="/style.css">  
 </head>  
 <body>
-  <div id="topBar">
-  <button id="refresh">Atualizar</button>
-  <button id="toggleTheme">🌙</button>
-    <button id="filterBtn">Filtrar ▾</button>
-<div id="filterMenu" class="filter-menu">
-  <div data-filter="all">Todos</div>
-  <div data-filter="carousel">Carrosséis</div>
-  <div data-filter="video">Vídeos</div>
-  <div data-filter="image">Imagens</div>
+<div id="topBar">
+  <button id="refresh" class="top-btn active" title="Atualizar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+      <polyline points="23 4 23 10 17 10"></polyline>
+      <polyline points="1 20 1 14 7 14"></polyline>
+      <path d="M3.51 9a9 9 0 0114.36-3.36L23 10M1 14l5.13 4.36A9 9 0 0014.49 21"></path>
+    </svg>
+  </button>
+
+  <button id="filterBtn" class="top-btn" title="Filtrar posts">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+      <polygon points="3 4 21 4 14 12 14 20 10 20 10 12 3 4"></polygon>
+    </svg>
+  </button>
+
+  <button id="toggleTheme" class="top-btn" title="Modo Claro/Escuro">
+    <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+      <circle cx="12" cy="12" r="5"></circle>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+    </svg>
+  </button>
 </div>
-  </div>
 
   <div id="grid"></div>  
 
