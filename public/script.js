@@ -207,7 +207,7 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
   </svg>`;
   
   await loadPosts(); // recarrega o grid
-  btn.innerHTML = "Atualizar"; // volta ao texto original
+  btn.innerHTML = "⟳"; // volta ao ícone original
   btn.classList.remove("loading");
 });
 
@@ -218,24 +218,25 @@ document.getElementById("toggleTheme")?.addEventListener("click", () => {
   if (btn) btn.textContent = isLight ? "☀️" : "🌙";
 });
 
-// Toggle do menu
+// Toggle do menu de filtro
 const filterBtn = document.getElementById("filterBtn");
 const filterMenu = document.getElementById("filterMenu");
 let currentFilter = "all";
 
+// Quando clica no botão do filtro
 filterBtn?.addEventListener("click", (e) => {
   e.stopPropagation(); // impede que o clique feche o menu imediatamente
   filterMenu.style.display = (filterMenu.style.display === "flex") ? "none" : "flex";
 });
 
-// Clicar fora fecha o menu
+// Quando clica fora, fecha o menu
 document.addEventListener("click", (e) => {
   if (!filterMenu.contains(e.target) && e.target !== filterBtn) {
     filterMenu.style.display = "none";
   }
 });
 
-// Clique nas opções
+// Quando clica numa opção dentro do menu
 filterMenu?.addEventListener("click", (e) => {
   if (e.target.dataset.filter) {
     currentFilter = e.target.dataset.filter;
@@ -244,11 +245,11 @@ filterMenu?.addEventListener("click", (e) => {
   }
 });
 
-// Filtra os posts já carregados
+// Função para aplicar o filtro nos posts já carregados
 function applyFilter() {
   const items = document.querySelectorAll(".grid-item");
   items.forEach(item => {
-    const type = item.dataset.type; // vamos incluir essa info no loadPosts
+    const type = item.dataset.type; // essa info precisa ser incluída no loadPosts
     if (currentFilter === "all" || type === currentFilter) {
       item.style.display = "";
     } else {
