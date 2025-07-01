@@ -65,7 +65,7 @@ body.light-mode #topBar {
 /* Botão atualizar no claro */
 body.light-mode #refresh {
   color: black;
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 /* Botão de tema no escuro */
@@ -83,7 +83,7 @@ body.light-mode #refresh {
 /* Botão de tema no claro */
 body.light-mode #toggleTheme {
   color: black;
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 body.light-mode #grid {
@@ -447,7 +447,7 @@ body.previsualizacao {
 #filterBtn {
   background: transparent;
   color: white;
-  border: 1px solid white;
+  border: 1px solid black;
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 14px;
@@ -457,7 +457,7 @@ body.previsualizacao {
 
 body.light-mode #filterBtn {
   color: black;
-  border-color: black;
+  border-color: white;
 }
 
 .filter-menu {
