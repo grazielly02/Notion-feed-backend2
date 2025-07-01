@@ -41,20 +41,20 @@ body {
 /* Top bar escura (padrão) */
 #topBar {
   background: black;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  border-bottom: black;
 }
 
 /* Top bar no modo claro */
 body.light-mode #topBar {
   background: white;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: white;
 }
 
 /* Botão atualizar no escuro */
 #refresh {
   background: transparent;
   color: white;
-  border: 1px solid whi;
+  border: white;
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 14px;
