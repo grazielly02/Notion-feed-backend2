@@ -54,36 +54,48 @@ body.light-mode #topBar {
 #refresh {
   background: transparent;
   color: white;
-  border: 1px solid white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 14px;
+  border: none;
+  padding: 0;
+  border-radius: 50px;
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   cursor: pointer;
-  margin-left: 0; /* garante alinhamento */
+  margin-left: 6px; /* garante alinhamento */
 }
 
 /* Botão atualizar no claro */
 body.light-mode #refresh {
   color: black;
-  border: 1px solid black;
+  border: none;
 }
 
 /* Botão de tema no escuro */
 #toggleTheme {
-  background: transparent;
+background: transparent;
   color: white;
-  border: 1px solid white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
+  border: none;
+  padding: 0;
+  border-radius: 50px;
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   cursor: pointer;
-  margin-left: 8px;
+  margin-left: 6px; /* garante alinhamento */
 }
 
 /* Botão de tema no claro */
 body.light-mode #toggleTheme {
   color: black;
-  border: 1px solid black;
+  border: none;
 }
 
 body.light-mode #grid {
@@ -446,18 +458,24 @@ body.previsualizacao {
 
 #filterBtn {
   background: transparent;
-  color: white;
-  border: 1px solid white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-  margin-left: 8px;
+    color: white;
+    border: none;
+    padding: 0;
+    border-radius: 50px;
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 6px; /* garante alinhamento */
+  }
 }
 
 body.light-mode #filterBtn {
   color: black;
-  border-color: black;
 }
 
 .filter-menu {
