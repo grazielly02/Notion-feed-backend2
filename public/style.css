@@ -12,12 +12,18 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  height: 40px;
   background: black;
   padding: 8px 24px;
-  text-align: right;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   box-sizing: border-box;
   z-index: 100;
+  display: flex;
+  align-items: center; /* centraliza os botões verticalmente */
+  justify-content: flex-end; /* coloca os botões do lado direito */
+  padding: 0 12px; /* padding lateral menor */
+  gap: 6px; /* espaço entre os botões */
+  border-radius: 0 0 8px 8px; /* cantos inferiores arredondados */
 }
 
 #refresh {
@@ -55,7 +61,7 @@ body.light-mode #topBar {
   background: transparent;
   color: white;
   border: 1px solid whi;
-  padding: 6px 14px;
+  padding: 4px 8px;
   border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
@@ -73,11 +79,11 @@ body.light-mode #refresh {
   background: transparent;
   color: white;
   border: 1px solid white;
-  padding: 6px 12px;
+  padding: 4px 8px;
   border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
-  margin-left: 8px;
+  margin-left: 0px;
 }
 
 /* Botão de tema no claro */
@@ -448,11 +454,11 @@ body.previsualizacao {
   background: transparent;
   color: white;
   border: 1px solid white;
-  padding: 6px 14px;
+  padding: 4px 8px;
   border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
-  margin-left: 8px;
+  margin-left: 0;
 }
 
 body.light-mode #filterBtn {
