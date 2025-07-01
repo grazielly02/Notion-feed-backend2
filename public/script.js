@@ -214,8 +214,13 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
 document.getElementById("toggleTheme")?.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
   const isLight = document.body.classList.contains("light-mode");
-  const btn = document.getElementById("toggleTheme");
-  if (btn) btn.textContent = isLight ? "☀️" : "🌙";
+  const themePath = document.getElementById("themePath");
+  if (themePath) {
+    themePath.setAttribute("d", isLight 
+      ? "M12 2a9.94 9.94 0 0 1 7.07 2.93A10 10 0 0 1 12 22a10 10 0 0 1 0-20z" // sol simples
+      : "M21.64 13.65A9 9 0 1 1 10.35 2.36 7 7 0 0 0 21.64 13.65z" // lua
+    );
+  }
 });
 
 // Toggle do menu

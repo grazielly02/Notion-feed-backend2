@@ -493,3 +493,41 @@ body.light-mode .filter-menu div:hover {
   background: rgba(0,0,0,0.05);
 }
 
+#topBar button {
+  background: transparent;
+  color: #bbb;           /* tom neutro claro p/ modo escuro */
+  border: none;
+  padding: 6px 8px;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 0;          /* esconde texto se tiver */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+#topBar button svg {
+  fill: currentColor;
+  width: 18px;
+  height: 18px;
+}
+
+#topBar button:hover {
+  color: white;        /* fica branco no hover */
+}
+
+body.light-mode #topBar button {
+  color: #555;   /* tom escuro neutro */
+}
+
+body.light-mode #topBar button:hover {
+  color: black;
+}
+
+@media (min-width: 768px) {
+  #topBar button svg {
+    width: 20px;
+    height: 20px;
+  }
+}
