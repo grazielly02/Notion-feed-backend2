@@ -207,7 +207,7 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
   </svg>`;
   
   await loadPosts(); // recarrega o grid
-  btn.innerHTML = "Atualizar"; // volta ao texto original
+  btn.innerHTML = "⟳"; // volta ao texto original
   btn.classList.remove("loading");
 });
 
@@ -215,7 +215,7 @@ document.getElementById("toggleTheme")?.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
   const isLight = document.body.classList.contains("light-mode");
   const btn = document.getElementById("toggleTheme");
-  if (btn) btn.textContent = isLight ? "☀️" : "🌙";
+  if (btn) btn.textContent = isLight ? "☀︎" : "❨";
 });
 
 // Toggle do menu
