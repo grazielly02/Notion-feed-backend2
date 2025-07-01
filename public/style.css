@@ -72,7 +72,7 @@ body.light-mode #refresh {
 #toggleTheme {
   background: transparent;
   color: white;
-  border: 1px solid white;
+  border: 1px solid black;
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 14px;
