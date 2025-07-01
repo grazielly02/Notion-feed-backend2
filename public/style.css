@@ -38,9 +38,23 @@ body {
   justify-content: center;
 }
 
+/* Loading: reduz opacidade e mantém contraste */
 #refresh.loading {
-  pointer-events: none;
+  opacity: 0.5;          /* visualmente mostra "estou carregando" */
+  pointer-events: none;  /* continua desabilitando clique */
 }
+
+/* Garante cor correta durante loading no modo claro */
+body.light-mode #refresh.loading {
+  color: black;
+  border-color: black;
+}
+
+/* Garante cor correta durante loading no modo escuro */
+body:not(.light-mode) #refresh.loading {
+  color: white;
+  border-color: white;
+  }
 
 /* Top bar escura (padrão) */
 #topBar {
