@@ -536,3 +536,23 @@ body.light-mode #toggleTheme:hover,
 body.light-mode #filterBtn:hover {
   background: rgba(0,0,0,0.05); /* no claro: leve fundo preto transparente */
   }
+
+button {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+    }
