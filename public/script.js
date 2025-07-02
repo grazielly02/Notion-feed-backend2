@@ -200,16 +200,13 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
   const btn = document.getElementById("refresh");
   btn.classList.add("loading");
   const originalText = btn.innerHTML;
-  
-  // Detecta o modo atual
-  const isLight = document.body.classList.contains("light-mode");
-  
+
   btn.innerHTML = `<svg class="spinner" width="16" height="16" viewBox="0 0 50 50">
-    <circle cx="25" cy="25" r="20" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)">
+    <circle class="spinner-circle" cx="25" cy="25" r="20" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)">
       <animateTransform attributeName="transform" type="rotate" values="0 25 25;360 25 25" dur="1s" repeatCount="indefinite"/>
     </circle>
   </svg>`;
-  
+
   await loadPosts(); // recarrega o grid
   btn.innerHTML = "⟳"; // volta ao texto original
   btn.classList.remove("loading");
