@@ -89,6 +89,7 @@ container.dataset.type = post.media.length > 1 ? "carousel" :
       container.onclick = () => openModal(post.media);
       grid.appendChild(container);
     });
+    }
 
     
   } catch (error) {
@@ -215,13 +216,15 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
 // Aplicar tema salvo ao carregar
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
-document.body.classList.add('light-mode');
-const btn = document.getElementById("toggleTheme");
-if (btn) btn.textContent = "☀︎";
+  document.body.classList.add('light-mode');
+  document.body.classList.remove('dark-mode');
+  const btn = document.getElementById("toggleTheme");
+  if (btn) btn.textContent = "☀︎";
 } else {
-// Se não for light, mantém como estava (modo escuro por padrão)
-const btn = document.getElementById("toggleTheme");
-if (btn) btn.textContent = "❨";
+  document.body.classList.add('dark-mode');
+  document.body.classList.remove('light-mode');
+  const btn = document.getElementById("toggleTheme");
+  if (btn) btn.textContent = "❨";
 }
 
 // Evento para alternar o tema e salvar escolha
