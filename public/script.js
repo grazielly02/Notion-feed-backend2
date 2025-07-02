@@ -33,7 +33,13 @@ async function loadPosts() {
     grid.innerHTML = "";
 
     const postCount = posts.length;
-
+        // Preencher com aviso quando estiver 0 post
+if (postCount === 0) {
+  const aviso = document.createElement("div");
+  aviso.className = "aviso-vazio";
+  aviso.textContent = "Ainda não há nenhum post";
+  grid.appendChild(aviso);
+} else { 
     posts.forEach(post => {
       const mediaUrl = post.media[0];
       const isVideo = mediaUrl.endsWith(".mp4");
@@ -84,14 +90,6 @@ container.dataset.type = post.media.length > 1 ? "carousel" :
       grid.appendChild(container);
     });
 
-    // Preencher com aviso quando estiver 0 post
-if (postCount === 0) {
-  const aviso = document.createElement("div");
-  aviso.className = "aviso-vazio";
-  aviso.textContent = "Ainda não há nenhum post";
-  grid.appendChild(aviso);
-}
-    
     
   } catch (error) {
     console.error("Erro ao carregar posts:", error);
