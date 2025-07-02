@@ -191,7 +191,10 @@ document.querySelector(".arrow.right")?.addEventListener("click", () => {
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-  return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = date.toLocaleString('pt-BR', { month: 'short' }).toLowerCase(); // jul, ago, etc.
+  const year = String(date.getFullYear()).slice(-2); // últimos dois dígitos
+  return `${day} ${month} ${year}`;
 }
 
 document.addEventListener("DOMContentLoaded", loadPosts);
