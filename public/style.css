@@ -151,7 +151,6 @@ align-items: center;     /* centraliza horizontal */
 opacity: 0;
 transition: opacity 0.3s;
 text-align: center;
-font-size: 12px;
 }
 
 .grid-item:hover .overlay {
@@ -161,15 +160,17 @@ opacity: 1;
 .overlay .editoria {
 font-weight: bold;
 text-transform: uppercase;
-margin-bottom: 4px;
+font-size: 10px;
+margin-bottom: 3px;
 }
 
 .overlay .title {
+font-size: 11px;
 margin-bottom: 2px;
 }
 
 .overlay .date {
-font-size: 11px;
+font-size: 9px;
 opacity: 0.8;
 }
 
