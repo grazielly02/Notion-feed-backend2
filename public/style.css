@@ -12,7 +12,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: black;
+  background: #2F3437;
   padding: 8px 12px;
   text-align: right;
   border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -46,8 +46,8 @@ body {
 
 /* Top bar escura (padrão) */
 #topBar {
-  background: black;
-  border-bottom: black;
+  background: #2F3437;
+  border-bottom: #2F3437;
 }
 
 /* Top bar no modo claro */
@@ -96,7 +96,7 @@ body.light-mode #refresh {
 
 /* Botão de tema no claro */
 body.light-mode #toggleTheme {
-  color: black;
+  color: #2F3437;
   border: 1px solid white;
 }
 
