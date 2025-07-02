@@ -152,9 +152,6 @@ body.dark-mode #grid {
   transition: opacity 0.3s ease;
   text-align: center;
   font-size: 12px;
-  padding: 8px;                     /* espaço interno para respirar */
-  line-height: 1.4;                 /* melhor leitura */
-  border-radius: 8px;               /* cantos arredondados (opcional) */
 }
 
 .grid-item:hover .overlay {
@@ -164,15 +161,12 @@ body.dark-mode #grid {
 .overlay .editoria {
   font-weight: bold;
   text-transform: uppercase;        /* destaque editorial */
-  font-size: 11px;
-  letter-spacing: 0.5px;
   margin-bottom: 4px;
   color: #ffffff;
 }
 
 .overlay .title {
   font-weight: 500;                 /* um pouco mais forte que normal */
-  font-size: 13px;
   margin-bottom: 2px;
   color: #f9f9f9;
 }
