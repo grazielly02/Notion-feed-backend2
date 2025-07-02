@@ -141,17 +141,20 @@ body.dark-mode #grid {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4); /* fundo semi-transparente */
-  backdrop-filter: blur(4px);   /* efeito glass */
-  color: white;
+  background: rgba(0,0,0,0.4);      /* fundo semi-transparente */
+  backdrop-filter: blur(4px);       /* efeito glass */
+  color: #f9f9f9;                   /* tom levemente off-white */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centraliza vertical */
-  align-items: center;     /* centraliza horizontal */
+  justify-content: center;          /* centraliza vertical */
+  align-items: center;              /* centraliza horizontal */
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
   text-align: center;
   font-size: 12px;
+  padding: 8px;                     /* espaço interno para respirar */
+  line-height: 1.4;                 /* melhor leitura */
+  border-radius: 8px;               /* cantos arredondados (opcional) */
 }
 
 .grid-item:hover .overlay {
@@ -160,17 +163,25 @@ body.dark-mode #grid {
 
 .overlay .editoria {
   font-weight: bold;
+  text-transform: uppercase;        /* destaque editorial */
+  font-size: 11px;
+  letter-spacing: 0.5px;
   margin-bottom: 4px;
+  color: #ffffff;
 }
 
 .overlay .title {
+  font-weight: 500;                 /* um pouco mais forte que normal */
+  font-size: 13px;
   margin-bottom: 2px;
+  color: #f9f9f9;
 }
 
 .overlay .date {
-  font-size: 11px;
+  font-size: 10px;
   opacity: 0.8;
-}
+  color: #ddd;
+  }
 
 /* Ícones de vídeo/carrossel */
 .icon-container {
