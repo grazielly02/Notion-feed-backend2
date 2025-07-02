@@ -151,6 +151,7 @@ align-items: center;     /* centraliza horizontal */
 opacity: 0;
 transition: opacity 0.3s;
 text-align: center;
+padding: 8px;
 }
 
 .grid-item:hover .overlay {
