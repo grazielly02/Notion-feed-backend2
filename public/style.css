@@ -12,7 +12,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: #2F3437;
+  background: #222;
   padding: 8px 12px;
   text-align: right;
   border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -46,8 +46,8 @@ body {
 
 /* Top bar escura (padrão) */
 #topBar {
-  background: #2F3437;
-  border-bottom: #2F3437;
+  background: #222;
+  border-bottom: #222;
 }
 
 /* Top bar no modo claro */
@@ -96,7 +96,7 @@ body.light-mode #refresh {
 
 /* Botão de tema no claro */
 body.light-mode #toggleTheme {
-  color: #2F3437;
+  color: #222;
   border: 1px solid white;
 }
 
@@ -107,7 +107,7 @@ body.light-mode #grid {
 
 body.dark-mode #grid {
   gap: 1px;
-  background-color: black; /* ou um cinza escuro */
+  background-color: #222; /* ou um cinza escuro */
 }
 
 /* Grid do feed */
