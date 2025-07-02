@@ -84,13 +84,12 @@ container.dataset.type = post.media.length > 1 ? "carousel" :
       grid.appendChild(container);
     });
 
-    // Preencher com placeholders se tiver menos de 12 posts
-const placeholders = 12 - postCount;
-for (let i = 0; i < placeholders; i++) {
-  const placeholder = document.createElement("div");
-  placeholder.className = "grid-item empty";
-  placeholder.textContent = "Vazio"; // apenas texto
-  grid.appendChild(placeholder);
+    // Preencher com aviso quando estiver 0 post
+if (postCount === 0) {
+  const aviso = document.createElement("div");
+  aviso.className = "aviso-vazio";
+  aviso.textContent = "Ainda não há nenhum post";
+  grid.appendChild(aviso);
 }
     
     
