@@ -134,48 +134,44 @@ body.dark-mode #grid {
   display: block;
 }
 
+/* Overlay ao passar mouse /
 .overlay {
-  position: absolute;
-  top: 0; 
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.25);    /* mais transparente */
-  backdrop-filter: blur(3px);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;         /* centraliza */
-  align-items: center;
-  padding: 6px;                    /* menos padding */
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  text-align: center;
-  font-size: 11px;                 /* menor base */
-  line-height: 1.3;
-  gap: 2px;                        /* respiro entre linhas */
-  border-radius: 8px;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.4); / fundo semi-transparente /
+backdrop-filter: blur(4px);   / efeito glass /
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: center; / centraliza vertical /
+align-items: center;     / centraliza horizontal */
+opacity: 0;
+transition: opacity 0.3s;
+text-align: center;
+font-size: 12px;
+}
+
+.grid-item:hover .overlay {
+opacity: 1;
 }
 
 .overlay .editoria {
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 10px;                 /* pequeno, leve */
-  letter-spacing: 0.5px;
-  color: #f0f0f0;
+font-weight: bold;
+text-transform: uppercase;
+margin-bottom: 4px;
 }
 
 .overlay .title {
-  font-weight: 500;
-  font-size: 12px;                 /* título continua maior que editorial */
-  color: #fff;
+margin-bottom: 2px;
 }
 
 .overlay .date {
-  font-size: 9px;                  /* bem discreta */
-  opacity: 0.8;
-  color: #ddd;
-  }
+font-size: 11px;
+opacity: 0.8;
+}
 
 /* Ícones de vídeo/carrossel */
 .icon-container {
