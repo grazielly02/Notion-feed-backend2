@@ -215,32 +215,21 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
 // Aplicar tema salvo ao carregar
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
-  document.body.classList.add('light-mode');
-  document.body.classList.remove('dark-mode');
-  const btn = document.getElementById("toggleTheme");
-  if (btn) btn.textContent = "☀︎";
+document.body.classList.add('light-mode');
+const btn = document.getElementById("toggleTheme");
+if (btn) btn.textContent = "☀︎";
 } else {
-  document.body.classList.add('dark-mode');
-  document.body.classList.remove('light-mode');
-  const btn = document.getElementById("toggleTheme");
-  if (btn) btn.textContent = "❨";
+// Se não for light, mantém como estava (modo escuro por padrão)
+const btn = document.getElementById("toggleTheme");
+if (btn) btn.textContent = "❨";
 }
 
 // Evento para alternar o tema e salvar escolha
 document.getElementById("toggleTheme")?.addEventListener("click", () => {
-  const isLight = document.body.classList.contains("light-mode");
-  if (isLight) {
-    document.body.classList.remove("light-mode");
-    document.body.classList.add("dark-mode");
-    localStorage.setItem('theme', 'dark');
-  } else {
-    document.body.classList.remove("dark-mode");
-    document.body.classList.add("light-mode");
-    localStorage.setItem('theme', 'light');
-  }
-  const btn = document.getElementById("toggleTheme");
-  if (btn) btn.textContent = document.body.classList.contains("light-mode") ? "☀︎" : "❨";
-});
+document.body.classList.toggle("light-mode");
+const isLight = document.body.classList.contains("light-mode");
+const btn = document.getElementById("toggleTheme");
+if (btn) btn.textContent = isLight ? "☀︎" : "❨";
 
   // Salvar escolha no localStorage
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
