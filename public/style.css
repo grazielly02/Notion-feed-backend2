@@ -518,3 +518,21 @@ body.light-mode .filter-menu div:hover {
 body.light-mode .spinner-circle {
   stroke: black;
 }
+
+#refresh:focus,
+#toggleTheme:focus,
+#filterBtn:focus {
+  outline: none;
+}
+
+#refresh:hover,
+#toggleTheme:hover,
+#filterBtn:hover {
+  background: rgba(255,255,255,0.1); /* no escuro: leve fundo branco transparente */
+}
+
+body.light-mode #refresh:hover,
+body.light-mode #toggleTheme:hover,
+body.light-mode #filterBtn:hover {
+  background: rgba(0,0,0,0.05); /* no claro: leve fundo preto transparente */
+  }
