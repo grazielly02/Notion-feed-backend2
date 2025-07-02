@@ -511,3 +511,10 @@ body.light-mode .filter-menu div:hover {
   background: rgba(0,0,0,0.05);
 }
 
+.spinner-circle {
+  stroke: white;
+}
+
+body.light-mode .spinner-circle {
+  stroke: black;
+}
