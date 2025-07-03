@@ -100,6 +100,16 @@ body.light-mode #toggleTheme {
   border: 1px solid white;
 }
 
+/* Grid padrão, sem mudar */
+#grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 1px;
+  justify-content: center;
+  padding-top: 48px;
+  background-color: transparent; /* deixa transparente, segue cor do body */
+}
+
 body.light-mode #grid {
   gap: 1px;
   background-color: white; /* para o grid ficar com filetes claros */
@@ -110,13 +120,13 @@ body:not(.light-mode) #grid {
   background-color: #191919; /* ou um cinza escuro */
 }
 
-/* Grid do feed */
-#grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-  gap: 1px;
-  justify-content: center;
-  padding-top: 48px;
+/* Aviso centralizado e com cor clara/escura conforme tema */
+.aviso-vazio {
+  grid-column: 1 / -1; /* ocupa toda a largura */
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  padding: 20px;
 }
 
 .grid-item {
@@ -420,16 +430,6 @@ opacity: 0.8;
   white-space: nowrap; /* evita quebrar texto */
 }
 
-/* ===== Placeholder "Vazio" no grid ===== */
-.grid-item.empty {
-  color: #666;
-  font-size: 13px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 #formBody {
   margin: 40px auto;
 }
@@ -558,16 +558,3 @@ button:focus {
 button:focus-visible {
   box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
     }
-
-  .aviso-vazio {
-  color: #888;
-  font-size: 14px;
-  text-align: center;
-  padding: 40px 20px;    /* espaço extra em cima e laterais */
-  box-sizing: border-box;
-  width: 100%;
-}
-
-body.light-mode .aviso-vazio {
-  color: #333;
-}
