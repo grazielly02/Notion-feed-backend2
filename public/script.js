@@ -262,23 +262,78 @@ filterMenu?.addEventListener("click", (e) => {
 });
 
 function applyFilter() {
-  const items = document.querySelectorAll(".grid-item");
-  let visibleCount = 0;
-
-  items.forEach(item => {
-    const type = item.dataset.type;
-    if (currentFilter === "all" || type === currentFilter) {
-      item.classList.remove("hidden");
-      visibleCount++;
-    } else {
-      item.classList.add("hidden");
-    }
-  });
-
   const grid = document.getElementById("grid");
-  if (visibleCount === 0) {
-    grid.classList.add("empty");
-  } else {
-    grid.classList.remove("empty");
-  }
-  }
+  if (!grid) return;
+
+  // Pega todos os posts já carregados (salvos em memória)
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(posts => {
+      // Filtra pelo tipo escolhido
+      const filtered = posts.filter(post => {
+        const type = post.media.length > 1 ? "carousel"
+                    : post.media[0].endsWith(".mp4") ? "video" : "image";
+        return currentFilter === "all" || type === currentFilter;
+      });
+
+      // Limpa o grid
+      grid.innerHTML = "";
+
+      if (filtered.length === 0) {
+        grid.classList.add("empty");
+      } else {
+        grid.classList.remove("empty");
+        // Recria só os posts filtrados
+        filtered.forEach(post => {
+          const mediaUrl = post.media[0];
+          const isVideo = mediaUrl.endsWith(".mp4");
+
+          const container = document.createElement("div");
+          container.className = "grid-item";
+          container.dataset.type = post.media.length > 1 ? "carousel"
+                                   : isVideo ? "video" : "image";
+
+          const el = isVideo ? document.createElement("video") : document.createElement("img");
+          el.src = mediaUrl;
+          if (isVideo) {
+            el.muted = true;
+            el.playsInline = true;
+            el.preload = "metadata";
+          }
+          container.appendChild(el);
+
+          const overlay = document.createElement("div");
+          overlay.className = "overlay";
+          overlay.innerHTML = `
+            ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
+            <div class="title">${post.title || ""}</div>
+            ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
+          `;
+          container.appendChild(overlay);
+
+          const iconContainer = document.createElement("div");
+          iconContainer.className = "icon-container";
+
+          if (isVideo) {
+            iconContainer.innerHTML += `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>`;
+          }
+
+          if (post.media.length > 1) {
+            iconContainer.innerHTML += `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
+                <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>
+              </svg>`;
+          }
+
+          container.appendChild(iconContainer);
+          container.onclick = () => openModal(post.media);
+          grid.appendChild(container);
+        });
+      }
+    })
+    .catch(error => console.error("Erro ao filtrar posts:", error));
+                           }
