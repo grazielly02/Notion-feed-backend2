@@ -584,3 +584,7 @@ body:not(.light-mode) #grid.empty::before {
 .grid-item.hidden {
   display: none !important;
   }
+
+#grid.empty {
+  /* opcional: pode mudar algo visual quando estiver vazio, como centralizar a mensagem */
+  }
