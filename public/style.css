@@ -108,7 +108,7 @@ body.light-mode #toggleTheme {
   justify-content: center;
   padding-top: 48px;
   background-color: transparent; /* deixa transparente, segue cor do body */
-  min-height: 1015px;
+  min-height: 1100px;
   position: relative; 
 }
 
@@ -563,7 +563,8 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500
   text-align: center;
   z-index: 2;
   background-color: inherit; /* pega a cor do grid automaticamente */
