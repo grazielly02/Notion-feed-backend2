@@ -33,69 +33,67 @@ async function loadPosts() {
     grid.innerHTML = "";
 
     const postCount = posts.length;
-        // Preencher com aviso quando estiver 0 post
-if (postCount === 0) {
-  const aviso = document.createElement("div");
-  aviso.className = "aviso-vazio";
-  aviso.textContent = "Ainda não há nenhum post";
-  grid.appendChild(aviso);
-} else { 
-    posts.forEach(post => {
-      const mediaUrl = post.media[0];
-      const isVideo = mediaUrl.endsWith(".mp4");
 
-      const container = document.createElement("div");
-container.className = "grid-item";
-container.dataset.type = post.media.length > 1 ? "carousel" :
-                         isVideo ? "video" : "image";
+    if (postCount === 0) {
+      grid.classList.add("empty");
+    } else {
+      grid.classList.remove("empty");
 
-      const el = isVideo ? document.createElement("video") : document.createElement("img");
-      el.src = mediaUrl;
-      if (isVideo) {
-        el.muted = true;
-        el.playsInline = true;
-        el.preload = "metadata";
-      }
-      container.appendChild(el);
+      posts.forEach(post => {
+        const mediaUrl = post.media[0];
+        const isVideo = mediaUrl.endsWith(".mp4");
 
-      const overlay = document.createElement("div");
-      overlay.className = "overlay";
-      overlay.innerHTML = `
-        ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
-        <div class="title">${post.title || ""}</div>
-        ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
-      `;
-      container.appendChild(overlay);
-  
-      const iconContainer = document.createElement("div");
-      iconContainer.className = "icon-container";
+        const container = document.createElement("div");
+        container.className = "grid-item";
+        container.dataset.type = post.media.length > 1 ? "carousel"
+                                 : isVideo ? "video" : "image";
 
-      if (isVideo) {
-        iconContainer.innerHTML += `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
-          </svg>`;
-      }
+        const el = isVideo ? document.createElement("video") : document.createElement("img");
+        el.src = mediaUrl;
+        if (isVideo) {
+          el.muted = true;
+          el.playsInline = true;
+          el.preload = "metadata";
+        }
+        container.appendChild(el);
 
-      if (post.media.length > 1) {
-        iconContainer.innerHTML += `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
-            <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>
-          </svg>`;
-      }
+        const overlay = document.createElement("div");
+        overlay.className = "overlay";
+        overlay.innerHTML = `
+          ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
+          <div class="title">${post.title || ""}</div>
+          ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
+        `;
+        container.appendChild(overlay);
 
-      container.appendChild(iconContainer);
-      container.onclick = () => openModal(post.media);
-      grid.appendChild(container);
-    });
+        const iconContainer = document.createElement("div");
+        iconContainer.className = "icon-container";
+
+        if (isVideo) {
+          iconContainer.innerHTML += `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>`;
+        }
+
+        if (post.media.length > 1) {
+          iconContainer.innerHTML += `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
+              <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>
+            </svg>`;
+        }
+
+        container.appendChild(iconContainer);
+        container.onclick = () => openModal(post.media);
+        grid.appendChild(container);
+      });
     }
 
-    
   } catch (error) {
     console.error("Erro ao carregar posts:", error);
   }
-}
+          }
 
 function openModal(mediaUrls) {
   const modal = document.getElementById("modal");
