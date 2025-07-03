@@ -108,7 +108,7 @@ body.light-mode #toggleTheme {
   justify-content: center;
   padding-top: 48px;
   background-color: transparent; /* deixa transparente, segue cor do body */
-  min-height: 300px;
+  min-height: 1015px;
   position: relative; 
 }
 
@@ -572,11 +572,11 @@ button:focus-visible {
 
 /* Ajustar a cor do texto conforme o modo */
 body.light-mode #grid.empty::before {
-  color: white;
+  color: #666;
 }
 
 body.dark-mode #grid.empty::before,
 body:not(.light-mode) #grid.empty::before {
-  color: #191919;
+  color: #999;
 }
 
