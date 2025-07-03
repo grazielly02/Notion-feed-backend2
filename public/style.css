@@ -108,7 +108,7 @@ body.light-mode #toggleTheme {
   justify-content: center;
   padding-top: 48px;
   background-color: transparent; /* deixa transparente, segue cor do body */
-  min-height: 1040px;
+  min-height: 1060px;
   position: relative; 
 }
 
