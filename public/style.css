@@ -549,3 +549,26 @@ button:focus {
 button:focus-visible {
   box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
     }
+
+/* Placeholder do grid vazio */
+#grid.empty::before {
+  content: "Ainda não há nenhum post";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px; /* ajuste conforme o tamanho do seu grid */
+  color: #999;
+  font-size: 14px;
+}
+
+/* Modo claro */
+body.light-mode #grid.empty::before {
+  background-color: #fff; /* fundo branco no claro */
+  color: #666;
+}
+
+/* Modo escuro */
+body:not(.light-mode) #grid.empty::before {
+  background-color: #000; /* fundo preto no escuro */
+  color: #999;
+}
