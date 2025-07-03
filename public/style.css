@@ -581,3 +581,6 @@ body:not(.light-mode) #grid.empty::before {
   color: #999;
 }
 
+.grid-item.hidden {
+  display: none !important;
+  }
