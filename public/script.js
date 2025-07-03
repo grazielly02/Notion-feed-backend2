@@ -261,15 +261,24 @@ filterMenu?.addEventListener("click", (e) => {
   }
 });
 
-// Filtra os posts já carregados
 function applyFilter() {
   const items = document.querySelectorAll(".grid-item");
+  let visibleCount = 0;
+
   items.forEach(item => {
-    const type = item.dataset.type; // vamos incluir essa info no loadPosts
+    const type = item.dataset.type;
     if (currentFilter === "all" || type === currentFilter) {
-      item.style.display = "";
+      item.classList.remove("hidden");
+      visibleCount++;
     } else {
-      item.style.display = "none";
+      item.classList.add("hidden");
     }
   });
-}
+
+  const grid = document.getElementById("grid");
+  if (visibleCount === 0) {
+    grid.classList.add("empty");
+  } else {
+    grid.classList.remove("empty");
+  }
+  }
