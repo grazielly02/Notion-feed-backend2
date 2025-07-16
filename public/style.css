@@ -497,6 +497,7 @@ body.light-mode .filter-menu {
 .filter-menu div {
   padding: 8px 12px;
   cursor: pointer;
+  text-align: left;
 }
 
 .filter-menu div:hover {
