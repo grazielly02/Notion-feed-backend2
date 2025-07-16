@@ -126,7 +126,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
       file.file?.url || file.external?.url
     ) || [];
 
-    const linkDireto = props["Link Direto"]?.url ? [props["Link Direto"].url] : [];
+    const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
     const media = [...files, ...linkDireto];
 
     if (media.length === 0) return null;
