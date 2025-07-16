@@ -477,7 +477,7 @@ body.light-mode #filterBtn {
 .filter-menu {
   position: absolute;
   top: 42px; /* logo abaixo da top bar */
-  right: 24px;
+  left: 24px;
   background: #191919;
   color: white;
   border: 1px solid rgba(255,255,255,0.2);
