@@ -128,13 +128,13 @@ app.get("/widget/:clientId/posts", async (req, res) => {
 
     const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
     const media = [...files, ...linkDireto];
-    const cover = props["Capa do Vídeo"]?.files?.[0]?.file?.url 
+    const thumbnail = props["Capa do Vídeo"]?.files?.[0]?.file?.url 
            || props["Capa do Vídeo"]?.files?.[0]?.external?.url 
            || null;
 
     if (media.length === 0) return null;
 
-    return { id: page.id, title, date, editoria, media, cover };
+    return { id: page.id, title, date, editoria, media, thumbnail };
   })
   .filter(Boolean);
 
