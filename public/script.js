@@ -51,9 +51,12 @@ async function loadPosts() {
         const el = isVideo ? document.createElement("video") : document.createElement("img");
         el.src = mediaUrl;
         if (isVideo) {
-          el.muted = true;
-          el.playsInline = true;
-          el.preload = "metadata";
+  el.muted = true;
+  el.playsInline = true;
+  el.preload = "metadata";
+  if (post.thumbnail) {
+    el.poster = post.thumbnail;
+  }
         }
         container.appendChild(el);
 
@@ -296,10 +299,13 @@ function applyFilter() {
           const el = isVideo ? document.createElement("video") : document.createElement("img");
           el.src = mediaUrl;
           if (isVideo) {
-            el.muted = true;
-            el.playsInline = true;
-            el.preload = "metadata";
-          }
+  el.muted = true;
+  el.playsInline = true;
+  el.preload = "metadata";
+  if (post.thumbnail) {
+    el.poster = post.thumbnail;
+  }
+}
           container.appendChild(el);
 
           const overlay = document.createElement("div");
