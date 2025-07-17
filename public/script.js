@@ -180,6 +180,21 @@ function updateArrowVisibility() {
   if (right) right.style.display = (currentSlide < totalSlides - 1) ? "flex" : "none";
 }
 
+function fecharPopup() {
+  const modal = document.getElementById("modal");
+  if (modal) {
+    const videos = modal.querySelectorAll("video");
+    videos.forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+    });
+
+    modal.style.display = "none";
+  }
+}
+
+document.getElementById("closeModal")?.addEventListener("click", fecharPopup);
+
 document.getElementById("closeModal")?.addEventListener("click", () => {
   const modal = document.getElementById("modal");
   if (modal) {
@@ -211,6 +226,21 @@ function formatDate(dateString) {
 }
 
 document.addEventListener("DOMContentLoaded", loadPosts);
+
+document.addEventListener("click", function (event) {
+  const modal = document.getElementById("modal");
+  const content = document.querySelector(".popup-content") || document.querySelector("#slidesContainer");
+
+  if (
+    modal &&
+    modal.style.display === "flex" &&
+    content &&
+    !content.contains(event.target) &&
+    !event.target.closest(".arrow") // Evita fechar ao clicar nas setas
+  ) {
+    fecharPopup();
+  }
+});
 
 document.getElementById("refresh")?.addEventListener("click", async () => {
   const btn = document.getElementById("refresh");
@@ -275,6 +305,12 @@ filterMenu?.addEventListener("click", (e) => {
     currentFilter = e.target.dataset.filter;
     applyFilter();
     filterMenu.style.display = "none";
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    fecharPopup();
   }
 });
 
