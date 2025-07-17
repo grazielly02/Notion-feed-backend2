@@ -88,7 +88,7 @@ async function loadPosts() {
         }
 
         container.appendChild(iconContainer);
-        container.onclick = () => openModal(post.media);
+        container.onclick = () => openModal(post.media, post.thumbnail);
         grid.appendChild(container);
       });
     }
@@ -98,7 +98,7 @@ async function loadPosts() {
   }
           }
 
-function openModal(mediaUrls) {
+function openModal(mediaUrls, thumbnail) {
   const modal = document.getElementById("modal");
   const slidesContainer = document.getElementById("slidesContainer");
   const dotsContainer = document.getElementById("dotsContainer");
@@ -115,7 +115,12 @@ function openModal(mediaUrls) {
     const slide = document.createElement(isVideo ? "video" : "img");
     slide.src = url;
     slide.className = "slide";
-    if (isVideo) slide.controls = true;
+    if (isVideo) {
+  slide.controls = true;
+  if (thumbnail) {
+    slide.poster = thumbnail;
+  }
+    }
     if (index === 0) slide.classList.add("active");
     slidesContainer.appendChild(slide);
 
