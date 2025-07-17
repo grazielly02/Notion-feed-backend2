@@ -350,7 +350,7 @@ function applyFilter() {
           }
 
           container.appendChild(iconContainer);
-          container.onclick = () => openModal(post.media);
+          container.onclick = () => openModal(post.media, post.thumbnail);
           grid.appendChild(container);
         });
       }
