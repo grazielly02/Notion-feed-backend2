@@ -177,7 +177,16 @@ function updateArrowVisibility() {
 
 document.getElementById("closeModal")?.addEventListener("click", () => {
   const modal = document.getElementById("modal");
-  if (modal) modal.style.display = "none";
+  if (modal) {
+    // Pausar todos os vídeos ativos
+    const videos = modal.querySelectorAll("video");
+    videos.forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+    });
+
+    modal.style.display = "none";
+  }
 });
 
 document.querySelector(".arrow.left")?.addEventListener("click", () => {
