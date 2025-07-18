@@ -227,17 +227,10 @@ function formatDate(dateString) {
 
 document.addEventListener("DOMContentLoaded", loadPosts);
 
-document.addEventListener("click", function (event) {
-  const modal = document.getElementById("modal");
-  const content = document.querySelector(".popup-content") || document.querySelector("#slidesContainer");
-
-  if (
-    modal &&
-    modal.style.display === "flex" &&
-    content &&
-    !content.contains(event.target) &&
-    !event.target.closest(".arrow") // Evita fechar ao clicar nas setas
-  ) {
+// Fecha o modal ao clicar fora da área central do pop-up
+document.getElementById("modal")?.addEventListener("click", (event) => {
+  const modalContent = document.getElementById("modalContent");
+  if (modalContent && !modalContent.contains(event.target)) {
     fecharPopup();
   }
 });
