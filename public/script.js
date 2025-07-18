@@ -226,6 +226,7 @@ function formatDate(dateString) {
 }
 
 document.addEventListener("DOMContentLoaded", loadPosts);
+setInterval(loadPosts, 15000); // Atualiza automaticamente a cada 15 segundos
 
 // Fecha o modal ao clicar fora da área central do pop-up
 document.getElementById("modal")?.addEventListener("click", (event) => {
