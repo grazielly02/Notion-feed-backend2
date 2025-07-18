@@ -135,6 +135,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
 
     const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
     const media = [...files, ...linkDireto];
+
     const thumbnail = props["Capa do Vídeo"]?.files?.[0]?.file?.url 
            || props["Capa do Vídeo"]?.files?.[0]?.external?.url 
            || null;
@@ -143,9 +144,8 @@ app.get("/widget/:clientId/posts", async (req, res) => {
 
     return { id: page.id, title, date, editoria, media, thumbnail };
   })
-  .filter(Boolean);
-
-.sort((a, b) => {
+  .filter(Boolean)
+  .sort((a, b) => {
     if (!a.date) return 1;
     if (!b.date) return -1;
     return new Date(b.date) - new Date(a.date); // mais recentes primeiro
