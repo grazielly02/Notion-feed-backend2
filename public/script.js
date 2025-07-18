@@ -23,7 +23,7 @@ const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/po
 
 async function loadPosts() {
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(`${API_URL}?t=${Date.now()}`);
     if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
 
     const posts = await res.json();
@@ -312,7 +312,7 @@ function applyFilter() {
   if (!grid) return;
 
   // Pega todos os posts já carregados (salvos em memória)
-  fetch(API_URL)
+  fetch(`${API_URL}?t=${Date.now()}`)
     .then(res => res.json())
     .then(posts => {
       // Filtra pelo tipo escolhido
