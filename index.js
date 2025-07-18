@@ -140,7 +140,9 @@ app.get("/widget/:clientId/posts", async (req, res) => {
            || props["Capa do Vídeo"]?.files?.[0]?.external?.url 
            || null;
 
-    if (media.length === 0) return null;
+    // Verifica se deve ocultar o post
+const ocultar = props["Ocultar Visualização"]?.checkbox;
+if (ocultar || media.length === 0) return null;
 
     return { id: page.id, title, date, editoria, media, thumbnail };
   })
