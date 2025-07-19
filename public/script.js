@@ -28,10 +28,15 @@ async function loadPosts() {
     if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
 
     const posts = await res.json();
-    const grid = document.getElementById("grid");
-    if (!grid) return;
 
-    grid.innerHTML = "";
+const currentJSON = JSON.stringify(posts);
+if (currentJSON === lastRenderedJSON) return;
+lastRenderedJSON = currentJSON;
+
+const grid = document.getElementById("grid");
+if (!grid) return;
+
+grid.innerHTML = "";
 
     const postCount = posts.length;
 
