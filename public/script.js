@@ -37,9 +37,9 @@ lastRenderedJSON = currentJSON;
 const grid = document.getElementById("grid");
 if (!grid) return;
 
-applyFilter(posts);
+const filtered = applyFilter(posts); // ✅ agora você pode usar
 
-    const postCount = filtered.length;
+const postCount = filtered.length;
 
     if (postCount === 0) {
       grid.classList.add("empty");
@@ -388,6 +388,7 @@ function applyFilter(posts) {
       grid.appendChild(container);
     });
   }
+  return filtered;
 }
     .catch(error => console.error("Erro ao filtrar posts:", error));
                            }
