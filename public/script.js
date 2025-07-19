@@ -217,13 +217,17 @@ document.querySelector(".arrow.right")?.addEventListener("click", () => {
   showSlide(currentSlide + 1);    
 });    
     
-function formatDate(dateString) {    
-  const date = new Date(dateString);    
-  const day = String(date.getDate()).padStart(2, '0');    
-  const month = date.toLocaleString('pt-BR', { month: 'short' }).toLowerCase(); // jul, ago, etc.    
-  const year = String(date.getFullYear()).slice(-2); // últimos dois dígitos    
-  return `${day} ${month} ${year}`;    
-}    
+function formatDate(dateString) {
+  const date = new Date(dateString);
+
+  // Ajusta o horário para UTC-3 manualmente
+  date.setHours(date.getHours() - 3);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = date.toLocaleString('pt-BR', { month: 'short' }).toLowerCase();
+  const year = String(date.getFullYear()).slice(-2);
+  return `${day} ${month} ${year}`;
+}
   
 function toggleHide(postId, shouldHide) {  
   const postEl = document.querySelector(`.grid-item[data-id="${postId}"]`);  
