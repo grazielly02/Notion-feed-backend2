@@ -590,3 +590,24 @@ body:not(.light-mode) #grid.empty::before {
 #grid.empty {
   /* opcional: pode mudar algo visual quando estiver vazio, como centralizar a mensagem */
   }
+
+.update-notice {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: none;
+  z-index: 1000;
+  animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-5px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-5px); }
+}
