@@ -224,6 +224,17 @@ function formatDate(dateString) {
   const year = String(date.getFullYear()).slice(-2); // últimos dois dígitos  
   return `${day} ${month} ${year}`;  
 }  
+
+function toggleHide(postId, shouldHide) {
+  const postEl = document.querySelector(`.grid-item[data-id="${postId}"]`);
+  if (!postEl) return;
+
+  if (shouldHide) {
+    postEl.remove(); // Remove do DOM imediatamente
+  } else {
+    loadPosts(); // Recarrega para exibir novamente
+  }
+}
   
 document.addEventListener("DOMContentLoaded", loadPosts);  
   
@@ -335,7 +346,8 @@ function applyFilter() {
           const isVideo = mediaUrl.endsWith(".mp4");  
   
           const container = document.createElement("div");  
-          container.className = "grid-item";  
+          container.className = "grid-item";
+container.dataset.id = post.id;
           container.dataset.type = post.media.length > 1 ? "carousel"  
                                    : isVideo ? "video" : "image";  
   
