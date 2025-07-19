@@ -219,15 +219,14 @@ document.querySelector(".arrow.right")?.addEventListener("click", () => {
     
 function formatDate(dateString) {
   const date = new Date(dateString);
-
-  // Adiciona 3 horas para corrigir o fuso horário UTC-3
   const adjustedDate = new Date(date.getTime() + 3 * 60 * 60 * 1000);
 
-  const day = adjustedDate.getDate().toString().padStart(2, "0");
-  const month = (adjustedDate.getMonth() + 1).toString().padStart(2, "0");
-  const year = adjustedDate.getFullYear();
+  const day = String(adjustedDate.getDate()).padStart(2, '0');
+  const month = adjustedDate.toLocaleString('pt-BR', { month: 'short' });
+  const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1).toLowerCase();
+  const year = String(adjustedDate.getFullYear()).slice(-2);
 
-  return `${day}/${month}/${year}`;
+  return `${day} ${capitalizedMonth} ${year}`;
 }
   
 function toggleHide(postId, shouldHide) {  
