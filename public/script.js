@@ -218,14 +218,16 @@ document.querySelector(".arrow.right")?.addEventListener("click", () => {
 });    
     
 function formatDate(dateString) {
-  const date = new Date(dateString);
+  // Garante que a data seja tratada como UTC
+  const utcDate = new Date(dateString);
 
-  // Ajusta o horário para UTC-3 manualmente
-  date.setHours(date.getHours() - 3);
+  // Converte para UTC-3 (Brasil)
+  const brTime = new Date(utcDate.getTime() - 3 * 60 * 60 * 1000);
 
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = date.toLocaleString('pt-BR', { month: 'short' }).toLowerCase();
-  const year = String(date.getFullYear()).slice(-2);
+  const day = String(brTime.getDate()).padStart(2, '0');
+  const month = brTime.toLocaleString('pt-BR', { month: 'short' }).toLowerCase();
+  const year = String(brTime.getFullYear()).slice(-2);
+
   return `${day} ${month} ${year}`;
 }
   
