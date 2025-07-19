@@ -29,7 +29,11 @@ async function loadPosts() {
 
     const posts = await res.json();
 
-const currentJSON = JSON.stringify(posts);
+// Remove posts ocultos
+const filtered = posts.filter(post => !post.ocultar);
+
+// Só atualiza se o conteúdo filtrado mudou
+const currentJSON = JSON.stringify(filtered);
 if (currentJSON === lastRenderedJSON) return;
 lastRenderedJSON = currentJSON;
 
@@ -38,14 +42,14 @@ if (!grid) return;
 
 grid.innerHTML = "";
 
-    const postCount = posts.length;
+    const postCount = filtered.length;
 
     if (postCount === 0) {
       grid.classList.add("empty");
     } else {
       grid.classList.remove("empty");
 
-      posts.forEach(post => {
+      filtered.forEach(post => {
         const mediaUrl = post.media[0];
         const isVideo = mediaUrl.endsWith(".mp4");
 
