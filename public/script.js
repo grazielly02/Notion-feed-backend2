@@ -24,17 +24,6 @@ const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/po
 async function loadPosts() {
   try {
     const res = await fetch(`${API_URL}?t=${Date.now()}`);
-if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
-
-const posts = await res.json();
-const currentJSON = JSON.stringify(posts);
-if (currentJSON === lastRenderedJSON) return; // Não atualiza se não mudou
-lastRenderedJSON = currentJSON;
-
-const grid = document.getElementById("grid");
-if (!grid) return;
-
-grid.innerHTML = "";
     
     if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
 
