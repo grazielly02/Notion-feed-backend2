@@ -260,8 +260,6 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
   await loadPosts(); // recarrega o grid    
   btn.innerHTML = "⟳"; // volta ao texto original    
   btn.classList.remove("loading");    
-
-    showUpdateMessage();
 });    
     
 // Aplicar tema salvo ao carregar    
@@ -400,20 +398,3 @@ container.dataset.id = post.id;
     })    
     .catch(error => console.error("Erro ao filtrar posts:", error));    
                            }    
-
-// Mostrar mensagem discreta após atualização
-function showUpdateMessage() {
-  const msg = document.createElement("div");
-  msg.textContent = "Atualizado";
-  msg.className = "update-toast";
-  document.body.appendChild(msg);
-
-  setTimeout(() => {
-    msg.classList.add("visible");
-  }, 10);
-
-  setTimeout(() => {
-    msg.classList.remove("visible");
-    setTimeout(() => msg.remove(), 300);
-  }, 1800);
-}
