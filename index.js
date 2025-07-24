@@ -14,7 +14,7 @@ async function ensureTableExists() {
         databaseId TEXT NOT NULL
       );
     `);
-    console.log("✅ Tabela configs verificada/criada com sucesso.");
+    console.log("✅ Tabela 'configs' verificada/criada com sucesso.");
   } catch (error) {
     console.error("❌ Erro ao criar/verificar tabela configs:", error);
   }
@@ -40,13 +40,13 @@ async function queryDatabase(token, databaseId) {
 
   try {
     const response = await axios.post(url, {
-  sorts: [
-    {
-      property: "Data de Publicação",
-      direction: "descending"
-    }
-  ]
-}, {
+      sorts: [
+        {
+          property: "Data de Publicação",
+          direction: "descending"
+        }
+      ]
+    }, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Notion-Version": "2022-06-28",
@@ -56,19 +56,22 @@ async function queryDatabase(token, databaseId) {
 
     return response.data.results;
   } catch (error) {
-    console.error("Erro ao consultar Notion:", error.response?.data || error.message);
+    console.error("❌ Erro ao consultar Notion:", error.response?.data || error.message);
     throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
   }
 }
 
+// Rota inicial
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+// Rota para exibir o formulário
 app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
 
+// Rota para salvar configurações
 app.post("/save-config", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
@@ -83,8 +86,7 @@ app.post("/save-config", async (req, res) => {
     console.log(`✅ Configuração salva: clientId=${clientId}, databaseId=${cleanDatabaseId}`);
 
     const finalUrl = `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
-    
-    // Retorna HTML que redireciona via JavaScript
+
     res.send(`
       <!DOCTYPE html>
       <html lang="pt-BR">
@@ -104,17 +106,18 @@ app.post("/save-config", async (req, res) => {
       </html>
     `);
   } catch (error) {
-    console.error("Erro ao salvar config no banco:", error);
+    console.error("❌ Erro ao salvar config no banco:", error.message);
     res.status(500).send("Erro ao salvar configuração.");
   }
 });
 
+// Rota que retorna os posts do Notion para o widget
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
 
   try {
     const configRow = await db.getConfig(clientId);
-    console.log("Config carregada do banco:", configRow);
+    console.log("🔍 Config carregada do banco:", configRow);
 
     if (!configRow) {
       return res.status(404).send("Configuração deste cliente não encontrada.");
@@ -123,48 +126,49 @@ app.get("/widget/:clientId/posts", async (req, res) => {
     const results = await queryDatabase(configRow.token, configRow.databaseid);
 
     const posts = results
-  .map(page => {
-    const props = page.properties;
-    const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
-    const date = props["Data de Publicação"]?.date?.start || null;
-    const editoria = props["Editoria"]?.select?.name || null;
+      .map(page => {
+        const props = page.properties;
+        const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
+        const date = props["Data de Publicação"]?.date?.start || null;
+        const editoria = props["Editoria"]?.select?.name || null;
 
-    const files = props["Mídia"]?.files?.map(file =>
-      file.file?.url || file.external?.url
-    ) || [];
+        const files = props["Mídia"]?.files?.map(file =>
+          file.file?.url || file.external?.url
+        ) || [];
 
-    const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
-    const media = [...files, ...linkDireto];
+        const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
+        const media = [...files, ...linkDireto];
 
-    const thumbnail = props["Capa do Vídeo"]?.files?.[0]?.file?.url 
-           || props["Capa do Vídeo"]?.files?.[0]?.external?.url 
-           || null;
+        const thumbnail = props["Capa do Vídeo"]?.files?.[0]?.file?.url 
+                       || props["Capa do Vídeo"]?.files?.[0]?.external?.url 
+                       || null;
 
-    // Verifica se deve ocultar o post
-const ocultar = props["Ocultar Visualização"]?.checkbox;
-if (ocultar || media.length === 0) return null;
+        const ocultar = props["Ocultar Visualização"]?.checkbox;
+        if (ocultar || media.length === 0) return null;
 
-    return { id: page.id, title, date, editoria, media, thumbnail };
-  })
-  .filter(Boolean)
-  .sort((a, b) => {
-    if (!a.date) return 1;
-    if (!b.date) return -1;
-    return new Date(b.date) - new Date(a.date); // mais recentes primeiro
-  });
-    
+        return { id: page.id, title, date, editoria, media, thumbnail };
+      })
+      .filter(Boolean)
+      .sort((a, b) => {
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return new Date(b.date) - new Date(a.date);
+      });
+
     res.json(posts);
   } catch (error) {
-    console.error("Erro ao buscar posts:", error);
+    console.error("❌ Erro ao buscar posts:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
 
+// Rota para visualizar o widget
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+// Inicializa o servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
