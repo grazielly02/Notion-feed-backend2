@@ -425,7 +425,6 @@ function applyFilter() {
           container.dataset.type = post.formato?.toLowerCase() || (
             isCarousel ? "carrossel" :
             isVideo ? "vídeo" :
-            isEmbed ? "embed" :
             "imagem"
           );
 
