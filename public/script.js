@@ -107,13 +107,7 @@ if (isEmbed) {
   el.src = mediaUrl;
       }
           
-        if (isVideo) {    
-  el.muted = true;    
-  el.playsInline = true;    
-  el.preload = "metadata";    
-  if (post.thumbnail) {    
-    el.poster = post.thumbnail;    
-  }    
+        
         }    
         container.appendChild(el);    
     
