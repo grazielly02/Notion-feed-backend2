@@ -21,6 +21,26 @@ if (!clientId) {
     
 const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;    
 
+function convertToEmbedUrl(url) {
+  // Figma
+  if (url.includes("figma.com")) {
+    const match = url.match(/figma\.com\/(design|proto)\/([^/?]+)([^"]*)/);
+    if (match) {
+      return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
+    }
+  }
+
+  // Canva
+  if (url.includes("canva.com")) {
+    const match = url.match(/canva\.com\/design\/([^/]+)\/[^/]+/);
+    if (match) {
+      return `https://www.canva.com/design/${match[1]}/view?embed`;
+    }
+  }
+
+  return url; // fallback
+}
+
 function isEmbedUrl(url) {
   return (
     url.includes("figma.com") ||
@@ -62,7 +82,7 @@ container.dataset.type = post.media.length > 1 ? "carousel"
 let el;
 if (isEmbed) {
   el = document.createElement("iframe");
-  el.src = mediaUrl;
+el.src = convertToEmbedUrl(mediaUrl);
   el.width = "100%";
   el.height = "300";
   el.style.border = "none";
@@ -148,7 +168,7 @@ const isEmbed = isEmbedUrl(url);
 let slide;
 if (isEmbed) {
   slide = document.createElement("iframe");
-  slide.src = url;
+slide.src = convertToEmbedUrl(url);
   slide.width = "100%";
   slide.height = "100%";
   slide.style.border = "none";
