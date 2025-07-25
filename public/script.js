@@ -22,25 +22,31 @@ if (!clientId) {
 const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;    
 
 function convertToEmbedUrl(url) {
-  // Figma
+  // Se já for um embed gerado corretamente do Figma
+  if (url.includes("embed.figma.com/design")) {
+    return url;
+  }
+
+  // Figma normal
   if (url.includes("figma.com")) {
     return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
   }
 
-  // Canva
+  // Canva com /view
   if (url.includes("canva.com") && url.includes("/view")) {
     return `${url}?embed`;
   }
 
+  // Default: retorna o link original
   return url;
 }
 
 function isEmbedUrl(url) {
   return (
-    url.includes("figma.com") ||
+    url.includes("embed.figma.com/design") ||
     (url.includes("canva.com") && url.includes("/view"))
   );
-}
+      }
                                                
 
 async function loadPosts() {    
