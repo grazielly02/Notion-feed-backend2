@@ -394,88 +394,88 @@ document.addEventListener("keydown", function (event) {
   }    
 });    
     
-function applyFilter() {    
-  const grid = document.getElementById("grid");    
-  if (!grid) return;    
+function applyFilter() {
+  const grid = document.getElementById("grid");
+  if (!grid) return;
 
-  fetch(`${API_URL}?t=${Date.now()}`)    
-    .then(res => res.json())    
-    .then(posts => {    
-      const filtered = posts.filter(post => {    
-        const mediaUrl = post.media[0];    
+  fetch(`${API_URL}?t=${Date.now()}`)
+    .then(res => res.json())
+    .then(posts => {
+      const filtered = posts.filter(post => {
         const formato = (post.formato || "imagem").toLowerCase();
         return currentFilter === "all" || formato === currentFilter;
+      });
 
-      grid.innerHTML = "";    
+      grid.innerHTML = "";
 
-      if (filtered.length === 0) {    
-        grid.classList.add("empty");    
-      } else {    
-        grid.classList.remove("empty");    
+      if (filtered.length === 0) {
+        grid.classList.add("empty");
+      } else {
+        grid.classList.remove("empty");
 
-        filtered.forEach(post => {    
-          const mediaUrl = post.media[0];    
-          const isVideo = mediaUrl.endsWith(".mp4");    
-          const isCarousel = post.media.length > 1;    
-          const isEmbed = isEmbedUrl(mediaUrl);    
+        filtered.forEach(post => {
+          const mediaUrl = post.media[0];
+          const isVideo = mediaUrl.endsWith(".mp4");
+          const isCarousel = post.media.length > 1;
+          const isEmbed = isEmbedUrl(mediaUrl);
 
-          const container = document.createElement("div");    
-          container.className = "grid-item";    
-          container.dataset.id = post.id;    
-          container.dataset.type = isCarousel ? "carousel"    
-                                 : isVideo ? "video"    
-                                 : isEmbed ? "embed"    
-                                 : "image";    
+          const container = document.createElement("div");
+          container.className = "grid-item";
+          container.dataset.id = post.id;
+          container.dataset.type = post.formato?.toLowerCase() || (
+            isCarousel ? "carrossel" :
+            isVideo ? "vídeo" :
+            isEmbed ? "embed" :
+            "imagem"
+          );
 
-          let el;    
-          if (isVideo) {    
-            el = document.createElement("video");    
-            el.src = mediaUrl;    
-            el.muted = true;    
-            el.playsInline = true;    
-            el.preload = "metadata";    
-            if (post.thumbnail) {    
-              el.poster = post.thumbnail;    
-            }    
-          } else if (isEmbed) {    
-            el = document.createElement("iframe");    
-            el.src = mediaUrl;    
-            el.loading = "lazy";    
-            el.allowFullscreen = true;    
-            el.referrerPolicy = "no-referrer";    
-            el.style.border = "none";    
-          } else {    
-            el = document.createElement("img");    
-            el.src = mediaUrl;    
-          }    
+          let el;
+          if (isVideo) {
+            el = document.createElement("video");
+            el.src = mediaUrl;
+            el.muted = true;
+            el.playsInline = true;
+            el.preload = "metadata";
+            if (post.thumbnail) el.poster = post.thumbnail;
+          } else if (isEmbed) {
+            el = document.createElement("iframe");
+            el.src = convertToEmbedUrl(mediaUrl);
+            el.loading = "lazy";
+            el.allowFullscreen = true;
+            el.referrerPolicy = "no-referrer";
+            el.style.border = "none";
+          } else {
+            el = document.createElement("img");
+            el.src = mediaUrl;
+          }
 
-          container.appendChild(el);    
+          container.appendChild(el);
 
-          const overlay = document.createElement("div");    
-          overlay.className = "overlay";    
-          overlay.innerHTML = `    
-            ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}    
-            <div class="title">${post.title || ""}</div>    
-            ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}    
-          `;    
-          container.appendChild(overlay);    
+          const overlay = document.createElement("div");
+          overlay.className = "overlay";
+          overlay.innerHTML = `
+            ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
+            <div class="title">${post.title || ""}</div>
+            ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
+          `;
+          container.appendChild(overlay);
 
-          const iconContainer = document.createElement("div");    
-          iconContainer.className = "icon-container";    
+          const iconContainer = document.createElement("div");
+          iconContainer.className = "icon-container";
 
-          if (isVideo) {    
-            iconContainer.innerHTML += `    
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    
-                <path d="M8 5v14l11-7z"/>    
-              </svg>`;    
-          }    
+          if (isVideo) {
+            iconContainer.innerHTML += `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>`;
+          }
 
-          if (isCarousel) {    
-            iconContainer.innerHTML += `    
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    
-                <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>    
-                <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>    
-              </svg>`;    
+          if (isCarousel) {
+            iconContainer.innerHTML += `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
+                <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>
+              </svg>`;
           }
 
           if (isEmbed) {
@@ -484,13 +484,13 @@ function applyFilter() {
                 <path d="M4 4h16v16H4z" fill="white"/>
                 <path d="M7 7h10v10H7z" fill="#999"/>
               </svg>`;
-          }    
+          }
 
-          container.appendChild(iconContainer);    
-          container.onclick = () => openModal(post.media, post.thumbnail);    
-          grid.appendChild(container);    
-        });    
-      }    
-    })    
-    .catch(error => console.error("Erro ao filtrar posts:", error));    
-    }
+          container.appendChild(iconContainer);
+          container.onclick = () => openModal(post.media, post.thumbnail);
+          grid.appendChild(container);
+        });
+      }
+    })
+    .catch(error => console.error("Erro ao filtrar posts:", error));
+        }
