@@ -84,7 +84,6 @@ if (isEmbed) {
   el.setAttribute("allowfullscreen", "true");
   el.setAttribute("loading", "lazy");
   el.style.aspectRatio = "16/9";
-      }
 } else if (isVideo) {
   el = document.createElement("video");
   el.src = mediaUrl;
@@ -173,7 +172,6 @@ if (isEmbed) {
   slide.setAttribute("allowfullscreen", "true");
   slide.setAttribute("loading", "lazy");
   slide.style.aspectRatio = "16/9";
-                     }
 } else if (isVideo) {
   slide = document.createElement("video");
   slide.src = url;
