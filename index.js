@@ -133,11 +133,15 @@ app.get("/widget/:clientId/posts", async (req, res) => {
         const editoria = props["Editoria"]?.select?.name || null;
 
         const files = props["Mídia"]?.files?.map(file =>
-          file.file?.url || file.external?.url
-        ) || [];
+  file.file?.url || file.external?.url
+) || [];
 
-        const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
-        const media = [...files, ...linkDireto];
+const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
+
+// Novo campo para design incorporado (Canva/Figma)
+const embedDesign = props["Design Incorporado"]?.url ? [props["Design Incorporado"].url] : [];
+
+const media = [...embedDesign, ...files, ...linkDireto];
 
         const thumbnail = props["Capa do Vídeo"]?.files?.[0]?.file?.url 
                        || props["Capa do Vídeo"]?.files?.[0]?.external?.url 
