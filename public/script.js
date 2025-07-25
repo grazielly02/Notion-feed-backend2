@@ -400,48 +400,65 @@ document.addEventListener("keydown", function (event) {
 function applyFilter() {    
   const grid = document.getElementById("grid");    
   if (!grid) return;    
-    
-  // Pega todos os posts já carregados (salvos em memória)    
+
   fetch(`${API_URL}?t=${Date.now()}`)    
     .then(res => res.json())    
     .then(posts => {    
-      // Filtra pelo tipo escolhido    
       const filtered = posts.filter(post => {    
+        const mediaUrl = post.media[0];    
         const type = post.media.length > 1 ? "carousel"    
-                    : post.media[0].endsWith(".mp4") ? "video" : "image";    
+                  : mediaUrl.endsWith(".mp4") ? "video"    
+                  : isEmbedUrl(mediaUrl) ? "embed"    
+                  : "image";    
+
         return currentFilter === "all" || type === currentFilter;    
       });    
-    
-      // Limpa o grid    
+
       grid.innerHTML = "";    
-    
+
       if (filtered.length === 0) {    
         grid.classList.add("empty");    
       } else {    
         grid.classList.remove("empty");    
-        // Recria só os posts filtrados    
+
         filtered.forEach(post => {    
           const mediaUrl = post.media[0];    
           const isVideo = mediaUrl.endsWith(".mp4");    
-    
+          const isCarousel = post.media.length > 1;    
+          const isEmbed = isEmbedUrl(mediaUrl);    
+
           const container = document.createElement("div");    
-          container.className = "grid-item";  
-container.dataset.id = post.id;  
-          container.dataset.type = post.media.length > 1 ? "carousel"    
-                                   : isVideo ? "video" : "image";    
-    
-          const el = isVideo ? document.createElement("video") : document.createElement("img");    
-          el.src = mediaUrl;    
+          container.className = "grid-item";    
+          container.dataset.id = post.id;    
+          container.dataset.type = isCarousel ? "carousel"    
+                                 : isVideo ? "video"    
+                                 : isEmbed ? "embed"    
+                                 : "image";    
+
+          let el;    
           if (isVideo) {    
-  el.muted = true;    
-  el.playsInline = true;    
-  el.preload = "metadata";    
-  if (post.thumbnail) {    
-    el.poster = post.thumbnail;    
-  }    
-}    
+            el = document.createElement("video");    
+            el.src = mediaUrl;    
+            el.muted = true;    
+            el.playsInline = true;    
+            el.preload = "metadata";    
+            if (post.thumbnail) {    
+              el.poster = post.thumbnail;    
+            }    
+          } else if (isEmbed) {    
+            el = document.createElement("iframe");    
+            el.src = mediaUrl;    
+            el.loading = "lazy";    
+            el.allowFullscreen = true;    
+            el.referrerPolicy = "no-referrer";    
+            el.style.border = "none";    
+          } else {    
+            el = document.createElement("img");    
+            el.src = mediaUrl;    
+          }    
+
           container.appendChild(el);    
-    
+
           const overlay = document.createElement("div");    
           overlay.className = "overlay";    
           overlay.innerHTML = `    
@@ -450,25 +467,33 @@ container.dataset.id = post.id;
             ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}    
           `;    
           container.appendChild(overlay);    
-    
+
           const iconContainer = document.createElement("div");    
           iconContainer.className = "icon-container";    
-    
+
           if (isVideo) {    
             iconContainer.innerHTML += `    
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    
                 <path d="M8 5v14l11-7z"/>    
               </svg>`;    
           }    
-    
-          if (post.media.length > 1) {    
+
+          if (isCarousel) {    
             iconContainer.innerHTML += `    
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    
                 <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>    
                 <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>    
               </svg>`;    
+          }
+
+          if (isEmbed) {
+            iconContainer.innerHTML += `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M4 4h16v16H4z" fill="white"/>
+                <path d="M7 7h10v10H7z" fill="#999"/>
+              </svg>`;
           }    
-    
+
           container.appendChild(iconContainer);    
           container.onclick = () => openModal(post.media, post.thumbnail);    
           grid.appendChild(container);    
@@ -476,4 +501,4 @@ container.dataset.id = post.id;
       }    
     })    
     .catch(error => console.error("Erro ao filtrar posts:", error));    
-                           }    
+    }
