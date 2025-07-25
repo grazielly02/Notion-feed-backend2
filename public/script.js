@@ -105,10 +105,10 @@ if (isEmbed) {
 } else {
   el = document.createElement("img");
   el.src = mediaUrl;
-      }
+}
+      
           
         
-        }    
         container.appendChild(el);    
     
         const overlay = document.createElement("div");    
