@@ -75,10 +75,13 @@ const isEmbed = isEmbedUrl(mediaUrl);
 
 const container = document.createElement("div");
 container.className = "grid-item";
-container.dataset.type = post.media.length > 1 ? "carousel"
-                         : isEmbed ? "embed"
-                         : isVideo ? "video"
-                         : "image";
+const formato = post.formato || (
+    post.media.length > 1 ? "carrossel"
+    : isVideo ? "vídeo"
+    : "imagem"
+);
+
+container.dataset.type = formato.toLowerCase();
 
 let el;
 if (isEmbed) {
@@ -126,20 +129,20 @@ if (isEmbed) {
         const iconContainer = document.createElement("div");    
         iconContainer.className = "icon-container";    
     
-        if (isVideo) {    
-          iconContainer.innerHTML += `    
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    
-              <path d="M8 5v14l11-7z"/>    
-            </svg>`;    
-        }    
-    
-        if (post.media.length > 1) {    
-          iconContainer.innerHTML += `    
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    
-              <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>    
-              <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>    
-            </svg>`;    
-        }    
+        if (formato === "vídeo") {
+  iconContainer.innerHTML += `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>`;
+}
+
+if (formato === "carrossel") {
+  iconContainer.innerHTML += `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
+      <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>
+    </svg>`;
+      }
     
         container.appendChild(iconContainer);    
         container.onclick = () => openModal(post.media, post.thumbnail);    
@@ -406,13 +409,8 @@ function applyFilter() {
     .then(posts => {    
       const filtered = posts.filter(post => {    
         const mediaUrl = post.media[0];    
-        const type = post.media.length > 1 ? "carousel"    
-                  : mediaUrl.endsWith(".mp4") ? "video"    
-                  : isEmbedUrl(mediaUrl) ? "embed"    
-                  : "image";    
-
-        return currentFilter === "all" || type === currentFilter;    
-      });    
+        const formato = (post.formato || "imagem").toLowerCase();
+        return currentFilter === "all" || formato === currentFilter;
 
       grid.innerHTML = "";    
 
