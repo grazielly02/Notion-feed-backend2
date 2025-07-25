@@ -24,29 +24,24 @@ const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/po
 function convertToEmbedUrl(url) {
   // Figma
   if (url.includes("figma.com")) {
-    const match = url.match(/figma\.com\/(design|proto)\/([^/?]+)([^"]*)/);
-    if (match) {
-      return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
-    }
+    return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
   }
 
   // Canva
-  if (url.includes("canva.com")) {
-    const match = url.match(/canva\.com\/design\/([^/]+)\/[^/]+/);
-    if (match) {
-      return `https://www.canva.com/design/${match[1]}/view?embed`;
-    }
+  if (url.includes("canva.com") && url.includes("/view")) {
+    return `${url}?embed`;
   }
 
-  return url; // fallback
+  return url;
 }
 
 function isEmbedUrl(url) {
   return (
     url.includes("figma.com") ||
-    url.includes("canva.com")
+    (url.includes("canva.com") && url.includes("/view"))
   );
 }
+                                               
 
 async function loadPosts() {    
   try {    
@@ -82,11 +77,14 @@ container.dataset.type = post.media.length > 1 ? "carousel"
 let el;
 if (isEmbed) {
   el = document.createElement("iframe");
-el.src = convertToEmbedUrl(mediaUrl);
+  el.src = convertToEmbedUrl(mediaUrl);
   el.width = "100%";
-  el.height = "300";
+  el.height = "100%";
   el.style.border = "none";
-  el.allowFullscreen = true;
+  el.setAttribute("allowfullscreen", "true");
+  el.setAttribute("loading", "lazy");
+  el.style.aspectRatio = "16/9";
+      }
 } else if (isVideo) {
   el = document.createElement("video");
   el.src = mediaUrl;
@@ -168,11 +166,14 @@ const isEmbed = isEmbedUrl(url);
 let slide;
 if (isEmbed) {
   slide = document.createElement("iframe");
-slide.src = convertToEmbedUrl(url);
+  slide.src = convertToEmbedUrl(url);
   slide.width = "100%";
   slide.height = "100%";
   slide.style.border = "none";
-  slide.allowFullscreen = true;
+  slide.setAttribute("allowfullscreen", "true");
+  slide.setAttribute("loading", "lazy");
+  slide.style.aspectRatio = "16/9";
+                     }
 } else if (isVideo) {
   slide = document.createElement("video");
   slide.src = url;
