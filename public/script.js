@@ -20,7 +20,14 @@ if (!clientId) {
 }    
     
 const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;    
-    
+
+function isEmbedUrl(url) {
+  return (
+    url.includes("figma.com") ||
+    url.includes("canva.com")
+  );
+}
+
 async function loadPosts() {    
   try {    
     const res = await fetch(`${API_URL}?t=${Date.now()}`);    
@@ -41,15 +48,39 @@ async function loadPosts() {
     
       posts.forEach(post => {    
         const mediaUrl = post.media[0];    
-        const isVideo = mediaUrl.endsWith(".mp4");    
-    
-        const container = document.createElement("div");    
-        container.className = "grid-item";    
-        container.dataset.type = post.media.length > 1 ? "carousel"    
-                                 : isVideo ? "video" : "image";    
-    
-        const el = isVideo ? document.createElement("video") : document.createElement("img");    
-        el.src = mediaUrl;    
+          
+        const isVideo = mediaUrl.endsWith(".mp4");
+const isEmbed = isEmbedUrl(mediaUrl);
+
+const container = document.createElement("div");
+container.className = "grid-item";
+container.dataset.type = post.media.length > 1 ? "carousel"
+                         : isEmbed ? "embed"
+                         : isVideo ? "video"
+                         : "image";
+
+let el;
+if (isEmbed) {
+  el = document.createElement("iframe");
+  el.src = mediaUrl;
+  el.width = "100%";
+  el.height = "300";
+  el.style.border = "none";
+  el.allowFullscreen = true;
+} else if (isVideo) {
+  el = document.createElement("video");
+  el.src = mediaUrl;
+  el.muted = true;
+  el.playsInline = true;
+  el.preload = "metadata";
+  if (post.thumbnail) {
+    el.poster = post.thumbnail;
+  }
+} else {
+  el = document.createElement("img");
+  el.src = mediaUrl;
+      }
+          
         if (isVideo) {    
   el.muted = true;    
   el.playsInline = true;    
@@ -111,9 +142,28 @@ function openModal(mediaUrls, thumbnail) {
   totalSlides = mediaUrls.length;    
     
   mediaUrls.forEach((url, index) => {    
-    const isVideo = url.endsWith(".mp4");    
-    const slide = document.createElement(isVideo ? "video" : "img");    
-    slide.src = url;    
+    const isVideo = url.endsWith(".mp4");
+const isEmbed = isEmbedUrl(url);
+
+let slide;
+if (isEmbed) {
+  slide = document.createElement("iframe");
+  slide.src = url;
+  slide.width = "100%";
+  slide.height = "100%";
+  slide.style.border = "none";
+  slide.allowFullscreen = true;
+} else if (isVideo) {
+  slide = document.createElement("video");
+  slide.src = url;
+  slide.controls = true;
+  if (thumbnail) {
+    slide.poster = thumbnail;
+  }
+} else {
+  slide = document.createElement("img");
+  slide.src = url;
+}
     slide.className = "slide";    
     if (isVideo) {    
   slide.controls = true;    
