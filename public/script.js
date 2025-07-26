@@ -446,6 +446,7 @@ function applyFilter() {
             el = document.createElement("img");
             el.src = mediaUrl;
           }
+          }
     
           container.appendChild(el);
 
