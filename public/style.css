@@ -138,6 +138,15 @@ body:not(.light-mode) #grid {
   display: block;
 }
 
+.grid-item iframe {
+  width: 100%;
+  heigth: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+  background: black;
+}
+
 /* Overlay ao passar mouse */
 .overlay {
 position: absolute;
