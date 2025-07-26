@@ -1,4 +1,3 @@
-
 let currentSlide = 0;
 let totalSlides = 0;
 
@@ -495,6 +494,3 @@ container.appendChild(el);
 })
 .catch(error => console.error("Erro ao filtrar posts:", error));
 }
-
-Eu quero que aponte em qual trecho exatamente esta o erro.
-
