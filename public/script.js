@@ -161,7 +161,7 @@ async function loadPosts() {
   }
   }
 
-function openModal(mediaUrls, thumbnail) {
+function openModal(mediaUrls, thumbnail, type) {
   const modal = document.getElementById("modal");
   const slidesContainer = document.getElementById("slidesContainer");
   const dotsContainer = document.getElementById("dotsContainer");
@@ -411,16 +411,7 @@ function applyFilter() {
     .then((res) => res.json())
     .then((posts) => {
       const filtered = posts.filter((post) => {
-        const mediaUrl = post.media[0];
-        const type = post.media.length > 1
-          ? "carousel"
-          : mediaUrl.endsWith(".mp4")
-          ? "video"
-          : isEmbedUrl(mediaUrl)
-          ? "embed"
-          : "image";
-
-        return currentFilter === "all" || type === currentFilter;
+        return currentFilter === "all" || post.type === currentFilter;
       });
 
       grid.innerHTML = "";
@@ -432,22 +423,21 @@ function applyFilter() {
 
         filtered.forEach((post) => {
           const mediaUrl = post.media[0];
-          const isVideo = mediaUrl.endsWith(".mp4");
-          const isCarousel = post.media.length > 1;
-          const isEmbed = isEmbedUrl(mediaUrl);
+          const isVideo = post.type === "video";
+          const isCarousel = post.type === "carousel";
+          const isEmbed = post.type === "embed";
 
           const container = document.createElement("div");
           container.className = "grid-item";
           container.dataset.id = post.id;
-          container.dataset.type = isCarousel
-            ? "carousel"
-            : isVideo
-            ? "video"
-            : isEmbed
-            ? "embed"
-            : "image";
-
+          container.dataset.type = post.type;
+          
+          const mediaUrl = post.media[0];
           let el;
+          const isVideo = post.type === "video";
+          const isCarousel = post.type === "carousel";
+          const isEmbed = post.type === "embed";
+          
           if (isVideo) {
             el = document.createElement("video");
             el.src = mediaUrl;
@@ -509,7 +499,7 @@ function applyFilter() {
           }
 
           container.appendChild(iconContainer);
-          container.onclick = () => openModal(post.media, post.thumbnail);
+          container.onclick = () => openModal(post.media, post.thumbnail, post.type);
           grid.appendChild(container);
         });
       }
