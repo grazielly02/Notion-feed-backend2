@@ -1,4 +1,3 @@
-Script.js atual:
 
 let currentSlide = 0;
 let totalSlides = 0;
