@@ -8,7 +8,7 @@ if (params.has("clientId")) { clientId = params.get("clientId"); } else if (path
 
 if (!clientId) { clientId = "CLIENTE_PADRAO"; }
 
-const API_URL = https:'//notion-feed-backend2.onrender.com/widget/${clientId}/posts';
+const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
 
 function convertToEmbedUrl(url) { if (url.includes("embed.figma.com/design")) { return url; } if (url.includes("figma.com")) { return https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}; } if (url.includes("canva.com") && url.includes("/view")) { return ${url}?embed; } return url; }
 
