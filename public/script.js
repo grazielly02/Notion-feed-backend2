@@ -1,149 +1,114 @@
-let currentSlide = 0;    
-let totalSlides = 0;    
-    
-// Captura o clientId da URL ou caminho    
-let clientId = window.clientId || null;    
-    
-if (!clientId) {    
-  const params = new URLSearchParams(window.location.search);    
-  const pathParts = window.location.pathname.split('/');    
-    
-  if (params.has("clientId")) {    
-    clientId = params.get("clientId");    
-  } else if (pathParts.includes("widget")) {    
-    clientId = pathParts[pathParts.indexOf("widget") + 1];    
-  }    
-}    
-    
-if (!clientId) {    
-  clientId = "CLIENTE_PADRAO";    
-}    
-    
-const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;    
+let currentSlide = 0; let totalSlides = 0;
 
-function convertToEmbedUrl(url) {
-  // Se já for um embed gerado corretamente do Figma
-  if (url.includes("embed.figma.com/design")) {
-    return url;
-  }
+let clientId = window.clientId || null;
 
-  // Figma normal
-  if (url.includes("figma.com")) {
-    return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
-  }
+if (!clientId) { const params = new URLSearchParams(window.location.search); const pathParts = window.location.pathname.split('/');
 
-  // Canva com /view
-  if (url.includes("canva.com") && url.includes("/view")) {
-    return `${url}?embed`;
-  }
+if (params.has("clientId")) { clientId = params.get("clientId"); } else if (pathParts.includes("widget")) { clientId = pathParts[pathParts.indexOf("widget") + 1]; } }
 
-  // Default: retorna o link original
-  return url;
+if (!clientId) { clientId = "CLIENTE_PADRAO"; }
+
+const API_URL = https:'//notion-feed-backend2.onrender.com/widget/${clientId}/posts';
+
+function convertToEmbedUrl(url) { if (url.includes("embed.figma.com/design")) { return url; } if (url.includes("figma.com")) { return https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}; } if (url.includes("canva.com") && url.includes("/view")) { return ${url}?embed; } return url; }
+
+function isEmbedUrl(url) { return ( url.includes("embed.figma.com/design") || (url.includes("canva.com") && url.includes("/view")) ); }
+
+async function loadPosts() { try { const res = await fetch(${API_URL}?t=${Date.now()}); if (!res.ok) throw new Error(Erro ao buscar posts: ${res.statusText});
+
+const posts = await res.json();
+const grid = document.getElementById("grid");
+if (!grid) return;
+
+grid.innerHTML = "";
+
+const postCount = posts.length;
+
+if (postCount === 0) {
+  grid.classList.add("empty");
+} else {
+  grid.classList.remove("empty");
+
+  posts.forEach(post => {
+    const mediaUrl = post.media[0];
+    const isVideo = mediaUrl.endsWith(".mp4");
+    const isEmbed = isEmbedUrl(mediaUrl);
+    const isCarousel = post.media.length > 1;
+
+    const container = document.createElement("div");
+    container.className = "grid-item";
+    container.dataset.id = post.id;
+
+    const formato = post.formato?.toLowerCase() || (
+      isCarousel ? "carrossel"
+      : isVideo || isEmbed ? "vídeo"
+      : "imagem"
+    );
+
+    container.dataset.type = formato;
+
+    let el;
+    if (isEmbed) {
+      el = document.createElement("iframe");
+      el.src = convertToEmbedUrl(mediaUrl);
+      el.width = "100%";
+      el.height = "100%";
+      el.style.border = "none";
+      el.setAttribute("allowfullscreen", "true");
+      el.setAttribute("loading", "lazy");
+      el.style.aspectRatio = "16/9";
+    } else if (isVideo) {
+      el = document.createElement("video");
+      el.src = mediaUrl;
+      el.muted = true;
+      el.playsInline = true;
+      el.preload = "metadata";
+      if (post.thumbnail) el.poster = post.thumbnail;
+    } else {
+      el = document.createElement("img");
+      el.src = mediaUrl;
+    }
+
+    container.appendChild(el);
+
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    overlay.innerHTML = `
+      ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
+      <div class="title">${post.title || ""}</div>
+      ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
+    `;
+    container.appendChild(overlay);
+
+    const iconContainer = document.createElement("div");
+    iconContainer.className = "icon-container";
+
+    if (formato === "vídeo") {
+      iconContainer.innerHTML += `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>`;
+    }
+
+    if (formato === "carrossel") {
+      iconContainer.innerHTML += `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
+          <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>
+        </svg>`;
+    }
+
+    container.appendChild(iconContainer);
+    container.onclick = () => openModal(post.media, post.thumbnail);
+    grid.appendChild(container);
+  });
 }
 
-function isEmbedUrl(url) {
-  return (
-    url.includes("embed.figma.com/design") ||
-    (url.includes("canva.com") && url.includes("/view"))
-  );
-      }
-                                               
+} catch (error) { console.error("Erro ao carregar posts:", error); } }
 
-async function loadPosts() {    
-  try {    
-    const res = await fetch(`${API_URL}?t=${Date.now()}`);    
-    if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);    
-    
-    const posts = await res.json();    
-    const grid = document.getElementById("grid");    
-    if (!grid) return;    
-    
-    grid.innerHTML = "";    
-    
-    const postCount = posts.length;    
-    
-    if (postCount === 0) {    
-      grid.classList.add("empty");    
-    } else {    
-      grid.classList.remove("empty");    
-    
-      posts.forEach(post => {    
-        const mediaUrl = post.media[0];    
-        const isVideo = mediaUrl.endsWith(".mp4");
-        const isEmbed = isEmbedUrl(mediaUrl);
-        const isCarousel = post.media.length > 1;
+// restante do código permanece o mesmo
 
-        const container = document.createElement("div");
-        container.className = "grid-item";
 
-        const formato = post.formato?.toLowerCase() || (
-  isCarousel ? "carrossel"
-  : isVideo || isEmbed ? "vídeo"
-  : "imagem"
-);
-
-        container.dataset.type = formato.toLowerCase();
-
-        let el;
-        if (isEmbed) {
-          el = document.createElement("iframe");
-          el.src = convertToEmbedUrl(mediaUrl);
-          el.width = "100%";
-          el.height = "100%";
-          el.style.border = "none";
-          el.setAttribute("allowfullscreen", "true");
-          el.setAttribute("loading", "lazy");
-          el.style.aspectRatio = "16/9";
-        } else if (isVideo) {
-          el = document.createElement("video");
-          el.src = mediaUrl;
-          el.muted = true;
-          el.playsInline = true;
-          el.preload = "metadata";
-          if (post.thumbnail) el.poster = post.thumbnail;
-        } else {
-          el = document.createElement("img");
-          el.src = mediaUrl;
-        }
-
-        container.appendChild(el);    
-
-        const overlay = document.createElement("div");    
-        overlay.className = "overlay";    
-        overlay.innerHTML = `    
-          ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}    
-          <div class="title">${post.title || ""}</div>    
-          ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}    
-        `;    
-        container.appendChild(overlay);    
-
-        const iconContainer = document.createElement("div");    
-        iconContainer.className = "icon-container";    
-
-        if (formato === "vídeo") {
-          iconContainer.innerHTML += `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
-            </svg>`;
-        }
-
-        if (formato === "carrossel") {
-          iconContainer.innerHTML += `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
-              <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>
-            </svg>`;
-        }
-
-        container.appendChild(iconContainer);    
-        container.onclick = () => openModal(post.media, post.thumbnail);    
-        grid.appendChild(container);    
-      });    
-    }    
-  } catch (error) {    
-    console.error("Erro ao carregar posts:", error);    
-  }    
-}
     
 function openModal(mediaUrls, thumbnail) {    
   const modal = document.getElementById("modal");    
