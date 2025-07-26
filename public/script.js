@@ -478,14 +478,6 @@ function applyFilter() {
               </svg>`;
           }
 
-          if (isEmbed) {
-            iconContainer.innerHTML += `
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M4 4h16v16H4z" fill="white"/>
-                <path d="M7 7h10v10H7z" fill="#999"/>
-              </svg>`;
-          }
-
           container.appendChild(iconContainer);
           container.onclick = () => openModal(post.media, post.thumbnail, post.formato);
           grid.appendChild(container);
