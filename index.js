@@ -150,7 +150,8 @@ const media = [...embedDesign, ...files, ...linkDireto];
         const ocultar = props["Ocultar Visualização"]?.checkbox;
         if (ocultar || media.length === 0) return null;
 
-        return { id: page.id, title, date, editoria, media, thumbnail };
+        const formato = props["Formato"]?.select?.name?.toLowerCase() || null;
+        return { id: page.id, title, date, editoria, media, thumbnail, formato };
       })
       .filter(Boolean)
       .sort((a, b) => {
