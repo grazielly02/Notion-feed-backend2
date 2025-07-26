@@ -73,15 +73,8 @@ async function loadPosts() {
 
         const container = document.createElement("div");
         container.className = "grid-item";
-        container.dataset.type =
-          post.media.length > 1
-            ? "carousel"
-            : isEmbed
-            ? "embed"
-            : isVideo
-            ? "video"
-            : "image";
-
+        container.dataset.type = post.formato?.toLowerCase() || "imagem";
+          
         let el;
         if (isEmbed) {
           el = document.createElement("iframe");
@@ -106,16 +99,6 @@ async function loadPosts() {
           el.src = mediaUrl;
         }
 
-        // Garante que vídeos tenham atributos corretos
-        if (isVideo) {
-          el.muted = true;
-          el.playsInline = true;
-          el.preload = "metadata";
-          if (post.thumbnail) {
-            el.poster = post.thumbnail;
-          }
-        }
-
         container.appendChild(el);
 
         // Overlay com título, editoria e data
@@ -132,7 +115,7 @@ async function loadPosts() {
         const iconContainer = document.createElement("div");
         iconContainer.className = "icon-container";
 
-        if (isVideo) {
+        if (post.formato?.toLowerCase() === "vídeo") {
           iconContainer.innerHTML += `
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z"/>
@@ -140,7 +123,7 @@ async function loadPosts() {
           `;
         }
 
-        if (post.media.length > 1) {
+        if (post.formato?.toLowerCase() === "carrossel" || post.media.length > 1) {
           iconContainer.innerHTML += `
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
@@ -152,7 +135,7 @@ async function loadPosts() {
         container.appendChild(iconContainer);
 
         // Ação de abrir modal
-        container.onclick = () => openModal(post.media, post.thumbnail);
+        container.onclick = () => openModal(post.media, post.thumbnail, post.formato?.toLowerCase());
         grid.appendChild(container);
       });
     }
@@ -446,7 +429,7 @@ function applyFilter() {
             }
           } else if (isImage || isCarousel) {
             if
-            (mediaUrl.includes("canva.com)){
+            (mediaUrl.includes("canva.com")){
             el = document.createElement("iframe");
             el.src = convertToEmbedUrl(mediaUrl); // usa função de conversão
             el.loading = "lazy";
