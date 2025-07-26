@@ -29,11 +29,11 @@ return url;
 
 // Figma normal
 if (url.includes("figma.com")) {
-return https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)};
+return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
 
 // Canva com /view
 if (url.includes("canva.com") && url.includes("/view")) {
-return ${url}?embed;
+return `${url}?embed`;
 }
 
 // Default: retorna o link original
@@ -49,7 +49,7 @@ url.includes("embed.figma.com/design") ||
 
 async function loadPosts() {
 try {
-const res = await fetch(${API_URL}?t=${Date.now()});
+const res = await fetch(`${API_URL}?t=${Date.now()}`);
 if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
 const posts = await res.json();
 const grid = document.getElementById("grid");
@@ -399,7 +399,7 @@ function applyFilter() {
 const grid = document.getElementById("grid");
 if (!grid) return;
 
-fetch(${API_URL}?t=${Date.now()})
+fetch(`${API_URL}?t=${Date.now()}`)
 .then(res => res.json())
 .then(posts => {
 const filtered = posts.filter(post => {
