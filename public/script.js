@@ -374,7 +374,7 @@ document.addEventListener("click", (e) => {
 // Clique nas opções
 filterMenu?.addEventListener("click", (e) => {
   if (e.target.dataset.filter) {
-    currentFilter = e.target.dataset.filter;
+    currentFilter = normalize(e.target.dataset.filter);
     applyFilter();
     filterMenu.style.display = "none";
   }
