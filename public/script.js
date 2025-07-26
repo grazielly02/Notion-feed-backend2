@@ -387,8 +387,7 @@ document.addEventListener("keydown", function (event) {
 });
 
 function normalize(str) {
-  return
-str?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return str?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 function applyFilter() {
