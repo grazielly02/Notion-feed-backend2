@@ -423,16 +423,19 @@ function applyFilter() {
 
         filtered.forEach((post) => {
           const mediaUrl = post.media[0];
-          const isVideo = post.formato === "video";
-          const isCarousel = post.formato === "carousel";
-          const isEmbed = post.formato === "embed";
-
+          const isVideo = post.formato === "vídeo" || post.formato === "video";
+          const isCarousel = post.formato === "carrossel";
+          const isReel = post.formato === "reels";
+          const isImage = post.formato === "imagem";
+          
           const container = document.createElement("div");
           container.className = "grid-item";
           container.dataset.id = post.id;
           container.dataset.type = post.formato;
+
+          let el;
           
-          if (isVideo) {
+          if (isVideo || isReel) {
             el = document.createElement("video");
             el.src = mediaUrl;
             el.muted = true;
@@ -441,7 +444,9 @@ function applyFilter() {
             if (post.thumbnail) {
               el.poster = post.thumbnail;
             }
-          } else if (isEmbed) {
+          } else if (isImage || isCarousel) {
+            if
+            (mediaUrl.includes("canva.com)){
             el = document.createElement("iframe");
             el.src = convertToEmbedUrl(mediaUrl); // usa função de conversão
             el.loading = "lazy";
@@ -452,6 +457,10 @@ function applyFilter() {
             el = document.createElement("img");
             el.src = mediaUrl;
           }
+        } else {
+          el = document.createElement("img");
+          el.src = mediaUrl;
+        }
 
           container.appendChild(el);
 
