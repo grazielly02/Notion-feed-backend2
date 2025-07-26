@@ -432,12 +432,6 @@ function applyFilter() {
           container.dataset.id = post.id;
           container.dataset.type = post.type;
           
-          const mediaUrl = post.media[0];
-          let el;
-          const isVideo = post.type === "video";
-          const isCarousel = post.type === "carousel";
-          const isEmbed = post.type === "embed";
-          
           if (isVideo) {
             el = document.createElement("video");
             el.src = mediaUrl;
