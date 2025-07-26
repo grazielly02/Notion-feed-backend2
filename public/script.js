@@ -161,7 +161,7 @@ async function loadPosts() {
   }
   }
 
-function openModal(mediaUrls, thumbnail, type) {
+function openModal(mediaUrls, thumbnail, formato) {
   const modal = document.getElementById("modal");
   const slidesContainer = document.getElementById("slidesContainer");
   const dotsContainer = document.getElementById("dotsContainer");
@@ -411,7 +411,7 @@ function applyFilter() {
     .then((res) => res.json())
     .then((posts) => {
       const filtered = posts.filter((post) => {
-        return currentFilter === "all" || post.type === currentFilter;
+        return currentFilter === "all" || post.formato === currentFilter;
       });
 
       grid.innerHTML = "";
@@ -423,14 +423,14 @@ function applyFilter() {
 
         filtered.forEach((post) => {
           const mediaUrl = post.media[0];
-          const isVideo = post.type === "video";
-          const isCarousel = post.type === "carousel";
-          const isEmbed = post.type === "embed";
+          const isVideo = post.formato === "video";
+          const isCarousel = post.formato === "carousel";
+          const isEmbed = post.formato === "embed";
 
           const container = document.createElement("div");
           container.className = "grid-item";
           container.dataset.id = post.id;
-          container.dataset.type = post.type;
+          container.dataset.type = post.formato;
           
           if (isVideo) {
             el = document.createElement("video");
@@ -493,7 +493,7 @@ function applyFilter() {
           }
 
           container.appendChild(iconContainer);
-          container.onclick = () => openModal(post.media, post.thumbnail, post.type);
+          container.onclick = () => openModal(post.media, post.thumbnail, post.formato);
           grid.appendChild(container);
         });
       }
