@@ -36,8 +36,7 @@ function convertToEmbedUrl(url) {
   if (url.includes("canva.com") && url.includes("/view")) {
     return `${url}?embed`;
   }
-}
-
+  
 // Default: retorna o link original
 return url;
 }
