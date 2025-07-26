@@ -76,11 +76,11 @@ async function loadPosts() {
         const container = document.createElement("div");
         container.className = "grid-item";
 
-        const formato = post.formato || (
-          isCarousel ? "carrossel"
-          : isVideo ? "vídeo"
-          : "imagem"
-        );
+        const formato = post.formato?.toLowerCase() || (
+  isCarousel ? "carrossel"
+  : isVideo || isEmbed ? "vídeo"
+  : "imagem"
+);
 
         container.dataset.type = formato.toLowerCase();
 
@@ -420,10 +420,10 @@ function applyFilter() {
           container.dataset.id = post.id;
 
           const formato = post.formato?.toLowerCase() || (
-            isCarousel ? "carrossel" :
-            isVideo ? "vídeo" :
-            "imagem"
-          );
+  isCarousel ? "carrossel"
+  : isVideo || isEmbed ? "vídeo"
+  : "imagem"
+));
           container.dataset.type = formato;
 
           let el;
