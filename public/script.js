@@ -258,10 +258,9 @@ function updateSlideUI() {
     if (slideCount) slideCount.style.display = "none";
     if (dotsContainer) dotsContainer.style.display = "none";
   }
-        }
+  updateArrowVisibility();
+  }
 
-updateArrowVisibility();
-}
 
 function updateArrowVisibility() {
   const left = document.querySelector(".arrow.left");
