@@ -442,6 +442,9 @@ function applyFilter() {
             el.allowFullscreen = true;
             el.referrerPolicy = "no-referrer";
             el.style.border = "none";
+            el.style.width = "100%";
+            el.style.aspectRatio = "16/9";
+            el.style.display = "block";
           } else {
             el = document.createElement("img");
             el.src = mediaUrl;
