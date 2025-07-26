@@ -74,6 +74,7 @@ if (postCount === 0) {
 
     const container = document.createElement("div");  
     container.className = "grid-item";  
+    container.database.id = post.id;
 
     const formato = post.formato?.toLowerCase() || (
 
@@ -398,7 +399,11 @@ fetch(${API_URL}?t=${Date.now()})
 .then(res => res.json())
 .then(posts => {
 const filtered = posts.filter(post => {
-const formato = (post.formato || "imagem").toLowerCase();
+const formato = post.formato?.toLowerCase() || (
+  post.media.length > 1 ? "carrossel"
+  : post.media[0].endsWith(".mp4") || isEmbedUrl(post.media[0]) ? "vídeo"
+  : "imagem"
+);
 return currentFilter === "all" || formato === currentFilter;
 });
 
