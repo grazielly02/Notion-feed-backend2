@@ -418,7 +418,7 @@ function applyFilter() {
           const container = document.createElement("div");
           container.className = "grid-item";
           container.dataset.id = post.id;
-          container.dataset.type = post.formato;
+          container.dataset.type = normalize(post.formato);
 
           let el;
           
