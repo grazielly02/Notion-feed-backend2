@@ -20,7 +20,7 @@ if (!clientId) {
 clientId = "CLIENTE_PADRAO";
 }
 
-const API_URL = https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
+const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts';
 
 function convertToEmbedUrl(url) {
 // Se já for um embed gerado corretamente do Figma
@@ -30,7 +30,8 @@ return url;
 
 // Figma normal
 if (url.includes("figma.com")) {
-return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
+return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)};
+}
 
 // Canva com /view
 if (url.includes("canva.com") && url.includes("/view")) {
@@ -68,75 +69,69 @@ if (postCount === 0) {
   
   posts.forEach(post => {      
     const mediaUrl = post.media[0];      
-    const isVideo = mediaUrl.endsWith(".mp4");  
-    const isEmbed = isEmbedUrl(mediaUrl);  
-    const isCarousel = post.media.length > 1;  
+        
+    const isVideo = mediaUrl.endsWith(".mp4");
 
-    const container = document.createElement("div");  
-    container.className = "grid-item";  
-    container.database.id = post.id;
+const isEmbed = isEmbedUrl(mediaUrl);
 
-    const formato = post.formato?.toLowerCase() || (
-
-isCarousel ? "carrossel"
-: isVideo || isEmbed ? "vídeo"
+const container = document.createElement("div");
+container.className = "grid-item";
+const formato = post.formato || (
+post.media.length > 1 ? "carrossel"
+: isVideo ? "vídeo"
 : "imagem"
 );
 
-container.dataset.type = formato.toLowerCase();  
+container.dataset.type = formato.toLowerCase();
 
-    let el;  
-    if (isEmbed) {  
-      el = document.createElement("iframe");  
-      el.src = convertToEmbedUrl(mediaUrl);  
-      el.width = "100%";  
-      el.height = "100%";  
-      el.style.border = "none";  
-      el.setAttribute("allowfullscreen", "true");  
-      el.setAttribute("loading", "lazy");  
-      el.style.aspectRatio = "16/9";  
-    } else if (isVideo) {  
-      el = document.createElement("video");  
-      el.src = mediaUrl;  
-      el.muted = true;  
-      el.playsInline = true;  
-      el.preload = "metadata";  
-      if (post.thumbnail) el.poster = post.thumbnail;  
-    } else {  
-      el = document.createElement("img");  
-      el.src = mediaUrl;  
-    }  
+let el;
+if (isEmbed) {
+el = document.createElement("iframe");
+el.src = convertToEmbedUrl(mediaUrl);
+el.width = "100%";
+el.height = "100%";
+el.style.border = "none";
+el.setAttribute("allowfullscreen", "true");
+el.setAttribute("loading", "lazy");
+el.style.aspectRatio = "16/9";
+} else if (isVideo) {
+el = document.createElement("video");
+el.src = mediaUrl;
+el.muted = true;
+el.playsInline = true;
+el.preload = "metadata";
+if (post.thumbnail) {
+el.poster = post.thumbnail;
+}
+} else {
+el = document.createElement("img");
+el.src = mediaUrl;
+}
 
-    container.appendChild(el);      
-
+container.appendChild(el);      
+  
     const overlay = document.createElement("div");      
     overlay.className = "overlay";      
     overlay.innerHTML = `      
       ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}      
       <div class="title">${post.title || ""}</div>      
       ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}      
-    ;      
+    `;      
     container.appendChild(overlay);      
-
+  
     const iconContainer = document.createElement("div");      
     iconContainer.className = "icon-container";      
+  
+    if (formato === "vídeo") {
 
-    if (formato === "vídeo") {  
-      iconContainer.innerHTML += `  
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">  
-          <path d="M8 5v14l11-7z"/>  
-        </svg>`;  
-    }  
+iconContainer.innerHTML +=    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M8 5v14l11-7z"/>   </svg>;
+}
 
-    if (formato === "carrossel") {  
-      iconContainer.innerHTML += `  
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">  
-          <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>  
-          <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>  
-        </svg>`;  
-    }  
+if (formato === "carrossel") {
+iconContainer.innerHTML +=    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>   <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>   </svg>;
+}
 
-    container.appendChild(iconContainer);      
+container.appendChild(iconContainer);      
     container.onclick = () => openModal(post.media, post.thumbnail);      
     grid.appendChild(container);      
   });      
@@ -399,11 +394,7 @@ fetch(${API_URL}?t=${Date.now()})
 .then(res => res.json())
 .then(posts => {
 const filtered = posts.filter(post => {
-const formato = post.formato?.toLowerCase() || (
-  post.media.length > 1 ? "carrossel"
-  : post.media[0].endsWith(".mp4") || isEmbedUrl(post.media[0]) ? "vídeo"
-  : "imagem"
-);
+const formato = (post.formato || "imagem").toLowerCase();
 return currentFilter === "all" || formato === currentFilter;
 });
 
@@ -417,22 +408,20 @@ grid.innerHTML = "";
     filtered.forEach(post => {  
       const mediaUrl = post.media[0];  
       const isVideo = mediaUrl.endsWith(".mp4");  
-      const isEmbed = isEmbedUrl(mediaUrl);  
       const isCarousel = post.media.length > 1;  
+      const isEmbed = isEmbedUrl(mediaUrl);  
 
       const container = document.createElement("div");  
       container.className = "grid-item";  
       container.dataset.id = post.id;  
+      container.dataset.type = post.formato?.toLowerCase() || (  
+        isCarousel ? "carrossel" :  
+        isVideo ? "vídeo" :  
+        isEmbed ? "embed" :  
+        "imagem"  
+      );  
 
-      const formato = post.formato?.toLowerCase() || (
-
-isCarousel ? "carrossel"
-: isVideo || isEmbed ? "vídeo"
-: "imagem"
-));
-container.dataset.type = formato;
-
-let el;  
+      let el;  
       if (isVideo) {  
         el = document.createElement("video");  
         el.src = mediaUrl;  
@@ -447,7 +436,6 @@ let el;
         el.allowFullscreen = true;  
         el.referrerPolicy = "no-referrer";  
         el.style.border = "none";  
-        el.style.aspectRatio = "16/9";  
       } else {  
         el = document.createElement("img");  
         el.src = mediaUrl;  
@@ -467,20 +455,21 @@ let el;
       const iconContainer = document.createElement("div");  
       iconContainer.className = "icon-container";  
 
-      if (formato === "vídeo") {  
+      if (isVideo) {  
         iconContainer.innerHTML += `  
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">  
             <path d="M8 5v14l11-7z"/>  
           </svg>`;  
       }  
 
-      if (formato === "carrossel") {  
+      if (isCarousel) {  
         iconContainer.innerHTML += `  
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">  
             <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>  
             <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>  
           </svg>`;  
       }  
+
 
       container.appendChild(iconContainer);  
       container.onclick = () => openModal(post.media, post.thumbnail);  
@@ -489,5 +478,5 @@ let el;
   }  
 })  
 .catch(error => console.error("Erro ao filtrar posts:", error));  
-}
+    }
 
