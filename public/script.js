@@ -398,7 +398,7 @@ function applyFilter() {
     .then((res) => res.json())
     .then((posts) => {
       const filtered = posts.filter((post) => {
-        return currentFilter === "all" || normalize(post.formato) === currentFilter;
+        return currentFilter === "all" || normalize(post.formato) === normalize(currentFilter);
       });
 
       grid.innerHTML = "";
