@@ -414,6 +414,8 @@ function applyFilter() {
           const isCarousel = post.formato === "carrossel";
           const isReel = post.formato === "reels";
           const isImage = post.formato === "imagem";
+
+          const isEmbed = isEmbedUrl(mediaUrl);
           
           const container = document.createElement("div");
           container.className = "grid-item";
@@ -444,11 +446,7 @@ function applyFilter() {
             el = document.createElement("img");
             el.src = mediaUrl;
           }
-        } else {
-          el = document.createElement("img");
-          el.src = mediaUrl;
-        }
-
+    
           container.appendChild(el);
 
           // Overlay com editoria, título e data
