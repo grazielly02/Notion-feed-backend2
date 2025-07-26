@@ -1,3 +1,4 @@
+
 let currentSlide = 0;
 let totalSlides = 0;
 
@@ -29,11 +30,12 @@ return url;
 
 // Figma normal
 if (url.includes("figma.com")) {
-return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
+return https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)};
+}
 
 // Canva com /view
 if (url.includes("canva.com") && url.includes("/view")) {
-return `${url}?embed`;
+return ${url}?embed;
 }
 
 // Default: retorna o link original
@@ -49,8 +51,9 @@ url.includes("embed.figma.com/design") ||
 
 async function loadPosts() {
 try {
-const res = await fetch(`${API_URL}?t=${Date.now()}`);
-if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
+const res = await fetch(${API_URL}?t=${Date.now()});
+if (!res.ok) throw new Error(Erro ao buscar posts: ${res.statusText});
+
 const posts = await res.json();
 const grid = document.getElementById("grid");
 if (!grid) return;
@@ -66,76 +69,78 @@ grid.classList.remove("empty");
 
 posts.forEach(post => {
 const mediaUrl = post.media[0];
+
 const isVideo = mediaUrl.endsWith(".mp4");
+
 const isEmbed = isEmbedUrl(mediaUrl);
-const isCarousel = post.media.length > 1;
 
-const container = document.createElement("div");      
-container.className = "grid-item";      
-container.dataset.id = post.id;    
+const container = document.createElement("div");
+container.className = "grid-item";
+container.dataset.type = post.media.length > 1 ? "carousel"
+: isEmbed ? "embed"
+: isVideo ? "video"
+: "image";
 
-const formato = post.formato?.toLowerCase() || (
+let el;
+if (isEmbed) {
+el = document.createElement("iframe");
+el.src = convertToEmbedUrl(mediaUrl);
+el.width = "100%";
+el.height = "100%";
+el.style.border = "none";
+el.setAttribute("allowfullscreen", "true");
+el.setAttribute("loading", "lazy");
+el.style.aspectRatio = "16/9";
+} else if (isVideo) {
+el = document.createElement("video");
+el.src = mediaUrl;
+el.muted = true;
+el.playsInline = true;
+el.preload = "metadata";
+if (post.thumbnail) {
+el.poster = post.thumbnail;
+}
+} else {
+el = document.createElement("img");
+el.src = mediaUrl;
+}
 
-isCarousel ? "carrossel"
-: isVideo || isEmbed ? "vídeo"
-: "imagem"
-);
+if (isVideo) {
 
-container.dataset.type = formato.toLowerCase();
+el.muted = true;
+el.playsInline = true;
+el.preload = "metadata";
+if (post.thumbnail) {
+el.poster = post.thumbnail;
+}
+}
+container.appendChild(el);
 
-let el;      
-if (isEmbed) {      
-  el = document.createElement("iframe");      
-  el.src = convertToEmbedUrl(mediaUrl);      
-  el.width = "100%";      
-  el.height = "100%";      
-  el.style.border = "none";      
-  el.setAttribute("allowfullscreen", "true");      
-  el.setAttribute("loading", "lazy");      
-  el.style.aspectRatio = "16/9";      
-} else if (isVideo) {      
-  el = document.createElement("video");      
-  el.src = mediaUrl;      
-  el.muted = true;      
-  el.playsInline = true;      
-  el.preload = "metadata";      
-  if (post.thumbnail) el.poster = post.thumbnail;      
-} else {      
-  el = document.createElement("img");      
-  el.src = mediaUrl;      
-}      
+const overlay = document.createElement("div");
+overlay.className = "overlay";
+overlay.innerHTML =         ${post.editoria ?<div class="editoria">${post.editoria}</div>: ""}         <div class="title">${post.title || ""}</div>         ${post.date ?<div class="date">${formatDate(post.date)}</div>: ""}        ;
+container.appendChild(overlay);
 
-container.appendChild(el);          
+const iconContainer = document.createElement("div");        
+iconContainer.className = "icon-container";        
 
-const overlay = document.createElement("div");          
-overlay.className = "overlay";          
-overlay.innerHTML = `
-  ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
-  <div class="title">${post.title || ""}</div>
-  ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
-`;
-container.appendChild(overlay);          
+if (isVideo) {        
+  iconContainer.innerHTML += `        
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">        
+      <path d="M8 5v14l11-7z"/>        
+    </svg>`;        
+}        
 
-const iconContainer = document.createElement("div");          
-iconContainer.className = "icon-container";          
+if (post.media.length > 1) {        
+  iconContainer.innerHTML += `        
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">        
+      <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>        
+      <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>        
+    </svg>`;        
+}        
 
-if (formato === "vídeo") {      
-  iconContainer.innerHTML += `      
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">      
-      <path d="M8 5v14l11-7z"/>      
-    </svg>`;      
-}      
-
-if (formato === "carrossel") {      
-  iconContainer.innerHTML += `      
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">      
-      <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>      
-      <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>      
-    </svg>`;      
-}      
-
-container.appendChild(iconContainer);          
-container.onclick = () => openModal(post.media, post.thumbnail);          
+container.appendChild(iconContainer);        
+container.onclick = () => openModal(post.media, post.thumbnail);        
 grid.appendChild(container);
 
 });
@@ -232,7 +237,7 @@ dots.forEach(dot => dot.classList.remove("active"));
 if (dots[currentSlide]) dots[currentSlide].classList.add("active");
 
 if (totalSlides > 1) {
-if (slideCount) slideCount.textContent = `${currentSlide + 1} / ${totalSlides}`;
+if (slideCount) slideCount.textContent = ${currentSlide + 1} / ${totalSlides};
 if (slideCount) slideCount.style.display = "block";
 if (dotsContainer) dotsContainer.style.display = "flex";
 } else {
@@ -298,11 +303,11 @@ const month = adjustedDate.toLocaleString('pt-BR', { month: 'short' });
 const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1).toLowerCase();
 const year = String(adjustedDate.getFullYear()).slice(-2);
 
-return `${day} ${capitalizedMonth} ${year}`;
+return ${day} ${capitalizedMonth} ${year};
 }
 
 function toggleHide(postId, shouldHide) {
-const postEl = document.querySelector(`.grid-item[data-id="${postId}"]`);
+const postEl = document.querySelector(.grid-item[data-id="${postId}"]);
 if (!postEl) return;
 
 if (shouldHide) {
@@ -327,13 +332,8 @@ const btn = document.getElementById("refresh");
 btn.classList.add("loading");
 const originalText = btn.innerHTML;
 
-btn.innerHTML = `
-<svg class="spinner" width="16" height="16" viewBox="0 0 50 50">
-  <circle class="spinner-circle" cx="25" cy="25" r="20" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)">
-    <animateTransform attributeName="transform" type="rotate" values="0 25 25;360 25 25" dur="1s" repeatCount="indefinite"/>
-  </circle>
-</svg>`;
-  
+btn.innerHTML = <svg class="spinner" width="16" height="16" viewBox="0 0 50 50">       <circle class="spinner-circle" cx="25" cy="25" r="20" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)">       <animateTransform attributeName="transform" type="rotate" values="0 25 25;360 25 25" dur="1s" repeatCount="indefinite"/>       </circle>       </svg>;
+
 await loadPosts(); // recarrega o grid
 btn.innerHTML = "⟳"; // volta ao texto original
 btn.classList.remove("loading");
@@ -399,16 +399,17 @@ function applyFilter() {
 const grid = document.getElementById("grid");
 if (!grid) return;
 
-fetch(`${API_URL}?t=${Date.now()}`)
+fetch(${API_URL}?t=${Date.now()})
 .then(res => res.json())
 .then(posts => {
 const filtered = posts.filter(post => {
-const formato = post.formato?.toLowerCase() || (
-post.media.length > 1 ? "carrossel"
-: post.media[0].endsWith(".mp4") || isEmbedUrl(post.media[0]) ? "vídeo"
-: "imagem"
-);
-return currentFilter === "all" || formato === currentFilter;
+const mediaUrl = post.media[0];
+const type = post.media.length > 1 ? "carousel"
+: mediaUrl.endsWith(".mp4") ? "video"
+: isEmbedUrl(mediaUrl) ? "embed"
+: "image";
+
+return currentFilter === "all" || type === currentFilter;
 });
 
 grid.innerHTML = "";
@@ -418,79 +419,86 @@ grid.classList.add("empty");
 } else {
 grid.classList.remove("empty");
 
-filtered.forEach(post => {      
-  const mediaUrl = post.media[0];      
-  const isVideo = mediaUrl.endsWith(".mp4");      
-  const isEmbed = isEmbedUrl(mediaUrl);      
-  const isCarousel = post.media.length > 1;      
+filtered.forEach(post => {        
+  const mediaUrl = post.media[0];        
+  const isVideo = mediaUrl.endsWith(".mp4");        
+  const isCarousel = post.media.length > 1;        
+  const isEmbed = isEmbedUrl(mediaUrl);        
 
-  const container = document.createElement("div");      
-  container.className = "grid-item";      
-  container.dataset.id = post.id;      
+  const container = document.createElement("div");        
+  container.className = "grid-item";        
+  container.dataset.id = post.id;        
+  container.dataset.type = isCarousel ? "carousel"        
+                         : isVideo ? "video"        
+                         : isEmbed ? "embed"        
+                         : "image";        
 
-  const formato = post.formato?.toLowerCase() || (
-isCarousel ? "carrossel"
-: isVideo || isEmbed ? "vídeo"
-: "imagem"
-);
-container.dataset.type = formato;
+  let el;        
+  if (isVideo) {        
+    el = document.createElement("video");        
+    el.src = mediaUrl;        
+    el.muted = true;        
+    el.playsInline = true;        
+    el.preload = "metadata";        
+    if (post.thumbnail) {        
+      el.poster = post.thumbnail;        
+    }        
+  } else if (isEmbed) {        
+    el = document.createElement("iframe");        
+    el.src = mediaUrl;        
+    el.loading = "lazy";        
+    el.allowFullscreen = true;        
+    el.referrerPolicy = "no-referrer";        
+    el.style.border = "none";        
+  } else {        
+    el = document.createElement("img");        
+    el.src = mediaUrl;        
+  }        
 
-let el;
-if (isVideo) {
-el = document.createElement("video");
-el.src = mediaUrl;
-el.muted = true;
-el.playsInline = true;
-el.preload = "metadata";
-if (post.thumbnail) el.poster = post.thumbnail;
-} else if (isEmbed) {
-el = document.createElement("iframe");
-el.src = convertToEmbedUrl(mediaUrl);
-el.loading = "lazy";
-el.allowFullscreen = true;
-el.referrerPolicy = "no-referrer";
-el.style.border = "none";
-el.style.aspectRatio = "16/9";
-} else {
-el = document.createElement("img");
-el.src = mediaUrl;
-}
+  container.appendChild(el);        
 
-container.appendChild(el);      
+  const overlay = document.createElement("div");        
+  overlay.className = "overlay";        
+  overlay.innerHTML = `        
+    ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}        
+    <div class="title">${post.title || ""}</div>        
+    ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}        
+  `;        
+  container.appendChild(overlay);        
 
-  const overlay = document.createElement("div");      
-  overlay.className = "overlay";      
-  overlay.innerHTML = `      
-    ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}      
-    <div class="title">${post.title || ""}</div>      
-    ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}      
-  `;      
-  container.appendChild(overlay);      
+  const iconContainer = document.createElement("div");        
+  iconContainer.className = "icon-container";        
 
-  const iconContainer = document.createElement("div");      
-  iconContainer.className = "icon-container";      
+  if (isVideo) {        
+    iconContainer.innerHTML += `        
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">        
+        <path d="M8 5v14l11-7z"/>        
+      </svg>`;        
+  }        
 
-  if (formato === "vídeo") {      
-    iconContainer.innerHTML += `      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">      
-        <path d="M8 5v14l11-7z"/>      
-      </svg>`;      
-  }      
+  if (isCarousel) {        
+    iconContainer.innerHTML += `        
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">        
+        <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>        
+        <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>        
+      </svg>`;        
+  }    
 
-  if (formato === "carrossel") {      
-    iconContainer.innerHTML += `      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">      
-        <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>      
-        <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>      
-      </svg>`;      
-  }      
+  if (isEmbed) {    
+    iconContainer.innerHTML += `    
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">    
+        <path d="M4 4h16v16H4z" fill="white"/>    
+        <path d="M7 7h10v10H7z" fill="#999"/>    
+      </svg>`;    
+  }        
 
-  container.appendChild(iconContainer);      
-  container.onclick = () => openModal(post.media, post.thumbnail);      
-  grid.appendChild(container);      
+  container.appendChild(iconContainer);        
+  container.onclick = () => openModal(post.media, post.thumbnail);        
+  grid.appendChild(container);        
 });
 
 }
 })
 .catch(error => console.error("Erro ao filtrar posts:", error));
 }
+
