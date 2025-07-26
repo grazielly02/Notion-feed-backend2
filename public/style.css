@@ -147,6 +147,11 @@ body:not(.light-mode) #grid {
   background: black;
 }
 
+iframe {
+  overflow: hidden;
+  resize: none;
+}
+
 /* Overlay ao passar mouse */
 .overlay {
 position: absolute;
