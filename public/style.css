@@ -613,3 +613,14 @@ body:not(.light-mode) #grid.empty::before {
   /* opcional: pode mudar algo visual quando estiver vazio, como centralizar a mensagem */
   }
 
+#modal iframe[src*="canva.com"] {
+  width: 100%;
+  height: 80vh;
+  max-width: 100%;
+  max-height: none;
+  display: block;
+  margin: auto;
+  border: none;
+  object-fit: contain;
+  pointer-events: auto;
+}
