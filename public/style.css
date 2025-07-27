@@ -145,11 +145,24 @@ body:not(.light-mode) #grid {
   display: block;
   border: none;
   background: black;
+  resize: none;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 iframe {
   overflow: hidden;
   resize: none;
+  display: block;
+  min-heigth: 100%;
+  max-heigth: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+iframe[src*="canva.com"]{
+  resize: none;
+  overflow: hidden;
 }
 
 /* Overlay ao passar mouse */
