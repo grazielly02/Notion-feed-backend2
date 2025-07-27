@@ -140,10 +140,10 @@ body:not(.light-mode) #grid {
 
 /* 1. Remover controles no grid */
 .grid-item iframe[src*="canva.com"] {
-  pointer-events: none !important;
+  pointer-events: auto;
   border: none;
   background: transparent;
-  border-radius: 0 !important;
+  border-radius: 0;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -152,21 +152,12 @@ body:not(.light-mode) #grid {
   -webkit-user-drag: none;
 }
 
-/* 2. Ocultar setas e controles WebKit */
-.grid-item iframe[src*="canva.com"]::-webkit-media-controls,
-.grid-item iframe[src*="canva.com"]::-webkit-resizer {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-/* 3. Permitir interação APENAS dentro do modal */
-#modal iframe[src*="canva.com"] {
-  pointer-events: auto !important;
-}
-
-/* 4. Reativar interação apenas no hover do grid-item */
-.grid-item:hover iframe[src*="canva.com"] {
-  pointer-events: auto !important;
+.grid-item .overlay-block {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: transparent;
+  pointer-events: auto;
 }
 
 /* Overlay ao passar mouse */
