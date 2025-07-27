@@ -85,6 +85,7 @@ async function loadPosts() {
           el.setAttribute("allowfullscreen", "true");
           el.setAttribute("loading", "lazy");
           el.style.aspectRatio = "16/9";
+          el.style.resize = "none";
         } else if (isVideo) {
           el = document.createElement("video");
           el.src = mediaUrl;
@@ -170,6 +171,7 @@ function openModal(mediaUrls, thumbnail, formato) {
       slide.setAttribute("allowfullscreen", "true");
       slide.setAttribute("loading", "lazy");
       slide.style.aspectRatio = "16/9";
+      slide.style.resize = "none";
     } else if (isVideo) {
       slide = document.createElement("video");
       slide.src = url;
