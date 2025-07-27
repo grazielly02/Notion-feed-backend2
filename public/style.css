@@ -138,30 +138,21 @@ body:not(.light-mode) #grid {
   display: block;
 }
 
-.grid-item iframe,
 .grid-item iframe[src*="canva.com"] {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   border: none;
-  background: black;
-  resize: none;
-  overflow: hidden;
+  background: transparent;
   border-radius: 0;
   box-sizing: border-box;
-  pointer-events: auto;
+  pointer-events: none;
   -webkit-user-drag: none;
-  -webkit-resize: none;
-  -moz-resize: none;
 }
 
-.grid-item iframe[src*="canva.com"]::-webkit-resizer {
-  display: none;
-  visibility: hidden;
-  width: 0;
-  height: 0;
-  pointer-events: none;
+#modal ifreme[src*="canva.com"] {
+  pointer-events: auto;
 }
 
 
