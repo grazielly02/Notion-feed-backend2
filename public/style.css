@@ -612,3 +612,24 @@ body:not(.light-mode) #grid.empty::before {
 #grid.empty {
   /* opcional: pode mudar algo visual quando estiver vazio, como centralizar a mensagem */
   }
+
+/* Força iframe do Canva a ocupar todo o espaço do modal */
+.slide iframe[src*="canva.com"] {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
+  background: transparent;
+  object-fit: contain;
+}
+
+/* Garante que o slide fique grande para todos os conteúdos */
+.slide {
+  width: 90vw;
+  height: 80vh;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
