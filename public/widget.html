@@ -21,16 +21,22 @@
 
   <div id="grid"></div>  
 
-  <div id="modal">  
-    <button id="closeModal">✕</button>  
-    <div id="modalContent">  
-      <button class="arrow left">❮</button>  
-      <div id="slidesContainer"></div>  
-      <div id="slideCount" class="slide-count"></div>  
-      <div id="dotsContainer" class="dots-container"></div>  
-      <button class="arrow right">❯</button>  
-    </div>  
+<div id="modal">  
+  <button id="closeModal">✕</button>  
+  <div class="carousel-container">
+    <button class="arrow left" id="prevArrow">❮</button>
+
+    <div class="carousel-slide" id="slidesContainer">
+      <!-- Slides serão inseridos aqui via JS -->
+    </div>
+
+    <button class="arrow right" id="nextArrow">❯</button>
+
+    <div id="slideCount" class="slide-count"></div>  
+    <div id="dotsContainer" class="dots-container"></div>  
   </div>  
+</div>
+
 
   <script src="/script.js"></script>  
 </body>  
