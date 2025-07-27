@@ -138,9 +138,11 @@ body:not(.light-mode) #grid {
   display: block;
 }
 
+/* Estilo geral para iframes do Canva no GRID */
 .grid-item iframe[src*="canva.com"] {
   width: 100%;
   height: 100%;
+  max-height: 400px;
   object-fit: cover;
   display: block;
   border: none;
@@ -150,16 +152,15 @@ body:not(.light-mode) #grid {
   pointer-events: none;
   -webkit-user-drag: none;
   resize: none;
+  filter: opacity(0.999); /* força re-renderização para ocultar hover do Canva */
 }
 
-.grid-item iframe[src*="canva.com"]::-webkit-resizer {
-  display: none;
-  visibility: hidden;
-}
-
+/* Estilo para o iframe do Canva apenas dentro do MODAL (interativo) */
 #modal iframe[src*="canva.com"] {
   pointer-events: auto;
+  filter: none;
 }
+
 
 
 /* Overlay ao passar mouse */
