@@ -240,8 +240,10 @@ opacity: 0.8;
 
 .slide {
   display: none;
+  width: 100%;
   max-width: 90vw;
   max-height: 80vh;
+  flex-shrink: 0;
 }
 
 .slide.active {
