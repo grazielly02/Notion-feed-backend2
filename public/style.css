@@ -622,14 +622,3 @@ body:not(.light-mode) #grid.empty::before {
   background: transparent;
   object-fit: contain;
 }
-
-/* Garante que o slide fique grande para todos os conteúdos */
-.slide {
-  width: 90vw;
-  height: 80vh;
-  max-width: 90vw;
-  max-height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  }
