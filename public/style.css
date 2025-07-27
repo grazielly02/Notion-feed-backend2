@@ -624,14 +624,3 @@ body:not(.light-mode) #grid.empty::before {
   object-fit: contain;
   pointer-events: auto;
 }
-
-.grid-item iframe[src*="canva.com"] {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-
-.grid-item:hover iframe[src*="canva.com"] {
-  opacity: 1;
-  pointer-events: auto;
-}
