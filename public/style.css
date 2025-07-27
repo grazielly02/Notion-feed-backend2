@@ -659,6 +659,14 @@ body:not(.light-mode) #grid.empty::before {
   justify-content: center;
 }
 
+#modal .carousel-slide {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
 #modal .carousel-slide img,
 #modal .carousel-slide video {
   width: 100%;
