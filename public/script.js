@@ -226,27 +226,41 @@ function showSlide(index) {
 }
 
 function updateSlideUI() {
-  const slides = document.querySelectorAll("#slidesContainer .slide");
+  const slidesContainer = document.getElementById("slidesContainer");
+  const slides = slidesContainer.querySelectorAll(".slide");
   const dots = document.querySelectorAll("#dotsContainer .dot");
   const slideCount = document.getElementById("slideCount");
   const dotsContainer = document.getElementById("dotsContainer");
 
-  slides.forEach((slide) => slide.classList.remove("active"));
-  slides[currentSlide].classList.add("active");
+  // Define largura do container como número total de slides
+  slidesContainer.style.width = `${slides.length * 100}%`;
 
-  dots.forEach((dot) => dot.classList.remove("active"));
+  // Define largura dos slides para ocupar 100% da tela individualmente
+  slides.forEach(slide => {
+    slide.style.width = `${100 / slides.length}%`;
+    slide.style.flexShrink = "0";
+  });
+
+  // Aplica transform para mostrar o slide correto
+  slidesContainer.style.transform = `translateX(-${currentSlide * (100 / slides.length)}%)`;
+
+  dots.forEach(dot => dot.classList.remove("active"));
   if (dots[currentSlide]) dots[currentSlide].classList.add("active");
 
   if (totalSlides > 1) {
-    if (slideCount) slideCount.textContent = `${currentSlide + 1} / ${totalSlides}`;
-    if (slideCount) slideCount.style.display = "block";
+    if (slideCount) {
+      slideCount.textContent = `${currentSlide + 1} / ${totalSlides}`;
+      slideCount.style.display = "block";
+    }
     if (dotsContainer) dotsContainer.style.display = "flex";
   } else {
     if (slideCount) slideCount.style.display = "none";
     if (dotsContainer) dotsContainer.style.display = "none";
   }
+
   updateArrowVisibility();
-  }
+}
+
 
 
 function updateArrowVisibility() {
