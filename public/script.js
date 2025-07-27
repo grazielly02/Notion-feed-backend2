@@ -87,6 +87,7 @@ async function loadPosts() {
           el.style.aspectRatio = "16/9";
           el.style.resize = "none";
           el.classList.add("canva-embed");
+          el.style.pointerEvents = "none";
         } else if (isVideo) {
           el = document.createElement("video");
           el.src = mediaUrl;
@@ -266,6 +267,11 @@ function fecharPopup() {
     });
 
     modal.style.display = "none";
+
+    // Forçar reestilização de iframes do grid após o modal ser fechado
+document.querySelectorAll(".grid-item iframe[src*='canva.com']").forEach((iframe) => {
+  iframe.style.pointerEvents = "none";
+});
   }
 }
 
@@ -445,6 +451,7 @@ function applyFilter() {
             el.allowFullscreen = true;
             el.referrerPolicy = "no-referrer";
             el.classList.add("canva-embed");
+            el.style.pointerEvents = "none";
           } else {
             el = document.createElement("img");
             el.src = mediaUrl;
