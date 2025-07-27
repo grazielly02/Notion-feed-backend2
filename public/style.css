@@ -239,13 +239,20 @@ opacity: 0.8;
 }
 
 .slide {
-  display: none;
-  max-width: 90vw;
-  max-height: 80vh;
+  min-width: 700px;
+  height: 80vh;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .slide.active {
-  display: block;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Botão fechar modal */
@@ -649,14 +656,6 @@ body:not(.light-mode) #grid.empty::before {
   justify-content: center;
   overflow: hidden;
   position: relative;
-}
-
-#modal .carousel-slide > div {
-  min-width: 700px;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #modal .carousel-slide {
