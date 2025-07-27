@@ -238,6 +238,16 @@ opacity: 0.8;
   overflow: hidden;
 }
 
+.slide {
+  display: none;
+  max-width: 90vw;
+  max-height: 80vh;
+}
+
+.slide.active {
+  display: block;
+}
+
 /* Botão fechar modal */
 #closeModal {
   color: white;
@@ -603,8 +613,6 @@ body:not(.light-mode) #grid.empty::before {
   /* opcional: pode mudar algo visual quando estiver vazio, como centralizar a mensagem */
   }
 
-/* ----------- MODAL - POP-UP ----------- */
-
 /* 1. LINK DO CANVA no modal */
 #modal iframe[src*="canva.com"] {
   width: 100%;
@@ -628,36 +636,4 @@ body:not(.light-mode) #grid.empty::before {
   display: block;
   margin: auto;
   object-fit: contain;
-}
-
-#slidesContainer {
-  display: flex;
-  transition: transform 0.3s ease;
-  width: 100%;
-  height: 80vh;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-slide {
-  min-width: 100%;
-  height: 100%;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-slide.active {
-  display: flex;
-}
-
-.modal-slide img,
-.modal-slide video,
-.modal-slide iframe {
-  max-width: 100%;
-  max-height: 80vh;
-  object-fit: contain;
-  display: block;
-  margin: auto;
 }
