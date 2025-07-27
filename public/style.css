@@ -164,6 +164,11 @@ body:not(.light-mode) #grid {
   pointer-events: auto !important;
 }
 
+/* 4. Reativar interação apenas no hover do grid-item */
+.grid-item:hover iframe[src*="canva.com"] {
+  pointer-events: auto !important;
+}
+
 /* Overlay ao passar mouse */
 .overlay {
 position: absolute;
