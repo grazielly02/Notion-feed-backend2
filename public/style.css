@@ -613,29 +613,23 @@ body:not(.light-mode) #grid.empty::before {
   /* opcional: pode mudar algo visual quando estiver vazio, como centralizar a mensagem */
   }
 
-/* 1. Ajuste do iframe do Canva dentro do pop-up */
+/* [1] Modal: ajusta SOMENTE iframe do Canva */
 #modalContent .slide iframe[src*="canva.com"] {
   width: 100%;
   height: 100%;
-  object-fit: contain;
   display: block;
   border: none;
-  background: #000;
-  pointer-events: auto;
-  max-width: 100%;
-  max-height: 100%;
-  margin: auto;
+  background: transparent;
+  object-fit: contain;
 }
 
-/* 2. Ajuste geral do slide (todos os tipos de post) */
+/* [2] Modal: estrutura consistente para todos os slides */
 #modalContent .slide {
-  width: 100%;
-  height: 100%;
+  width: 90vw;
+  height: 80vh;
+  max-width: 90vw;
+  max-height: 80vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #000;
-  padding: 10px;
-  box-sizing: border-box;
-  overflow: hidden;
+  justify-content: center;
 }
