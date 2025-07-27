@@ -86,6 +86,7 @@ async function loadPosts() {
           el.setAttribute("loading", "lazy");
           el.style.aspectRatio = "16/9";
           el.style.resize = "none";
+          el.classList.add("canva-embed");
         } else if (isVideo) {
           el = document.createElement("video");
           el.src = mediaUrl;
@@ -443,6 +444,7 @@ function applyFilter() {
             el.loading = "lazy";
             el.allowFullscreen = true;
             el.referrerPolicy = "no-referrer";
+            el.classList.add("canva-embed");
           } else {
             el = document.createElement("img");
             el.src = mediaUrl;
