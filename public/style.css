@@ -634,7 +634,7 @@ body:not(.light-mode) #grid.empty::before {
   max-width: 100%;
   max-height: none;
   width: 100%;
-  height: 80vh;
+  height: auto;
   display: block;
   margin: auto;
   border: none;
