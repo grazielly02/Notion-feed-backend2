@@ -151,6 +151,13 @@ body:not(.light-mode) #grid {
   -webkit-user-drag: none;
 }
 
+.grid-item iframe[src*="canva.com"]::-webkit-media-controls,
+.grid-item iframe[src*="canva.com"]::-webkit-resizer {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 #modal ifreme[src*="canva.com"] {
   pointer-events: auto;
 }
