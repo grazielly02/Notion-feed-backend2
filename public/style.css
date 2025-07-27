@@ -624,3 +624,12 @@ body:not(.light-mode) #grid.empty::before {
   object-fit: contain;
   pointer-events: auto;
 }
+
+/* No grid: impede a seta do Canva até o hover */
+.grid-item iframe[src*="canva.com"] {
+  pointer-events: none;
+}
+
+.grid-item:hover iframe[src*="canva.com"] {
+  pointer-events: auto;
+}
