@@ -216,11 +216,6 @@ function showSlide(index) {
   const dots = document.querySelectorAll("#dotsContainer .dot");
   if (index < 0 || index >= totalSlides) return;
 
-  slides.forEach((slide) => slide.classList.remove("active"));
-  dots.forEach((dot) => dot.classList.remove("active"));
-  slides[index].classList.add("active");
-  if (dots[index]) dots[index].classList.add("active");
-
   currentSlide = index;
   updateSlideUI();
 }
