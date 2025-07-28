@@ -76,51 +76,31 @@ async function loadPosts() {
         container.dataset.type = post.formato?.toLowerCase() || "imagem";
           
         let el;
-let iframeWrapper;
+        if (isEmbed) {
+          el = document.createElement("iframe");
+          el.src = convertToEmbedUrl(mediaUrl);
+          el.width = "100%";
+          el.height = "100%";
+          el.style.border = "none";
+          el.setAttribute("allowfullscreen", "true");
+          el.setAttribute("loading", "lazy");
+          el.style.aspectRatio = "16/9";
+        } else if (isVideo) {
+          el = document.createElement("video");
+          el.src = mediaUrl;
+          el.muted = true;
+          el.playsInline = true;
+          el.preload = "metadata";
+          if (post.thumbnail) {
+            el.poster = post.thumbnail;
+          }
+        } else {
+          el = document.createElement("img");
+          el.src = mediaUrl;
+        }
 
-if (isEmbed) {
-  // Cria o wrapper
-  iframeWrapper = document.createElement("div");
-  iframeWrapper.classList.add("canva-wrapper");
-
-  // Cria o iframe
-  el = document.createElement("iframe");
-  el.src = convertToEmbedUrl(mediaUrl);
-  el.width = "100%";
-  el.height = "100%";
-  el.style.border = "none";
-  el.setAttribute("allowfullscreen", "true");
-  el.setAttribute("loading", "lazy");
-  el.classList.add("canva-embed");
-
-// Cria o overlay invisível que cobre o iframe para esconder a seta expansiva
-  const overlay = document.createElement("div");
-  overlay.classList.add("canva-overlay");
-  
-   // Adiciona iframe e overlay dentro do wrapper
-  iframeWrapper.appendChild(el);
-  iframeWrapper.appendChild(overlay);
-  
-  // Aqui é onde você adiciona o wrapper ao container
-  container.appendChild(iframeWrapper);
-} else {
-  if (isVideo) {
-    el = document.createElement("video");
-    el.src = mediaUrl;
-    el.muted = true;
-    el.playsInline = true;
-    el.preload = "metadata";
-    if (post.thumbnail) {
-      el.poster = post.thumbnail;
-    }
-  } else {
-    el = document.createElement("img");
-    el.src = mediaUrl;
-  }
-
-  // Para imagens e vídeos, insere direto no container
-  container.appendChild(el);
-}
+        container.appendChild(el);
+        }
 
         // Overlay com título, editoria e data
         const overlay = document.createElement("div");
