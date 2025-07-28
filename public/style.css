@@ -624,3 +624,15 @@ body:not(.light-mode) #grid.empty::before {
   object-fit: contain;
   pointer-events: auto;
 }
+
+.grid-item iframe.canva-embed {
+  pointer-events: none;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  z-index: 0;
+}
+
+.grid-item:hover iframe.canva-embed {
+  pointer-events: auto;
+  z-index: 2;
+}
