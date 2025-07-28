@@ -76,22 +76,18 @@ async function loadPosts() {
         container.dataset.type = post.formato?.toLowerCase() || "imagem";
           
         let el;
-        const wrapper = document.createElement("div");
-wrapper.classList.add("iframe-wrapper");
-
-el = document.createElement("iframe");
-el.src = convertToEmbedUrl(mediaUrl);
-el.width = "100%";
-el.height = "100%";
-el.style.border = "none";
-el.setAttribute("allowfullscreen", "true");
-el.setAttribute("loading", "lazy");
-el.classList.add("canva-embed");
-el.style.pointerEvents = "none"; // bloqueia a seta
-
-wrapper.appendChild(el);
-container.appendChild(wrapper);
-
+        if (isEmbed) {
+          el = document.createElement("iframe");
+          el.src = convertToEmbedUrl(mediaUrl);
+          el.width = "100%";
+          el.height = "100%";
+          el.style.border = "none";
+          el.setAttribute("allowfullscreen", "true");
+          el.setAttribute("loading", "lazy");
+          el.style.aspectRatio = "16/9";
+          el.style.resize = "none";
+          el.classList.add("canva-embed");
+          el.style.pointerEvents = "none";
         } else if (isVideo) {
           el = document.createElement("video");
           el.src = mediaUrl;
@@ -441,22 +437,19 @@ function applyFilter() {
               el.poster = post.thumbnail;
             }
           } else if (isImage || isCarousel) {
-         const wrapper = document.createElement("div");
-wrapper.classList.add("iframe-wrapper");
-
-el = document.createElement("iframe");
-el.src = convertToEmbedUrl(mediaUrl);
-el.width = "100%";
-el.height = "100%";
-el.style.border = "none";
-el.setAttribute("allowfullscreen", "true");
-el.setAttribute("loading", "lazy");
-el.classList.add("canva-embed");
-el.style.pointerEvents = "none"; // bloqueia a seta
-
-wrapper.appendChild(el);
-container.appendChild(wrapper);
-
+         if
+            (mediaUrl.includes("canva.com")){
+            el = document.createElement("iframe");
+            el.src = convertToEmbedUrl(mediaUrl); // usa função de conversão
+            el.loading = "lazy";
+            el.allowFullscreen = true;
+            el.referrerPolicy = "no-referrer";
+            el.classList.add("canva-embed");
+            el.style.pointerEvents = "none";
+          } else {
+             el = document.createElement("img");
+            el.src = mediaUrl;
+          }
           }
     
           container.appendChild(el);
