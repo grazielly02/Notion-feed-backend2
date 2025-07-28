@@ -115,7 +115,8 @@ async function loadPosts() {
         const iconContainer = document.createElement("div");
         iconContainer.className = "icon-container";
 
-        if (post.formato?.toLowerCase() === "vídeo") {
+        if (post.formato?.toLowerCase() === "vídeo" || post.formato?.toLowerCase() === "reels" ||
+           mediaUrl?.toLowerCase().endsWith(".mp4")) {
           iconContainer.innerHTML += `
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z"/>
@@ -465,7 +466,7 @@ function applyFilter() {
           const iconContainer = document.createElement("div");
           iconContainer.className = "icon-container";
 
-          if (isVideo) {
+          if (isVideo || isReel || mediaUrl.endsWith(".mp4")) {
             iconContainer.innerHTML += `
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z"/>
