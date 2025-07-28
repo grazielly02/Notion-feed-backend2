@@ -624,3 +624,15 @@ body:not(.light-mode) #grid.empty::before {
   object-fit: contain;
   pointer-events: auto;
 }
+
+/* Oculta a seta de expansão do Canva no grid */
+.grid-item iframe.canva-embed {
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 1; /* ou 0.99 se precisar suavizar o carregamento */
+}
+
+/* Ao passar o mouse sobre o post, ativa o iframe */
+.grid-item:hover iframe.canva-embed {
+  pointer-events: auto;
+}
