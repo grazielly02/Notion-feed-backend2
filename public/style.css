@@ -625,28 +625,22 @@ body:not(.light-mode) #grid.empty::before {
   pointer-events: auto;
 }
 
-.grid-item .overlay-canva {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  background: transparent;
-  pointer-events: all;
-  transition: opacity 0.3s ease;
+.iframe-wrapper {
+  position: relative;
+  overflow: hidden;
 }
 
-.grid-item:hover .overlay-canva {
-  opacity: 0;
+.iframe-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: auto; /* Bloqueia o clique */
+  transition: background 0.3s ease;
+}
+
+/* Ao passar o mouse, libera clique */
+.grid-item:hover .iframe-wrapper::after {
+  background: none;
   pointer-events: none;
 }
-
-.grid-item iframe {
-  position: relative;
-  z-index: 1;
-}
-
-.grid-item .overlay-canva {
-  background: rgba(255,0,0,0.2); /* teste visual temporário */
-  }
