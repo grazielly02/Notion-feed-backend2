@@ -474,10 +474,7 @@ function applyFilter() {
 
           if (isCarousel) {
             iconContainer.innerHTML += `
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <rect x="5" y="5" width="12" height="12" rx="2" ry="2" fill="white" opacity="0.8"/>
-                <rect x="7" y="7" width="12" height="12" rx="2" ry="2" fill="white"/>
-              </svg>`;
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24"><rect x="128" y="128" width="208" height="208" rx="48" ry="48" fill="#fff"/><path d="M386 230v110a48 48 0 0 1-48 48H230" fill="none" stroke="#fff" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
           }
 
           container.appendChild(iconContainer);
