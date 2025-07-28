@@ -625,15 +625,27 @@ body:not(.light-mode) #grid.empty::before {
   pointer-events: auto;
 }
 
-/* Esconde a seta (e interações) por padrão no grid */
-.grid-item .iframe-wrapper iframe.canva-embed {
-  pointer-events: none;
-  filter: opacity(0.999); /* truque para manter renderização normal */
-  transition: filter 0.3s ease;
+/* 🔹 Estiliza o wrapper do iframe Canva no grid */
+.grid-item .canva-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-/* Ativa a seta e interações quando passa o mouse no post */
-.grid-item:hover .iframe-wrapper iframe.canva-embed {
+/* 🔹 Faz o iframe ocupar toda a área visível */
+.grid-item .canva-wrapper iframe.canva-embed {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  pointer-events: none; /* Evita seta expansiva aparecer por padrão */
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+/* 🔹 Ao passar o mouse, permite interações (inclui seta expansiva) */
+.grid-item:hover .canva-wrapper iframe.canva-embed {
   pointer-events: auto;
-  filter: none;
 }
