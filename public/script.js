@@ -472,10 +472,13 @@ function applyFilter() {
               </svg>`;
           }
 
-          if (isCarousel) {
-            iconContainer.innerHTML += `
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24"><rect x="128" y="128" width="208" height="208" rx="48" ry="48" fill="#fff"/><path d="M386 230v110a48 48 0 0 1-48 48H230" fill="none" stroke="#fff" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-          }
+          if (isCarousel && !iconContainer.querySelector('svg')) {
+  iconContainer.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
+      <rect x="128" y="128" width="208" height="208" rx="48" ry="48" fill="#fff"/>
+      <path d="M386 230v110a48 48 0 0 1-48 48H230" fill="none" stroke="#fff" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+        }
 
           container.appendChild(iconContainer);
           container.onclick = () => openModal(post.media, post.thumbnail, post.formato);
