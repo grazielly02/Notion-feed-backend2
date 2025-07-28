@@ -76,36 +76,48 @@ async function loadPosts() {
         container.dataset.type = post.formato?.toLowerCase() || "imagem";
           
         let el;
-        if (isEmbed) {
-          const wrapper = document.createElement("div");
-          wrapper.classList.add("iframe-wrapper");
-        
-          el = document.createElement("iframe");
-          el.src = convertToEmbedUrl(mediaUrl);
-          el.width = "100%";
-          el.height = "100%";
-          el.style.border = "none";
-          el.setAttribute("allowfullscreen", "true");
-          el.setAttribute("loading", "lazy");
-          el.style.aspectRatio = "16/9";
-          el.style.resize = "none";
-          el.classList.add("canva-embed");
-          el.style.pointerEvents = "none";
-        } else if (isVideo) {
-          el = document.createElement("video");
-          el.src = mediaUrl;
-          el.muted = true;
-          el.playsInline = true;
-          el.preload = "metadata";
-          if (post.thumbnail) {
-            el.poster = post.thumbnail;
-          }
-        } else {
-          el = document.createElement("img");
-          el.src = mediaUrl;
-        }
-      iframeWrapper.appendChild(el);
-       container.appendChild(el);
+let iframeWrapper;
+
+if (isEmbed) {
+  // Cria o wrapper
+  iframeWrapper = document.createElement("div");
+  iframeWrapper.classList.add("iframe-wrapper");
+
+  // Cria o iframe
+  el = document.createElement("iframe");
+  el.src = convertToEmbedUrl(mediaUrl);
+  el.width = "100%";
+  el.height = "100%";
+  el.style.border = "none";
+  el.setAttribute("allowfullscreen", "true");
+  el.setAttribute("loading", "lazy");
+  el.style.aspectRatio = "16/9";
+  el.style.resize = "none";
+  el.classList.add("canva-embed");
+
+  // Adiciona o iframe dentro do wrapper
+  iframeWrapper.appendChild(el);
+
+  // Aqui é onde você adiciona o wrapper ao container
+  container.appendChild(iframeWrapper);
+} else {
+  if (isVideo) {
+    el = document.createElement("video");
+    el.src = mediaUrl;
+    el.muted = true;
+    el.playsInline = true;
+    el.preload = "metadata";
+    if (post.thumbnail) {
+      el.poster = post.thumbnail;
+    }
+  } else {
+    el = document.createElement("img");
+    el.src = mediaUrl;
+  }
+
+  // Para imagens e vídeos, insere direto no container
+  container.appendChild(el);
+}
 
         // Overlay com título, editoria e data
         const overlay = document.createElement("div");
