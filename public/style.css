@@ -625,7 +625,6 @@ body:not(.light-mode) #grid.empty::before {
   pointer-events: auto;
 }
 
-/* 🔹 Estiliza o wrapper do iframe Canva no grid */
 .grid-item .canva-wrapper {
   position: relative;
   width: 100%;
@@ -634,18 +633,16 @@ body:not(.light-mode) #grid.empty::before {
   border-radius: 12px;
 }
 
-/* 🔹 Faz o iframe ocupar toda a área visível */
 .grid-item .canva-wrapper iframe.canva-embed {
   width: 100%;
   height: 100%;
   border: none;
   display: block;
-  pointer-events: none; /* Evita seta expansiva aparecer por padrão */
+  pointer-events: none;
   transition: opacity 0.3s ease;
   opacity: 1;
 }
 
-/* 🔹 Ao passar o mouse, permite interações (inclui seta expansiva) */
 .grid-item:hover .canva-wrapper iframe.canva-embed {
   pointer-events: auto;
 }
