@@ -100,8 +100,7 @@ async function loadPosts() {
         }
 
         container.appendChild(el);
-        }
-
+        
         // Overlay com título, editoria e data
         const overlay = document.createElement("div");
         overlay.className = "overlay";
