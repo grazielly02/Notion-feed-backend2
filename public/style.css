@@ -641,3 +641,12 @@ body:not(.light-mode) #grid.empty::before {
   opacity: 0;
   pointer-events: none;
 }
+
+.grid-item iframe {
+  position: relative;
+  z-index: 1;
+}
+
+.grid-item .overlay-canva {
+  background: rgba(255,0,0,0.2); /* teste visual temporário */
+  }
