@@ -81,7 +81,7 @@ let iframeWrapper;
 if (isEmbed) {
   // Cria o wrapper
   iframeWrapper = document.createElement("div");
-  iframeWrapper.classList.add("iframe-wrapper");
+  iframeWrapper.classList.add("canva-wrapper");
 
   // Cria o iframe
   el = document.createElement("iframe");
@@ -91,8 +91,6 @@ if (isEmbed) {
   el.style.border = "none";
   el.setAttribute("allowfullscreen", "true");
   el.setAttribute("loading", "lazy");
-  el.style.aspectRatio = "16/9";
-  el.style.resize = "none";
   el.classList.add("canva-embed");
 
   // Adiciona o iframe dentro do wrapper
