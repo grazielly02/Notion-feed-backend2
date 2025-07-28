@@ -93,9 +93,14 @@ if (isEmbed) {
   el.setAttribute("loading", "lazy");
   el.classList.add("canva-embed");
 
-  // Adiciona o iframe dentro do wrapper
+// Cria o overlay invisível que cobre o iframe para esconder a seta expansiva
+  const overlay = document.createElement("div");
+  overlay.classList.add("canva-overlay");
+  
+   // Adiciona iframe e overlay dentro do wrapper
   iframeWrapper.appendChild(el);
-
+  iframeWrapper.appendChild(overlay);
+  
   // Aqui é onde você adiciona o wrapper ao container
   container.appendChild(iframeWrapper);
 } else {
