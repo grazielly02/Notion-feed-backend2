@@ -77,6 +77,9 @@ async function loadPosts() {
           
         let el;
         if (isEmbed) {
+          const wrapper = document.createElement("div");
+          wrapper.classList.add("iframe-wrapper");
+        
           el = document.createElement("iframe");
           el.src = convertToEmbedUrl(mediaUrl);
           el.width = "100%";
@@ -101,8 +104,8 @@ async function loadPosts() {
           el = document.createElement("img");
           el.src = mediaUrl;
         }
-
-        container.appendChild(el);
+      iframeWrapper.appendChild(el);
+       container.appendChild(el);
 
         // Overlay com título, editoria e data
         const overlay = document.createElement("div");
