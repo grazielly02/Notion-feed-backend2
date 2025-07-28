@@ -624,38 +624,3 @@ body:not(.light-mode) #grid.empty::before {
   object-fit: contain;
   pointer-events: auto;
 }
-
-/* Wrapper que envolve o iframe do Canva */
-.canva-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: none;
-  overflow: hidden;
-}
-
-/* Iframe em estado inicial: sem interação */
-.canva-wrapper iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-/* Camada transparente que cobre o iframe e impede cliques */
-.canva-overlay {
-  position: absolute;
-  inset: 0;
-  background: transparent;
-  z-index: 2;
-  pointer-events: all;
-}
-
-/* Ao passar o mouse no grid-item, permite interação e remove a camada de bloqueio */
-.grid-item:hover .canva-wrapper iframe {
-  pointer-events: auto;
-}
-.grid-item:hover .canva-overlay {
-  display: none;
-}
