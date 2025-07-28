@@ -625,14 +625,19 @@ body:not(.light-mode) #grid.empty::before {
   pointer-events: auto;
 }
 
-.grid-item iframe.canva-embed {
-  pointer-events: none;
-  transition: all 0.2s ease-in-out;
-  position: relative;
-  z-index: 0;
+.grid-item .overlay-canva {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background: transparent;
+  pointer-events: all;
+  transition: opacity 0.3s ease;
 }
 
-.grid-item:hover iframe.canva-embed {
-  pointer-events: auto;
-  z-index: 2;
+.grid-item:hover .overlay-canva {
+  opacity: 0;
+  pointer-events: none;
 }
