@@ -625,22 +625,15 @@ body:not(.light-mode) #grid.empty::before {
   pointer-events: auto;
 }
 
-.iframe-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-.iframe-wrapper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: transparent;
-  pointer-events: auto; /* Bloqueia o clique */
-  transition: background 0.3s ease;
-}
-
-/* Ao passar o mouse, libera clique */
-.grid-item:hover .iframe-wrapper::after {
-  background: none;
+/* Esconde a seta (e interações) por padrão no grid */
+.grid-item .iframe-wrapper iframe.canva-embed {
   pointer-events: none;
+  filter: opacity(0.999); /* truque para manter renderização normal */
+  transition: filter 0.3s ease;
+}
+
+/* Ativa a seta e interações quando passa o mouse no post */
+.grid-item:hover .iframe-wrapper iframe.canva-embed {
+  pointer-events: auto;
+  filter: none;
 }
