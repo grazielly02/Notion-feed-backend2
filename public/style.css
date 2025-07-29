@@ -19,7 +19,7 @@ body {
   box-sizing: border-box;
   z-index: 100;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 6px;
 }
