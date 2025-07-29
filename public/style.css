@@ -624,3 +624,17 @@ body:not(.light-mode) #grid.empty::before {
   object-fit: contain;
   pointer-events: auto;
 }
+
+#filterBtn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+button svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  stroke: currentColor;
+    }
