@@ -346,29 +346,47 @@ document.getElementById("refresh")?.addEventListener("click", async () => {
   btn.classList.remove("loading");
 });
 
-// Aplicar tema salvo ao carregar
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') {
-  document.body.classList.add('light-mode');
-  document.body.classList.remove('dark-mode');
-  const btn = document.getElementById("toggleTheme");
-  if (btn) btn.textContent = "☀︎";
-} else {
-  document.body.classList.add('dark-mode');
-  document.body.classList.remove('light-mode');
-  const btn = document.getElementById("toggleTheme");
-  if (btn) btn.textContent = "❨";
+const toggleThemeBtn = document.getElementById("toggleTheme");
+
+const sunSVG = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/>
+    <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42
+             M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </svg>
+`;
+
+const moonSVG = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 
+             7 7 0 0 0 21 12.79"/>
+  </svg>
+`;
+
+function updateThemeIcon(isDark) {
+  if (toggleThemeBtn) {
+    toggleThemeBtn.innerHTML = isDark ? sunSVG : moonSVG;
+  }
 }
 
-// Evento para alternar o tema e salvar escolha
-document.getElementById("toggleTheme")?.addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-  const isLight = document.body.classList.contains("light-mode");
-  const btn = document.getElementById("toggleTheme");
-  if (btn) btn.textContent = isLight ? "☀︎" : "❨";
+function applyTheme(theme) {
+  const isDark = theme === 'dark';
+  document.body.classList.toggle('light-mode', !isDark);
+  document.body.classList.toggle('dark-mode', isDark);
+  updateThemeIcon(isDark);
+  localStorage.setItem('theme', theme);
+}
 
-  // Salvar escolha no localStorage
-  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+// Aplicar tema salvo ao carregar
+const savedTheme = localStorage.getItem('theme') || 'dark';
+applyTheme(savedTheme);
+
+// Alternar tema no clique
+toggleThemeBtn?.addEventListener("click", () => {
+  const isCurrentlyDark = document.body.classList.contains("dark-mode");
+  applyTheme(isCurrentlyDark ? 'light' : 'dark');
 });
 
 // Toggle do menu
