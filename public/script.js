@@ -315,19 +315,34 @@ document.getElementById("modal")?.addEventListener("click", (event) => {
 document.getElementById("refresh")?.addEventListener("click", async () => {
   const btn = document.getElementById("refresh");
   btn.classList.add("loading");
-  const originalText = btn.innerHTML;
 
+  // Salva o SVG novo como original
+  const originalSVG = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90)">
+      <path d="m2 12 4 4 4-4"/>
+      <path d="M6 16V8a6 6 0 0 1 6-6"/>
+      <path d="M22 12l-4-4-4 4"/>
+      <path d="M18 8v8a6 6 0 0 1-6 6"/>
+    </svg>
+  `;
+
+  // Substitui por spinner animado
   btn.innerHTML = `
     <svg class="spinner" width="16" height="16" viewBox="0 0 50 50">
-      <circle class="spinner-circle" cx="25" cy="25" r="20" fill="none" stroke-width="4" stroke-linecap="round"
-        stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)">
-        <animateTransform attributeName="transform" type="rotate" values="0 25 25;360 25 25" dur="1s" repeatCount="indefinite"/>
+      <circle class="spinner-circle" cx="25" cy="25" r="20" fill="none" stroke="currentColor"
+        stroke-width="4" stroke-linecap="round" stroke-dasharray="31.4 31.4"
+        transform="rotate(-90 25 25)">
+        <animateTransform attributeName="transform" type="rotate" values="0 25 25;360 25 25"
+          dur="1s" repeatCount="indefinite" />
       </circle>
     </svg>
   `;
 
   await loadPosts(); // recarrega o grid
-  btn.innerHTML = "⟳"; // volta ao texto original
+
+  // Volta para o novo SVG
+  btn.innerHTML = originalSVG;
   btn.classList.remove("loading");
 });
 
