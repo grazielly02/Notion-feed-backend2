@@ -114,12 +114,6 @@ body.light-mode #toggleTheme {
   position: relative; 
 }
 
-#grid::before {
-  content: '';
-  display: block;
-  min-height: 100%;
-}
-
 body.light-mode #grid {
   gap: 1px;
   background-color: white; /* para o grid ficar com filetes claros */
