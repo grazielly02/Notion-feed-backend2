@@ -593,7 +593,7 @@ button:focus-visible {
   z-index: 2;
   background-color: inherit; /* pega a cor do grid automaticamente */
   color: #666;
-  transform: translateY(-260px); /* ajuste esse valor conforme o quanto quer subir */
+  transform: translateY(-290px); /* ajuste esse valor conforme o quanto quer subir */
 }
 
 /* Ajustar a cor do texto conforme o modo */
