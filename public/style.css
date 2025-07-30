@@ -633,3 +633,16 @@ body:not(.light-mode) #grid.empty::before {
   stroke: currentColor;
   pointer-events: none;
 }
+
+.missing-date-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: #ff5e5e;
+  color: white;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  z-index: 5;
+  font-weight: bold;
+}
