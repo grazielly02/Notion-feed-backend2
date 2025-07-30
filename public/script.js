@@ -107,11 +107,7 @@ async function loadPosts() {
         overlay.innerHTML = `
   ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
   <div class="title">${post.title || ""}</div>
-  ${
-    post.date
-      ? `<div class="date">${formatDate(post.date)}</div>`
-      : `<div class="missing-date">⚠ Sem data</div>`
-  }
+  ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
 `;
         container.appendChild(overlay);
 
@@ -503,11 +499,7 @@ function applyFilter() {
           overlay.innerHTML = `
   ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
   <div class="title">${post.title || ""}</div>
-  ${
-    post.date
-      ? `<div class="date">${formatDate(post.date)}</div>`
-      : `<div class="missing-date">⚠ Sem data</div>`
-  }
+  ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
 `;
           container.appendChild(overlay);
 
