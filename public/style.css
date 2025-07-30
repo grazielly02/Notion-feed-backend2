@@ -100,56 +100,27 @@ body.light-mode #toggleTheme {
   border: 1px solid white;
 }
 
+/* Grid padrão, sem mudar */
 #grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 10px;
-  padding: 20px;
-  min-height: 480px; /* ocupa espaço visual mesmo vazio */
-  max-height: 100vh;
-  overflow-y: auto;
-  background-color: var(--background);
-  position: relative;
-  transition: background-color 0.3s ease;
-}
-
-/* Placeholder quando não houver posts */
-#grid.empty::before {
-  content: "Ainda não há nenhum post";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 1px;
   justify-content: center;
-  font-size: 16px;
-  font-weight: 500;
-  text-align: center;
-  z-index: 2;
-  background-color: transparent;
-  color: var(--text-muted);
-  padding: 40px 12px;
-  pointer-events: none;
+  padding-top: 48px;
+  background-color: transparent; /* deixa transparente, segue cor do body */
+  min-height: 1053px;
+  align-content: start;
+  position: relative; 
 }
 
-/* Cores no modo claro */
-body.light-mode {
-  background: #ffffff;
-  text-muted: #666;
+body.light-mode #grid {
+  gap: 1px;
+  background-color: white; /* para o grid ficar com filetes claros */
 }
 
-/* Cores no modo escuro */
-body.dark-mode,
-body:not(.light-mode) {
-  background: #000000;
-  text-muted: #999;
-}
-
-/* Quando nenhum post deve ser exibido */
-.grid-item.hidden {
-  display: none !important;
+body:not(.light-mode) #grid {
+  gap: 1px;
+  background-color: #191919; /* ou um cinza escuro */
 }
 
 .grid-item {
@@ -604,6 +575,43 @@ button:focus {
 button:focus-visible {
   box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
     }
+
+/* Placeholder quando não houver posts */
+#grid.empty::before {
+  content: "Ainda não há nenhum post";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500
+  text-align: center;
+  z-index: 2;
+  background-color: inherit; /* pega a cor do grid automaticamente */
+  color: #666;
+}
+
+/* Ajustar a cor do texto conforme o modo */
+body.light-mode #grid.empty::before {
+  color: #666;
+}
+
+body.dark-mode #grid.empty::before,
+body:not(.light-mode) #grid.empty::before {
+  color: #999;
+}
+
+.grid-item.hidden {
+  display: none !important;
+  }
+
+#grid.empty {
+  /* opcional: pode mudar algo visual quando estiver vazio, como centralizar a mensagem */
+  }
 
 #modal iframe[src*="canva.com"] {
   width: 100%;
