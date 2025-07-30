@@ -114,6 +114,10 @@ body.light-mode #toggleTheme {
   position: relative; 
 }
 
+#grid {
+  min-height: calc(var(--card-height) * 3 + 64px); /* altura para 3 linhas + espaçamento */
+}
+
 body.light-mode #grid {
   gap: 1px;
   background-color: white; /* para o grid ficar com filetes claros */
