@@ -39,14 +39,7 @@ async function queryDatabase(token, databaseId) {
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
   try {
-    const response = await axios.post(url, {
-      sorts: [
-        {
-          property: "Data de Publicação",
-          direction: "descending"
-        }
-      ]
-    }, {
+    const response = await axios.post(url, {}, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Notion-Version": "2022-06-28",
@@ -153,13 +146,7 @@ const media = [...embedDesign, ...files, ...linkDireto];
         const formato = props["Formato"]?.select?.name?.toLowerCase() || null;
         return { id: page.id, title, date, editoria, media, thumbnail, formato };
       })
-      .filter(Boolean)
-      .sort((a, b) => {
-        if (!a.date) return 1;
-        if (!b.date) return -1;
-        return new Date(b.date) - new Date(a.date);
-      });
-
+      .filter(Boolean);
     res.json(posts);
   } catch (error) {
     console.error("❌ Erro ao buscar posts:", error.message);
