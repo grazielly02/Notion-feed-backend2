@@ -115,6 +115,19 @@ async function loadPosts() {
 `;
         container.appendChild(overlay);
 
+// Ainda dentro do posts.forEach(post) {
+const container = document.createElement("div");
+container.className = "grid-item";
+container.dataset.type = post.formato?.toLowerCase() || "imagem";
+
+// Se não tiver data, adiciona selo no canto superior esquerdo
+if (!post.date) {
+  const warningBadge = document.createElement("div");
+  warningBadge.className = "missing-date-badge";
+  warningBadge.textContent = "⚠ Sem data";
+  container.appendChild(warningBadge);
+    }
+        
         // Ícones (vídeo e múltiplas mídias)
         const iconContainer = document.createElement("div");
         iconContainer.className = "icon-container";
