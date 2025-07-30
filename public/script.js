@@ -105,10 +105,14 @@ async function loadPosts() {
         const overlay = document.createElement("div");
         overlay.className = "overlay";
         overlay.innerHTML = `
-          ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
-          <div class="title">${post.title || ""}</div>
-          ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
-        `;
+  ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
+  <div class="title">${post.title || ""}</div>
+  ${
+    post.date
+      ? `<div class="date">${formatDate(post.date)}</div>`
+      : `<div class="missing-date">⚠ Sem data</div>`
+  }
+`;
         container.appendChild(overlay);
 
         // Ícones (vídeo e múltiplas mídias)
@@ -489,10 +493,14 @@ function applyFilter() {
           const overlay = document.createElement("div");
           overlay.className = "overlay";
           overlay.innerHTML = `
-            ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
-            <div class="title">${post.title || ""}</div>
-            ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
-          `;
+  ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
+  <div class="title">${post.title || ""}</div>
+  ${
+    post.date
+      ? `<div class="date">${formatDate(post.date)}</div>`
+      : `<div class="missing-date">⚠ Sem data</div>`
+  }
+`;
           container.appendChild(overlay);
 
           // Ícones
