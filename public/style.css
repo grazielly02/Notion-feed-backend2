@@ -630,4 +630,5 @@ body:not(.light-mode) #grid.empty::before {
   height: 20px;
   fill: currentColor;
   stroke: currentColor;
+  pointer-events: none;
 }
