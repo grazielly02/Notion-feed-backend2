@@ -57,14 +57,14 @@ async function loadPosts() {
 
 // Separar os fixados e ordenar por prioridade (1, 2, 3)
 const fixados = posts
-  .filter(p => p.fixado >= 1 && p.fixado <= 3)
-  .sort((a, b) => a.fixado - b.fixado);
+  .filter(p => p.Fixado >= 1 && p.Fixado <= 3)
+  .sort((a, b) => a.Fixado - b.Fixado);
 
 // Os demais posts (não fixados)
-const naoFixados = posts.filter(p => !(p.fixado >= 1 && p.fixado <= 3));
+const naoFixados = posts.filter(p => !(p.Fixado >= 1 && p.Fixado <= 3));
 
 // Juntar os fixados no topo
-posts = [...fixados, ...naoFixados];
+posts = [...Fixados, ...naoFixados];
     
     const grid = document.getElementById("grid");
     if (!grid) return;
