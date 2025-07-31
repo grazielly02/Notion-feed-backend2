@@ -144,7 +144,8 @@ const media = [...embedDesign, ...files, ...linkDireto];
         if (ocultar || media.length === 0) return null;
 
         const formato = props["Formato"]?.select?.name?.toLowerCase() || null;
-        return { id: page.id, title, date, editoria, media, thumbnail, formato };
+        const fixado = props["Fixado"]?.number || null;
+        return { id: page.id, title, date, editoria, media, thumbnail, formato, fixado };
       })
       .filter(Boolean);
     res.json(posts);
