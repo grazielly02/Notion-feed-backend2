@@ -325,13 +325,17 @@ opacity: 0.8;
 
 .dots-container {
   position: absolute;
-  bottom: 16px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
   gap: 6px;
   z-index: 1001;
+}
+
+.dots-container.video-slide {
+  bottom: 60px; /* mais afastado para vídeos */
 }
 
 .dot {
