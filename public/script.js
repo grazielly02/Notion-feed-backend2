@@ -55,32 +55,27 @@ async function loadPosts() {
 
     let posts = await res.json();
 
-// Separar os fixados válidos e ordenar por prioridade
-const fixados = posts
-  .filter(p => (p.Fixado ?? 0) >= 1 && (p.Fixado ?? 0) <= 3)
-  .sort((a, b) => (a.Fixado ?? 0) - (b.Fixado ?? 0));
+// Cria um mapa para garantir apenas 1 post por prioridade (1, 2, 3)
+const mapaFixados = new Map();
 
-const fixadosValidos = [];
-const prioridadesUsadas = new Set();
-
-for (const post of fixados) {
+for (const post of posts) {
   const prioridade = post.Fixado;
-  if (!prioridadesUsadas.has(prioridade)) {
-    fixadosValidos.push(post);
-    prioridadesUsadas.add(prioridade);
+  if (prioridade >= 1 && prioridade <= 3 && !mapaFixados.has(prioridade)) {
+    mapaFixados.set(prioridade, post);
   }
 }
 
-// Aviso no console (ou transforme em visual se quiser)
-if (fixados.length > fixadosValidos.length) {
-  console.warn("⚠️ Posts duplicados com mesma prioridade fixada foram ignorados.");
-}
+// Ordena os fixados por prioridade
+const fixados = Array.from(mapaFixados.entries())
+  .sort((a, b) => a[0] - b[0])
+  .map(([_, post]) => post);
 
-// Filtrar os posts não fixados
-const naoFixados = posts.filter(p => !(p.Fixado >= 1 && p.Fixado <= 3));
+// Filtra os não fixados (ou os duplicados que foram ignorados)
+const idsFixados = new Set(fixados.map(p => p.id || p.ID || p.Id));
+const naoFixados = posts.filter(p => !idsFixados.has(p.id || p.ID || p.Id));
 
-// Juntar os fixados válidos no topo
-posts = [...fixadosValidos, ...naoFixados];
+// Junta tudo
+posts = [...fixados, ...naoFixados];
     
     const grid = document.getElementById("grid");
     if (!grid) return;
