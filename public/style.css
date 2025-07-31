@@ -325,7 +325,7 @@ opacity: 0.8;
 
 .dots-container {
   position: absolute;
-  bottom: 20px;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
