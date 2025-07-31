@@ -236,12 +236,15 @@ function updateSlideUI() {
   const slideCount = document.getElementById("slideCount");
   const dotsContainer = document.getElementById("dotsContainer");
 
+  // 👉 Ativa o slide atual
   slides.forEach((slide) => slide.classList.remove("active"));
   slides[currentSlide].classList.add("active");
 
+  // 👉 Ativa o dot atual
   dots.forEach((dot) => dot.classList.remove("active"));
   if (dots[currentSlide]) dots[currentSlide].classList.add("active");
 
+  // 👉 Exibe ou esconde contagem e dots
   if (totalSlides > 1) {
     if (slideCount) slideCount.textContent = `${currentSlide + 1} / ${totalSlides}`;
     if (slideCount) slideCount.style.display = "block";
@@ -250,8 +253,18 @@ function updateSlideUI() {
     if (slideCount) slideCount.style.display = "none";
     if (dotsContainer) dotsContainer.style.display = "none";
   }
-  updateArrowVisibility();
+
+  // ✅ AJUSTE NOVO: adiciona ou remove a classe video-slide dependendo do tipo de mídia
+  const currentSlideEl = slides[currentSlide];
+  if (currentSlideEl && currentSlideEl.tagName === "VIDEO") {
+    dotsContainer.classList.add("video-slide");
+  } else {
+    dotsContainer.classList.remove("video-slide");
   }
+
+  // 👉 Atualiza visibilidade das setas
+  updateArrowVisibility();
+      }
 
 function updateArrowVisibility() {
   const left = document.querySelector(".arrow.left");
