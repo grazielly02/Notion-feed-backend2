@@ -161,6 +161,11 @@ function openModal(mediaUrls, thumbnail, formato) {
 
   slidesContainer.innerHTML = "";
   dotsContainer.innerHTML = "";
+
+// Verifica se há pelo menos um vídeo
+const hasVideo = mediaUrls.some((url) => url.endsWith(".mp4"));
+dotsContainer.classList.toggle("video-slide", hasVideo);
+  
   currentSlide = 0;
   totalSlides = mediaUrls.length;
 
@@ -207,9 +212,6 @@ function openModal(mediaUrls, thumbnail, formato) {
     if (totalSlides > 1) {
       const dot = document.createElement("div");
       dot.className = "dot";
-      if (isVideo) {
-       dot.classList.add("dot-video");
-      }
       if (index === 0) dot.classList.add("active");
       dotsContainer.appendChild(dot);
     }
