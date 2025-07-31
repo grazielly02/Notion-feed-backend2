@@ -53,7 +53,19 @@ async function loadPosts() {
     const res = await fetch(`${API_URL}?t=${Date.now()}`);
     if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
 
-    const posts = await res.json();
+    let posts = await res.json();
+
+// Separar os fixados e ordenar por prioridade (1, 2, 3)
+const fixados = posts
+  .filter(p => p.pin >= 1 && p.pin <= 3)
+  .sort((a, b) => a.pin - b.pin);
+
+// Os demais posts (não fixados)
+const naoFixados = posts.filter(p => !(p.pin >= 1 && p.pin <= 3));
+
+// Juntar os fixados no topo
+posts = [...fixados, ...naoFixados];
+    
     const grid = document.getElementById("grid");
     if (!grid) return;
 
