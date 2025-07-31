@@ -638,18 +638,12 @@ body:not(.light-mode) #grid.empty::before {
   position: absolute;
   top: 6px;
   left: 6px;
-  background-color: #000; /* Fundo preto */
-  color: #d9534f; /* Texto vermelho */
-  font-size: 12px;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 20px;
-  border: 2px solid #d9534f; /* Borda vermelha mais fina */
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.8); /* Fundo branco translúcido */
+  color: #444; /* Texto cinza escuro */
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
   z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
