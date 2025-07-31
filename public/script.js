@@ -207,6 +207,9 @@ function openModal(mediaUrls, thumbnail, formato) {
     if (totalSlides > 1) {
       const dot = document.createElement("div");
       dot.className = "dot";
+      if (isVideo) {
+       dot.classList.add("dot-video");
+      }
       if (index === 0) dot.classList.add("active");
       dotsContainer.appendChild(dot);
     }
