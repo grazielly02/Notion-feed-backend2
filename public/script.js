@@ -53,17 +53,36 @@ async function loadPosts() {
     const res = await fetch(`${API_URL}?t=${Date.now()}`);
     if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
 
-    let posts = await res.json();  
-  
-// Separar os fixados e ordenar por prioridade (1, 2, 3)  
-const fixados = posts  
-  .filter(p => (p.fixado ?? 0) >= 1 && (p.fixado ?? 0) <= 3)  
-  .sort((a, b) => (a.fixado ?? 0) - (b.fixado ?? 0));  
-  
-// Os demais posts (não fixados)  
-const naoFixados = posts.filter(p => !((p.fixado ?? 0) >= 1 && (p.fixado ?? 0) <= 3));  
-  
-// Juntar os fixados no topo  
+    let posts = await res.json();
+
+// Map para rastrear se a prioridade já foi usada
+const prioridadesUsadas = new Set();
+
+// Array final dos fixados válidos
+const fixados = [];
+
+// Primeiro loop: selecionar fixados válidos (sem duplicar prioridades)
+for (const post of posts) {
+  const prioridade = post.fixado ?? 0;
+
+  if (prioridade >= 1 && prioridade <= 3 && !prioridadesUsadas.has(prioridade)) {
+    fixados.push(post);
+    prioridadesUsadas.add(prioridade);
+  }
+}
+
+// Lista de IDs dos fixados válidos
+const idsFixados = new Set(fixados.map(p => p.id || p.ID || p.Id));
+
+// Filtrar os demais posts que não são fixados válidos
+const naoFixados = posts.filter(p =>
+  !(idsFixados.has(p.id || p.ID || p.Id))
+);
+
+// Ordenar os fixados por prioridade
+fixados.sort((a, b) => (a.fixado ?? 0) - (b.fixado ?? 0));
+
+// Juntar os fixados válidos no topo
 posts = [...fixados, ...naoFixados];
     
     const grid = document.getElementById("grid");
