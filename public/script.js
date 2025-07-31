@@ -57,11 +57,11 @@ async function loadPosts() {
 
 // Separar os fixados e ordenar por prioridade (1, 2, 3)
 const fixados = posts
-  .filter(p => (p.Fixado ?? 0) >= 1 && (p.Fixado ?? 0) <= 3)
-  .sort((a, b) => (a.Fixado ?? 0) - (b.Fixado ?? 0));
+  .filter(p => (p.fixado ?? 0) >= 1 && (p.fixado ?? 0) <= 3)
+  .sort((a, b) => (a.fixado ?? 0) - (b.fixado ?? 0));
 
 // Os demais posts (não fixados)
-const naoFixados = posts.filter(p => !((p.Fixado ?? 0) >= 1 && (p.Fixado ?? 0) <= 3));
+const naoFixados = posts.filter(p => !((p.fixado ?? 0) >= 1 && (p.fixado ?? 0) <= 3));
 
 // Juntar os fixados no topo
 posts = [...fixados, ...naoFixados];
