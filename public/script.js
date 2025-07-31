@@ -53,28 +53,17 @@ async function loadPosts() {
     const res = await fetch(`${API_URL}?t=${Date.now()}`);
     if (!res.ok) throw new Error(`Erro ao buscar posts: ${res.statusText}`);
 
-    let posts = await res.json();
-
-// Cria um mapa para garantir apenas 1 post por prioridade (1, 2, 3)
-const mapaFixados = new Map();
-
-for (const post of posts) {
-  const prioridade = post.Fixado;
-  if (prioridade >= 1 && prioridade <= 3 && !mapaFixados.has(prioridade)) {
-    mapaFixados.set(prioridade, post);
-  }
-}
-
-// Ordena os fixados por prioridade
-const fixados = Array.from(mapaFixados.entries())
-  .sort((a, b) => a[0] - b[0])
-  .map(([_, post]) => post);
-
-// Filtra os não fixados (ou os duplicados que foram ignorados)
-const idsFixados = new Set(fixados.map(p => p.id || p.ID || p.Id));
-const naoFixados = posts.filter(p => !idsFixados.has(p.id || p.ID || p.Id));
-
-// Junta tudo
+    let posts = await res.json();  
+  
+// Separar os fixados e ordenar por prioridade (1, 2, 3)  
+const fixados = posts  
+  .filter(p => (p.fixado ?? 0) >= 1 && (p.fixado ?? 0) <= 3)  
+  .sort((a, b) => (a.fixado ?? 0) - (b.fixado ?? 0));  
+  
+// Os demais posts (não fixados)  
+const naoFixados = posts.filter(p => !((p.fixado ?? 0) >= 1 && (p.fixado ?? 0) <= 3));  
+  
+// Juntar os fixados no topo  
 posts = [...fixados, ...naoFixados];
     
     const grid = document.getElementById("grid");
