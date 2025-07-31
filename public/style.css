@@ -236,6 +236,7 @@ opacity: 0.8;
   max-width: 90vw;
   max-height: 80vh;
   overflow: hidden;
+  z-index: 1010;
 }
 
 .slide {
@@ -281,10 +282,11 @@ opacity: 0.8;
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   line-height: 1;
+  z-index: 1020;
 }
 
 #modalContent:hover .arrow {
