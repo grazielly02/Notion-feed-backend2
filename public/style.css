@@ -335,7 +335,7 @@ opacity: 0.8;
 }
 
 .dots-container.video-slide {
-  bottom: 60px; /* mais afastado para vídeos */
+  bottom: 20px; /* mais afastado para vídeos */
 }
 
 .dot {
