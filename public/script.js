@@ -61,7 +61,7 @@ const fixados = posts
   .sort((a, b) => (a.Fixado ?? 0) - (b.Fixado ?? 0));
 
 // Os demais posts (não fixados)
-const naoFixados = posts.filter(p => !(p.Fixado >= 1 && p.Fixado <= 3));
+const naoFixados = posts.filter(p => !((p.Fixado ?? 0) >= 1 && (p.Fixado ?? 0) <= 3));
 
 // Juntar os fixados no topo
 posts = [...fixados, ...naoFixados];
