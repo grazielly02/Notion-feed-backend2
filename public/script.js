@@ -277,6 +277,14 @@ function updateSlideUI() {
   const slideCount = document.getElementById("slideCount");
   const dotsContainer = document.getElementById("dotsContainer");
 
+  // ✅ Pausa todos os vídeos ao trocar de slide
+  slides.forEach((slide) => {
+    if (slide.tagName === "VIDEO") {
+      slide.pause();
+      slide.currentTime = 0;
+    }
+  });
+
   // 👉 Ativa o slide atual
   slides.forEach((slide) => slide.classList.remove("active"));
   slides[currentSlide].classList.add("active");
