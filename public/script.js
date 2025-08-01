@@ -150,11 +150,12 @@ if (!post.date) {
   container.appendChild(warningBadge);
 }
         
-        // Ícones (fixado tem prioridade)
+        // Ícones (Fixado > Carrossel > Vídeo)
 const iconContainer = document.createElement("div");
 iconContainer.className = "icon-container";
 
-if (post.fixar === "1") {
+// Se post é fixado (posição 1, 2 ou 3)
+if (["1", "2", "3"].includes(post.fixado)) {
   iconContainer.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
       <path d="M9 2a1 1 0 0 0 0 2h1v3l-4 5v1h5v7a1 1 0 0 0 2 0v-7h5v-1l-4-5V4h1a1 1 0 0 0 0-2H9z"/>
@@ -162,15 +163,18 @@ if (post.fixar === "1") {
   `;
 } else if (post.formato?.toLowerCase() === "carrossel" || post.media.length > 1) {
   iconContainer.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">  
-      <rect x="128" y="128" width="208" height="208" rx="48" ry="48" fill="#fff"/>  
-      <path d="M386 230v110a48 48 0 0 1-48 48H230" fill="none" stroke="#fff" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
+      <rect x="128" y="128" width="208" height="208" rx="48" ry="48" fill="#fff"/>
+      <path d="M386 230v110a48 48 0 0 1-48 48H230" fill="none" stroke="#fff" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   `;
-} else if (post.formato?.toLowerCase() === "vídeo" || post.formato?.toLowerCase() === "reels" ||
-           mediaUrl?.toLowerCase().endsWith(".mp4")) {
+} else if (
+  post.formato?.toLowerCase() === "vídeo" ||
+  post.formato?.toLowerCase() === "reels" ||
+  mediaUrl?.toLowerCase().endsWith(".mp4")
+) {
   iconContainer.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#fff">
       <path d="M8 5v14l11-7z"/>
     </svg>
   `;
@@ -560,7 +564,7 @@ function applyFilter() {
 const iconContainer = document.createElement("div");
 iconContainer.className = "icon-container";
 
-if (post.fixar === "1") {
+if (["1", "2", "3"].includes(post.fixado)) {
   iconContainer.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
       <path d="M9 2a1 1 0 0 0 0 2h1v3l-4 5v1h5v7a1 1 0 0 0 2 0v-7h5v-1l-4-5V4h1a1 1 0 0 0 0-2H9z"/>
