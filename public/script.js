@@ -55,14 +55,20 @@ async function loadPosts() {
 
     let posts = await res.json();
 
-    // 🔥 NOVO — Criar dataFinal para ordenação sem afetar a exibição
+// 🔥 NOVO — Criar campo para indicar se tem data e gerar dataFinal
 posts = posts.map(post => {
-  // Corrige nomes alternativos — muitos clientes usam "data", não "date"
-  const dataOriginal = post.date || post.data || post.Data || post.DATA;
+  const dataOriginal =
+    post.date ||
+    post.data ||
+    post.Data ||
+    post.DATA;
+
+  const temData = !!dataOriginal;
 
   return {
     ...post,
-    _dataFinal: dataOriginal
+    _temData: temData,
+    _dataFinal: temData
       ? new Date(dataOriginal)
       : new Date(
           post.created_time ||
@@ -73,9 +79,18 @@ posts = posts.map(post => {
   };
 });
 
-// Ordenar por dataFinal (mais recentes primeiro)
-posts.sort((a, b) => b._dataFinal - a._dataFinal);
-    
+// 🔥 Ordenar corretamente:
+// 1) Posts COM data primeiro
+// 2) Dentro de cada grupo, ordenar do mais recente para o mais antigo
+posts.sort((a, b) => {
+  // Prioridade para posts com data
+  if (a._temData && !b._temData) return -1;
+  if (!a._temData && b._temData) return 1;
+
+  // Se ambos têm (ou ambos não têm) data → ordenar por dataFinal
+  return b._dataFinal - a._dataFinal;
+});
+
 // Map para rastrear se a prioridade já foi usada
 const prioridadesUsadas = new Set();
 
