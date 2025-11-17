@@ -1310,31 +1310,39 @@ body:not(.light-mode) #grid.empty::before {
   z-index: 3;
 }
 
+/* Faixa padrão */
 #vf-branding {
   width: 100%;
   text-align: center;
-  padding: 12px 8px;       /* pode ajustar a altura da faixa */
-  margin: 0;               /* remove margem, já que ficará no fluxo */
-  background: rgba(0, 0, 0, 0.05);  /* leve transparência */
-  font-size: 13px;
-  border-radius: 0;        /* faixa reta sem cantos arredondados */
+  padding: 12px 8px;
+  margin: 0;
+  border-radius: 0;
   box-sizing: border-box;
+  font-size: 13px;
 }
 
-#vf-branding a {
-  text-decoration: none;
-  color: inherit;
-  opacity: 0.6;
-  transition: opacity 0.3s;
-  font-weight: bold;       /* destaque da marca */
+/* Dark mode */
+body.dark-mode #vf-branding {
+  background: rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+body.dark-mode #vf-branding a {
+  color: #fff;
+  opacity: 0.7;
+}
+
+/* Light mode */
+body.light-mode #vf-branding {
+  background: rgba(255, 255, 255, 0.15);
+  color: #000;
+}
+
+body.light-mode #vf-branding a {
+  color: #000;
+  opacity: 0.7;
 }
 
 #vf-branding a:hover {
   opacity: 1;
   }
-
-#feedContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
