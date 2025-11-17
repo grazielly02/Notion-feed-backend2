@@ -55,6 +55,17 @@ async function loadPosts() {
 
     let posts = await res.json();
 
+    // 🔥 NOVO — Criar dataFinal para ordenação sem afetar a exibição
+posts = posts.map(post => {
+  return {
+    ...post,
+    _dataFinal: post.date ? new Date(post.date) : new Date(post.created_time || post.createdTime || post.created || Date.now())
+  };
+});
+
+// Ordenar por dataFinal (mais recentes primeiro)
+posts.sort((a, b) => b._dataFinal - a._dataFinal);
+    
 // Map para rastrear se a prioridade já foi usada
 const prioridadesUsadas = new Set();
 
