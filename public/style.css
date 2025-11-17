@@ -653,3 +653,24 @@ body:not(.light-mode) #grid.empty::before {
   border: 1px solid #ccc;
   z-index: 3;
 }
+
+#vf-branding {
+  width: 100%;
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 14px;
+  background: rgba(0, 0, 0, 0.05);
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+#vf-branding a {
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+#vf-branding a:hover {
+  opacity: 1;
+  }
