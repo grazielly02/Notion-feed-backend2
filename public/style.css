@@ -1313,11 +1313,12 @@ body:not(.light-mode) #grid.empty::before {
 #vf-branding {
   width: 100%;
   text-align: center;
-  padding: 12px 0;
-  margin-top: 14px;
-  background: rgba(0, 0, 0, 0.05);
+  padding: 12px 8px;       /* pode ajustar a altura da faixa */
+  margin: 0;               /* remove margem, já que ficará no fluxo */
+  background: rgba(0, 0, 0, 0.05);  /* leve transparência */
   font-size: 13px;
-  border-radius: 8px;
+  border-radius: 0;        /* faixa reta sem cantos arredondados */
+  box-sizing: border-box;
 }
 
 #vf-branding a {
@@ -1325,8 +1326,15 @@ body:not(.light-mode) #grid.empty::before {
   color: inherit;
   opacity: 0.6;
   transition: opacity 0.3s;
+  font-weight: bold;       /* destaque da marca */
 }
 
 #vf-branding a:hover {
   opacity: 1;
   }
+
+#feedContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
