@@ -57,9 +57,19 @@ async function loadPosts() {
 
     // 🔥 NOVO — Criar dataFinal para ordenação sem afetar a exibição
 posts = posts.map(post => {
+  // Corrige nomes alternativos — muitos clientes usam "data", não "date"
+  const dataOriginal = post.date || post.data || post.Data || post.DATA;
+
   return {
     ...post,
-    _dataFinal: post.date ? new Date(post.date) : new Date(post.created_time || post.createdTime || post.created || Date.now())
+    _dataFinal: dataOriginal
+      ? new Date(dataOriginal)
+      : new Date(
+          post.created_time ||
+          post.createdTime ||
+          post.created ||
+          Date.now()
+        )
   };
 });
 
