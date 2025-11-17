@@ -654,6 +654,662 @@ body:not(.light-mode) #grid.empty::before {
   z-index: 3;
 }
 
+/* Estilo global */
+body {
+  font-family: sans-serif;
+  background: #000;
+  padding: 0;
+  margin: 0;
+}
+
+/* Top bar do widget */
+#topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #191919;
+  padding: 8px 12px;
+  text-align: right;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  box-sizing: border-box;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+}
+
+#refresh {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading: reduz opacidade e mantém contraste */
+#refresh.loading {
+  opacity: 0.6;          /* visualmente mostra "estou carregando" */
+  pointer-events: none;  /* continua desabilitando clique */
+}
+
+/* Top bar escura (padrão) */
+#topBar {
+  background: #191919;
+  border-bottom: #191919;
+}
+
+/* Top bar no modo claro */
+body.light-mode #topBar {
+  background: white;
+  border-bottom: white;
+}
+
+/* Botão atualizar no escuro */
+#refresh {
+  background: transparent;
+  color: white;
+  border: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+}
+
+/* Botão atualizar no claro */
+body.light-mode #refresh {
+  color: black;
+  border: 1px solid white;
+}
+
+/* Botão de tema no escuro */
+#toggleTheme {
+  background: transparent;
+  color: white;
+  border: #191919;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+}
+
+/* Botão de tema no claro */
+body.light-mode #toggleTheme {
+  color: #191919;
+  border: 1px solid white;
+}
+
+/* Grid padrão, sem mudar */
+#grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 1px;
+  justify-content: center;
+  padding-top: 48px;
+  background-color: transparent; /* deixa transparente, segue cor do body */
+  min-height: 1053px;
+  align-content: start;
+  position: relative; 
+}
+
+body.light-mode #grid {
+  gap: 1px;
+  background-color: white; /* para o grid ficar com filetes claros */
+}
+
+body:not(.light-mode) #grid {
+  gap: 1px;
+  background-color: #191919; /* ou um cinza escuro */
+}
+
+.grid-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background-color: #dcdcdc;
+}
+
+.grid-item img,
+.grid-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 1. Remover controles no grid */
+.grid-item iframe[src*="canva.com"] {
+  pointer-events: auto;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  -webkit-user-drag: none;
+}
+
+.grid-item .overlay-block {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: transparent;
+  pointer-events: auto;
+}
+
+/* Overlay ao passar mouse */
+.overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.4); /* fundo semi-transparente */
+backdrop-filter: blur(4px);   /* efeito glass */
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: center; /* centraliza vertical */
+align-items: center;     /* centraliza horizontal */
+opacity: 0;
+transition: opacity 0.3s;
+text-align: center;
+}
+
+.grid-item:hover .overlay {
+opacity: 1;
+}
+
+.overlay .editoria {
+font-weight: bold;
+text-transform: uppercase;
+font-size: 10px;
+margin-bottom: 3px;
+}
+
+.overlay .title {
+font-size: 11px;
+margin-bottom: 2px;
+}
+
+.overlay .date {
+font-size: 9px;
+opacity: 0.8;
+}
+
+/* Ícones de vídeo/carrossel */
+.icon-container {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.icon-container svg {
+  width: 16px;
+  height: 16px;
+  fill: white;
+}
+
+/* Modal */
+#modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#modalContent {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow: hidden;
+  z-index: 1010;
+}
+
+.slide {
+  display: none;
+  max-width: 90vw;
+  max-height: 80vh;
+}
+
+.slide.active {
+  display: block;
+}
+
+/* Botão fechar modal */
+#closeModal {
+  color: white;
+  font-size: 18px;
+  background: black;
+  border: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  z-index: 1001;
+}
+
+/* Setas do carrossel */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  z-index: 1020;
+}
+
+#modalContent:hover .arrow {
+  display: flex;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+@media (min-width: 768px) {
+  #closeModal {
+    top: 40px;
+    right: 30px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+}
+
+/* Contador e dots do carrossel */
+.slide-count {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  background: rgba(0,0,0,0.6);
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 1001;
+}
+
+.dots-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  z-index: 1001;
+}
+
+.dots-container.video-slide {
+  bottom: 8px; /* mais afastado para vídeos */
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  opacity: 0.5;
+  border-radius: 50%;
+}
+
+.dot.active {
+  opacity: 1;
+}
+
+/* ===== NOVO: Estilo para página de pré-visualização ===== */
+.preview-header {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.preview-header h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.preview-header p {
+  font-size: 14px;
+  color: #555; /* contraste melhor */
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Iframe */
+#previewFrame {
+  width: 100%;
+  max-width: 900px;
+  height: 1100px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 30px auto;
+  display: block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* profundidade */
+}
+
+/* Caixa copiar link */
+.link-box {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto 25px;
+  position: relative;
+}
+
+.link-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 900px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+}
+
+.link-icon {
+  padding: 0 8px;
+  font-size: 16px;
+  color: #888;
+}
+
+#embedLink {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 14px;
+  background: #fafafa;
+}
+
+#copyBtn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  height: 100%;
+  border-radius: 0 8px 8px 0; /* cantos arredondados do lado direito */
+  transition: background 0.3s ease;
+  max-width: 80px;
+}
+
+#copyBtn:hover {
+  background: #222;
+}
+
+/* Tooltip balão "Link copiado" */
+.tooltip {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap; /* evita quebrar texto */
+}
+
+#formBody {
+  margin: 40px auto;
+}
+
+/* ===== Estilo para página de formulário flutuante ===== */
+body.form-page {
+  background: black;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-container {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+/* Correção para fundo claro na página de pré-visualização */
+body.previsualizacao {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+#filterBtn {
+  background: transparent;
+  color: white;
+  border: #191919;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+}
+
+body.light-mode #filterBtn {
+  color: black;
+  border-color: white;
+}
+
+.filter-menu {
+  position: absolute;
+  top: 42px; /* logo abaixo da top bar */
+  left: 120px;
+  background: #191919;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  z-index: 200;
+}
+
+body.light-mode .filter-menu {
+  background: #fff;
+  color: black;
+  border-color: #ccc;
+}
+
+.filter-menu div {
+  padding: 8px 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.filter-menu div:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+body.light-mode .filter-menu div:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.spinner-circle {
+  stroke: white;
+}
+
+body.light-mode .spinner-circle {
+  stroke: black;
+}
+
+#refresh:focus,
+#toggleTheme:focus,
+#filterBtn:focus {
+  outline: none;
+}
+
+#refresh:hover,
+#toggleTheme:hover,
+#filterBtn:hover {
+  background: rgba(255,255,255,0.1); /* no escuro: leve fundo branco transparente */
+}
+
+body.light-mode #refresh:hover,
+body.light-mode #toggleTheme:hover,
+body.light-mode #filterBtn:hover {
+  background: rgba(0,0,0,0.05); /* no claro: leve fundo preto transparente */
+  }
+
+button {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+    }
+
+/* Placeholder quando não houver posts */
+#grid.empty::before {
+  content: "Ainda não há nenhum post";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  z-index: 2;
+  background-color: inherit; /* pega a cor do grid automaticamente */
+  color: #666;
+  transform: translateY(-340px); /* ajuste esse valor conforme o quanto quer subir */
+}
+
+/* Ajustar a cor do texto conforme o modo */
+body.light-mode #grid.empty::before {
+  color: #666;
+}
+
+body.dark-mode #grid.empty::before,
+body:not(.light-mode) #grid.empty::before {
+  color: #999;
+}
+
+.grid-item.hidden {
+  display: none !important;
+  }
+
+#grid.empty {
+  /* opcional: pode mudar algo visual quando estiver vazio, como centralizar a mensagem */
+  }
+
+#modal iframe[src*="canva.com"] {
+  width: 100%;
+  height: 80vh;
+  max-width: 100%;
+  max-height: none;
+  display: block;
+  margin: auto;
+  border: none;
+  object-fit: contain;
+  pointer-events: auto;
+}
+
+#filterBtn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  stroke: currentColor;
+  pointer-events: none;
+}
+
+.missing-date-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background-color: rgba(255, 255, 255, 0.8); /* Fundo branco translúcido */
+  color: #444; /* Texto cinza escuro */
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  z-index: 3;
+}
+
 #vf-branding {
   width: 100%;
   text-align: center;
