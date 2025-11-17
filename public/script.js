@@ -97,16 +97,8 @@ posts = [...fixados, ...naoFixados];
     } else {
       grid.classList.remove("empty");
 
-      // 🔥 Garante que as mídias respeitem a ordem do Notion
-if (Array.isArray(post.mediaOrder) && post.mediaOrder.length === post.media.length) {
-    post.media = post.mediaOrder
-        .map(orderIndex => post.media[orderIndex])
-        .filter(Boolean);
-}
-
-// Agora sim pega a capa corretamente
-const mediaUrl = post.media[0];
-        
+      posts.forEach((post) => {
+        const mediaUrl = post.media[0];
         const isVideo = mediaUrl.endsWith(".mp4");
         const isEmbed = isEmbedUrl(mediaUrl);
 
