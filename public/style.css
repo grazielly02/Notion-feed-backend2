@@ -1341,18 +1341,21 @@ body.dark-mode #vf-branding a:hover {
 }
 
 
-/* ----------- MODO CLARO AJUSTADO ----------- */
+
+/* ------------------------------- */
+/*            MODO CLARO          */
+/* ------------------------------- */
 
 body.light-mode #vf-branding {
-  background: rgba(0, 0, 0, 0.03);   /* cinza muito claro, quase branco */
-  color: #333;                       /* texto cinza escuro elegante */
+  background: rgba(0, 0, 0, 0.02);  /* quase branco, elegante */
+  color: #444;                      /* cinza escuro legível e moderno */
 }
 
 body.light-mode #vf-branding a {
-  color: #333;                       /* mantém o mesmo tom */
-  opacity: 0.7;
+  color: #444;
+  opacity: 0.75;
 }
 
 body.light-mode #vf-branding a:hover {
   opacity: 1;
-  }
+}
