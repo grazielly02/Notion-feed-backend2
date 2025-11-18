@@ -1319,30 +1319,42 @@ body:not(.light-mode) #grid.empty::before {
   border-radius: 0;
   box-sizing: border-box;
   font-size: 13px;
+  font-weight: 500;
 }
 
-/* Dark mode */
+/* ------------------------------- */
+/*          MODO ESCURO           */
+/* ------------------------------- */
+
 body.dark-mode #vf-branding {
-  background: rgba(0, 0, 0, 0.15);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.08);  /* faixa mais clara que o fundo escuro */
+  color: #f5f5f5;                         /* texto claro */
 }
 
 body.dark-mode #vf-branding a {
-  color: #fff;
-  opacity: 0.7;
+  color: #fff;                             /* link sempre visível */
+  opacity: 0.75;
 }
 
-/* Light mode */
+body.dark-mode #vf-branding a:hover {
+  opacity: 1;
+}
+
+
+/* ------------------------------- */
+/*          MODO CLARO            */
+/* ------------------------------- */
+
 body.light-mode #vf-branding {
-  background: rgba(255, 255, 255, 0.15);
-  color: #000;
+  background: rgba(0, 0, 0, 0.06);         /* faixa mais escura que o fundo claro */
+  color: #111;                             /* texto escuro */
 }
 
 body.light-mode #vf-branding a {
-  color: #000;
-  opacity: 0.7;
+  color: #000;                             /* link escuro */
+  opacity: 0.65;
 }
 
-#vf-branding a:hover {
+body.light-mode #vf-branding a:hover {
   opacity: 1;
-  }
+}
