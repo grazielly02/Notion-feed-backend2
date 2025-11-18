@@ -1347,7 +1347,7 @@ body.dark-mode #vf-branding a:hover {
 /* ------------------------------- */
 
 body.light-mode #vf-branding {
-  background: rgba(0, 0, 0, 0.02);  /* quase branco, elegante */
+  background: #f1f1f1;  /* quase branco, elegante */
   color: #444;                      /* cinza escuro legível e moderno */
 }
 
