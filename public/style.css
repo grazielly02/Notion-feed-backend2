@@ -1359,3 +1359,8 @@ body.light-mode #vf-branding a {
 body.light-mode #vf-branding a:hover {
   opacity: 1;
 }
+
+#vf-branding a,
+#vf-branding a strong {
+  text-decoration: none !important;
+}
