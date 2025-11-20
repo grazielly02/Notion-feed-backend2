@@ -9,27 +9,40 @@ const pool = new Pool({
 module.exports = {
   query: (text, params) => pool.query(text, params),
 
-  getConfig: async (clientId) => {
-    const trimmedClientId = clientId.trim();
-    const res = await pool.query(
-      'SELECT * FROM configs WHERE "clientId" = $1',
-      [trimmedClientId]
+  // allowed_clients
+  saveAllowedClient: async (email, clientId) => {
+    await pool.query(
+      `INSERT INTO allowed_clients (email, "clientId")
+       VALUES ($1, $2)
+       ON CONFLICT (email) DO NOTHING`,
+      [email.trim(), clientId.trim()]
     );
-    console.log("Resultado da busca por config:", res.rows[0]);
+  },
+
+  getAllowedClientByEmail: async (email) => {
+    const res = await pool.query(
+      `SELECT * FROM allowed_clients WHERE email=$1`,
+      [email.trim()]
+    );
     return res.rows[0];
   },
 
+  // configs
   saveConfig: async (clientId, token, databaseId) => {
-    const trimmedClientId = clientId.trim();
-    const trimmedToken = token.trim();
-    const trimmedDatabaseId = databaseId.trim();
-
     await pool.query(
       `INSERT INTO configs ("clientId", token, "databaseId")
        VALUES ($1, $2, $3)
        ON CONFLICT ("clientId")
        DO UPDATE SET token = EXCLUDED.token, "databaseId" = EXCLUDED."databaseId"`,
-      [trimmedClientId, trimmedToken, trimmedDatabaseId]
+      [clientId.trim(), token.trim(), databaseId.trim()]
     );
   },
+
+  getConfig: async (clientId) => {
+    const res = await pool.query(
+      `SELECT * FROM configs WHERE "clientId"=$1`,
+      [clientId.trim()]
+    );
+    return res.rows[0];
+  }
 };
