@@ -1,51 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gerar Link Exclusivo do Painel</title>
-<style>
-body { font-family: Arial; max-width:500px; margin:40px auto; padding:20px; background:#f9f9f9; border-radius:12px; }
-h1{text-align:center;}
-label,input,button{display:block;width:100%;margin-bottom:15px;}
-input{padding:10px;border:1px solid #ccc;border-radius:6px;}
-button{padding:12px;background:black;color:white;border:none;border-radius:6px;cursor:pointer;font-size:16px;}
-#result{margin-top:20px;background:#fff;padding:15px;border-radius:8px;display:none;border:1px solid #ddd;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerar Link Exclusivo do Painel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 12px;
+    }
+    h1 { text-align: center; }
+    label, input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    input {
+      padding: 10px; border: 1px solid #ccc; border-radius: 6px;
+    }
+    button {
+      padding: 12px; background: black; color: white;
+      border: none; border-radius: 6px; cursor: pointer;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+      border: 1px solid #ddd;
+    }
+  </style>
 </head>
 <body>
-<h1>Gerar Link Exclusivo</h1>
-<label for="email">Seu e-mail (o mesmo usado na compra):</label>
-<input type="email" id="email" placeholder="exemplo@gmail.com" />
-<button onclick="generateLink()">Gerar meu link</button>
-<div id="result"></div>
 
-<script>
-async function generateLink() {
-  const email = document.getElementById("email").value.trim();
-  const resultBox = document.getElementById("result");
-  if(!email){alert("Insira seu e-mail!"); return;}
+  <h1>Gerar Link Exclusivo</h1>
 
-  try {
-    const res = await fetch("https://notion-feed-backend2.onrender.com/generate-client", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({email})
-    });
-    const data = await res.json();
-    if(!res.ok){resultBox.style.display="block"; resultBox.innerHTML=`<p style='color:red;'>${data.error||"Erro ao gerar link."}</p>`; return;}
+  <label for="email">Seu e-mail (o mesmo usado na compra):</label>
+  <input type="email" id="email" placeholder="exemplo@gmail.com" />
 
-    resultBox.style.display="block";
-    resultBox.innerHTML = `
-      <p><strong>Seu link exclusivo está pronto!</strong></p>
-      <p><a href="${data.setupUrl}" target="_blank">${data.setupUrl}</a></p>
-      <button onclick="navigator.clipboard.writeText('${data.setupUrl}')">Copiar URL</button>
-    `;
-  } catch(err){
-    resultBox.style.display="block";
-    resultBox.innerHTML = `<p style='color:red;'>Erro ao conectar ao servidor.</p>`;
-  }
-}
-</script>
+  <button onclick="generateLink()">Gerar meu link</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function generateLink() {
+      const email = document.getElementById("email").value.trim();
+      const resultBox = document.getElementById("result");
+
+      if (!email) {
+        alert("Insira seu e-mail!");
+        return;
+      }
+
+      try {
+        const response = await fetch("https://notion-feed-backend2.onrender.com/generate-client", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          resultBox.style.display = "block";
+          resultBox.innerHTML = `<p style='color:red;'>${data.error || "Erro ao gerar link."}</p>`;
+          return;
+        }
+
+        resultBox.style.display = "block";
+        resultBox.innerHTML = `
+          <p><strong>Seu link exclusivo está pronto!</strong></p>
+          <p><a href="${data.setupUrl}" target="_blank">${data.setupUrl}</a></p>
+          <button onclick="navigator.clipboard.writeText('${data.setupUrl}')">Copiar URL</button>
+        `;
+      } catch (err) {
+        resultBox.style.display = "block";
+        resultBox.innerHTML = `<p style='color:red;'>Erro ao conectar ao servidor.</p>`;
+      }
+    }
+  </script>
+
 </body>
 </html>
