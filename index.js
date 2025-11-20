@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const axios = require("axios");
+const crypto = require("crypto");
 require("dotenv").config();
 const db = require("./db");
 
@@ -30,6 +31,51 @@ app.use("/widget/:clientId", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+// 🔵 NOVA ROTA — gerar acesso ao painel apenas com email
+app.post("/request-panel", async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: "Email é obrigatório." });
+  }
+
+  try {
+    // Buscar cliente pela tabela "clients"
+    const { rows } = await db.query(
+      "SELECT * FROM clients WHERE email = $1",
+      [email]
+    );
+
+    let clientId;
+
+    if (rows.length === 0) {
+      // Criar cliente novo
+      clientId = crypto.randomUUID();
+
+      await db.query(
+        "INSERT INTO clients (email, clientId, created_at) VALUES ($1, $2, NOW())",
+        [email, clientId]
+      );
+    } else {
+      // Cliente já existe → reutilizar clientId
+      clientId = rows[0].clientid;
+    }
+
+    const setupUrl = `https://meu-widget-feed.netlify.app/form.html?clientId=${clientId}`;
+
+    return res.json({
+      success: true,
+      setupUrl
+    });
+
+  } catch (err) {
+    console.error("❌ Erro ao gerar painel:", err);
+    return res.status(500).json({ error: "Erro interno ao gerar link do painel." });
+  }
+});
+
+
 // Utilidade — extrair databaseId do link do Notion
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
@@ -37,7 +83,7 @@ function extractDatabaseId(input) {
   return match ? match[1] : input;
 }
 
-// Função para consultar Notion
+// Consultar Notion
 async function queryDatabase(token, databaseId) {
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
@@ -57,8 +103,7 @@ async function queryDatabase(token, databaseId) {
   }
 }
 
-// 📌 ROTA NOVA — usada pelo generate.html
-// Gera um novo clientId com token/databaseId
+// 📌 ROTA /generate-client DO PAINEL CONFIGURAÇÃO
 app.post("/generate-client", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
@@ -77,7 +122,7 @@ app.post("/generate-client", async (req, res) => {
       previewUrl: `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${clientId}`
     });
   } catch (error) {
-    return res.status(500).json({ error: "Erro ao salvar cliente." });
+    return res.status(500).json({ error: "Erro ao salvar configuração." });
   }
 });
 
@@ -185,7 +230,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   }
 });
 
-// Exibição do widget
+// Exibir widget
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
