@@ -5,6 +5,7 @@ const axios = require("axios");
 require("dotenv").config();
 const db = require("./db");
 
+// 🔵 Garantir tabela configs no Supabase
 async function ensureTableExists() {
   try {
     await db.query(`
@@ -14,7 +15,7 @@ async function ensureTableExists() {
         databaseId TEXT NOT NULL
       );
     `);
-    console.log("✅ Tabela 'configs' verificada/criada com sucesso.");
+    console.log("✅ Tabela 'configs' verificada/criada.");
   } catch (error) {
     console.error("❌ Erro ao criar/verificar tabela configs:", error);
   }
@@ -29,12 +30,14 @@ app.use("/widget/:clientId", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Utilidade — extrair databaseId do link do Notion
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
   const match = input.match(regex);
   return match ? match[1] : input;
 }
 
+// Função para consultar Notion
 async function queryDatabase(token, databaseId) {
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
@@ -54,17 +57,41 @@ async function queryDatabase(token, databaseId) {
   }
 }
 
-// Rota inicial
+// 📌 ROTA NOVA — usada pelo generate.html
+// Gera um novo clientId com token/databaseId
+app.post("/generate-client", async (req, res) => {
+  const { clientId, token, databaseId } = req.body;
+
+  if (!clientId || !token || !databaseId) {
+    return res.status(400).json({ error: "Dados incompletos." });
+  }
+
+  const cleanDatabaseId = extractDatabaseId(databaseId);
+
+  try {
+    await db.saveConfig(clientId, token, cleanDatabaseId);
+
+    return res.json({
+      success: true,
+      clientId,
+      previewUrl: `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${clientId}`
+    });
+  } catch (error) {
+    return res.status(500).json({ error: "Erro ao salvar cliente." });
+  }
+});
+
+// Página inicial
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Rota para exibir o formulário
+// Página de formulário (antiga)
 app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
 
-// Rota para salvar configurações
+// Salvar formulário (modo antigo)
 app.post("/save-config", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
@@ -76,7 +103,7 @@ app.post("/save-config", async (req, res) => {
 
   try {
     await db.saveConfig(clientId, token, cleanDatabaseId);
-    console.log(`✅ Configuração salva: clientId=${clientId}, databaseId=${cleanDatabaseId}`);
+    console.log(`✅ Configuração salva: clientId=${clientId}`);
 
     const finalUrl = `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
 
@@ -98,19 +125,19 @@ app.post("/save-config", async (req, res) => {
       </body>
       </html>
     `);
+
   } catch (error) {
-    console.error("❌ Erro ao salvar config no banco:", error.message);
+    console.error("❌ Erro ao salvar configuração:", error.message);
     res.status(500).send("Erro ao salvar configuração.");
   }
 });
 
-// Rota que retorna os posts do Notion para o widget
+// Buscar posts do Notion
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
 
   try {
     const configRow = await db.getConfig(clientId);
-    console.log("🔍 Config carregada do banco:", configRow);
 
     if (!configRow) {
       return res.status(404).send("Configuração deste cliente não encontrada.");
@@ -121,46 +148,49 @@ app.get("/widget/:clientId/posts", async (req, res) => {
     const posts = results
       .map(page => {
         const props = page.properties;
+
         const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
         const date = props["Data de Publicação"]?.date?.start || null;
         const editoria = props["Editoria"]?.select?.name || null;
 
         const files = props["Mídia"]?.files?.map(file =>
-  file.file?.url || file.external?.url
-) || [];
+          file.file?.url || file.external?.url
+        ) || [];
 
-const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
+        const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
+        const embedDesign = props["Design Incorporado"]?.url ? [props["Design Incorporado"].url] : [];
 
-// Novo campo para design incorporado (Canva/Figma)
-const embedDesign = props["Design Incorporado"]?.url ? [props["Design Incorporado"].url] : [];
+        const media = [...embedDesign, ...files, ...linkDireto];
 
-const media = [...embedDesign, ...files, ...linkDireto];
-
-        const thumbnail = props["Capa do Vídeo"]?.files?.[0]?.file?.url 
-                       || props["Capa do Vídeo"]?.files?.[0]?.external?.url 
-                       || null;
+        const thumbnail =
+          props["Capa do Vídeo"]?.files?.[0]?.file?.url ||
+          props["Capa do Vídeo"]?.files?.[0]?.external?.url ||
+          null;
 
         const ocultar = props["Ocultar Visualização"]?.checkbox;
         if (ocultar || media.length === 0) return null;
 
         const formato = props["Formato"]?.select?.name?.toLowerCase() || null;
         const fixado = props["Fixado"]?.number || null;
+
         return { id: page.id, title, date, editoria, media, thumbnail, formato, fixado };
       })
       .filter(Boolean);
+
     res.json(posts);
+
   } catch (error) {
     console.error("❌ Erro ao buscar posts:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
 
-// Rota para visualizar o widget
+// Exibição do widget
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Inicializa o servidor
+// Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
