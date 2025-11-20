@@ -4,15 +4,63 @@ const path = require("path");
 const axios = require("axios");
 require("dotenv").config();
 const db = require("./db");
-const { v4: uuidv4 } = require("uuid");
+
+// Função para gerar clientId aleatório
+function generateRandomId(length = 8) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// 🔵 Garantir tabela configs
+async function ensureConfigsTable() {
+  try {
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS configs (
+        clientId TEXT PRIMARY KEY,
+        token TEXT NOT NULL,
+        databaseId TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT now(),
+        updated_at TIMESTAMP
+      );
+    `);
+    console.log("✅ Tabela 'configs' verificada/criada.");
+  } catch (error) {
+    console.error("❌ Erro ao criar/verificar tabela configs:", error);
+  }
+}
+
+// 🔵 Garantir tabela allowed_clients
+async function ensureAllowedClientsTable() {
+  try {
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS allowed_clients (
+        id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+        email TEXT UNIQUE NOT NULL,
+        clientId TEXT UNIQUE NOT NULL,
+        created_at TIMESTAMP DEFAULT now()
+      );
+    `);
+    console.log("✅ Tabela 'allowed_clients' verificada/criada.");
+  } catch (error) {
+    console.error("❌ Erro ao criar/verificar tabela allowed_clients:", error);
+  }
+}
+
+ensureConfigsTable();
+ensureAllowedClientsTable();
 
 const app = express();
 app.use(cors());
 app.use(express.static("public"));
-app.use(express.json());
+app.use("/widget/:clientId", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Utilitário — extrai databaseId do link do Notion
+// Extrair databaseId do link do Notion
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
   const match = input.match(regex);
@@ -32,49 +80,85 @@ async function queryDatabase(token, databaseId) {
     });
     return response.data.results;
   } catch (error) {
-    throw new Error(error.response?.data?.message || error.message);
+    console.error("❌ Erro ao consultar Notion:", error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
   }
 }
 
-// Rota para gerar clientId
+// 📌 ROTA NOVA — gerar clientId pelo e-mail
 app.post("/generate-client", async (req, res) => {
   const { email } = req.body;
-  if (!email) return res.status(400).json({ error: "Email é obrigatório." });
+
+  if (!email) return res.status(400).json({ error: "Informe seu e-mail" });
 
   try {
-    // Verifica se já existe
+    // Buscar cliente existente
     let client = await db.getAllowedClientByEmail(email);
+
     if (!client) {
-      const clientId = uuidv4();
+      // Criar novo clientId
+      const clientId = generateRandomId(10);
       await db.saveAllowedClient(email, clientId);
-      client = { clientId };
+      client = { email, clientId };
     }
 
-    const setupUrl = `https://meu-widget-feed.netlify.app/form.html?clientId=${client.clientId}`;
-
-    return res.json({ setupUrl, clientId: client.clientId });
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.json({
+      success: true,
+      clientId: client.clientId,
+      setupUrl: `https://meu-widget-feed.netlify.app/form.html?clientId=${client.clientId}`
+    });
+  } catch (error) {
+    console.error("❌ Erro ao gerar clientId:", error.message);
+    return res.status(500).json({ error: "Erro ao gerar link" });
   }
 });
 
-// Rota para salvar config do widget
+// Página inicial
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// Página de formulário
+app.get("/config", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "form.html"));
+});
+
+// Salvar token/databaseId no configs
 app.post("/save-config", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
-  if (!clientId || !token || !databaseId) return res.status(400).send("Dados incompletos.");
+
+  if (!clientId || !token || !databaseId) {
+    return res.status(400).send("Todos os campos são obrigatórios.");
+  }
+
+  const cleanDatabaseId = extractDatabaseId(databaseId);
 
   try {
-    const cleanDatabaseId = extractDatabaseId(databaseId);
     await db.saveConfig(clientId, token, cleanDatabaseId);
+    console.log(`✅ Configuração salva: clientId=${clientId}`);
 
     const finalUrl = `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
+
     res.send(`
-      <html><body>
-      <p>Redirecionando para seu widget...</p>
-      <script>window.location.href="${finalUrl}"</script>
-      </body></html>
+      <!DOCTYPE html>
+      <html lang="pt-BR">
+      <head>
+        <meta charset="UTF-8" />
+        <title>Redirecionando...</title>
+        <style>
+          body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        </style>
+      </head>
+      <body>
+        <p>Redirecionando para seu widget...</p>
+        <script>
+          window.location.href = "${finalUrl}";
+        </script>
+      </body>
+      </html>
     `);
-  } catch (err) {
+  } catch (error) {
+    console.error("❌ Erro ao salvar configuração:", error.message);
     res.status(500).send("Erro ao salvar configuração.");
   }
 });
@@ -82,29 +166,55 @@ app.post("/save-config", async (req, res) => {
 // Buscar posts do Notion
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
-  try {
-    const config = await db.getConfig(clientId);
-    if (!config) return res.status(404).send("Cliente não encontrado.");
 
-    const results = await queryDatabase(config.token, config.databaseId);
-    const posts = results.map(page => {
-      const props = page.properties;
-      const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
-      const date = props["Data de Publicação"]?.date?.start || null;
-      const media = (props["Mídia"]?.files?.map(f => f.file?.url || f.external?.url) || []);
-      return { id: page.id, title, date, media };
-    });
+  try {
+    const configRow = await db.getConfig(clientId);
+
+    if (!configRow) {
+      return res.status(404).send("Configuração deste cliente não encontrada.");
+    }
+
+    const results = await queryDatabase(configRow.token, configRow.databaseId);
+
+    const posts = results
+      .map(page => {
+        const props = page.properties;
+        const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
+        const date = props["Data de Publicação"]?.date?.start || null;
+        const editoria = props["Editoria"]?.select?.name || null;
+        const files = props["Mídia"]?.files?.map(file =>
+          file.file?.url || file.external?.url
+        ) || [];
+        const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
+        const embedDesign = props["Design Incorporado"]?.url ? [props["Design Incorporado"].url] : [];
+        const media = [...embedDesign, ...files, ...linkDireto];
+        const thumbnail =
+          props["Capa do Vídeo"]?.files?.[0]?.file?.url ||
+          props["Capa do Vídeo"]?.files?.[0]?.external?.url ||
+          null;
+        const ocultar = props["Ocultar Visualização"]?.checkbox;
+        if (ocultar || media.length === 0) return null;
+        const formato = props["Formato"]?.select?.name?.toLowerCase() || null;
+        const fixado = props["Fixado"]?.number || null;
+        return { id: page.id, title, date, editoria, media, thumbnail, formato, fixado };
+      })
+      .filter(Boolean);
+
     res.json(posts);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+
+  } catch (error) {
+    console.error("❌ Erro ao buscar posts:", error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 
-// Exibir widget
+// Exibição do widget
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+});
