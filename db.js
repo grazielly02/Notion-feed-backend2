@@ -57,17 +57,16 @@ module.exports = {
   // -----------------------------------------
   logAccess: async (clientId, action, ip = null, userAgent = null, meta = {}) => {
     await pool.query(
-      `INSERT INTO access_logs (clientid, action, ip, user_agent, meta)
-       VALUES ($1, $2, $3, $4, $5)`,
-      [
-        clientId || null,
-        action || null,
-        ip || null,
-        userAgent || null,
-        meta
-      ]
-    );
-  },
+  `INSERT INTO access_logs (clientid, action, ip, user_agent, meta)
+   VALUES ($1, $2, $3, $4, $5::jsonb)`,
+  [
+    clientId || null,
+    action || null,
+    ip || null,
+    userAgent || null,
+    JSON.stringify(meta || {})
+  ]
+);
 
   getAccessByClientId: async (clientId) => {
     const res = await pool.query(
