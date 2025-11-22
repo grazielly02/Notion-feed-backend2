@@ -9,7 +9,9 @@ const pool = new Pool({
 module.exports = {
   query: (text, params) => pool.query(text, params),
 
-  // allowed_clients
+  // -----------------------------------------
+  // ALLOWED_CLIENTS  (para liberar o acesso)
+  // -----------------------------------------
   saveAllowedClient: async (email, clientId) => {
     await pool.query(
       `INSERT INTO allowed_clients (email, "clientId")
@@ -21,19 +23,22 @@ module.exports = {
 
   getAllowedClientByEmail: async (email) => {
     const res = await pool.query(
-      `SELECT * FROM allowed_clients WHERE email=$1`,
+      `SELECT * FROM allowed_clients WHERE email = $1`,
       [email.trim()]
     );
     return res.rows[0];
   },
 
-  // configs
+  // -----------------------------------------
+  // CONFIGS  (token + databaseId do Notion)
+  // -----------------------------------------
   saveConfig: async (clientId, token, databaseId) => {
     await pool.query(
       `INSERT INTO configs ("clientId", token, "databaseId")
        VALUES ($1, $2, $3)
        ON CONFLICT ("clientId")
-       DO UPDATE SET token = EXCLUDED.token, "databaseId" = EXCLUDED."databaseId"`,
+       DO UPDATE SET token = EXCLUDED.token,
+                     "databaseId" = EXCLUDED."databaseId"`,
       [clientId.trim(), token.trim(), databaseId.trim()]
     );
   },
@@ -44,5 +49,32 @@ module.exports = {
       [clientId.trim()]
     );
     return res.rows[0];
+  },
+
+  // -----------------------------------------
+  // ACCESS_LOGS  (monitoramento avançado)
+  // -----------------------------------------
+  logAccess: async (clientId, action, ip = null, userAgent = null, meta = {}) => {
+    await pool.query(
+      `INSERT INTO access_logs ("clientId", action, ip, user_agent, meta)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [
+        clientId?.trim() || null,
+        action?.trim() || null,
+        ip || null,
+        userAgent || null,
+        meta
+      ]
+    );
+  },
+
+  getAccessByClientId: async (clientId) => {
+    const res = await pool.query(
+      `SELECT * FROM access_logs
+       WHERE "clientId" = $1
+       ORDER BY created_at DESC`,
+      [clientId.trim()]
+    );
+    return res.rows;
   }
 };
