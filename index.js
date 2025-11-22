@@ -1,4 +1,3 @@
-// index.js (COMPLETO E ATUALIZADO)
 import express from "express";
 import cors from "cors";
 import db from "./db.js";
@@ -12,67 +11,12 @@ app.use(cors({
 }));
 
 // ---------------------------------------------------
-// Criar tabelas
+// NÃO CRIA MAIS TABELAS INCORRETAS
+// (seu banco já possui a estrutura real)
 // ---------------------------------------------------
 
-async function ensureConfigsTable() {
-  try {
-    await db.query(`
-      CREATE TABLE IF NOT EXISTS configs (
-        id TEXT PRIMARY KEY,
-        notionToken TEXT,
-        databaseId TEXT,
-        created_at TIMESTAMP DEFAULT now()
-      );
-    `);
-    console.log("✔ Tabela configs OK");
-  } catch (err) {
-    console.error("Erro ao criar tabela configs:", err);
-  }
-}
-
-async function ensureAllowedClientsTable() {
-  try {
-    await db.query(`
-      CREATE TABLE IF NOT EXISTS allowed_clients (
-        id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-        email TEXT UNIQUE NOT NULL,
-        created_at TIMESTAMP DEFAULT now()
-      );
-    `);
-    console.log("✔ Tabela allowed_clients OK");
-  } catch (err) {
-    console.error("Erro ao criar tabela allowed_clients:", err);
-  }
-}
-
-// 🔵 A tabela que faltava!
-async function ensureAccessLogsTable() {
-  try {
-    await db.query(`
-      CREATE TABLE IF NOT EXISTS access_logs (
-        id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-        clientId TEXT,
-        action TEXT NOT NULL,
-        ip TEXT,
-        user_agent TEXT,
-        meta JSONB DEFAULT '{}'::jsonb,
-        created_at TIMESTAMP DEFAULT now()
-      );
-    `);
-    console.log("✔ Tabela access_logs OK");
-  } catch (err) {
-    console.error("Erro ao criar tabela access_logs:", err);
-  }
-}
-
-// Executa as 3 verificações
-ensureConfigsTable();
-ensureAllowedClientsTable();
-ensureAccessLogsTable();
-
 // ---------------------------------------------------
-// Função para capturar IP real
+// Capturar IP
 // ---------------------------------------------------
 function getIP(req) {
   return (
@@ -107,32 +51,35 @@ app.post("/generate-client", async (req, res) => {
       return res.status(403).json({ error: "Email não autorizado" });
     }
 
-    // Verifica se já existe config
+    const clientId = allowed.rows[0].clientid;
+
+    // Verifica se já tem config
     const existingConfig = await db.query(
-      `SELECT id FROM configs WHERE id = $1`,
-      [email]
+      `SELECT * FROM configs WHERE "clientId" = $1`,
+      [clientId]
     );
 
     if (existingConfig.rowCount > 0) {
-      await db.logAccess(email, "generate_client_existing", ip, ua);
+      await db.logAccess(clientId, "generate_client_existing", ip, ua);
       return res.json({
-        clientId: email,
-        url: `https://meu-widget-feed.netlify.app/widget.html?clientId=${email}`,
+        clientId,
+        setupUrl: `https://meu-widget-feed.netlify.app/widget.html?clientId=${clientId}`,
       });
     }
 
-    // Criar novo config vazio
+    // Cria configuração vazia
     await db.query(
-      `INSERT INTO configs (id, notionToken, databaseId) VALUES ($1, '', '')`,
-      [email]
+      `INSERT INTO configs ("clientId", token, "databaseId") VALUES ($1, '', '')`,
+      [clientId]
     );
 
-    await db.logAccess(email, "generate_client_new", ip, ua);
+    await db.logAccess(clientId, "generate_client_new", ip, ua);
 
     return res.json({
-      clientId: email,
-      url: `https://meu-widget-feed.netlify.app/widget.html?clientId=${email}`,
+      clientId,
+      setupUrl: `https://meu-widget-feed.netlify.app/widget.html?clientId=${clientId}`,
     });
+
   } catch (err) {
     console.error("Erro generate-client:", err);
     res.status(500).json({ error: "Erro interno" });
@@ -140,7 +87,7 @@ app.post("/generate-client", async (req, res) => {
 });
 
 // ---------------------------------------------------
-// Rota: Salvar config do cliente
+// Salvar configurações do cliente
 // ---------------------------------------------------
 app.post("/save-config", async (req, res) => {
   try {
@@ -154,71 +101,18 @@ app.post("/save-config", async (req, res) => {
     }
 
     await db.query(
-      `UPDATE configs SET notionToken = $1, databaseId = $2 WHERE id = $3`,
+      `UPDATE configs SET token = $1, "databaseId" = $2 WHERE "clientId" = $3`,
       [notionToken, databaseId, clientId]
     );
 
     await db.logAccess(clientId, "save_config_success", ip, ua);
 
     return res.json({ success: true });
+
   } catch (err) {
     console.error("Erro save-config:", err);
     res.status(500).json({ error: "Erro interno" });
   }
-});
-
-// ---------------------------------------------------
-// Rota: Fornecer dados de posts ao widget
-// ---------------------------------------------------
-app.get("/posts", async (req, res) => {
-  try {
-    const { clientId } = req.query;
-    const ip = getIP(req);
-    const ua = req.headers["user-agent"] || "unknown";
-
-    if (!clientId) {
-      await db.logAccess(null, "posts_missing_client", ip, ua);
-      return res.status(400).json({ error: "clientId é obrigatório" });
-    }
-
-    await db.logAccess(clientId, "posts_requested", ip, ua);
-
-    // Recupera as configs
-    const config = await db.query(`SELECT * FROM configs WHERE id = $1`, [
-      clientId,
-    ]);
-
-    if (config.rowCount === 0) {
-      await db.logAccess(clientId, "posts_no_config", ip, ua);
-      return res.status(404).json({ error: "Configuração não encontrada" });
-    }
-
-    // --- AQUI você chama a API do Notion depois ---
-    // Por enquanto simulação:
-    const samplePosts = [
-      { id: "1", type: "image", url: "https://picsum.photos/300" },
-      { id: "2", type: "image", url: "https://picsum.photos/301" }
-    ];
-
-    return res.json({ posts: samplePosts });
-
-  } catch (err) {
-    console.error("Erro posts:", err);
-    res.status(500).json({ error: "Erro interno" });
-  }
-});
-
-// ---------------------------------------------------
-// Rota do widget (registro de acesso)
-// ---------------------------------------------------
-app.get("/widget", async (req, res) => {
-  const { clientId } = req.query;
-  const ip = getIP(req);
-  const ua = req.headers["user-agent"] || "unknown";
-
-  await db.logAccess(clientId, "widget_view", ip, ua);
-
-  res.json({ ok: true });
 });
 
 // ---------------------------------------------------
