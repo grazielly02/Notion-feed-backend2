@@ -1,5 +1,5 @@
-const { Pool } = require("pg");
-require("dotenv").config();
+const { Pool } = require('pg');
+require('dotenv').config();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -7,17 +7,18 @@ const pool = new Pool({
 });
 
 module.exports = {
+
   query: (text, params) => pool.query(text, params),
 
-  // ----------------------------
+  // -----------------------------------------
   // allowed_clients
-  // ----------------------------
-  saveAllowedClient: async (email) => {
+  // -----------------------------------------
+  saveAllowedClient: async (email, clientId) => {
     await pool.query(
-      `INSERT INTO allowed_clients (email)
-       VALUES ($1)
+      `INSERT INTO allowed_clients (email, "clientId")
+       VALUES ($1, $2)
        ON CONFLICT (email) DO NOTHING`,
-      [email.trim()]
+      [email.trim(), clientId.trim()]
     );
   },
 
@@ -29,46 +30,52 @@ module.exports = {
     return res.rows[0];
   },
 
-  // ----------------------------
+  // -----------------------------------------
   // configs
-  // ----------------------------
+  // -----------------------------------------
   saveConfig: async (clientId, token, databaseId) => {
     await pool.query(
-      `INSERT INTO configs (id, notionToken, databaseId)
+      `INSERT INTO configs ("clientId", token, "databaseId")
        VALUES ($1, $2, $3)
-       ON CONFLICT (id)
-       DO UPDATE SET notionToken = EXCLUDED.notionToken,
-                     databaseId = EXCLUDED.databaseId`,
+       ON CONFLICT ("clientId")
+       DO UPDATE SET token = EXCLUDED.token,
+                     "databaseId" = EXCLUDED."databaseId"`,
       [clientId.trim(), token.trim(), databaseId.trim()]
     );
   },
 
   getConfig: async (clientId) => {
     const res = await pool.query(
-      `SELECT * FROM configs WHERE id = $1`,
+      `SELECT * FROM configs WHERE "clientId"=$1`,
       [clientId.trim()]
     );
     return res.rows[0];
   },
 
-  // ----------------------------
-  // access_logs (FUNÇÃO QUE FALTAVA)
-  // ----------------------------
-  logAccess: async (clientId, action, ip, userAgent, meta = {}) => {
-    try {
-      await pool.query(
-        `INSERT INTO access_logs (clientId, action, ip, user_agent, meta)
-         VALUES ($1, $2, $3, $4, $5)`,
-        [
-          clientId || null,
-          action,
-          ip || null,
-          userAgent || null,
-          meta ? JSON.stringify(meta) : "{}"
-        ]
-      );
-    } catch (err) {
-      console.error("Erro ao registrar access_log:", err);
-    }
+  // -----------------------------------------
+  // access_logs
+  // -----------------------------------------
+  logAccess: async (clientId, action, ip = null, userAgent = null, meta = {}) => {
+    await pool.query(
+      `INSERT INTO access_logs (clientid, action, ip, user_agent, meta)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [
+        clientId || null,
+        action || null,
+        ip || null,
+        userAgent || null,
+        meta
+      ]
+    );
+  },
+
+  getAccessByClientId: async (clientId) => {
+    const res = await pool.query(
+      `SELECT * FROM access_logs
+       WHERE clientid = $1
+       ORDER BY created_at DESC`,
+      [clientId]
+    );
+    return res.rows;
   }
 };
