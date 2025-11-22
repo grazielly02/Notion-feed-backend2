@@ -6,7 +6,7 @@ require("dotenv").config();
 const db = require("./db");
 
 // Função para gerar clientId aleatório
-function generateRandomId(length = 10) {
+function generateRandomId(length = 8) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
   for (let i = 0; i < length; i++) {
@@ -15,7 +15,7 @@ function generateRandomId(length = 10) {
   return result;
 }
 
-// 🔵 Garantir tabela configs
+// Garantir tabela configs
 async function ensureConfigsTable() {
   try {
     await db.query(`
@@ -27,13 +27,13 @@ async function ensureConfigsTable() {
         updated_at TIMESTAMP
       );
     `);
-    console.log("✅ Tabela 'configs' verificada/criada.");
+    console.log("✔️ Tabela 'configs' verificada/criada.");
   } catch (error) {
     console.error("❌ Erro ao criar/verificar tabela configs:", error);
   }
 }
 
-// 🔵 Garantir tabela allowed_clients
+// Garantir tabela allowed_clients
 async function ensureAllowedClientsTable() {
   try {
     await db.query(`
@@ -44,7 +44,7 @@ async function ensureAllowedClientsTable() {
         created_at TIMESTAMP DEFAULT now()
       );
     `);
-    console.log("✅ Tabela 'allowed_clients' verificada/criada.");
+    console.log("✔️ Tabela 'allowed_clients' verificada/criada.");
   } catch (error) {
     console.error("❌ Erro ao criar/verificar tabela allowed_clients:", error);
   }
@@ -55,19 +55,18 @@ ensureAllowedClientsTable();
 
 const app = express();
 app.use(cors());
-app.use(express.static("public"));
-app.use("/widget/:clientId", express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-// Extração do databaseId
+// Extrair databaseId do link do Notion
 function extractDatabaseId(input) {
   const regex = /([a-f0-9]{32})/;
   const match = input.match(regex);
   return match ? match[1] : input;
 }
 
-// Consulta Notion
+// Consultar Notion
 async function queryDatabase(token, databaseId) {
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
   try {
@@ -85,16 +84,11 @@ async function queryDatabase(token, databaseId) {
   }
 }
 
-// 📌 ROTA — gerar clientId
+// ROTA — gerar clientId
 app.post("/generate-client", async (req, res) => {
   const { email } = req.body;
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-  const ua = req.headers["user-agent"];
 
-  if (!email) {
-    await db.logAccess(null, "generate_client_missing_email", ip, ua);
-    return res.status(400).json({ error: "Informe seu e-mail" });
-  }
+  if (!email) return res.status(400).json({ error: "Informe seu e-mail" });
 
   try {
     // Buscar cliente existente
@@ -105,10 +99,6 @@ app.post("/generate-client", async (req, res) => {
       const clientId = generateRandomId(10);
       await db.saveAllowedClient(email, clientId);
       client = { email, clientId };
-
-      await db.logAccess(clientId, "generate_client_new", ip, ua);
-    } else {
-      await db.logAccess(client.clientId, "generate_client_existing", ip, ua);
     }
 
     return res.json({
@@ -118,7 +108,6 @@ app.post("/generate-client", async (req, res) => {
     });
   } catch (error) {
     console.error("❌ Erro ao gerar clientId:", error.message);
-    await db.logAccess(null, "generate_client_error", ip, ua, { error: error.message });
     return res.status(500).json({ error: "Erro ao gerar link" });
   }
 });
@@ -129,7 +118,7 @@ app.get("/", (req, res) => {
 });
 
 // Página do formulário
-app.get("/config", async (req, res) => {
+app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
 
@@ -137,11 +126,7 @@ app.get("/config", async (req, res) => {
 app.post("/save-config", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-  const ua = req.headers["user-agent"];
-
   if (!clientId || !token || !databaseId) {
-    await db.logAccess(clientId, "save_config_missing_fields", ip, ua);
     return res.status(400).send("Todos os campos são obrigatórios.");
   }
 
@@ -149,8 +134,7 @@ app.post("/save-config", async (req, res) => {
 
   try {
     await db.saveConfig(clientId, token, cleanDatabaseId);
-
-    await db.logAccess(clientId, "save_config_success", ip, ua);
+    console.log(`✔️ Configuração salva: clientId=${clientId}`);
 
     const finalUrl =
       `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
@@ -175,26 +159,20 @@ app.post("/save-config", async (req, res) => {
     `);
   } catch (error) {
     console.error("❌ Erro ao salvar:", error.message);
-    await db.logAccess(clientId, "save_config_error", ip, ua, { error: error.message });
     res.status(500).send("Erro ao salvar configuração.");
   }
 });
 
-// Buscar posts do Notion
+// Buscar posts
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-  const ua = req.headers["user-agent"];
 
   try {
     const configRow = await db.getConfig(clientId);
 
     if (!configRow) {
-      await db.logAccess(clientId, "get_posts_missing_config", ip, ua);
       return res.status(404).send("Configuração não encontrada.");
     }
-
-    await db.logAccess(clientId, "get_posts", ip, ua);
 
     const results = await queryDatabase(configRow.token, configRow.databaseId);
 
@@ -206,17 +184,16 @@ app.get("/widget/:clientId/posts", async (req, res) => {
         const date = props["Data de Publicação"]?.date?.start || null;
         const editoria = props["Editoria"]?.select?.name || null;
 
-        const files =
-          props["Mídia"]?.files?.map(file =>
-            file.file?.url || file.external?.url
-          ) || [];
+        const files = props["Mídia"]?.files?.map(file =>
+          file.file?.url || file.external?.url
+        ) || [];
 
         const linkDireto = props["Link da Mídia"]?.url
           ? [props["Link da Mídia"]?.url]
           : [];
 
         const embedDesign = props["Design Incorporado"]?.url
-          ? [props["Design Incorporado"].url]
+          ? [props["Design Incorporado"]?.url]
           : [];
 
         const media = [...embedDesign, ...files, ...linkDireto];
@@ -240,19 +217,12 @@ app.get("/widget/:clientId/posts", async (req, res) => {
 
   } catch (error) {
     console.error("❌ Erro ao buscar posts:", error.message);
-    await db.logAccess(clientId, "get_posts_error", ip, ua, { error: error.message });
     res.status(500).json({ error: error.message });
   }
 });
 
 // Visualização do widget
-app.get("/widget/:clientId/view", async (req, res) => {
-  const clientId = req.params.clientId;
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-  const ua = req.headers["user-agent"];
-
-  await db.logAccess(clientId, "open_widget_view", ip, ua);
-
+app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
