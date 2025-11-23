@@ -5,7 +5,7 @@ const axios = require("axios");
 require("dotenv").config();
 const db = require("./db");
 
-// FunÃ§Ã£o para gerar clientId aleatÃ³rio
+// Função para gerar clientId aleatório
 function generateRandomId(length = 8) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
@@ -15,7 +15,7 @@ function generateRandomId(length = 8) {
   return result;
 }
 
-// ðŸ”µ Garantir tabela configs
+// Garantir tabela configs
 async function ensureConfigsTable() {
   try {
     await db.query(`
@@ -27,13 +27,13 @@ async function ensureConfigsTable() {
         updated_at TIMESTAMP
       );
     `);
-    console.log("âœ… Tabela 'configs' verificada/criada.");
+    console.log("✔ Tabela 'configs' verificada/criada.");
   } catch (error) {
-    console.error("âŒ Erro ao criar/verificar tabela configs:", error);
+    console.error("❌ Erro ao criar/verificar tabela configs:", error);
   }
 }
 
-// ðŸ”µ Garantir tabela allowed_clients
+// Garantir tabela allowed_clients
 async function ensureAllowedClientsTable() {
   try {
     await db.query(`
@@ -44,9 +44,9 @@ async function ensureAllowedClientsTable() {
         created_at TIMESTAMP DEFAULT now()
       );
     `);
-    console.log("âœ… Tabela 'allowed_clients' verificada/criada.");
+    console.log("✔ Tabela 'allowed_clients' verificada/criada.");
   } catch (error) {
-    console.error("âŒ Erro ao criar/verificar tabela allowed_clients:", error);
+    console.error("❌ Erro ao criar/verificar tabela allowed_clients:", error);
   }
 }
 
@@ -80,12 +80,12 @@ async function queryDatabase(token, databaseId) {
     });
     return response.data.results;
   } catch (error) {
-    console.error("âŒ Erro ao consultar Notion:", error.response?.data || error.message);
+    console.error("❌ Erro ao consultar Notion:", error.response?.data || error.message);
     throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
   }
 }
 
-// ðŸ“Œ ROTA NOVA â€” gerar clientId pelo e-mail
+// ROTA NOVA — gerar clientId pelo e-mail
 app.post("/generate-client", async (req, res) => {
   const { email } = req.body;
 
@@ -100,6 +100,12 @@ app.post("/generate-client", async (req, res) => {
       const clientId = generateRandomId(10);
       await db.saveAllowedClient(email, clientId);
       client = { email, clientId };
+
+      // Registrar log
+      await db.logAccess(clientId, "gerou_link", req.ip, req.headers['user-agent'], { email });
+    } else {
+      // Também registrar log se cliente já existia
+      await db.logAccess(client.clientId, "acesso_existente", req.ip, req.headers['user-agent'], { email });
     }
 
     return res.json({
@@ -108,17 +114,17 @@ app.post("/generate-client", async (req, res) => {
       setupUrl: `https://meu-widget-feed.netlify.app/form.html?clientId=${client.clientId}`
     });
   } catch (error) {
-    console.error("âŒ Erro ao gerar clientId:", error.message);
+    console.error("❌ Erro ao gerar clientId:", error.message);
     return res.status(500).json({ error: "Erro ao gerar link" });
   }
 });
 
-// PÃ¡gina inicial
+// Página inicial
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// PÃ¡gina de formulÃ¡rio
+// Página de formulário
 app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
@@ -128,14 +134,18 @@ app.post("/save-config", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
   if (!clientId || !token || !databaseId) {
-    return res.status(400).send("Todos os campos sÃ£o obrigatÃ³rios.");
+    return res.status(400).send("Todos os campos são obrigatórios.");
   }
 
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
   try {
     await db.saveConfig(clientId, token, cleanDatabaseId);
-    console.log(`âœ… ConfiguraÃ§Ã£o salva: clientId=${clientId}`);
+
+    // Registrar log
+    await db.logAccess(clientId, "salvou_config", req.ip, req.headers['user-agent']);
+
+    console.log(`✔ Configuração salva: clientId=${clientId}`);
 
     const finalUrl = `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
 
@@ -158,8 +168,8 @@ app.post("/save-config", async (req, res) => {
       </html>
     `);
   } catch (error) {
-    console.error("âŒ Erro ao salvar configuraÃ§Ã£o:", error.message);
-    res.status(500).send("Erro ao salvar configuraÃ§Ã£o.");
+    console.error("❌ Erro ao salvar configuração:", error.message);
+    res.status(500).send("Erro ao salvar configuração.");
   }
 });
 
@@ -171,28 +181,31 @@ app.get("/widget/:clientId/posts", async (req, res) => {
     const configRow = await db.getConfig(clientId);
 
     if (!configRow) {
-      return res.status(404).send("ConfiguraÃ§Ã£o deste cliente nÃ£o encontrada.");
+      return res.status(404).send("Configuração deste cliente não encontrada.");
     }
+
+    // Registrar log de acesso ao widget
+    await db.logAccess(clientId, "acesso_widget", req.ip, req.headers['user-agent']);
 
     const results = await queryDatabase(configRow.token, configRow.databaseId);
 
     const posts = results
       .map(page => {
         const props = page.properties;
-        const title = props["Post"]?.title?.[0]?.plain_text || "Sem tÃ­tulo";
-        const date = props["Data de PublicaÃ§Ã£o"]?.date?.start || null;
+        const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
+        const date = props["Data de Publicação"]?.date?.start || null;
         const editoria = props["Editoria"]?.select?.name || null;
-        const files = props["MÃ­dia"]?.files?.map(file =>
+        const files = props["Mídia"]?.files?.map(file =>
           file.file?.url || file.external?.url
         ) || [];
-        const linkDireto = props["Link da MÃ­dia"]?.url ? [props["Link da MÃ­dia"].url] : [];
+        const linkDireto = props["Link da Mídia"]?.url ? [props["Link da Mídia"].url] : [];
         const embedDesign = props["Design Incorporado"]?.url ? [props["Design Incorporado"].url] : [];
         const media = [...embedDesign, ...files, ...linkDireto];
         const thumbnail =
-          props["Capa do VÃ­deo"]?.files?.[0]?.file?.url ||
-          props["Capa do VÃ­deo"]?.files?.[0]?.external?.url ||
+          props["Capa do Vídeo"]?.files?.[0]?.file?.url ||
+          props["Capa do Vídeo"]?.files?.[0]?.external?.url ||
           null;
-        const ocultar = props["Ocultar VisualizaÃ§Ã£o"]?.checkbox;
+        const ocultar = props["Ocultar Visualização"]?.checkbox;
         if (ocultar || media.length === 0) return null;
         const formato = props["Formato"]?.select?.name?.toLowerCase() || null;
         const fixado = props["Fixado"]?.number || null;
@@ -203,18 +216,23 @@ app.get("/widget/:clientId/posts", async (req, res) => {
     res.json(posts);
 
   } catch (error) {
-    console.error("âŒ Erro ao buscar posts:", error.message);
+    console.error("❌ Erro ao buscar posts:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
 
-// ExibiÃ§Ã£o do widget
-app.get("/widget/:clientId/view", (req, res) => {
+// Exibição do widget
+app.get("/widget/:clientId/view", async (req, res) => {
+  const clientId = req.params.clientId;
+
+  // Registrar log de acesso à visualização do widget
+  await db.logAccess(clientId, "view_widget", req.ip, req.headers['user-agent']);
+
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`ðŸš€ Servidor rodando na porta ${PORT}`);
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
