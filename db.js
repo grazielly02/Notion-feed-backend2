@@ -9,11 +9,10 @@ const pool = new Pool({
 module.exports = {
   query: (text, params) => pool.query(text, params),
 
-  // allowed_clients
   saveAllowedClient: async (email, clientId) => {
     await pool.query(
-      `INSERT INTO allowed_clients (email, "clientId") 
-       VALUES ($1, $2) 
+      `INSERT INTO allowed_clients (email, "clientId")
+       VALUES ($1, $2)
        ON CONFLICT (email) DO NOTHING`,
       [email.trim(), clientId.trim()]
     );
@@ -27,12 +26,11 @@ module.exports = {
     return res.rows[0];
   },
 
-  // configs
   saveConfig: async (clientId, token, databaseId) => {
     await pool.query(
-      `INSERT INTO configs ("clientId", token, "databaseId") 
-       VALUES ($1, $2, $3) 
-       ON CONFLICT ("clientId") 
+      `INSERT INTO configs ("clientId", token, "databaseId")
+       VALUES ($1, $2, $3)
+       ON CONFLICT ("clientId")
        DO UPDATE SET token = EXCLUDED.token, "databaseId" = EXCLUDED."databaseId"`,
       [clientId.trim(), token.trim(), databaseId.trim()]
     );
@@ -44,5 +42,20 @@ module.exports = {
       [clientId.trim()]
     );
     return res.rows[0];
+  },
+
+  // NOVA FUNÇÃO — precisa existir SENÃO QUEBRA O SERVIDOR
+  logAccess: async (clientId, action, ip, userAgent, meta = {}) => {
+    await pool.query(
+      `INSERT INTO access_logs (clientId, action, ip, user_agent, meta)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [
+        clientId,
+        action,
+        ip,
+        userAgent,
+        meta
+      ]
+    );
   }
 };
