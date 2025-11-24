@@ -199,6 +199,31 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
 
   try {
+    // 1 — registrar acesso ANTES de responder
+    const rawIp = (req.headers["x-forwarded-for"] ||
+        req.connection.remoteAddress ||
+        "").split(",")[0].trim();
+
+    const ip = rawIp || null;
+    const userAgent = req.headers["user-agent"] || null;
+    const referrer = req.headers["referer"] || null;
+
+    // Verificar se clientId é permitido
+    const check = await db.query(
+      `SELECT 1 FROM allowed_clients WHERE "clientId" = $1 LIMIT 1`,
+      [clientId]
+    );
+    const isValid = check.rows.length > 0;
+
+    await db.logAccess(
+      clientId,
+      ip,
+      userAgent,
+      referrer,
+      isValid,
+      { route: "/widget/:clientId/posts" }
+    );
+
     const configRow = await db.getConfig(clientId);
 
     if (!configRow) {
