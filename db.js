@@ -67,5 +67,5 @@ logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
   } catch (err) {
     console.error("ERRO AO SALVAR LOG:", err);
   }
-},
-  };
+}
+};
