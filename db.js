@@ -44,18 +44,18 @@ module.exports = {
     return res.rows[0];
   },
 
-  // NOVA FUNÇÃO — precisa existir SENÃO QUEBRA O SERVIDOR
-  logAccess: async (clientId, action, ip, userAgent, meta = {}) => {
-    await pool.query(
-      `INSERT INTO access_logs (clientId, action, ip, user_agent, meta)
-       VALUES ($1, $2, $3, $4, $5)`,
-      [
-        clientId,
-        action,
-        ip,
-        userAgent,
-        meta
-      ]
-    );
-  }
-};
+  // Função correta de log — compatível com sua tabela access_logs
+logAccess: async (clientId, action, ip, userAgent, referrer = null, extra = {}) => {
+  await pool.query(
+    `INSERT INTO access_logs (clientId, action, ip, user_agent, referrer, extra)
+     VALUES ($1, $2, $3, $4, $5, $6)`,
+    [
+      clientId,
+      action,
+      ip,
+      userAgent,
+      referrer,
+      extra
+    ]
+  );
+},
