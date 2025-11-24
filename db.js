@@ -49,6 +49,13 @@ logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
   await pool.query(
     `INSERT INTO access_logs (clientid, ip, user_agent, referrer, is_valid, accessed_at, extra)
      VALUES ($1, $2, $3, $4, $5, now(), $6)`,
-    [clientId, ip, userAgent, referrer, isValid, extra]
+    [
+      clientId,
+      ip || null,
+      userAgent || null,
+      referrer || null,
+      isValid,
+      JSON.stringify(extra) // <- ESSENCIAL!
+    ]
   );
 },
