@@ -1,7 +1,35 @@
-/widget/*               /index.html              200
-/previsualizacao.html   /previsualizacao.html    200
-/script.js              /script.js               200
-/style.css              /style.css               200
-/form.html              /form.html               200
-/widget.html            /widget.html             200
-/*                      /index.html              200
+# ===============================
+# ROTAS DO WIDGET NO BACKEND
+# ===============================
+
+# Todas as rotas que começam com /widget/ devem chamar index.html
+# porque o widget é carregado via script.js
+/widget/*      /index.html    200
+
+
+# ===============================
+# PÁGINAS ESTÁTICAS DO FRONTEND
+# ===============================
+
+/index.html            /index.html             200
+/form.html             /form.html              200
+/previsualizacao.html  /previsualizacao.html   200
+/generate.html         /generate.html          200
+/widget.html           /widget.html            200
+
+
+# ===============================
+# ARQUIVOS ESTÁTICOS
+# ===============================
+
+/script.js             /script.js              200
+/style.css             /style.css              200
+/favicon.ico           /favicon.ico            200
+
+
+# ===============================
+# FALLBACK GLOBAL
+# ===============================
+# Esse fallback garante que se o usuário acessar uma rota inexistente,
+# o Netlify carregará index.html ao invés de mostrar 404.
+/*                    /index.html             200
