@@ -45,10 +45,10 @@ module.exports = {
   },
 
   // Função correta de log — compatível com sua tabela access_logs
-logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
+logAccess: async (clientid, ip, userAgent, referrer, isValid, extra = {}) => {
   await pool.query(
-    `INSERT INTO access_logs (clientId, ip, user_agent, referrer, is_valid, accessed_at, extra)
+    `INSERT INTO access_logs (clientid, ip, user_agent, referrer, is_valid, accessed_at, extra)
      VALUES ($1, $2, $3, $4, $5, now(), $6)`,
-    [clientId, ip, userAgent, referrer, isValid, extra]
+    [clientid, ip, userAgent, referrer, isValid, extra]
   );
 },
