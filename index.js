@@ -163,6 +163,43 @@ app.post("/save-config", async (req, res) => {
   }
 });
 
+// ROTA: Recebe logs do widget e registra no DB
+app.post("/track-access", async (req, res) => {
+  try {
+    const { clientId, referrer } = req.body || {};
+    if (!clientId) return res.status(400).json({ error: "clientId missing" });
+
+    // obter IP de forma robusta (x-forwarded-for se estiver atrás de proxy)
+    const rawIp = (req.headers["x-forwarded-for"] || req.connection.remoteAddress || "").split(",")[0].trim();
+
+    // opcional: mascarar ip (exemplo simples) para LGPD
+    // const ip = rawIp ? rawIp.replace(/(\d+\.\d+\.\d+)\.\d+/, "$1.0") : null;
+    const ip = rawIp || null;
+
+    const userAgent = req.headers["user-agent"] || null;
+
+    // Verificar se clientId é válido (tabela allowed_clients)
+    const check = await db.query(
+      `SELECT 1 FROM allowed_clients WHERE "clientId" = $1 LIMIT 1`,
+      [clientId]
+    );
+    const isValid = (check.rows && check.rows.length > 0);
+
+    // Gravar no access_logs
+    await db.query(
+      `INSERT INTO access_logs (clientId, ip, user_agent, referrer, is_valid, accessed_at, extra)
+       VALUES ($1, $2, $3, $4, $5, now(), $6)`,
+      [clientId, ip, userAgent, referrer || null, isValid, JSON.stringify({ forwarded_for: req.headers["x-forwarded-for"] || null })]
+    );
+
+    // resposta rápida; não precisamos retornar dados sensíveis
+    return res.json({ ok: true, isValid });
+  } catch (err) {
+    console.error("track-access error:", err);
+    return res.status(500).json({ error: "server_error" });
+  }
+});
+
 // Buscar posts
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
