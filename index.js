@@ -194,55 +194,59 @@ app.post("/track-access", async (req, res) => {
   }
 });
 
-// Buscar posts
+// Buscar posts + registrar acesso
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
 
+  const rawIp =
+    (req.headers["x-forwarded-for"] ||
+      req.connection.remoteAddress ||
+      "").split(",")[0].trim();
+
+  const ip = rawIp || null;
+  const userAgent = req.headers["user-agent"] || null;
+  const referrer = req.headers["referer"] || null;
+
+  console.log(">>> ROTA /widget/:clientId/posts CHAMADA", {
+    clientId,
+    ip,
+    userAgent,
+    referrer,
+  });
+
+  // registra SEM BLOQUEAR a resposta
+  db.logAccess(clientId, ip, userAgent, referrer, true, {
+    route: "/widget/:clientId/posts",
+  })
+    .then(() => console.log("<<< LOG INSERT OK"))
+    .catch((e) => console.error("!!! ERRO AO LOGAR:", e));
+
   try {
-    // 1 — registrar acesso ANTES de responder
-    const rawIp = (req.headers["x-forwarded-for"] ||
-        req.connection.remoteAddress ||
-        "").split(",")[0].trim();
-
-    const ip = rawIp || null;
-    const userAgent = req.headers["user-agent"] || null;
-    const referrer = req.headers["referer"] || null;
-
-    // Verificar se clientId é permitido
-    const check = await db.query(
-      `SELECT 1 FROM allowed_clients WHERE "clientId" = $1 LIMIT 1`,
-      [clientId]
-    );
-    const isValid = check.rows.length > 0;
-
-    await db.logAccess(
-      clientId,
-      ip,
-      userAgent,
-      referrer,
-      isValid,
-      { route: "/widget/:clientId/posts" }
-    );
-
     const configRow = await db.getConfig(clientId);
 
     if (!configRow) {
-      return res.status(404).send("Configuração não encontrada.");
+      return res.status(404).json({ error: "Configuração não encontrada." });
     }
 
-    const results = await queryDatabase(configRow.token, configRow.databaseId);
+    const results = await queryDatabase(
+      configRow.token,
+      configRow.databaseId
+    );
 
     const posts = results
-      .map(page => {
+      .map((page) => {
         const props = page.properties;
 
-        const title = props["Post"]?.title?.[0]?.plain_text || "Sem título";
+        const title =
+          props["Post"]?.title?.[0]?.plain_text || "Sem título";
         const date = props["Data de Publicação"]?.date?.start || null;
-        const editoria = props["Editoria"]?.select?.name || null;
+        const editoria =
+          props["Editoria"]?.select?.name || null;
 
-        const files = props["Mídia"]?.files?.map(file =>
-          file.file?.url || file.external?.url
-        ) || [];
+        const files =
+          props["Mídia"]?.files?.map(
+            (file) => file.file?.url || file.external?.url
+          ) || [];
 
         const linkDireto = props["Link da Mídia"]?.url
           ? [props["Link da Mídia"]?.url]
@@ -262,18 +266,32 @@ app.get("/widget/:clientId/posts", async (req, res) => {
         const ocultar = props["Ocultar Visualização"]?.checkbox;
         if (ocultar || media.length === 0) return null;
 
-        const formato = props["Formato"]?.select?.name?.toLowerCase() || null;
+        const formato =
+          props["Formato"]?.select?.name?.toLowerCase() || null;
         const fixado = props["Fixado"]?.number || null;
 
-        return { id: page.id, title, date, editoria, media, thumbnail, formato, fixado };
+        return {
+          id: page.id,
+          title,
+          date,
+          editoria,
+          media,
+          thumbnail,
+          formato,
+          fixado,
+        };
       })
       .filter(Boolean);
 
-    res.json(posts);
+    return res.json(posts);
+  } catch (err) {
+    console.error("❌ Erro ao buscar posts:", err);
 
-  } catch (error) {
-    console.error("❌ Erro ao buscar posts:", error.message);
-    res.status(500).json({ error: error.message });
+    db.logAccess(clientId, ip, userAgent, referrer, false, {
+      error: String(err),
+    });
+
+    return res.status(500).json({ error: err.message });
   }
 });
 
