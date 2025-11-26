@@ -196,7 +196,8 @@ app.post("/track-access", async (req, res) => {
 
 // Buscar posts + registrar acesso
 app.get("/widget/:clientId/posts", async (req, res) => {
-  const clientId = req.params.clientId;
+  const widgetId = req.params.clientId; // este é o clientId da tabela CONFIGS
+  const buyerId = req.headers["x-buyer-id"] || null; // vem do front
 
   const rawIp =
     (req.headers["x-forwarded-for"] ||
@@ -215,9 +216,17 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   });
 
   // registra SEM BLOQUEAR a resposta
-  db.logAccess(clientId, ip, userAgent, referrer, true, {
+  db.logAccess(
+  widgetId,
+  ip,
+  userAgent,
+  referrer,
+  true,
+  {
     route: "/widget/:clientId/posts",
-  })
+    buyerId: buyerId // 👈 SALVANDO O COMPRADOR NA COLUNA extra
+  }
+)
     .then(() => console.log("<<< LOG INSERT OK"))
     .catch((e) => console.error("!!! ERRO AO LOGAR:", e));
 
