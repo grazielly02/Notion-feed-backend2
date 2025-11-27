@@ -88,6 +88,10 @@
     <h2>PAINEL DO WIDGET</h2>
     <p class="subtitulo">Preencha os dados abaixo para gerar o seu widget.</p>
     <form id="widgetForm" action="#" novalidate>
+
+      <!-- ESTE É O HIDDEN QUE VOCÊ PRECISA -->
+      <input type="hidden" name="realClientId">
+
       
       <label>Nome ou nome do projeto</label>
       <input type="text" name="clientId" required placeholder="Ex: Helena, MarcaX" maxlength="30">
@@ -107,6 +111,9 @@
 
   <script>
     const form = document.getElementById('widgetForm');
+const urlParams = new URLSearchParams(window.location.search);
+const realClientId = urlParams.get("clientId");
+form.realClientId.value = realClientId;
     const fields = form.querySelectorAll('input[name]');
 
     fields.forEach((field, index) => {
@@ -162,10 +169,11 @@
 
       // se passou validação, envia via fetch
       const data = {
-        clientId: form.clientId.value.trim(),
-        token: form.token.value.trim(),
-        databaseId: form.databaseId.value.trim()
-      };
+  clientId: form.clientId.value.trim(),   // nome do widget
+  realClientId: form.realClientId.value,  // ID da allowed_clients
+  token: form.token.value.trim(),
+  databaseId: form.databaseId.value.trim()
+};
       try {
         const response = await fetch("https://notion-feed-backend2.onrender.com/save-config", {
           method: "POST",
