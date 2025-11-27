@@ -27,9 +27,9 @@ async function ensureConfigsTable() {
         updated_at TIMESTAMP
       );
     `);
-    console.log("âœ”ï¸ Tabela 'configs' verificada/criada.");
+    console.log(" Tabela 'configs' verificada/criada.");
   } catch (error) {
-    console.error("âŒ Erro ao criar/verificar tabela configs:", error);
+    console.error(" Erro ao criar/verificar tabela configs:", error);
   }
 }
 
@@ -44,9 +44,9 @@ async function ensureAllowedClientsTable() {
         created_at TIMESTAMP DEFAULT now()
       );
     `);
-    console.log("âœ”ï¸ Tabela 'allowed_clients' verificada/criada.");
+    console.log(" Tabela 'allowed_clients' verificada/criada.");
   } catch (error) {
-    console.error("âŒ Erro ao criar/verificar tabela allowed_clients:", error);
+    console.error(" Erro ao criar/verificar tabela allowed_clients:", error);
   }
 }
 
@@ -79,7 +79,7 @@ async function queryDatabase(token, databaseId) {
     });
     return response.data.results;
   } catch (error) {
-    console.error("âŒ Erro ao consultar Notion:", error.response?.data || error.message);
+    console.error("Erro ao consultar Notion:", error.response?.data || error.message);
     throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
   }
 }
@@ -107,7 +107,7 @@ app.post("/generate-client", async (req, res) => {
       setupUrl: `https://meu-widget-feed.netlify.app/form.html?clientId=${client.clientId}`
     });
   } catch (error) {
-    console.error("âŒ Erro ao gerar clientId:", error.message);
+    console.error("Erro ao gerar clientId:", error.message);
     return res.status(500).json({ error: "Erro ao gerar link" });
   }
 });
@@ -127,14 +127,14 @@ app.post("/save-config", async (req, res) => {
   const { clientId, token, databaseId } = req.body;
 
   if (!clientId || !token || !databaseId) {
-    return res.status(400).send("Todos os campos sÃ£o obrigatÃ³rios.");
+    return res.status(400).send("Todos os campos são obrigatórios.");
   }
 
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
   try {
     await db.saveConfig(clientId, token, cleanDatabaseId);
-    console.log(`âœ”ï¸ ConfiguraÃ§Ã£o salva: clientId=${clientId}`);
+    console.log(` Configuração salva: clientId=${clientId}`);
 
     const finalUrl =
       `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
@@ -158,7 +158,7 @@ app.post("/save-config", async (req, res) => {
       </html>
     `);
   } catch (error) {
-    console.error("âŒ Erro ao salvar:", error.message);
+    console.error(" Erro ao salvar:", error.message);
     res.status(500).send("Erro ao salvar configuraÃ§Ã£o.");
   }
 });
@@ -225,7 +225,7 @@ app.get("/widget/:clientId/posts", async (req, res) => {
     const configRow = await db.getConfig(clientId);
 
     if (!configRow) {
-      return res.status(404).json({ error: "ConfiguraÃ§Ã£o nÃ£o encontrada." });
+      return res.status(404).json({ error: "Configuração não encontrada." });
     }
 
     const results = await queryDatabase(
@@ -238,18 +238,18 @@ app.get("/widget/:clientId/posts", async (req, res) => {
         const props = page.properties;
 
         const title =
-          props["Post"]?.title?.[0]?.plain_text || "Sem tÃ­tulo";
-        const date = props["Data de PublicaÃ§Ã£o"]?.date?.start || null;
+          props["Post"]?.title?.[0]?.plain_text || "Sem título";
+        const date = props["Data de Publicação"]?.date?.start || null;
         const editoria =
           props["Editoria"]?.select?.name || null;
 
         const files =
-          props["MÃ­dia"]?.files?.map(
+          props["Mídia"]?.files?.map(
             (file) => file.file?.url || file.external?.url
           ) || [];
 
-        const linkDireto = props["Link da MÃ­dia"]?.url
-          ? [props["Link da MÃ­dia"]?.url]
+        const linkDireto = props["Link da Mídia"]?.url
+          ? [props["Link da Mí­dia"]?.url]
           : [];
 
         const embedDesign = props["Design Incorporado"]?.url
@@ -259,11 +259,11 @@ app.get("/widget/:clientId/posts", async (req, res) => {
         const media = [...embedDesign, ...files, ...linkDireto];
 
         const thumbnail =
-          props["Capa do VÃ­deo"]?.files?.[0]?.file?.url ||
-          props["Capa do VÃ­deo"]?.files?.[0]?.external?.url ||
+          props["Capa do Vídeo"]?.files?.[0]?.file?.url ||
+          props["Capa do Ví­deo"]?.files?.[0]?.external?.url ||
           null;
 
-        const ocultar = props["Ocultar VisualizaÃ§Ã£o"]?.checkbox;
+        const ocultar = props["Ocultar Visualização"]?.checkbox;
         if (ocultar || media.length === 0) return null;
 
         const formato =
@@ -303,5 +303,5 @@ app.get("/widget/:clientId/view", (req, res) => {
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`ðŸš€ Servidor rodando na porta ${PORT}`);
+  console.log( Servidor rodando na porta ${PORT}`);
 });
