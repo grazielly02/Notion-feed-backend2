@@ -124,41 +124,40 @@ app.get("/config", (req, res) => {
 
 // Salvar token/databaseId
 app.post("/save-config", async (req, res) => {
-  const { clientId, token, databaseId } = req.body;
+  const { clientId, token, databaseId, allowedClientId, allowedClientEmail } = req.body;
 
   if (!clientId || !token || !databaseId) {
     return res.status(400).send("Todos os campos são obrigatórios.");
   }
 
+  // extrair ID limpo da database Notion
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
   try {
-    await db.saveConfig(clientId, token, cleanDatabaseId);
-    console.log(`✔️ Configuração salva: clientId=${clientId}`);
+    // salva configurações do widget e associa com o allowed client
+    await db.saveConfig(
+      clientId,            // nome do widget (ex: Ameliana)
+      token,
+      cleanDatabaseId,
+      allowedClientId || null,      // dono do widget
+      allowedClientEmail || null
+    );
 
+    // redirecionamento correto de volta ao front (Netlify)
     const finalUrl =
       `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
 
     res.send(`
       <!DOCTYPE html>
       <html lang="pt-BR">
-      <head>
-        <meta charset="UTF-8" />
-        <title>Redirecionando...</title>
-        <style>
-          body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-        </style>
-      </head>
+      <head><meta charset="utf-8"><title>Redirecionando...</title></head>
       <body>
-        <p>Redirecionando para seu widget...</p>
-        <script>
-          window.location.href = "${finalUrl}";
-        </script>
+        <script>window.location.href = "${finalUrl}";</script>
       </body>
       </html>
     `);
   } catch (error) {
-    console.error("❌ Erro ao salvar:", error.message);
+    console.error("Erro ao salvar config:", error);
     res.status(500).send("Erro ao salvar configuração.");
   }
 });
