@@ -5,7 +5,7 @@ const axios = require("axios");
 require("dotenv").config();
 const db = require("./db");
 
-// FunÃ§Ã£o para gerar clientId aleatÃ³rio
+// Função para gerar clientId aleatório
 function generateRandomId(length = 8) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
@@ -27,9 +27,9 @@ async function ensureConfigsTable() {
         updated_at TIMESTAMP
       );
     `);
-    console.log(" Tabela 'configs' verificada/criada.");
+    console.log("✔️ Tabela 'configs' verificada/criada.");
   } catch (error) {
-    console.error(" Erro ao criar/verificar tabela configs:", error);
+    console.error("❌ Erro ao criar/verificar tabela configs:", error);
   }
 }
 
@@ -44,9 +44,9 @@ async function ensureAllowedClientsTable() {
         created_at TIMESTAMP DEFAULT now()
       );
     `);
-    console.log(" Tabela 'allowed_clients' verificada/criada.");
+    console.log("✔️ Tabela 'allowed_clients' verificada/criada.");
   } catch (error) {
-    console.error(" Erro ao criar/verificar tabela allowed_clients:", error);
+    console.error("❌ Erro ao criar/verificar tabela allowed_clients:", error);
   }
 }
 
@@ -79,12 +79,12 @@ async function queryDatabase(token, databaseId) {
     });
     return response.data.results;
   } catch (error) {
-    console.error("Erro ao consultar Notion:", error.response?.data || error.message);
+    console.error("❌ Erro ao consultar Notion:", error.response?.data || error.message);
     throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
   }
 }
 
-// ROTA â€” gerar clientId
+// ROTA — gerar clientId
 app.post("/generate-client", async (req, res) => {
   const { email } = req.body;
 
@@ -107,17 +107,17 @@ app.post("/generate-client", async (req, res) => {
       setupUrl: `https://meu-widget-feed.netlify.app/form.html?clientId=${client.clientId}`
     });
   } catch (error) {
-    console.error("Erro ao gerar clientId:", error.message);
+    console.error("❌ Erro ao gerar clientId:", error.message);
     return res.status(500).json({ error: "Erro ao gerar link" });
   }
 });
 
-// PÃ¡gina inicial
+// Página inicial
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// PÃ¡gina do formulÃ¡rio
+// Página do formulário
 app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
@@ -134,7 +134,7 @@ app.post("/save-config", async (req, res) => {
 
   try {
     await db.saveConfig(clientId, token, cleanDatabaseId);
-    console.log(` Configuração salva: clientId=${clientId}`);
+    console.log(`✔️ Configuração salva: clientId=${clientId}`);
 
     const finalUrl =
       `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
@@ -158,8 +158,8 @@ app.post("/save-config", async (req, res) => {
       </html>
     `);
   } catch (error) {
-    console.error(" Erro ao salvar:", error.message);
-    res.status(500).send("Erro ao salvar configuraÃ§Ã£o.");
+    console.error("❌ Erro ao salvar:", error.message);
+    res.status(500).send("Erro ao salvar configuração.");
   }
 });
 
@@ -244,26 +244,24 @@ app.get("/widget/:clientId/posts", async (req, res) => {
           props["Editoria"]?.select?.name || null;
 
         const files =
-  props["Mídia"]?.files?.map(
-    (file) => file.file?.url || file.external?.url
-  ) || [];
+          props["Mídia"]?.files?.map(
+            (file) => file.file?.url || file.external?.url
+          ) || [];
 
-const linkDireto = props["Link da Mídia"]?.url
-  ? [props["Link da Mídia"]?.url]
-  : [];
+        const linkDireto = props["Link da Mídia"]?.url
+          ? [props["Link da Mídia"]?.url]
+          : [];
 
-const embedDesign = props["Design Incorporado"]?.url
-  ? [props["Design Incorporado"]?.url]
-  : [];
-
+        const embedDesign = props["Design Incorporado"]?.url
+          ? [props["Design Incorporado"]?.url]
+          : [];
 
         const media = [...embedDesign, ...files, ...linkDireto];
 
         const thumbnail =
-  props["Capa do Vídeo"]?.files?.[0]?.file?.url ||
-  props["Capa do Vídeo"]?.files?.[0]?.external?.url ||
-  null;
-
+          props["Capa do Vídeo"]?.files?.[0]?.file?.url ||
+          props["Capa do Vídeo"]?.files?.[0]?.external?.url ||
+          null;
 
         const ocultar = props["Ocultar Visualização"]?.checkbox;
         if (ocultar || media.length === 0) return null;
@@ -287,7 +285,7 @@ const embedDesign = props["Design Incorporado"]?.url
 
     return res.json(posts);
   } catch (err) {
-    console.error("âŒ Erro ao buscar posts:", err);
+    console.error("❌ Erro ao buscar posts:", err);
 
     db.logAccess(clientId, ip, userAgent, referrer, false, {
       error: String(err),
@@ -297,7 +295,7 @@ const embedDesign = props["Design Incorporado"]?.url
   }
 });
 
-// VisualizaÃ§Ã£o do widget
+// Visualização do widget
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
@@ -305,5 +303,5 @@ app.get("/widget/:clientId/view", (req, res) => {
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log( Servidor rodando na porta ${PORT}`);
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
