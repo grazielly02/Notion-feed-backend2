@@ -181,9 +181,23 @@ app.post("/track-access", async (req, res) => {
     );
     const isValid = (check.rows && check.rows.length > 0);
 
-    await db.logAccess(clientId, ip, userAgent, referrer, isValid, {
-      forwarded_for: req.headers["x-forwarded-for"] || null
-    });
+    // buscar allowed client real
+const owner = await db.query(
+  `SELECT clientId FROM allowed_clients WHERE clientId = $1 LIMIT 1`,
+  [clientId]
+);
+
+const realClientId = owner.rows[0]?.clientId || null;
+
+await db.logAccess(
+  clientId,     // clientId do widget
+  ip,
+  userAgent,
+  referrer,
+  isValid,
+  { forwarded_for: req.headers["x-forwarded-for"] || null },
+  realClientId   // <-- agora salvando o clientId real
+);
 
     return res.json({ ok: true, isValid });
 
@@ -214,9 +228,22 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   });
 
   // registra SEM BLOQUEAR a resposta
-  db.logAccess(clientId, ip, userAgent, referrer, true, {
-  route: "/widget/:clientId/posts",
-})
+  const owner = await db.query(
+  `SELECT allowedClientId FROM configs WHERE clientId = $1 LIMIT 1`,
+  [clientId]
+);
+
+const realClientId = owner.rows[0]?.allowedclientid || null;
+
+db.logAccess(
+  clientId,
+  ip,
+  userAgent,
+  referrer,
+  true,
+  { route: "/widget/:clientId/posts" },
+  realClientId   // <-- aqui também
+)
     .then(() => console.log("<<< LOG INSERT OK"))
     .catch((e) => console.error("!!! ERRO AO LOGAR:", e));
 
