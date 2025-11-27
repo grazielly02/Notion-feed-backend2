@@ -60,22 +60,13 @@ checkAllowedClient: async (clientId) => {
 },
 
   // Função correta de log — compatível com sua tabela access_logs
-logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
-  try {
-    console.log(">>> LOG ACCESS EXECUTANDO", { clientId, ip });
-
-    await pool.query(
-      `INSERT INTO access_logs (clientid, ip, user_agent, referrer, is_valid, extra)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [
-        clientId,
-        ip || null,
-        userAgent || null,
-        referrer || null,
-        isValid,
-        extra // <- SEM JSON.stringify !!!
-      ]
-    );
+logAccess: async (clientId, ip, userAgent, referrer, isValid, extra, realClientId = null) => {
+  await pool.query(
+    `INSERT INTO access_logs (clientid, ip, user_agent, referrer, is_valid, extra, realClientId)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+    [clientId, ip, userAgent, referrer, isValid, extra, realClientId]
+  );
+},
 
     console.log(">>> SALVOU COM SUCESSO");
 
