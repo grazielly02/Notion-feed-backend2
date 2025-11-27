@@ -5,7 +5,7 @@ const axios = require("axios");
 require("dotenv").config();
 const db = require("./db");
 
-// Função para gerar clientId aleatório
+// FunÃ§Ã£o para gerar clientId aleatÃ³rio
 function generateRandomId(length = 8) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
@@ -27,9 +27,9 @@ async function ensureConfigsTable() {
         updated_at TIMESTAMP
       );
     `);
-    console.log("✔️ Tabela 'configs' verificada/criada.");
+    console.log("âœ”ï¸ Tabela 'configs' verificada/criada.");
   } catch (error) {
-    console.error("❌ Erro ao criar/verificar tabela configs:", error);
+    console.error("âŒ Erro ao criar/verificar tabela configs:", error);
   }
 }
 
@@ -44,9 +44,9 @@ async function ensureAllowedClientsTable() {
         created_at TIMESTAMP DEFAULT now()
       );
     `);
-    console.log("✔️ Tabela 'allowed_clients' verificada/criada.");
+    console.log("âœ”ï¸ Tabela 'allowed_clients' verificada/criada.");
   } catch (error) {
-    console.error("❌ Erro ao criar/verificar tabela allowed_clients:", error);
+    console.error("âŒ Erro ao criar/verificar tabela allowed_clients:", error);
   }
 }
 
@@ -79,12 +79,12 @@ async function queryDatabase(token, databaseId) {
     });
     return response.data.results;
   } catch (error) {
-    console.error("❌ Erro ao consultar Notion:", error.response?.data || error.message);
+    console.error("âŒ Erro ao consultar Notion:", error.response?.data || error.message);
     throw new Error(error.response?.data?.message || "Erro ao consultar Notion");
   }
 }
 
-// ROTA — gerar clientId
+// ROTA â€” gerar clientId
 app.post("/generate-client", async (req, res) => {
   const { email } = req.body;
 
@@ -107,58 +107,59 @@ app.post("/generate-client", async (req, res) => {
       setupUrl: `https://meu-widget-feed.netlify.app/form.html?clientId=${client.clientId}`
     });
   } catch (error) {
-    console.error("❌ Erro ao gerar clientId:", error.message);
+    console.error("âŒ Erro ao gerar clientId:", error.message);
     return res.status(500).json({ error: "Erro ao gerar link" });
   }
 });
 
-// Página inicial
+// PÃ¡gina inicial
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Página do formulário
+// PÃ¡gina do formulÃ¡rio
 app.get("/config", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "form.html"));
 });
 
 // Salvar token/databaseId
 app.post("/save-config", async (req, res) => {
-  const { clientId, token, databaseId, allowedClientId, allowedClientEmail } = req.body;
+  const { clientId, token, databaseId } = req.body;
 
   if (!clientId || !token || !databaseId) {
-    return res.status(400).send("Todos os campos são obrigatórios.");
+    return res.status(400).send("Todos os campos sÃ£o obrigatÃ³rios.");
   }
 
-  // extrair ID limpo da database Notion
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
   try {
-    // salva configurações do widget e associa com o allowed client
-    await db.saveConfig(
-      clientId,            // nome do widget (ex: Ameliana)
-      token,
-      cleanDatabaseId,
-      allowedClientId || null,      // dono do widget
-      allowedClientEmail || null
-    );
+    await db.saveConfig(clientId, token, cleanDatabaseId);
+    console.log(`âœ”ï¸ ConfiguraÃ§Ã£o salva: clientId=${clientId}`);
 
-    // redirecionamento correto de volta ao front (Netlify)
     const finalUrl =
       `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
 
     res.send(`
       <!DOCTYPE html>
       <html lang="pt-BR">
-      <head><meta charset="utf-8"><title>Redirecionando...</title></head>
+      <head>
+        <meta charset="UTF-8" />
+        <title>Redirecionando...</title>
+        <style>
+          body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        </style>
+      </head>
       <body>
-        <script>window.location.href = "${finalUrl}";</script>
+        <p>Redirecionando para seu widget...</p>
+        <script>
+          window.location.href = "${finalUrl}";
+        </script>
       </body>
       </html>
     `);
   } catch (error) {
-    console.error("Erro ao salvar config:", error);
-    res.status(500).send("Erro ao salvar configuração.");
+    console.error("âŒ Erro ao salvar:", error.message);
+    res.status(500).send("Erro ao salvar configuraÃ§Ã£o.");
   }
 });
 
@@ -181,23 +182,9 @@ app.post("/track-access", async (req, res) => {
     );
     const isValid = (check.rows && check.rows.length > 0);
 
-    // buscar allowed client real
-const owner = await db.query(
-  `SELECT clientId FROM allowed_clients WHERE clientId = $1 LIMIT 1`,
-  [clientId]
-);
-
-const realClientId = owner.rows[0]?.clientId || null;
-
-await db.logAccess(
-  clientId,     // clientId do widget
-  ip,
-  userAgent,
-  referrer,
-  isValid,
-  { forwarded_for: req.headers["x-forwarded-for"] || null },
-  realClientId   // <-- agora salvando o clientId real
-);
+    await db.logAccess(clientId, ip, userAgent, referrer, isValid, {
+      forwarded_for: req.headers["x-forwarded-for"] || null
+    });
 
     return res.json({ ok: true, isValid });
 
@@ -228,22 +215,9 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   });
 
   // registra SEM BLOQUEAR a resposta
-  const owner = await db.query(
-  `SELECT allowedClientId FROM configs WHERE clientId = $1 LIMIT 1`,
-  [clientId]
-);
-
-const realClientId = owner.rows[0]?.allowedclientid || null;
-
-db.logAccess(
-  clientId,
-  ip,
-  userAgent,
-  referrer,
-  true,
-  { route: "/widget/:clientId/posts" },
-  realClientId   // <-- aqui também
-)
+  db.logAccess(clientId, ip, userAgent, referrer, true, {
+  route: "/widget/:clientId/posts",
+})
     .then(() => console.log("<<< LOG INSERT OK"))
     .catch((e) => console.error("!!! ERRO AO LOGAR:", e));
 
@@ -251,7 +225,7 @@ db.logAccess(
     const configRow = await db.getConfig(clientId);
 
     if (!configRow) {
-      return res.status(404).json({ error: "Configuração não encontrada." });
+      return res.status(404).json({ error: "ConfiguraÃ§Ã£o nÃ£o encontrada." });
     }
 
     const results = await queryDatabase(
@@ -264,18 +238,18 @@ db.logAccess(
         const props = page.properties;
 
         const title =
-          props["Post"]?.title?.[0]?.plain_text || "Sem título";
-        const date = props["Data de Publicação"]?.date?.start || null;
+          props["Post"]?.title?.[0]?.plain_text || "Sem tÃ­tulo";
+        const date = props["Data de PublicaÃ§Ã£o"]?.date?.start || null;
         const editoria =
           props["Editoria"]?.select?.name || null;
 
         const files =
-          props["Mídia"]?.files?.map(
+          props["MÃ­dia"]?.files?.map(
             (file) => file.file?.url || file.external?.url
           ) || [];
 
-        const linkDireto = props["Link da Mídia"]?.url
-          ? [props["Link da Mídia"]?.url]
+        const linkDireto = props["Link da MÃ­dia"]?.url
+          ? [props["Link da MÃ­dia"]?.url]
           : [];
 
         const embedDesign = props["Design Incorporado"]?.url
@@ -285,11 +259,11 @@ db.logAccess(
         const media = [...embedDesign, ...files, ...linkDireto];
 
         const thumbnail =
-          props["Capa do Vídeo"]?.files?.[0]?.file?.url ||
-          props["Capa do Vídeo"]?.files?.[0]?.external?.url ||
+          props["Capa do VÃ­deo"]?.files?.[0]?.file?.url ||
+          props["Capa do VÃ­deo"]?.files?.[0]?.external?.url ||
           null;
 
-        const ocultar = props["Ocultar Visualização"]?.checkbox;
+        const ocultar = props["Ocultar VisualizaÃ§Ã£o"]?.checkbox;
         if (ocultar || media.length === 0) return null;
 
         const formato =
@@ -311,7 +285,7 @@ db.logAccess(
 
     return res.json(posts);
   } catch (err) {
-    console.error("❌ Erro ao buscar posts:", err);
+    console.error("âŒ Erro ao buscar posts:", err);
 
     db.logAccess(clientId, ip, userAgent, referrer, false, {
       error: String(err),
@@ -321,7 +295,7 @@ db.logAccess(
   }
 });
 
-// Visualização do widget
+// VisualizaÃ§Ã£o do widget
 app.get("/widget/:clientId/view", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
@@ -329,5 +303,5 @@ app.get("/widget/:clientId/view", (req, res) => {
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+  console.log(`ðŸš€ Servidor rodando na porta ${PORT}`);
 });
