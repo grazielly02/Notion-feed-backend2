@@ -198,42 +198,45 @@ app.post("/track-access", async (req, res) => {
 app.get("/widget/:clientId/posts", async (req, res) => {
   const clientId = req.params.clientId;
 
-  const rawIp =
-    (req.headers["x-forwarded-for"] ||
-      req.connection.remoteAddress ||
-      "").split(",")[0].trim();
+const rawIp =
+  (req.headers["x-forwarded-for"] ||
+    req.connection.remoteAddress ||
+    "").split(",")[0].trim();
 
-  const ip = rawIp || null;
-  const userAgent = req.headers["user-agent"] || null;
-  const referrer = req.headers["referer"] || null;
+const ip = rawIp || null;
+const userAgent = req.headers["user-agent"] || null;
+const referrer = req.headers["referer"] || null;
 
-  console.log(">>> ROTA /widget/:clientId/posts CHAMADA", {
-    clientId,
-    ip,
-    userAgent,
-    referrer,
-  });
+console.log(">>> ROTA /widget/:clientId/posts CHAMADA", {
+  clientId,
+  ip,
+  userAgent,
+  referrer,
+});
 
-  // registra SEM BLOQUEAR a resposta
-  db.logAccess(clientId, ip, userAgent, referrer, true, {
+try {
+
+const configRow = await db.getConfig(clientId);
+
+if (!configRow) {
+  return res.status(404).json({ error: "Configuração não encontrada." });
+}
+
+const realClientId = configRow.clientid || configRow.clientId;
+
+// REGISTRA LOG
+db.logAccess(clientId, ip, userAgent, referrer, true, {
   route: "/widget/:clientId/posts",
   realClientId: realClientId
 })
-    .then(() => console.log("<<< LOG INSERT OK"))
-    .catch((e) => console.error("!!! ERRO AO LOGAR:", e));
+  .then(() => console.log("<<< LOG INSERT OK"))
+  .catch((e) => console.error("!!! ERRO AO LOGAR:", e));
 
-  try {
-    const configRow = await db.getConfig(clientId);
-    const realClientId = configRow.clientid || configRow.clientId;
-
-    if (!configRow) {
-      return res.status(404).json({ error: "Configuração não encontrada." });
-    }
-
-    const results = await queryDatabase(
-      configRow.token,
-      configRow.databaseId
-    );
+// CONSULTA NOTION
+const results = await queryDatabase(
+  configRow.token,
+  configRow.databaseId
+);
 
     const posts = results
       .map((page) => {
