@@ -217,12 +217,14 @@ app.get("/widget/:clientId/posts", async (req, res) => {
   // registra SEM BLOQUEAR a resposta
   db.logAccess(clientId, ip, userAgent, referrer, true, {
   route: "/widget/:clientId/posts",
+  realClientId: realClientId
 })
     .then(() => console.log("<<< LOG INSERT OK"))
     .catch((e) => console.error("!!! ERRO AO LOGAR:", e));
 
   try {
     const configRow = await db.getConfig(clientId);
+    const realClientId = configRow.clientid || configRow.clientId;
 
     if (!configRow) {
       return res.status(404).json({ error: "Configuração não encontrada." });
