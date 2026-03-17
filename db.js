@@ -49,16 +49,20 @@ logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
   try {
     console.log(">>> LOG ACCESS EXECUTANDO", { clientId, ip });
 
+    const realClientId = extra.realClientId || null;
+
     await pool.query(
-      `INSERT INTO access_logs (clientid, ip, user_agent, referrer, is_valid, extra)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
+      `INSERT INTO access_logs
+       (clientid, "realClientId", ip, user_agent, referrer, is_valid, extra)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
       [
         clientId,
+        realClientId,
         ip || null,
         userAgent || null,
         referrer || null,
         isValid,
-        extra // <- SEM JSON.stringify !!!
+        extra
       ]
     );
 
@@ -67,5 +71,5 @@ logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
   } catch (err) {
     console.error("ERRO AO SALVAR LOG:", err);
   }
-}
+       }
 };
