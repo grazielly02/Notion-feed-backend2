@@ -26,15 +26,23 @@ module.exports = {
     return res.rows[0];
   },
 
-  saveConfig: async (clientId, token, databaseId) => {
-    await pool.query(
-      `INSERT INTO configs ("clientId", token, "databaseId")
-       VALUES ($1, $2, $3)
-       ON CONFLICT ("clientId")
-       DO UPDATE SET token = EXCLUDED.token, "databaseId" = EXCLUDED."databaseId"`,
-      [clientId.trim(), token.trim(), databaseId.trim()]
-    );
-  },
+  saveConfig: async (widgetId, token, databaseId, licenseId) => {
+  await pool.query(
+    `INSERT INTO configs ("clientId", token, "databaseId", "licenseId")
+     VALUES ($1, $2, $3, $4)
+     ON CONFLICT ("clientId")
+     DO UPDATE SET 
+       token = EXCLUDED.token, 
+       "databaseId" = EXCLUDED."databaseId",
+       "licenseId" = EXCLUDED."licenseId"`,
+    [
+      widgetId.trim(),
+      token.trim(),
+      databaseId.trim(),
+      licenseId.trim()
+    ]
+  );
+},
 
   getConfig: async (clientId) => {
     const res = await pool.query(
