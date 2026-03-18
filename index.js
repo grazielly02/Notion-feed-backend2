@@ -133,11 +133,18 @@ app.post("/save-config", async (req, res) => {
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
   try {
-    await db.saveConfig(clientId, token, cleanDatabaseId);
-    console.log(`✔️ Configuração salva: clientId=${clientId}`);
+// clientId do form = licenseId
+const licenseId = clientId;
 
-    const finalUrl =
-      `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(clientId)}`;
+// gera widgetId novo
+const widgetId = generateRandomId(8);
+
+await db.saveConfig(widgetId, token, cleanDatabaseId, licenseId);
+
+console.log(`✔️ Configuração salva: widgetId=${widgetId} | licenseId=${licenseId}`);
+
+const finalUrl =
+  `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(widgetId)}`;
 
     res.send(`
       <!DOCTYPE html>
@@ -222,7 +229,7 @@ if (!configRow) {
   return res.status(404).json({ error: "Configuração não encontrada." });
 }
 
-const realClientId = configRow.clientid || configRow.clientId;
+const realClientId = configRow.licenseid || configRow.licenseId;
 
 // REGISTRA LOG
 db.logAccess(clientId, ip, userAgent, referrer, true, {
