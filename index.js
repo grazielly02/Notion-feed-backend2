@@ -229,7 +229,11 @@ if (!configRow) {
   return res.status(404).json({ error: "Configuração não encontrada." });
 }
 
-const realClientId = configRow.licenseid || configRow.licenseId;
+const realClientId =
+  configRow.licenseid ||
+  configRow.licenseId ||
+  configRow.clientid ||
+  configRow.clientId;
 
 // REGISTRA LOG
 db.logAccess(clientId, ip, userAgent, referrer, true, {
