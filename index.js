@@ -183,11 +183,30 @@ app.post("/track-access", async (req, res) => {
     const ip = rawIp || null;
     const userAgent = req.headers["user-agent"] || null;
 
-    const check = await db.query(
-      `SELECT 1 FROM allowed_clients WHERE "clientId" = $1 LIMIT 1`,
-      [clientId]
-    );
-    const isValid = (check.rows && check.rows.length > 0);
+    // busca config pelo widgetId
+const config = await db.getConfig(clientId);
+
+let licenseId = null;
+
+if (config) {
+  licenseId =
+    config.licenseid ||
+    config.licenseId ||
+    config.clientid ||
+    config.clientId ||
+    null;
+}
+
+// valida pelo licenseId
+let isValid = false;
+
+if (licenseId) {
+  const check = await db.query(
+    `SELECT 1 FROM allowed_clients WHERE "clientId" = $1 LIMIT 1`,
+    [licenseId]
+  );
+  isValid = check.rows.length > 0;
+    }
 
     await db.logAccess(clientId, ip, userAgent, referrer, isValid, {
       forwarded_for: req.headers["x-forwarded-for"] || null
@@ -241,12 +260,33 @@ if (configRow) {
   }
 
 // REGISTRA LOG
-db.logAccess(clientId, ip, userAgent, referrer, true, {
-  route: "/widget/:clientId/posts",
-  realClientId: realClientId
-})
-  .then(() => console.log("<<< LOG INSERT OK"))
-  .catch((e) => console.error("!!! ERRO AO LOGAR:", e));
+// valida se o licenseId existe na tabela allowed_clients
+let isValid = false;
+
+if (realClientId) {
+  const check = await db.query(
+    `SELECT 1 FROM allowed_clients WHERE "clientId" = $1 LIMIT 1`,
+    [realClientId]
+  );
+  isValid = check.rows.length > 0;
+}
+
+// REGISTRA LOG (AGORA CORRETO)
+try {
+  await db.logAccess(clientId, ip, userAgent, referrer, isValid, {
+    route: "/widget/:clientId/posts",
+    realClientId: realClientId
+  });
+
+  console.log("<<< LOG INSERT OK", {
+    widgetId: clientId,
+    licenseId: realClientId,
+    isValid
+  });
+
+} catch (e) {
+  console.error("!!! ERRO AO LOGAR:", e);
+    }
 
 // CONSULTA NOTION
 const results = await queryDatabase(
