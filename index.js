@@ -134,7 +134,7 @@ app.post("/save-config", async (req, res) => {
 
   try {
 // clientId do form = licenseId
-const licenseId = clientId;
+const licenseId = req.body.realClientId;
 
 // gera widgetId novo
 const widgetId = generateRandomId(8);
