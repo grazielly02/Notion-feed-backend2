@@ -28,18 +28,20 @@ module.exports = {
 
   saveConfig: async (widgetId, token, databaseId, licenseId, projectName) => {
   await pool.query(
-    `INSERT INTO configs ("clientId", token, "databaseId", "licenseId")
-     VALUES ($1, $2, $3, $4)
+    `INSERT INTO configs ("clientId", token, "databaseId", "licenseId", projectname)
+     VALUES ($1, $2, $3, $4, $5)
      ON CONFLICT ("clientId")
      DO UPDATE SET 
        token = EXCLUDED.token, 
        "databaseId" = EXCLUDED."databaseId",
-       "licenseId" = EXCLUDED."licenseId"`,
+       "licenseId" = EXCLUDED."licenseId",
+       projectname = EXCLUDED.projectname`,
     [
       widgetId.trim(),
       token.trim(),
       databaseId.trim(),
-      licenseId.trim()
+      licenseId.trim(),
+      projectName.trim()
     ]
   );
 },
