@@ -124,8 +124,11 @@ app.get("/config", (req, res) => {
 
 // Salvar token/databaseId
 app.post("/save-config", async (req, res) => {
-  const { clientId, token, databaseId } = req.body;
+  const { clientId, realClientId, token, databaseId } = req.body;
 
+// clientId do form = nome do projeto
+const projectName = clientId;
+  
   if (!clientId || !token || !databaseId) {
     return res.status(400).send("Todos os campos são obrigatórios.");
   }
@@ -139,7 +142,7 @@ const licenseId = req.body.realClientId;
 // gera widgetId novo
 const widgetId = generateRandomId(8);
 
-await db.saveConfig(widgetId, token, cleanDatabaseId, licenseId);
+await db.saveConfig(widgetId, token, cleanDatabaseId, licenseId, projectName);
 
 console.log(`✔️ Configuração salva: widgetId=${widgetId} | licenseId=${licenseId}`);
 
