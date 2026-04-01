@@ -26,7 +26,7 @@ module.exports = {
     return res.rows[0];
   },
 
-  saveConfig: async (widgetId, token, databaseId, licenseId) => {
+  saveConfig: async (widgetId, token, databaseId, licenseId, projectName) => {
   await pool.query(
     `INSERT INTO configs ("clientId", token, "databaseId", "licenseId")
      VALUES ($1, $2, $3, $4)
