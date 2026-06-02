@@ -139,12 +139,28 @@ const projectName = clientId;
 // clientId do form = licenseId
 const licenseId = req.body.realClientId;
 
+  // busca email do comprador 
+    const buyer = await db.query(
+  `SELECT email
+   FROM allowed_clients
+   WHERE "clientId" = $1
+   LIMIT 1`,
+  [licenseId]
+);
+
+const email =
+  buyer.rows.length > 0
+    ? buyer.rows[0].email
+    : null;
+    
 // gera widgetId novo
 const widgetId = generateRandomId(8);
 
-await db.saveConfig(widgetId, token, cleanDatabaseId, licenseId, projectName);
+await db.saveConfig(widgetId, token, cleanDatabaseId, licenseId, projectName, email);
 
-console.log(`✔️ Configuração salva: widgetId=${widgetId} | licenseId=${licenseId}`);
+console.log(
+  `✔️ Configuração salva: widgetId=${widgetId} | licenseId=${licenseId} | email=${email}`
+);
 
 const finalUrl =
   `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(widgetId)}`;
