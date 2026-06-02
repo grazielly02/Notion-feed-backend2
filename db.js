@@ -36,7 +36,7 @@ module.exports = {
   "databaseId" = EXCLUDED."databaseId",
   "licenseId" = EXCLUDED."licenseId",
   projectname = EXCLUDED.projectname,
-  email = EXCLUDED.email` 
+  email = EXCLUDED.email`, 
  [
   widgetId.trim(),
   token.trim(),
