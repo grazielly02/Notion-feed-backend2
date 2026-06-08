@@ -1,90 +1,293 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerar Link Exclusivo do Painel</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 500px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #f9f9f9;
-      border-radius: 12px;
-    }
-    h1 { text-align: center; }
-    label, input, button {
-      display: block;
-      width: 100%;
-      margin-bottom: 15px;
-    }
-    input {
-      padding: 10px; border: 1px solid #ccc; border-radius: 6px;
-    }
-    button {
-      padding: 12px; background: black; color: white;
-      border: none; border-radius: 6px; cursor: pointer;
-      font-size: 16px;
-    }
-    #result {
-      margin-top: 20px;
-      background: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      display: none;
-      border: 1px solid #ddd;
-    }
-  </style>
-</head>
-<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VisualFeed • Liberar Acesso</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
 
-  <h1>Gerar Link Exclusivo</h1>
+:root{
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --primary:#111111;
+  --success:#16a34a;
+}
 
-  <label for="email">Seu e-mail (o mesmo usado na compra):</label>
-  <input type="email" id="email" placeholder="exemplo@gmail.com" />
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-  <button onclick="generateLink()">Gerar meu link</button>
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(180deg,#f8fafc,#eef2f7);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:24px;
+}
 
-  <div id="result"></div>
+.container{
+  width:100%;
+  max-width:520px;
+}
 
-  <script>
-    async function generateLink() {
-      const email = document.getElementById("email").value.trim();
-      const resultBox = document.getElementById("result");
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px;
+  box-shadow:
+  0 10px 30px rgba(0,0,0,.05);
+}
 
-      if (!email) {
-        alert("Insira seu e-mail!");
-        return;
-      }
+.logo{
+  text-align:center;
+  margin-bottom:12px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:#111;
+}
 
-      try {
-        const response = await fetch("https://notion-feed-backend2.onrender.com/generate-client", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email })
-        });
+h1{
+  text-align:center;
+  font-size:34px;
+  line-height:1.1;
+  margin-bottom:16px;
+  color:var(--text);
+}
 
-        const data = await response.json();
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:28px;
+}
 
-        if (!response.ok) {
-          resultBox.style.display = "block";
-          resultBox.innerHTML = `<p style='color:red;'>${data.error || "Erro ao gerar link."}</p>`;
-          return;
-        }
+.features{
+  display:grid;
+  gap:10px;
+  margin-bottom:28px;
+}
 
-        resultBox.style.display = "block";
-        resultBox.innerHTML = `
-          <p><strong>Seu link exclusivo está pronto!</strong></p>
-          <p><a href="${data.setupUrl}" target="_blank">${data.setupUrl}</a></p>
-          <button onclick="navigator.clipboard.writeText('${data.setupUrl}')">Copiar URL</button>
-        `;
-      } catch (err) {
-        resultBox.style.display = "block";
-        resultBox.innerHTML = `<p style='color:red;'>Erro ao conectar ao servidor.</p>`;
-      }
-    }
-  </script>
+.feature{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#374151;
+  font-size:15px;
+}
 
-</body>
+.check{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#f3f4f6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+}
+
+label{
+  display:block;
+  margin-bottom:10px;
+  font-weight:600;
+  color:#374151;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  font-size:15px;
+  margin-bottom:18px;
+}
+
+input:focus{
+  outline:none;
+  border-color:#111;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:#111;
+  color:#fff;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.95;
+}
+
+#result{
+  display:none;
+  margin-top:24px;
+  padding:18px;
+  border-radius:14px;
+  background:#fafafa;
+  border:1px solid var(--border);
+}
+
+.success{
+  color:var(--success);
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.error{
+  color:#dc2626;
+  font-weight:600;
+}
+
+.result-link{
+  margin:12px 0;
+  word-break:break-all;
+}
+
+.copy-btn{
+  margin-top:12px;
+  background:#111;
+}
+
+.open-btn{
+  margin-top:10px;
+  background:#16a34a;
+}
+
+.footer{
+  text-align:center;
+  margin-top:20px;
+  color:#9ca3af;
+  font-size:13px;
+}
+
+</style></head><body><div class="container"><div class="card"><div class="logo">
+VISUALFEED
+</div><h1>
+Transforme seu Notion em um feed visual profissional
+</h1><p class="subtitle">
+Digite o e-mail utilizado na compra para liberar seu acesso e configurar seu widget.
+</p><div class="features"><div class="feature">
+<span class="check">✓</span>
+Atualização automática
+</div><div class="feature">
+<span class="check">✓</span>
+Compatível com Notion
+</div><div class="feature">
+<span class="check">✓</span>
+Layout responsivo
+</div><div class="feature">
+<span class="check">✓</span>
+Sem programação
+</div></div><label for="email">
+E-mail utilizado na compra
+</label><input
+type="email"
+id="email"
+placeholder="seuemail@exemplo.com"
+/>
+
+<button onclick="generateLink()">
+Liberar acesso →
+</button><div id="result"></div></div><div class="footer">
+VisualFeed • Feed profissional para Notion
+</div></div><script>
+
+async function generateLink() {
+
+const email =
+document.getElementById("email").value.trim();
+
+const resultBox =
+document.getElementById("result");
+
+if (!email) {
+alert("Insira seu e-mail.");
+return;
+}
+
+try {
+
+const response = await fetch(
+"https://notion-feed-backend2.onrender.com/generate-client",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({email})
+}
+);
+
+const data = await response.json();
+
+if(!response.ok){
+
+resultBox.style.display="block";
+
+resultBox.innerHTML=
+`<div class="error">
+${data.error || "Erro ao gerar link."}
+</div>`;
+
+return;
+}
+
+resultBox.style.display="block";
+
+resultBox.innerHTML=`
+
+<div class="success">
+✓ Acesso liberado com sucesso
+</div>
+
+<p>
+Seu link exclusivo foi criado:
+</p>
+
+<div class="result-link">
+<a href="${data.setupUrl}" target="_blank">
+${data.setupUrl}
+</a>
+</div>
+
+<button
+class="copy-btn"
+onclick="navigator.clipboard.writeText('${data.setupUrl}')">
+Copiar URL
+</button>
+
+<button
+class="open-btn"
+onclick="window.open('${data.setupUrl}','_blank')">
+Configurar meu Widget →
+</button>
+
+`;
+
+}
+catch(err){
+
+resultBox.style.display="block";
+
+resultBox.innerHTML=
+`<div class="error">
+Erro ao conectar ao servidor.
+</div>`;
+
+}
+
+}
+
+</script></body>
 </html>
