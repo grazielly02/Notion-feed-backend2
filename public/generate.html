@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VisualFeed</title>
+<title>VisualFeed • Gerar Link Exclusivo</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -12,12 +12,12 @@
 
 :root{
   --primary:#6D4AFF;
-  --primary-hover:#5D3CF0;
+  --primary-hover:#5B3BF2;
+  --success:#16A34A;
   --bg:#F8F9FF;
+  --border:#E5E7EB;
   --text:#111827;
   --muted:#6B7280;
-  --border:#E5E7EB;
-  --success:#16A34A;
 }
 
 *{
@@ -32,23 +32,23 @@ body{
   min-height:100vh;
 
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 
   padding:24px;
 
   background:
-  radial-gradient(circle at top left,#ECE7FF 0%,transparent 35%),
-  radial-gradient(circle at bottom right,#E0E7FF 0%,transparent 35%),
-  #F8F9FF;
+    radial-gradient(circle at top left,#ECE7FF 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#E0E7FF 0%,transparent 35%),
+    var(--bg);
 }
 
 .card{
 
   width:100%;
-  max-width:460px;
+  max-width:500px;
 
-  background:white;
+  background:#fff;
 
   border:1px solid var(--border);
 
@@ -64,33 +64,22 @@ body{
 
   text-align:center;
 
-  font-size:32px;
+  font-size:15px;
+
+  letter-spacing:8px;
 
   font-weight:800;
 
   color:var(--primary);
 
-  margin-bottom:10px;
-
-  letter-spacing:-1px;
-}
-
-.tagline{
-
-  text-align:center;
-
-  color:var(--muted);
-
-  font-size:14px;
-
-  margin-bottom:35px;
+  margin-bottom:24px;
 }
 
 h1{
 
   text-align:center;
 
-  font-size:34px;
+  font-size:38px;
 
   line-height:1.15;
 
@@ -107,7 +96,7 @@ h1{
 
   line-height:1.7;
 
-  margin-bottom:30px;
+  margin-bottom:32px;
 }
 
 label{
@@ -115,6 +104,8 @@ label{
   display:block;
 
   font-weight:600;
+
+  color:var(--text);
 
   margin-bottom:10px;
 }
@@ -125,13 +116,15 @@ input{
 
   padding:16px;
 
-  border-radius:14px;
+  border-radius:16px;
 
   border:1px solid var(--border);
 
   font-size:15px;
 
   margin-bottom:18px;
+
+  transition:.2s;
 }
 
 input:focus{
@@ -141,15 +134,15 @@ input:focus{
   border-color:var(--primary);
 }
 
-button{
+.primary-btn{
 
   width:100%;
 
   border:none;
 
-  border-radius:14px;
+  border-radius:16px;
 
-  padding:16px;
+  padding:15px;
 
   cursor:pointer;
 
@@ -159,16 +152,17 @@ button{
 
   color:white;
 
-  background:linear-gradient(
-  135deg,
-  #6D4AFF,
-  #7C5CFF
+  background:
+  linear-gradient(
+    135deg,
+    #6D4AFF,
+    #7B5CFF
   );
 
   transition:.2s;
 }
 
-button:hover{
+.primary-btn:hover{
 
   transform:translateY(-1px);
 }
@@ -177,17 +171,15 @@ button:hover{
 
   display:none;
 
-  margin-top:20px;
+  margin-top:22px;
 
-  padding:18px;
+  padding:20px;
 
-  border-radius:16px;
-
-  background:#F9FAFB;
+  border-radius:18px;
 
   border:1px solid var(--border);
 
-  text-align:center;
+  background:#FAFAFA;
 }
 
 .success{
@@ -196,14 +188,69 @@ button:hover{
 
   font-weight:700;
 
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
 
-.loading{
+.link-box{
 
-  color:#6B7280;
+  margin:16px 0;
+
+  padding:12px;
+
+  border-radius:12px;
+
+  background:#F3F4F6;
+
+  word-break:break-all;
 
   font-size:14px;
+}
+
+.actions{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+}
+
+.copy-btn{
+
+  width:100%;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:14px;
+
+  cursor:pointer;
+
+  font-weight:700;
+
+  background:#111827;
+
+  color:white;
+}
+
+.setup-btn{
+
+  width:100%;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:14px;
+
+  cursor:pointer;
+
+  font-weight:700;
+
+  background:var(--success);
+
+  color:white;
 }
 
 .error{
@@ -215,33 +262,23 @@ button:hover{
 
 .footer{
 
-  position:fixed;
-
-  bottom:20px;
-
-  left:0;
-
-  width:100%;
-
   text-align:center;
 
-  color:#9CA3AF;
+  margin-top:24px;
 
-  font-size:13px;
+  font-size:12px;
+
+  color:#9CA3AF;
 }
 
 @media(max-width:480px){
 
 .card{
-  padding:30px;
-}
-
-.brand{
-  font-size:28px;
+  padding:28px;
 }
 
 h1{
-  font-size:28px;
+  font-size:30px;
 }
 
 }
@@ -254,23 +291,19 @@ h1{
 <div class="card">
 
 <div class="brand">
-VisualFeed
-</div>
-
-<div class="tagline">
-Área de configuração
+VISUALFEED
 </div>
 
 <h1>
-Acesse sua conta
+Gerar Link Exclusivo
 </h1>
 
 <p class="subtitle">
-Digite o e-mail utilizado na compra para continuar.
+Digite o e-mail utilizado na compra para liberar seu acesso.
 </p>
 
 <label for="email">
-E-mail
+Seu e-mail
 </label>
 
 <input
@@ -279,16 +312,18 @@ id="email"
 placeholder="seuemail@exemplo.com"
 />
 
-<button onclick="generateLink()">
-Continuar →
+<button
+class="primary-btn"
+onclick="generateLink()">
+Gerar meu link →
 </button>
 
 <div id="result"></div>
 
-</div>
-
 <div class="footer">
 VisualFeed
+</div>
+
 </div>
 
 <script>
@@ -305,7 +340,7 @@ document.getElementById("result");
 
 if (!email) {
 
-alert("Insira seu e-mail.");
+alert("Digite seu e-mail.");
 
 return;
 }
@@ -329,10 +364,11 @@ if (!response.ok) {
 
 resultBox.style.display="block";
 
-resultBox.innerHTML=
-`<div class="error">
-${data.error || "Erro ao validar acesso."}
-</div>`;
+resultBox.innerHTML=`
+<div class="error">
+${data.error || "Erro ao gerar link."}
+</div>
+`;
 
 return;
 }
@@ -340,30 +376,48 @@ return;
 resultBox.style.display="block";
 
 resultBox.innerHTML=`
+
 <div class="success">
-✓ Licença validada
+✓ Link exclusivo criado com sucesso
 </div>
 
-<div class="loading">
-Redirecionando para a configuração...
+<p>
+Seu acesso foi liberado.
+</p>
+
+<div class="link-box">
+${data.setupUrl}
 </div>
+
+<div class="actions">
+
+<button
+class="copy-btn"
+onclick="navigator.clipboard.writeText('${data.setupUrl}')">
+Copiar Link
+</button>
+
+<button
+class="setup-btn"
+onclick="window.location.href='${data.setupUrl}'">
+Configurar Widget →
+</button>
+
+</div>
+
 `;
-
-setTimeout(() => {
-
-window.location.href = data.setupUrl;
-
-}, 1200);
 
 }
 catch(err){
 
 resultBox.style.display="block";
 
-resultBox.innerHTML=
-`<div class="error">
+resultBox.innerHTML=`
+<div class="error">
 Erro ao conectar ao servidor.
-</div>`;
+</div>
+`;
+
 }
 
 }
