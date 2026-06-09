@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VisualFeed • Liberar acesso</title>
+<title>VisualFeed • Acessar configuração</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -12,12 +12,14 @@
 
 :root{
   --primary:#6D4AFF;
-  --primary-dark:#5737e6;
-  --bg:#f6f4ff;
+  --primary-hover:#5B3BF2;
+  --bg:#F7F8FC;
+  --card:#FFFFFF;
   --text:#111827;
-  --muted:#6b7280;
-  --card:#ffffff;
-  --border:#e5e7eb;
+  --muted:#6B7280;
+  --border:#E5E7EB;
+  --success:#16A34A;
+  --error:#DC2626;
 }
 
 *{
@@ -28,194 +30,233 @@
 
 body{
   font-family:'Inter',sans-serif;
-  background:
-    radial-gradient(circle at top left,#ece7ff 0%,transparent 40%),
-    radial-gradient(circle at bottom right,#e0e7ff 0%,transparent 35%),
-    #f8fafc;
   min-height:100vh;
-  padding:30px;
+
   display:flex;
-  align-items:center;
   justify-content:center;
-}
-
-.wrapper{
-  width:100%;
-  max-width:1200px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
   align-items:center;
+
+  padding:24px;
+
+  background:
+  radial-gradient(circle at top left,#ECE7FF 0%,transparent 35%),
+  radial-gradient(circle at bottom right,#E0E7FF 0%,transparent 35%),
+  var(--bg);
 }
 
-.left{
-  max-width:520px;
+.card{
+
+  width:100%;
+  max-width:460px;
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:24px;
+
+  padding:42px;
+
+  box-shadow:
+  0 20px 50px rgba(109,74,255,.08);
 }
 
-.logo{
-  font-size:15px;
-  letter-spacing:8px;
-  font-weight:700;
+.brand{
+
+  text-align:center;
+
   color:var(--primary);
+
+  font-size:15px;
+
+  font-weight:800;
+
+  letter-spacing:8px;
+
   margin-bottom:24px;
 }
 
 h1{
-  font-size:54px;
-  line-height:1.05;
+
+  font-size:34px;
+
+  line-height:1.15;
+
+  text-align:center;
+
   color:var(--text);
-  margin-bottom:18px;
+
+  margin-bottom:14px;
 }
 
 .subtitle{
-  font-size:18px;
-  line-height:1.7;
+
+  text-align:center;
+
   color:var(--muted);
-  margin-bottom:28px;
-}
 
-.benefits{
-  display:grid;
-  gap:12px;
-  margin-bottom:35px;
-}
+  line-height:1.7;
 
-.benefit{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:#374151;
-}
-
-.check{
-  width:24px;
-  height:24px;
-  border-radius:50%;
-  background:#ede9fe;
-  color:var(--primary);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-}
-
-.card{
-  background:white;
-  padding:28px;
-  border-radius:24px;
-  border:1px solid var(--border);
-  box-shadow:0 15px 40px rgba(109,74,255,.08);
+  margin-bottom:32px;
 }
 
 label{
+
   display:block;
-  margin-bottom:10px;
+
   font-weight:600;
+
+  margin-bottom:10px;
+
+  color:var(--text);
 }
 
 input{
+
   width:100%;
-  padding:16px;
-  border-radius:14px;
+
+  padding:15px;
+
   border:1px solid var(--border);
+
+  border-radius:14px;
+
   font-size:15px;
-  margin-bottom:16px;
+
+  margin-bottom:18px;
+
+  transition:.2s;
 }
 
 input:focus{
+
   outline:none;
+
   border-color:var(--primary);
 }
 
-button{
-  width:100%;
-  padding:16px;
-  border:none;
-  border-radius:14px;
-  cursor:pointer;
-  font-size:15px;
-  font-weight:700;
-}
-
 .primary-btn{
-  background:linear-gradient(
-    135deg,
-    var(--primary),
-    var(--primary-dark)
-  );
+
+  width:100%;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:16px;
+
+  cursor:pointer;
+
+  font-size:15px;
+
+  font-weight:700;
+
   color:white;
+
+  background:var(--primary);
+
+  transition:.2s;
 }
 
-.success-btn{
-  background:#16a34a;
-  color:white;
-  margin-top:10px;
-}
+.primary-btn:hover{
 
-.copy-btn{
-  background:#111827;
-  color:white;
-  margin-top:10px;
+  background:var(--primary-hover);
 }
 
 #result{
+
   display:none;
+
   margin-top:20px;
+
   padding:18px;
+
   border-radius:16px;
-  background:#f9fafb;
+
   border:1px solid var(--border);
+
+  background:#FAFAFA;
 }
 
 .success{
-  color:#16a34a;
+
+  color:var(--success);
+
   font-weight:700;
-  margin-bottom:10px;
+
+  margin-bottom:12px;
 }
 
 .error{
-  color:#dc2626;
+
+  color:var(--error);
+
   font-weight:600;
 }
 
-.preview{
-  display:flex;
-  justify-content:center;
+.success-btn{
+
+  width:100%;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:15px;
+
+  cursor:pointer;
+
+  color:white;
+
+  font-weight:700;
+
+  background:var(--success);
+
+  margin-top:10px;
 }
 
-.preview img{
-  width:100%;
-  max-width:520px;
-  border-radius:28px;
-  box-shadow:
-    0 30px 60px rgba(0,0,0,.15);
-  transform:rotate(-2deg);
+.copy-link{
+
+  text-align:center;
+
+  margin-top:12px;
+
+  font-size:14px;
+}
+
+.copy-link button{
+
+  background:none;
+
+  border:none;
+
+  color:var(--primary);
+
+  cursor:pointer;
+
+  font-weight:600;
 }
 
 .footer{
-  margin-top:20px;
-  color:#9ca3af;
+
+  text-align:center;
+
+  margin-top:24px;
+
+  color:#9CA3AF;
+
   font-size:13px;
 }
 
-@media(max-width:950px){
+@media(max-width:480px){
 
-.wrapper{
-  grid-template-columns:1fr;
-}
+  .card{
+    padding:30px;
+  }
 
-.preview{
-  order:-1;
-}
-
-h1{
-  font-size:38px;
-}
-
-.preview img{
-  max-width:380px;
-  transform:none;
-}
+  h1{
+    font-size:28px;
+  }
 
 }
 
@@ -224,50 +265,22 @@ h1{
 
 <body>
 
-<div class="wrapper">
+<div class="card">
 
-<div class="left">
-
-<div class="logo">
+<div class="brand">
 VISUALFEED
 </div>
 
 <h1>
-Configure seu VisualFeed em poucos minutos
+Acesse sua área de configuração
 </h1>
 
 <p class="subtitle">
-Digite o e-mail utilizado na compra para acessar sua área de configuração e criar seu feed conectado ao Notion.
+Digite o e-mail utilizado na compra para continuar.
 </p>
 
-<div class="benefits">
-
-<div class="benefit">
-<div class="check">✓</div>
-Atualização automática
-</div>
-
-<div class="benefit">
-<div class="check">✓</div>
-Compatível com Notion
-</div>
-
-<div class="benefit">
-<div class="check">✓</div>
-Layout responsivo
-</div>
-
-<div class="benefit">
-<div class="check">✓</div>
-Sem programação
-</div>
-
-</div>
-
-<div class="card">
-
 <label for="email">
-E-mail utilizado na compra
+E-mail
 </label>
 
 <input
@@ -279,27 +292,13 @@ placeholder="seuemail@exemplo.com"
 <button
 class="primary-btn"
 onclick="generateLink()">
-Liberar acesso →
+Continuar →
 </button>
 
 <div id="result"></div>
 
-</div>
-
 <div class="footer">
-VisualFeed • Criado por AYRA
-</div>
-
-</div>
-
-<div class="preview">
-
-<!-- TROQUE PELA URL DA SUA IMAGEM -->
-<img
-src="SEU-MOCKUP-DO-FEED.png"
-alt="Preview VisualFeed"
-/>
-
+Criado por AYRA
 </div>
 
 </div>
@@ -317,7 +316,9 @@ const resultBox =
 document.getElementById("result");
 
 if (!email) {
+
 alert("Insira seu e-mail.");
+
 return;
 }
 
@@ -336,27 +337,25 @@ body:JSON.stringify({ email })
 
 const data = await response.json();
 
-if(!response.ok){
+if (!response.ok) {
 
 resultBox.style.display="block";
 
-resultBox.innerHTML =
+resultBox.innerHTML=
 `<div class="error">
-${data.error || "Erro ao gerar link."}
+${data.error || "Erro ao validar acesso."}
 </div>`;
 
 return;
 }
 
-document.querySelector(".card").innerHTML = `
+resultBox.style.display="block";
+
+resultBox.innerHTML=`
 
 <div class="success">
-🎉 Acesso liberado com sucesso
+✓ Acesso validado com sucesso
 </div>
-
-<p style="margin-bottom:15px;">
-Seu ambiente está pronto.
-</p>
 
 <button
 class="success-btn"
@@ -364,11 +363,12 @@ onclick="window.location.href='${data.setupUrl}'">
 Configurar meu Widget →
 </button>
 
+<div class="copy-link">
 <button
-class="copy-btn"
 onclick="navigator.clipboard.writeText('${data.setupUrl}')">
-Copiar Link
+Copiar link manualmente
 </button>
+</div>
 
 `;
 
@@ -377,7 +377,7 @@ catch(err){
 
 resultBox.style.display="block";
 
-resultBox.innerHTML =
+resultBox.innerHTML=
 `<div class="error">
 Erro ao conectar ao servidor.
 </div>`;
