@@ -12,12 +12,12 @@
 
 :root{
   --primary:#6D4AFF;
-  --primary-hover:#5B3BF2;
+  --primary-dark:#5B38F2;
   --success:#16A34A;
-  --bg:#F8F9FF;
-  --border:#E5E7EB;
+  --bg:#F7F8FC;
   --text:#111827;
   --muted:#6B7280;
+  --border:#E5E7EB;
 }
 
 *{
@@ -38,54 +38,106 @@ body{
   padding:24px;
 
   background:
-    radial-gradient(circle at top left,#ECE7FF 0%,transparent 35%),
-    radial-gradient(circle at bottom right,#E0E7FF 0%,transparent 35%),
-    var(--bg);
+  radial-gradient(circle at top left,#ECE8FF 0%,transparent 35%),
+  radial-gradient(circle at bottom right,#EEF2FF 0%,transparent 35%),
+  var(--bg);
+}
+
+.container{
+  width:100%;
+  max-width:760px;
 }
 
 .card{
-
-  width:100%;
-  max-width:500px;
-
   background:#fff;
 
-  border:1px solid var(--border);
+  border-radius:32px;
 
-  border-radius:28px;
-
-  padding:42px;
+  padding:48px;
 
   box-shadow:
-  0 20px 60px rgba(109,74,255,.08);
+  0 25px 70px rgba(0,0,0,.08);
+
+  border:1px solid rgba(0,0,0,.04);
 }
 
-.brand{
+.logo{
 
   text-align:center;
 
-  font-size:15px;
-
-  letter-spacing:8px;
+  color:var(--primary);
 
   font-weight:800;
 
-  color:var(--primary);
+  letter-spacing:8px;
 
-  margin-bottom:24px;
+  font-size:18px;
+
+  margin-bottom:36px;
+}
+
+.steps{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  margin-bottom:40px;
+}
+
+.step-wrapper{
+
+  display:flex;
+
+  align-items:center;
+}
+
+.step{
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:700;
+
+  background:#F3F4F6;
+
+  color:#6B7280;
+}
+
+.step.active{
+
+  background:var(--primary);
+
+  color:white;
+}
+
+.line{
+
+  width:70px;
+  height:2px;
+
+  background:#E5E7EB;
 }
 
 h1{
 
   text-align:center;
 
-  font-size:38px;
+  font-size:42px;
 
   line-height:1.15;
 
   color:var(--text);
 
-  margin-bottom:14px;
+  margin-bottom:18px;
 }
 
 .subtitle{
@@ -94,37 +146,43 @@ h1{
 
   color:var(--muted);
 
+  font-size:18px;
+
   line-height:1.7;
 
-  margin-bottom:32px;
+  max-width:520px;
+
+  margin:0 auto 36px;
 }
 
 label{
 
   display:block;
 
+  margin-bottom:10px;
+
   font-weight:600;
 
   color:var(--text);
-
-  margin-bottom:10px;
 }
 
 input{
 
   width:100%;
 
-  padding:16px;
+  height:60px;
 
   border-radius:16px;
 
   border:1px solid var(--border);
 
-  font-size:15px;
+  padding:0 18px;
 
-  margin-bottom:18px;
+  font-size:16px;
 
   transition:.2s;
+
+  margin-bottom:20px;
 }
 
 input:focus{
@@ -138,25 +196,25 @@ input:focus{
 
   width:100%;
 
+  height:60px;
+
   border:none;
 
   border-radius:16px;
 
-  padding:15px;
-
   cursor:pointer;
 
-  font-size:15px;
+  color:white;
+
+  font-size:16px;
 
   font-weight:700;
-
-  color:white;
 
   background:
   linear-gradient(
     135deg,
-    #6D4AFF,
-    #7B5CFF
+    var(--primary),
+    #7C5CFF
   );
 
   transition:.2s;
@@ -171,86 +229,139 @@ input:focus{
 
   display:none;
 
-  margin-top:22px;
-
-  padding:20px;
-
-  border-radius:18px;
+  margin-top:28px;
 
   border:1px solid var(--border);
+
+  border-radius:22px;
+
+  padding:24px;
 
   background:#FAFAFA;
 }
 
-.success{
+.success-icon{
+
+  width:74px;
+  height:74px;
+
+  margin:0 auto 18px;
+
+  border-radius:50%;
+
+  background:#DCFCE7;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:34px;
 
   color:var(--success);
+}
 
-  font-weight:700;
+.success-title{
+
+  text-align:center;
+
+  font-size:28px;
+
+  font-weight:800;
+
+  color:var(--text);
 
   margin-bottom:10px;
 }
 
+.success-subtitle{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  margin-bottom:24px;
+}
+
+.link-label{
+
+  font-size:14px;
+
+  font-weight:600;
+
+  margin-bottom:8px;
+}
+
 .link-box{
 
-  margin:16px 0;
+  background:#F5F3FF;
 
-  padding:12px;
+  border:1px solid #E9E2FF;
 
-  border-radius:12px;
+  padding:14px;
 
-  background:#F3F4F6;
+  border-radius:14px;
+
+  font-size:14px;
 
   word-break:break-all;
 
-  font-size:14px;
-}
-
-.actions{
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:12px;
+  margin-bottom:18px;
 }
 
 .copy-btn{
 
   width:100%;
 
+  height:54px;
+
   border:none;
 
   border-radius:14px;
 
-  padding:14px;
-
   cursor:pointer;
+
+  color:white;
 
   font-weight:700;
 
-  background:#111827;
+  background:
+  linear-gradient(
+    135deg,
+    var(--primary),
+    #7C5CFF
+  );
 
-  color:white;
+  margin-bottom:12px;
 }
 
 .setup-btn{
 
   width:100%;
 
-  border:none;
+  height:54px;
+
+  border:1px solid #D1D5DB;
+
+  background:white;
 
   border-radius:14px;
-
-  padding:14px;
 
   cursor:pointer;
 
   font-weight:700;
 
-  background:var(--success);
+  margin-bottom:18px;
+}
 
-  color:white;
+.notice{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  line-height:1.6;
 }
 
 .error{
@@ -264,52 +375,81 @@ input:focus{
 
   text-align:center;
 
-  margin-top:24px;
-
-  font-size:12px;
+  margin-top:22px;
 
   color:#9CA3AF;
+
+  font-size:13px;
 }
 
-@media(max-width:480px){
+@media(max-width:768px){
 
 .card{
-  padding:28px;
+  padding:30px;
 }
 
 h1{
-  font-size:30px;
+  font-size:32px;
+}
+
+.subtitle{
+  font-size:16px;
+}
+
+.line{
+  width:40px;
 }
 
 }
 
 </style>
 </head>
-
 <body>
+
+<div class="container">
 
 <div class="card">
 
-<div class="brand">
+<div class="logo">
 VISUALFEED
 </div>
 
+<div class="steps">
+
+<div class="step-wrapper">
+<div class="step active">1</div>
+</div>
+
+<div class="line"></div>
+
+<div class="step-wrapper">
+<div class="step">2</div>
+</div>
+
+<div class="line"></div>
+
+<div class="step-wrapper">
+<div class="step">3</div>
+</div>
+
+</div>
+
 <h1>
-Gerar Link Exclusivo
+Liberar acesso ao VisualFeed
 </h1>
 
 <p class="subtitle">
-Digite o e-mail utilizado na compra para liberar seu acesso.
+Digite o e-mail utilizado na compra para gerar seu link exclusivo de configuração.
 </p>
 
 <label for="email">
-Seu e-mail
+E-mail da compra
 </label>
 
 <input
 type="email"
 id="email"
-placeholder="seuemail@exemplo.com"
+placeholder="seu@email.com"
 />
 
 <button
@@ -326,9 +466,11 @@ VisualFeed
 
 </div>
 
+</div>
+
 <script>
 
-async function generateLink() {
+async function generateLink(){
 
 const email =
 document.getElementById("email")
@@ -338,14 +480,14 @@ document.getElementById("email")
 const resultBox =
 document.getElementById("result");
 
-if (!email) {
+if(!email){
 
 alert("Digite seu e-mail.");
-
 return;
+
 }
 
-try {
+try{
 
 const response = await fetch(
 "https://notion-feed-backend2.onrender.com/generate-client",
@@ -354,13 +496,13 @@ method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
-body:JSON.stringify({ email })
+body:JSON.stringify({email})
 }
 );
 
 const data = await response.json();
 
-if (!response.ok) {
+if(!response.ok){
 
 resultBox.style.display="block";
 
@@ -371,25 +513,32 @@ ${data.error || "Erro ao gerar link."}
 `;
 
 return;
+
 }
 
 resultBox.style.display="block";
 
 resultBox.innerHTML=`
 
-<div class="success">
-✓ Link exclusivo criado com sucesso
+<div class="success-icon">
+✓
 </div>
 
-<p>
-Seu acesso foi liberado.
-</p>
+<div class="success-title">
+Link exclusivo criado
+</div>
+
+<div class="success-subtitle">
+Seu acesso foi liberado com sucesso.
+</div>
+
+<div class="link-label">
+Seu link exclusivo
+</div>
 
 <div class="link-box">
 ${data.setupUrl}
 </div>
-
-<div class="actions">
 
 <button
 class="copy-btn"
@@ -400,9 +549,12 @@ Copiar Link
 <button
 class="setup-btn"
 onclick="window.location.href='${data.setupUrl}'">
-Configurar Widget →
+Configurar Meu Widget
 </button>
 
+<div class="notice">
+⚠️ Guarde este link.<br>
+Você poderá utilizá-lo futuramente para editar seu widget.
 </div>
 
 `;
