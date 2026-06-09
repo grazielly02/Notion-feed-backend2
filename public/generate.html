@@ -1,16 +1,23 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VisualFeed • Liberar Acesso</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VisualFeed • Liberar acesso</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
 
 :root{
-  --bg:#f8fafc;
-  --card:#ffffff;
+  --primary:#6D4AFF;
+  --primary-dark:#5737e6;
+  --bg:#f6f4ff;
   --text:#111827;
   --muted:#6b7280;
+  --card:#ffffff;
   --border:#e5e7eb;
-  --primary:#111111;
-  --success:#16a34a;
 }
 
 *{
@@ -21,127 +28,149 @@
 
 body{
   font-family:'Inter',sans-serif;
-  background:linear-gradient(180deg,#f8fafc,#eef2f7);
+  background:
+    radial-gradient(circle at top left,#ece7ff 0%,transparent 40%),
+    radial-gradient(circle at bottom right,#e0e7ff 0%,transparent 35%),
+    #f8fafc;
   min-height:100vh;
+  padding:30px;
   display:flex;
-  justify-content:center;
   align-items:center;
-  padding:24px;
+  justify-content:center;
 }
 
-.container{
+.wrapper{
   width:100%;
+  max-width:1200px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.left{
   max-width:520px;
 }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:40px;
-  box-shadow:
-  0 10px 30px rgba(0,0,0,.05);
-}
-
 .logo{
-  text-align:center;
-  margin-bottom:12px;
-  font-size:14px;
+  font-size:15px;
+  letter-spacing:8px;
   font-weight:700;
-  letter-spacing:3px;
-  color:#111;
+  color:var(--primary);
+  margin-bottom:24px;
 }
 
 h1{
-  text-align:center;
-  font-size:34px;
-  line-height:1.1;
-  margin-bottom:16px;
+  font-size:54px;
+  line-height:1.05;
   color:var(--text);
+  margin-bottom:18px;
 }
 
 .subtitle{
-  text-align:center;
+  font-size:18px;
+  line-height:1.7;
   color:var(--muted);
-  line-height:1.6;
   margin-bottom:28px;
 }
 
-.features{
+.benefits{
   display:grid;
-  gap:10px;
-  margin-bottom:28px;
+  gap:12px;
+  margin-bottom:35px;
 }
 
-.feature{
+.benefit{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
   color:#374151;
-  font-size:15px;
 }
 
 .check{
-  width:22px;
-  height:22px;
+  width:24px;
+  height:24px;
   border-radius:50%;
-  background:#f3f4f6;
+  background:#ede9fe;
+  color:var(--primary);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:12px;
+  font-weight:700;
+}
+
+.card{
+  background:white;
+  padding:28px;
+  border-radius:24px;
+  border:1px solid var(--border);
+  box-shadow:0 15px 40px rgba(109,74,255,.08);
 }
 
 label{
   display:block;
   margin-bottom:10px;
   font-weight:600;
-  color:#374151;
 }
 
 input{
   width:100%;
-  padding:14px;
-  border:1px solid var(--border);
+  padding:16px;
   border-radius:14px;
+  border:1px solid var(--border);
   font-size:15px;
-  margin-bottom:18px;
+  margin-bottom:16px;
 }
 
 input:focus{
   outline:none;
-  border-color:#111;
+  border-color:var(--primary);
 }
 
 button{
   width:100%;
-  padding:15px;
+  padding:16px;
   border:none;
   border-radius:14px;
-  background:#111;
-  color:#fff;
+  cursor:pointer;
   font-size:15px;
   font-weight:700;
-  cursor:pointer;
 }
 
-button:hover{
-  opacity:.95;
+.primary-btn{
+  background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--primary-dark)
+  );
+  color:white;
+}
+
+.success-btn{
+  background:#16a34a;
+  color:white;
+  margin-top:10px;
+}
+
+.copy-btn{
+  background:#111827;
+  color:white;
+  margin-top:10px;
 }
 
 #result{
   display:none;
-  margin-top:24px;
+  margin-top:20px;
   padding:18px;
-  border-radius:14px;
-  background:#fafafa;
+  border-radius:16px;
+  background:#f9fafb;
   border:1px solid var(--border);
 }
 
 .success{
-  color:var(--success);
+  color:#16a34a;
   font-weight:700;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .error{
@@ -149,64 +178,140 @@ button:hover{
   font-weight:600;
 }
 
-.result-link{
-  margin:12px 0;
-  word-break:break-all;
+.preview{
+  display:flex;
+  justify-content:center;
 }
 
-.copy-btn{
-  margin-top:12px;
-  background:#111;
-}
-
-.open-btn{
-  margin-top:10px;
-  background:#16a34a;
+.preview img{
+  width:100%;
+  max-width:520px;
+  border-radius:28px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.15);
+  transform:rotate(-2deg);
 }
 
 .footer{
-  text-align:center;
   margin-top:20px;
   color:#9ca3af;
   font-size:13px;
 }
 
-</style></head><body><div class="container"><div class="card"><div class="logo">
+@media(max-width:950px){
+
+.wrapper{
+  grid-template-columns:1fr;
+}
+
+.preview{
+  order:-1;
+}
+
+h1{
+  font-size:38px;
+}
+
+.preview img{
+  max-width:380px;
+  transform:none;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="left">
+
+<div class="logo">
 VISUALFEED
-</div><h1>
-Transforme seu Notion em um feed visual profissional
-</h1><p class="subtitle">
-Digite o e-mail utilizado na compra para liberar seu acesso e configurar seu widget.
-</p><div class="features"><div class="feature">
-<span class="check">✓</span>
+</div>
+
+<h1>
+Configure seu VisualFeed em poucos minutos
+</h1>
+
+<p class="subtitle">
+Digite o e-mail utilizado na compra para acessar sua área de configuração e criar seu feed conectado ao Notion.
+</p>
+
+<div class="benefits">
+
+<div class="benefit">
+<div class="check">✓</div>
 Atualização automática
-</div><div class="feature">
-<span class="check">✓</span>
+</div>
+
+<div class="benefit">
+<div class="check">✓</div>
 Compatível com Notion
-</div><div class="feature">
-<span class="check">✓</span>
+</div>
+
+<div class="benefit">
+<div class="check">✓</div>
 Layout responsivo
-</div><div class="feature">
-<span class="check">✓</span>
+</div>
+
+<div class="benefit">
+<div class="check">✓</div>
 Sem programação
-</div></div><label for="email">
+</div>
+
+</div>
+
+<div class="card">
+
+<label for="email">
 E-mail utilizado na compra
-</label><input
+</label>
+
+<input
 type="email"
 id="email"
 placeholder="seuemail@exemplo.com"
 />
 
-<button onclick="generateLink()">
+<button
+class="primary-btn"
+onclick="generateLink()">
 Liberar acesso →
-</button><div id="result"></div></div><div class="footer">
-VisualFeed • Feed profissional para Notion
-</div></div><script>
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<div class="footer">
+VisualFeed • Criado por AYRA
+</div>
+
+</div>
+
+<div class="preview">
+
+<!-- TROQUE PELA URL DA SUA IMAGEM -->
+<img
+src="SEU-MOCKUP-DO-FEED.png"
+alt="Preview VisualFeed"
+/>
+
+</div>
+
+</div>
+
+<script>
 
 async function generateLink() {
 
 const email =
-document.getElementById("email").value.trim();
+document.getElementById("email")
+.value
+.trim();
 
 const resultBox =
 document.getElementById("result");
@@ -225,7 +330,7 @@ method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
-body:JSON.stringify({email})
+body:JSON.stringify({ email })
 }
 );
 
@@ -235,7 +340,7 @@ if(!response.ok){
 
 resultBox.style.display="block";
 
-resultBox.innerHTML=
+resultBox.innerHTML =
 `<div class="error">
 ${data.error || "Erro ao gerar link."}
 </div>`;
@@ -243,34 +348,26 @@ ${data.error || "Erro ao gerar link."}
 return;
 }
 
-resultBox.style.display="block";
-
-resultBox.innerHTML=`
+document.querySelector(".card").innerHTML = `
 
 <div class="success">
-✓ Acesso liberado com sucesso
+🎉 Acesso liberado com sucesso
 </div>
 
-<p>
-Seu link exclusivo foi criado:
+<p style="margin-bottom:15px;">
+Seu ambiente está pronto.
 </p>
 
-<div class="result-link">
-<a href="${data.setupUrl}" target="_blank">
-${data.setupUrl}
-</a>
-</div>
+<button
+class="success-btn"
+onclick="window.location.href='${data.setupUrl}'">
+Configurar meu Widget →
+</button>
 
 <button
 class="copy-btn"
 onclick="navigator.clipboard.writeText('${data.setupUrl}')">
-Copiar URL
-</button>
-
-<button
-class="open-btn"
-onclick="window.open('${data.setupUrl}','_blank')">
-Configurar meu Widget →
+Copiar Link
 </button>
 
 `;
@@ -280,7 +377,7 @@ catch(err){
 
 resultBox.style.display="block";
 
-resultBox.innerHTML=
+resultBox.innerHTML =
 `<div class="error">
 Erro ao conectar ao servidor.
 </div>`;
@@ -289,5 +386,7 @@ Erro ao conectar ao servidor.
 
 }
 
-</script></body>
+</script>
+
+</body>
 </html>
