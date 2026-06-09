@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VisualFeed • Acessar configuração</title>
+<title>VisualFeed</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -12,14 +12,12 @@
 
 :root{
   --primary:#6D4AFF;
-  --primary-hover:#5B3BF2;
-  --bg:#F7F8FC;
-  --card:#FFFFFF;
+  --primary-hover:#5D3CF0;
+  --bg:#F8F9FF;
   --text:#111827;
   --muted:#6B7280;
   --border:#E5E7EB;
   --success:#16A34A;
-  --error:#DC2626;
 }
 
 *{
@@ -30,6 +28,7 @@
 
 body{
   font-family:'Inter',sans-serif;
+
   min-height:100vh;
 
   display:flex;
@@ -41,7 +40,7 @@ body{
   background:
   radial-gradient(circle at top left,#ECE7FF 0%,transparent 35%),
   radial-gradient(circle at bottom right,#E0E7FF 0%,transparent 35%),
-  var(--bg);
+  #F8F9FF;
 }
 
 .card{
@@ -49,40 +48,51 @@ body{
   width:100%;
   max-width:460px;
 
-  background:var(--card);
+  background:white;
 
   border:1px solid var(--border);
 
-  border-radius:24px;
+  border-radius:28px;
 
   padding:42px;
 
   box-shadow:
-  0 20px 50px rgba(109,74,255,.08);
+  0 20px 60px rgba(109,74,255,.08);
 }
 
 .brand{
 
   text-align:center;
 
-  color:var(--primary);
-
-  font-size:15px;
+  font-size:32px;
 
   font-weight:800;
 
-  letter-spacing:8px;
+  color:var(--primary);
 
-  margin-bottom:24px;
+  margin-bottom:10px;
+
+  letter-spacing:-1px;
+}
+
+.tagline{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  margin-bottom:35px;
 }
 
 h1{
 
+  text-align:center;
+
   font-size:34px;
 
   line-height:1.15;
-
-  text-align:center;
 
   color:var(--text);
 
@@ -97,7 +107,7 @@ h1{
 
   line-height:1.7;
 
-  margin-bottom:32px;
+  margin-bottom:30px;
 }
 
 label{
@@ -107,6 +117,261 @@ label{
   font-weight:600;
 
   margin-bottom:10px;
+}
+
+input{
+
+  width:100%;
+
+  padding:16px;
+
+  border-radius:14px;
+
+  border:1px solid var(--border);
+
+  font-size:15px;
+
+  margin-bottom:18px;
+}
+
+input:focus{
+
+  outline:none;
+
+  border-color:var(--primary);
+}
+
+button{
+
+  width:100%;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:16px;
+
+  cursor:pointer;
+
+  font-size:15px;
+
+  font-weight:700;
+
+  color:white;
+
+  background:linear-gradient(
+  135deg,
+  #6D4AFF,
+  #7C5CFF
+  );
+
+  transition:.2s;
+}
+
+button:hover{
+
+  transform:translateY(-1px);
+}
+
+#result{
+
+  display:none;
+
+  margin-top:20px;
+
+  padding:18px;
+
+  border-radius:16px;
+
+  background:#F9FAFB;
+
+  border:1px solid var(--border);
+
+  text-align:center;
+}
+
+.success{
+
+  color:var(--success);
+
+  font-weight:700;
+
+  margin-bottom:8px;
+}
+
+.loading{
+
+  color:#6B7280;
+
+  font-size:14px;
+}
+
+.error{
+
+  color:#DC2626;
+
+  font-weight:600;
+}
+
+.footer{
+
+  position:fixed;
+
+  bottom:20px;
+
+  left:0;
+
+  width:100%;
+
+  text-align:center;
+
+  color:#9CA3AF;
+
+  font-size:13px;
+}
+
+@media(max-width:480px){
+
+.card{
+  padding:30px;
+}
+
+.brand{
+  font-size:28px;
+}
+
+h1{
+  font-size:28px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="brand">
+VisualFeed
+</div>
+
+<div class="tagline">
+Área de configuração
+</div>
+
+<h1>
+Acesse sua conta
+</h1>
+
+<p class="subtitle">
+Digite o e-mail utilizado na compra para continuar.
+</p>
+
+<label for="email">
+E-mail
+</label>
+
+<input
+type="email"
+id="email"
+placeholder="seuemail@exemplo.com"
+/>
+
+<button onclick="generateLink()">
+Continuar →
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<div class="footer">
+VisualFeed
+</div>
+
+<script>
+
+async function generateLink() {
+
+const email =
+document.getElementById("email")
+.value
+.trim();
+
+const resultBox =
+document.getElementById("result");
+
+if (!email) {
+
+alert("Insira seu e-mail.");
+
+return;
+}
+
+try {
+
+const response = await fetch(
+"https://notion-feed-backend2.onrender.com/generate-client",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({ email })
+}
+);
+
+const data = await response.json();
+
+if (!response.ok) {
+
+resultBox.style.display="block";
+
+resultBox.innerHTML=
+`<div class="error">
+${data.error || "Erro ao validar acesso."}
+</div>`;
+
+return;
+}
+
+resultBox.style.display="block";
+
+resultBox.innerHTML=`
+<div class="success">
+✓ Licença validada
+</div>
+
+<div class="loading">
+Redirecionando para a configuração...
+</div>
+`;
+
+setTimeout(() => {
+
+window.location.href = data.setupUrl;
+
+}, 1200);
+
+}
+catch(err){
+
+resultBox.style.display="block";
+
+resultBox.innerHTML=
+`<div class="error">
+Erro ao conectar ao servidor.
+</div>`;
+}
+
+}
+
+</script>
+
+</body>
+</html>  margin-bottom:10px;
 
   color:var(--text);
 }
