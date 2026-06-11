@@ -390,7 +390,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 
-margin-bottom:24px;
+margin-bottom:32px;
 
 }
 
@@ -453,9 +453,9 @@ VISUALFEED
 
   <div class="step-labels">
 
-    <span>Verificar</span>
-    <span>Gerar Link</span>
-    <span>Configurar</span>
+    <span>Verificação</span>
+    <span>Acesso</span>
+    <span>Configuração</span>
 
   </div>
 
@@ -466,46 +466,51 @@ VISUALFEED
 <div class="hero-icon">
 
 <svg
-width="72"
-height="72"
-viewBox="0 0 72 72"
+width="88"
+height="88"
+viewBox="0 0 64 64"
 fill="none"
 xmlns="http://www.w3.org/2000/svg">
 
-<circle
-cx="36"
-cy="36"
-r="36"
-fill="#6D4AFF"/>
+<defs>
+
+<linearGradient
+id="shieldGradient"
+x1="0"
+y1="0"
+x2="64"
+y2="64">
+
+<stop offset="0%" stop-color="#7C5CFF"/>
+<stop offset="100%" stop-color="#6D4AFF"/>
+
+</linearGradient>
+
+</defs>
 
 <path
-d="M31 42H26C22.686 42 20 39.314 20 36C20 32.686 22.686 30 26 30H31"
-stroke="white"
-stroke-width="4"
-stroke-linecap="round"/>
+d="M32 6L50 13V28C50 40 42 50 32 58C22 50 14 40 14 28V13L32 6Z"
+fill="url(#shieldGradient)"
+/>
 
 <path
-d="M41 30H46C49.314 30 52 32.686 52 36C52 39.314 49.314 42 46 42H41"
+d="M24 32L29 37L40 25"
 stroke="white"
 stroke-width="4"
-stroke-linecap="round"/>
-
-<path
-d="M31 36H41"
-stroke="white"
-stroke-width="4"
-stroke-linecap="round"/>
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
 
 </svg>
 
 </div>
 
 <h1>
-Liberar acesso
+Verifique sua compra
 </h1>
 
 <p class="subtitle">
-Digite o e-mail utilizado na compra para liberar seu acesso ao painel de configuração.
+Digite o e-mail utilizado na compra para validar sua licença e liberar seu acesso exclusivo ao VisualFeed.
 </p>
 
 <label for="email">
