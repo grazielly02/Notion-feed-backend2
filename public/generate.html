@@ -77,72 +77,57 @@ body{
 }
 
 .steps{
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center; 
-
-  margin-bottom:50px;
+  max-width:420px;
+  margin:0 auto 40px;
 }
 
-.step-wrapper{
-
+.step-row{
   display:flex;
-  flex-direction:column;
   align-items:center;
-  min-width:90px;
+  justify-content:center;
 }
-
-  .step-label{
-
-  margin-top:12px;
-
-  font-size:12px;
-
-  font-weight:600;
-
-  color:#6B7280;
-
-  text-align:center;
-
-  white-space:nowrap;
-  }
-  
 
 .step{
-
   width:52px;
   height:52px;
-  font-size:22px;
+
   border-radius:50%;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
+  font-size:22px;
   font-weight:700;
 
   background:#F3F4F6;
-
   color:#6B7280;
+
+  z-index:2;
 }
 
 .step.active{
-
-  background:var(--primary);
-
+  background:#6D4AFF;
   color:white;
 }
 
 .line{
-
-  width:95px;
+  flex:1;
   height:2px;
   background:#E5E7EB;
-  margin-top:21px;
+  margin:0 12px;
 }
+
+.step-labels{
+  display:flex;
+  justify-content:space-between;
+
+  margin-top:14px;
+
+  font-size:13px;
+  font-weight:600;
+  color:#6B7280;
+  }
 
 h1{
 
@@ -452,39 +437,27 @@ VISUALFEED
 
 <div class="steps">
 
-<div class="step-wrapper">
+  <div class="step-row">
 
-<div class="step active">1</div>
+    <div class="step active">1</div>
 
-<div class="step-label">
-Verificar
-</div>
+    <div class="line"></div>
 
-</div>
+    <div class="step">2</div>
 
-<div class="line"></div>
+    <div class="line"></div>
 
-<div class="step-wrapper">
+    <div class="step">3</div>
 
-<div class="step">2</div>
+  </div>
 
-<div class="step-label">
-Gerar Link
-</div>
+  <div class="step-labels">
 
-</div>
+    <span>Verificar</span>
+    <span>Gerar Link</span>
+    <span>Configurar</span>
 
-<div class="line"></div>
-
-<div class="step-wrapper">
-
-<div class="step">3</div>
-
-<div class="step-label">
-Configurar
-</div>
-
-</div>
+  </div>
 
 </div>
 
