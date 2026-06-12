@@ -330,6 +330,45 @@ input:focus{
   margin-bottom:18px;
 }
 
+.access-card{
+
+  background:#F8FAFC;
+
+  border:1px solid #E5E7EB;
+
+  border-radius:16px;
+
+  padding:18px;
+
+  margin-bottom:18px;
+
+  text-align:center;
+}
+
+.access-label{
+
+  font-size:12px;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+
+  color:#6B7280;
+
+  margin-bottom:8px;
+}
+
+.access-id{
+
+  font-size:20px;
+
+  font-weight:800;
+
+  color:#111827;
+
+  letter-spacing:1px;
+}
+  
 .copy-btn{
 
   width:100%;
@@ -658,12 +697,16 @@ Acesso liberado
 Sua compra foi confirmada. Guarde seu link exclusivo para acessar seu painel sempre que precisar.
 </div>
 
-<div class="link-label">
-Seu link exclusivo
-</div>
+<div class="access-card">
 
-<div class="link-box">
-${data.setupUrl}
+  <div class="access-label">
+    Licença VisualFeed
+  </div>
+
+  <div class="access-id">
+    ${data.clientId}
+  </div>
+
 </div>
 
 <button
@@ -679,10 +722,10 @@ Copiar link
 </button>
 
 <div class="notice">
-Este link dá acesso ao seu painel de configuração.<br>
-Guarde-o em local seguro para criar novos widgets no futuro.
+Este acesso é pessoal e vinculado à sua compra.
+<br>
+Guarde-o para acessar seu painel sempre que precisar.
 </div>
-
 `;
 
 }
