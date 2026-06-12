@@ -77,15 +77,35 @@ body{
 }
 
 .steps{
-  max-width:420px;
-  margin:0 auto 40px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+
+  max-width:520px;
+
+  margin:0 auto 32px;
 }
 
-.step-row{
+  .step-item{
   display:flex;
+  flex-direction:column;
   align-items:center;
-  justify-content:center;
-}
+
+  width:90px;
+  }
+
+  .step-item span{
+  margin-top:12px;
+
+  font-size:12px;
+  font-weight:500;
+
+  color:#6B7280;
+
+  text-align:center;
+  }
+
+  
 
 .step{
   width:52px;
@@ -112,22 +132,14 @@ body{
 }
 
 .line{
-  flex:1;
+  width:48px;
   height:2px;
+
   background:#D1D5DB;
-  margin:0 12px;
+
+  margin-top:26px;
 }
 
-.step-labels{
-  display:flex;
-  justify-content:space-between;
-
-  margin-top:14px;
-
-  font-size:12px;
-  font-weight:500;
-  color:#6B7280;
-  }
 
 h1{
 
@@ -429,6 +441,18 @@ h1{
 .steps{
   margin-bottom:24px;
 }
+
+.step-item{
+  width:78px;
+}
+
+.step-item span{
+  font-size:11px;
+}
+
+.line{
+  width:34px;
+}
   
   .hero-icon{
   margin-bottom:14px;
@@ -456,24 +480,30 @@ VISUALFEED
 
 <div class="steps">
 
-  <div class="step-row">
+  <div class="step-item">
 
     <div class="step active">1</div>
 
-    <div class="line"></div>
-
-    <div class="step">2</div>
-
-    <div class="line"></div>
-
-    <div class="step">3</div>
+    <span>Verificação</span>
 
   </div>
 
-  <div class="step-labels">
+  <div class="line"></div>
 
-    <span>Verificação</span>
+  <div class="step-item">
+
+    <div class="step">2</div>
+
     <span>Acesso</span>
+
+  </div>
+
+  <div class="line"></div>
+
+  <div class="step-item">
+
+    <div class="step">3</div>
+
     <span>Configuração</span>
 
   </div>
