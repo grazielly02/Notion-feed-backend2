@@ -641,18 +641,18 @@ return;
 
 resultBox.style.display="block";
 
-resultBox.innerHTML=`
+resultBox.innerHTML=
 
 <div class="success-icon">
 ✓
 </div>
 
 <div class="success-title">
-Link exclusivo criado
+Acesso liberado
 </div>
 
 <div class="success-subtitle">
-Seu acesso foi liberado com sucesso.
+Sua compra foi confirmada. Guarde seu link exclusivo para acessar seu painel sempre que precisar.
 </div>
 
 <div class="link-label">
@@ -664,15 +664,15 @@ ${data.setupUrl}
 </div>
 
 <button
-class="copy-btn"
-onclick="navigator.clipboard.writeText('${data.setupUrl}')">
-Copiar link
-</button>
-
-<button
 class="setup-btn"
 onclick="window.location.href='${data.setupUrl}'">
 Configurar meu widget
+</button>
+
+<button
+class="copy-btn"
+onclick="navigator.clipboard.writeText('${data.setupUrl}')">
+Copiar link
 </button>
 
 <div class="notice">
