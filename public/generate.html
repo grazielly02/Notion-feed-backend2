@@ -13,7 +13,8 @@
 :root{
   --primary:#6D4AFF;
   --primary-dark:#5B38F2;
-  --success:#16A34A;
+  --success:#22C55E;
+  --success-dark:#16A34A;
   --bg:#F7F8FC;
   --text:#111827;
   --muted:#6B7280;
@@ -132,14 +133,26 @@ body{
   font-weight:800;
 }
 
-  .step.completed{
-  background:#10B981;
-  color:white;
-}
+.step.completed{
+
+background:
+linear-gradient(
+135deg,
+#22C55E,
+#16A34A
+);
+
+color:white;
+
+box-shadow:
+0 10px 25px rgba(34,197,94,.30);
+
+  }
 
 .step-item.completed span{
-  color:#10B981;
-    }
+color:#16A34A;
+font-weight:700;
+  }
   
   .step-item.active span{
   color:#6D4AFF;
@@ -154,6 +167,11 @@ body{
   margin-top:26px;
 }
 
+.line.completed{
+
+background:#22C55E;
+
+}
 
 h1{
 
@@ -341,7 +359,11 @@ input:focus{
 
 .access-card{
 
-  display:inline-flex;
+  display:flex;
+  
+  justify-content:center;
+
+  width:100%;
 
   flex-direction:column;
 
@@ -380,13 +402,13 @@ input:focus{
 
 .access-id{
 
-  font-size:16px;
+  font-size:22px;
 
-  font-weight:800;
+  font-weight:900;
 
   color:#111827;
 
-  letter-spacing:1px;
+  letter-spacing:2px;
 }
   
 .copy-btn{
@@ -403,6 +425,8 @@ input:focus{
   border-radius:14px;
 
   font-weight:700;
+  margin-top:12px;
+  transition:.2s;
 }
 
 .setup-btn{
@@ -426,6 +450,9 @@ input:focus{
   font-weight:700;
 
   margin-bottom:12px;
+  transition:.2s;
+  box-shadow:
+0 10px 30px rgba(109,74,255,.25);
 }
 
 .notice{
@@ -478,18 +505,24 @@ drop-shadow(
 
 .validated-email{
 
-background:#F0FDF4;
+background:#F6FFF8;
 
-border:1px solid #BBF7D0;
+border:1px solid #D1FADF;
 
-border-radius:14px;
+border-radius:18px;
 
-padding:16px;
+padding:18px;
 
 text-align:center;
 
-margin-bottom:20px;
-}
+margin-top:18px;
+
+margin-bottom:24px;
+
+box-shadow:
+0 6px 18px rgba(34,197,94,.08);
+
+  }
 
 .validated-email-label{
 
@@ -509,6 +542,23 @@ font-size:16px;
 font-weight:600;
 
 color:#111827;
+}
+
+.license-panel{
+
+background:#FAFAFF;
+
+border:1px solid #E9E2FF;
+
+border-radius:24px;
+
+padding:24px;
+
+margin-top:24px;
+
+box-shadow:
+0 8px 30px rgba(109,74,255,.08);
+
 }
 
 @media(max-width:768px){
@@ -586,7 +636,7 @@ VISUALFEED
 
   </div>
 
-  <div class="line"></div>
+  <div class="line" id="line1"></div>
 
   <div class="step-item" id="step2Item">
 
@@ -752,6 +802,8 @@ document.getElementById("step1Item")
 
 document.getElementById("step1Item")
 .classList.add("completed");
+  document.getElementById("line1")
+.classList.add("completed");
 
 document.getElementById("step2")
 .classList.add("active");
@@ -763,6 +815,14 @@ resultBox.innerHTML=`
 
 <div class="success-icon">
 ✓
+</div>
+
+<div class="success-title">
+Acesso liberado
+</div>
+
+<div class="success-subtitle">
+Sua licença foi validada com sucesso.
 </div>
 
 <div class="validated-email">
@@ -777,22 +837,16 @@ ${email}
 
 </div>
 
-<div class="success-title">
-Acesso liberado
-</div>
-
-<div class="success-subtitle">
-Sua licença foi validada com sucesso. 
-</div>
+<div class="license-panel">
 
 <div class="access-card">
 
-  <div class="access-label">
-    LICENÇA VISUALFEED
-  </div>
+<div class="access-label">
+LICENÇA VISUALFEED
+</div>
 
-  <div class="access-id">
-  VF-${data.clientId.toUpperCase()}
+<div class="access-id">
+VF-${data.clientId.toUpperCase()}
 </div>
 
 </div>
@@ -808,6 +862,8 @@ class="copy-btn"
 onclick="navigator.clipboard.writeText('${data.setupUrl}')">
 Copiar link
 </button>
+
+</div>
 
 
 `;
