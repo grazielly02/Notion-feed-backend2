@@ -132,6 +132,15 @@ body{
   font-weight:800;
 }
 
+  .step.completed{
+  background:#10B981;
+  color:white;
+}
+
+.step-item.completed span{
+  color:#10B981;
+    }
+  
   .step-item.active span{
   color:#6D4AFF;
   }
@@ -467,6 +476,41 @@ drop-shadow(
 
   }
 
+.validated-email{
+
+background:#F0FDF4;
+
+border:1px solid #BBF7D0;
+
+border-radius:14px;
+
+padding:16px;
+
+text-align:center;
+
+margin-bottom:20px;
+}
+
+.validated-email-label{
+
+font-size:14px;
+
+font-weight:700;
+
+color:#16A34A;
+
+margin-bottom:6px;
+}
+
+.validated-email-value{
+
+font-size:16px;
+
+font-weight:600;
+
+color:#111827;
+}
+
 @media(max-width:768px){
 
 .card{
@@ -527,6 +571,7 @@ h1{
 <div class="container">
 
 <div class="card">
+  <div id="verificationSection">
 
 <div class="logo">
 VISUALFEED
@@ -534,9 +579,9 @@ VISUALFEED
 
 <div class="steps">
 
-  <div class="step-item active">
+  <div class="step-item active" id="step1Item">
 
-  <div class="step active">1</div>
+  <div class="step active" id="step1">1</div>
 
   <span>Verificação</span>
 
@@ -544,9 +589,9 @@ VISUALFEED
 
   <div class="line"></div>
 
-  <div class="step-item">
+  <div class="step-item" id="step2Item">
 
-    <div class="step">2</div>
+  <div class="step" id="step2">2</div>
 
     <span>Acesso</span>
 
@@ -632,6 +677,8 @@ onclick="generateLink()">
 Liberar acesso →
 </button>
 
+</div>
+
 <div id="result"></div>
 
 </div>
@@ -676,6 +723,7 @@ if(!response.ok){
 
 resultBox.style.display="block";
 
+
 resultBox.innerHTML=`
 <div class="error">
 ${data.error || "Erro ao gerar link."}
@@ -688,10 +736,46 @@ return;
 
 resultBox.style.display="block";
 
+document.getElementById("verificationSection")
+.style.display="none";
+
+document.getElementById("step1")
+.classList.remove("active");
+
+document.getElementById("step1")
+.classList.add("completed");
+
+document.getElementById("step1")
+.innerHTML = "✓";
+
+document.getElementById("step1Item")
+.classList.remove("active");
+
+document.getElementById("step1Item")
+.classList.add("completed");
+
+document.getElementById("step2")
+.classList.add("active");
+
+document.getElementById("step2Item")
+.classList.add("active");
+  
 resultBox.innerHTML=`
 
 <div class="success-icon">
 ✓
+</div>
+
+<div class="validated-email">
+
+<div class="validated-email-label">
+✓ Compra validada
+</div>
+
+<div class="validated-email-value">
+${email}
+</div>
+
 </div>
 
 <div class="success-title">
