@@ -6,97 +6,196 @@
   <title>PAINEL DO WIDGET</title>
   <style>
     html, body {
-      background: #000 !important;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      color-scheme: only light;
+  background:
+    radial-gradient(
+      circle at top center,
+      rgba(128, 87, 255, 0.25) 0%,
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #0b0d17 0%,
+      #06070d 50%,
+      #000 100%
+    );
+    
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: white;
     }
+    
     body {
       display: flex;
       justify-content: center;
       align-items: center;
     }
+    
     .form-box {
-      background: #fff !important;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      max-width: 500px;
-      width: 95%;
-      padding: 30px;
-      box-sizing: border-box;
+  background: rgba(15, 18, 35, 0.75);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(128, 87, 255, 0.15);
+
+  border-radius: 28px;
+
+  box-shadow:
+    0 0 40px rgba(128,87,255,.15),
+    0 20px 60px rgba(0,0,0,.6);
+
+  max-width: 500px;
+  width: 95%;
+  padding: 40px 30px;
+  position:relative
     }
 
-    .step-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 24px;
+.form-box::before {
+  content: '';
+
+  position: absolute;
+  inset: -1px;
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109,61,255,.6),
+      rgba(255,95,197,.3)
+    );
+
+  z-index: -1;
+
+  filter: blur(20px);
+}
+    
+.step-icon {
+  width: 90px;
+  height: 90px;
+
+  margin: 0 auto 30px;
+
   border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    #ffffff,
-    #f0f0f0
-  );
+
+  background: rgba(128,87,255,.08);
+
+  border: 1px solid rgba(128,87,255,.3);
+
+  color: #b889ff;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000;
+
   box-shadow:
-    0 8px 30px rgba(0,0,0,.12),
-    inset 0 1px 0 rgba(255,255,255,.9);
+    0 0 30px rgba(128,87,255,.25);
       }
     
     h2 {
   text-align: center;
   margin: 0 0 12px;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 800;
-  letter-spacing: -1px;
-   }
+
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #e0d1ff,
+    #b889ff
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+      }
     
     p.subtitulo {
-      text-align: center;
-      font-size: 15px;
-      color: #555;
-      margin-bottom: 20px;
+  text-align: center;
+  color: rgba(255,255,255,.7);
+  font-size: 17px;
+  line-height: 1.5;
+  margin-bottom: 30px;
     }
+    
     label {
-      font-weight: 600;
-      display: block;
-      margin-top: 16px;
-      font-size: 14px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
     }
+    
     input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border: none;
-      border-bottom: 2px solid #ccc;
-      font-size: 16px;
-      box-sizing: border-box;
-      transition: border-color 0.3s;
-    }
-    input:focus {
-      outline: none;
-      border-bottom: 2px solid black;
-    }
+  width: 100%;
+  padding: 16px;
+
+  background: rgba(255,255,255,.03);
+
+  border: 1px solid rgba(128,87,255,.2);
+
+  border-radius: 14px;
+
+  color: white;
+
+  margin-top: 8px;
+
+  transition: .25s;
+}
+
+input::placeholder {
+  color: rgba(255,255,255,.35);
+}
+
+input:focus {
+  outline: none;
+
+  border-color: #9f63ff;
+
+  box-shadow:
+    0 0 0 3px rgba(159,99,255,.15),
+    0 0 25px rgba(159,99,255,.2);
+  }
+    
     button {
-      background-color: black;
-      color: white;
-      margin-top: 24px;
-      cursor: pointer;
-      font-size: 16px;
-      border: none;
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #333;
-    }
+  width: 100%;
+
+  border: none;
+
+  border-radius: 16px;
+
+  padding: 18px;
+
+  color: white;
+
+  font-weight: 700;
+  font-size: 18px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6d3dff,
+      #9448ff,
+      #ff5fc5
+    );
+
+  box-shadow:
+    0 12px 35px rgba(149,72,255,.35);
+
+  transition: .3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 15px 45px rgba(149,72,255,.5);
+                         }
+
     .error-message {
       color: red;
       font-size: 12px;
