@@ -7,8 +7,12 @@
   <style>
     html, body {
     background:
-    radial-gradient(circle at top,#ECE8FF 0%,transparent 40%),
-    #F7F8FC;
+radial-gradient(
+circle at top center,
+rgba(109,74,255,.45),
+transparent 40%
+),
+#080B17;
     font-family:'Inter',sans-serif;
     }
     
@@ -18,32 +22,45 @@
       align-items: center;
     }
     
-    .form-box{
+.form-box{
 
-background:white;
+background:#FFFFFF;
 
 border-radius:32px;
 
-max-width:520px;
-
-width:100%;
-
 padding:48px 36px;
 
+max-width:520px;
+
 box-shadow:
-0 25px 70px rgba(0,0,0,.08);
+0 25px 80px rgba(0,0,0,.35);
 
-border:1px solid rgba(0,0,0,.04);
-
-    }
+}
 
 .hero-icon{
 
-display:flex;
+width:90px;
+height:90px;
 
+margin:0 auto 24px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+#6D4AFF,
+#8B6BFF
+);
+
+display:flex;
+align-items:center;
 justify-content:center;
 
-margin-bottom:22px;
+font-size:40px;
+
+box-shadow:
+0 20px 40px rgba(109,74,255,.35);
 
 }
 
@@ -79,31 +96,31 @@ box-shadow:
     
     h2{
 
-text-align:center;
+font-size:48px;
 
-font-size:36px;
+line-height:1;
 
 font-weight:800;
 
-margin-bottom:12px;
+text-align:center;
 
-color:#111827;
+margin-bottom:18px;
 
-      }
+  }
     
     p.subtitulo{
 
 text-align:center;
 
-font-size:16px;
+font-size:17px;
 
 line-height:1.7;
 
 color:#6B7280;
 
-max-width:340px;
+max-width:320px;
 
-margin:0 auto 36px;
+margin:0 auto 40px;
 
   }
     
@@ -116,25 +133,19 @@ margin:0 auto 36px;
     
     input{
 
-width:100%;
+height:64px;
 
-height:58px;
-
-padding:0 18px;
-
-margin-top:8px;
-
-border-radius:14px;
+border-radius:16px;
 
 border:1px solid #E5E7EB;
 
-background:white;
+padding:0 18px;
 
-font-size:15px;
+font-size:16px;
 
-transition:.2s;
+background:#FAFAFA;
 
-    }
+  }
     
     input:focus{
 
@@ -149,33 +160,23 @@ box-shadow:
     
     button{
 
-width:100%;
+height:64px;
 
-height:58px;
+border-radius:18px;
 
-border:none;
-
-border-radius:16px;
-
-cursor:pointer;
-
-font-size:16px;
+font-size:17px;
 
 font-weight:700;
-
-color:white;
 
 background:
 linear-gradient(
 135deg,
 #6D4AFF,
-#8B73FF
+#8B6BFF
 );
 
 box-shadow:
-0 10px 30px rgba(109,74,255,.25);
-
-transition:.2s;
+0 12px 30px rgba(109,74,255,.35);
 
     }
     
@@ -198,6 +199,8 @@ transform:translateY(-2px);
   <div class="form-box">
 
 <div class="hero-icon">
+⚙️
+</div>
 
 <div class="hero-circle">
 ⚙
