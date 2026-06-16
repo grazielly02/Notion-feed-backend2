@@ -5,32 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Configuração do Widget • VisualFeed</title>
   <style>
-    html, body {
-    background:
+    html,
+body{
+
+margin:0;
+padding:0;
+
+min-height:100vh;
+
+font-family:'Inter',sans-serif;
+
+background:
 radial-gradient(
 circle at top center,
 rgba(109,74,255,.45),
 transparent 40%
 ),
 #080B17;
-    font-family:'Inter',sans-serif;
-    }
+
+}
     
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    body{
+
+display:flex;
+
+justify-content:center;
+
+padding:32px 20px;
+
+overflow-y:auto;
+
     }
     
 .form-box{
+
+width:100%;
+max-width:480px;
 
 background:#FFFFFF;
 
 border-radius:32px;
 
-padding:48px 36px;
+padding:40px 24px;
 
-max-width:520px;
+box-sizing:border-box;
 
 box-shadow:
 0 25px 80px rgba(0,0,0,.35);
@@ -39,75 +57,27 @@ box-shadow:
 
 .hero-icon{
 
-width:90px;
-height:90px;
+width:72px;
+height:72px;
 
 margin:0 auto 24px;
 
-border-radius:50%;
+font-size:32px;
 
-background:
-linear-gradient(
-135deg,
-#6D4AFF,
-#8B6BFF
-);
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:40px;
-
-box-shadow:
-0 20px 40px rgba(109,74,255,.35);
-
-}
-
-.hero-circle{
-
-width:78px;
-
-height:78px;
-
-border-radius:50%;
-
-background:
-linear-gradient(
-135deg,
-#6D4AFF,
-#8B73FF
-);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-color:white;
-
-font-size:34px;
-
-box-shadow:
-0 15px 35px rgba(109,74,255,.25);
-
-}
     
-    h2{
+h2{
 
-font-size:48px;
+font-size:42px;
 
-line-height:1;
-
-font-weight:800;
+line-height:1.05;
 
 text-align:center;
 
-margin-bottom:18px;
+margin-bottom:16px;
+
+color:#111827;
 
   }
-    
     p.subtitulo{
 
 text-align:center;
@@ -133,19 +103,15 @@ margin:0 auto 40px;
     
     input{
 
-height:64px;
+width:100%;
 
-border-radius:16px;
+height:60px;
 
-border:1px solid #E5E7EB;
+margin-top:8px;
 
-padding:0 18px;
+margin-bottom:4px;
 
-font-size:16px;
-
-background:#FAFAFA;
-
-  }
+box-sizing:border-box;
     
     input:focus{
 
@@ -160,25 +126,17 @@ box-shadow:
     
     button{
 
-height:64px;
+width:100%;
 
-border-radius:18px;
+height:60px;
 
-font-size:17px;
+margin-top:24px;
 
-font-weight:700;
+border:none;
 
-background:
-linear-gradient(
-135deg,
-#6D4AFF,
-#8B6BFF
-);
+cursor:pointer;
 
-box-shadow:
-0 12px 30px rgba(109,74,255,.35);
-
-    }
+color:white;
     
     button:hover{
 
@@ -196,16 +154,10 @@ transform:translateY(-2px);
   </style>
 </head>
 <body>
-  <div class="form-box">
+<div class="form-box">
 
 <div class="hero-icon">
 ⚙️
-</div>
-
-<div class="hero-circle">
-⚙
-</div>
-
 </div>
 
 <h2>
@@ -215,7 +167,8 @@ Configurar Widget
 <p class="subtitulo">
 Conecte seu Notion para criar seu feed VisualFeed personalizado.
 </p>
-    <form id="widgetForm" action="#" novalidate>
+
+<form id="widgetForm" action="#" novalidate>
 
       <!-- ESTE É O HIDDEN QUE VOCÊ PRECISA -->
       <input type="hidden" name="realClientId">
