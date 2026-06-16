@@ -3,90 +3,215 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PAINEL DO WIDGET</title>
+  <title>Configuração do Widget • VisualFeed</title>
   <style>
     html, body {
-      background: #000 !important;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      color-scheme: only light;
+    background:
+    radial-gradient(circle at top,#ECE8FF 0%,transparent 40%),
+    #F7F8FC;
+    font-family:'Inter',sans-serif;
     }
+    
     body {
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .form-box {
-      background: #fff !important;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      max-width: 500px;
-      width: 95%;
-      padding: 30px;
-      box-sizing: border-box;
+    
+    .form-box{
+
+background:white;
+
+border-radius:32px;
+
+max-width:520px;
+
+width:100%;
+
+padding:48px 36px;
+
+box-shadow:
+0 25px 70px rgba(0,0,0,.08);
+
+border:1px solid rgba(0,0,0,.04);
+
     }
-    h2 {
-      text-align: center;
-      margin-bottom: 8px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    p.subtitulo {
-      text-align: center;
-      font-size: 15px;
-      color: #555;
-      margin-bottom: 20px;
-    }
+
+.hero-icon{
+
+display:flex;
+
+justify-content:center;
+
+margin-bottom:22px;
+
+}
+
+.hero-circle{
+
+width:78px;
+
+height:78px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+#6D4AFF,
+#8B73FF
+);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-size:34px;
+
+box-shadow:
+0 15px 35px rgba(109,74,255,.25);
+
+}
+    
+    h2{
+
+text-align:center;
+
+font-size:36px;
+
+font-weight:800;
+
+margin-bottom:12px;
+
+color:#111827;
+
+      }
+    
+    p.subtitulo{
+
+text-align:center;
+
+font-size:16px;
+
+line-height:1.7;
+
+color:#6B7280;
+
+max-width:340px;
+
+margin:0 auto 36px;
+
+  }
+    
     label {
       font-weight: 600;
       display: block;
       margin-top: 16px;
       font-size: 14px;
     }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border: none;
-      border-bottom: 2px solid #ccc;
-      font-size: 16px;
-      box-sizing: border-box;
-      transition: border-color 0.3s;
+    
+    input{
+
+width:100%;
+
+height:58px;
+
+padding:0 18px;
+
+margin-top:8px;
+
+border-radius:14px;
+
+border:1px solid #E5E7EB;
+
+background:white;
+
+font-size:15px;
+
+transition:.2s;
+
     }
-    input:focus {
-      outline: none;
-      border-bottom: 2px solid black;
+    
+    input:focus{
+
+outline:none;
+
+border-color:#6D4AFF;
+
+box-shadow:
+0 0 0 4px rgba(109,74,255,.10);
+
     }
-    button {
-      background-color: black;
-      color: white;
-      margin-top: 24px;
-      cursor: pointer;
-      font-size: 16px;
-      border: none;
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      transition: background-color 0.3s;
+    
+    button{
+
+width:100%;
+
+height:58px;
+
+border:none;
+
+border-radius:16px;
+
+cursor:pointer;
+
+font-size:16px;
+
+font-weight:700;
+
+color:white;
+
+background:
+linear-gradient(
+135deg,
+#6D4AFF,
+#8B73FF
+);
+
+box-shadow:
+0 10px 30px rgba(109,74,255,.25);
+
+transition:.2s;
+
     }
-    button:hover {
-      background-color: #333;
-    }
+    
+    button:hover{
+
+transform:translateY(-2px);
+
+      }
+    
     .error-message {
       color: red;
       font-size: 12px;
       margin-top: 4px;
       display: none;
     }
+    
   </style>
 </head>
 <body>
   <div class="form-box">
-    <h2>PAINEL DO WIDGET</h2>
-    <p class="subtitulo">Preencha os dados abaixo para gerar o seu widget.</p>
+
+<div class="hero-icon">
+
+<div class="hero-circle">
+⚙
+</div>
+
+</div>
+
+<h2>
+Configurar Widget
+</h2>
+
+<p class="subtitulo">
+Conecte seu Notion para criar seu feed VisualFeed personalizado.
+</p>
     <form id="widgetForm" action="#" novalidate>
 
       <!-- ESTE É O HIDDEN QUE VOCÊ PRECISA -->
