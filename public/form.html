@@ -7,17 +7,18 @@
   <style>
     html, body {
   background:
-    radial-gradient(
-      circle at top center,
-      rgba(128, 87, 255, 0.25) 0%,
-      transparent 45%
-    ),
-    linear-gradient(
-      180deg,
-      #0b0d17 0%,
-      #06070d 50%,
-      #000 100%
-    );
+radial-gradient(
+circle at top center,
+rgba(167,130,255,.18),
+transparent 35%
+),
+
+linear-gradient(
+180deg,
+#ffffff 0%,
+#faf8ff 45%,
+#f4efff 100%
+);
     
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
@@ -33,13 +34,14 @@
     }
     
     .form-box {
-  background: rgba(15, 18, 35, 0.75);
+  background:
+rgba(255,255,255,.55);
 
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+backdrop-filter:
+blur(24px);
 
-  border: 1px solid rgba(128, 87, 255, 0.15);
-
+border:
+1px solid rgba(255,255,255,.7);
   border-radius: 28px;
 
   box-shadow:
@@ -80,8 +82,12 @@
 
   border-radius: 50%;
 
-  background: rgba(128,87,255,.08);
+  background:
+rgba(255,255,255,.65);
 
+backdrop-filter:
+blur(20px);
+  
   border: 1px solid rgba(128,87,255,.3);
 
   color: #b889ff;
@@ -99,21 +105,20 @@
   margin: 0 0 12px;
   font-size: 36px;
   font-weight: 800;
-
-  background: linear-gradient(
-    90deg,
-    #ffffff,
-    #e0d1ff,
-    #b889ff
-  );
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color:#111827;
   }
 
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-      }
+h2 span{
+background:
+linear-gradient(
+135deg,
+#7c3aed,
+#a855f7
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
     
     p.subtitulo {
   text-align: center;
@@ -134,9 +139,11 @@
   width: 100%;
   padding: 16px;
 
-  background: rgba(255,255,255,.03);
+  background:
+rgba(255,255,255,.6);
 
-  border: 1px solid rgba(128,87,255,.2);
+border:
+1px solid rgba(124,58,237,.12);
 
   border-radius: 14px;
 
@@ -157,8 +164,7 @@ input:focus {
   border-color: #9f63ff;
 
   box-shadow:
-    0 0 0 3px rgba(159,99,255,.15),
-    0 0 25px rgba(159,99,255,.2);
+0 0 0 4px rgba(124,58,237,.08);
   }
     
     button {
@@ -176,12 +182,12 @@ input:focus {
   font-size: 18px;
 
   background:
-    linear-gradient(
-      90deg,
-      #6d3dff,
-      #9448ff,
-      #ff5fc5
-    );
+linear-gradient(
+135deg,
+#ffffff,
+#d8c5ff,
+#9f67ff
+);
 
   box-shadow:
     0 12px 35px rgba(149,72,255,.35);
@@ -220,7 +226,10 @@ button:hover {
 </svg>
     </div>
     
-    <h2>PAINEL DO WIDGET</h2>
+    <h2>
+Configure seu
+<span>Widget</span>
+    </h2>
     <p class="subtitulo">Preencha os dados abaixo para gerar o seu widget.</p>
     <form id="widgetForm" action="#" novalidate>
 
