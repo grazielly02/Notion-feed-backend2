@@ -30,7 +30,8 @@ min-height:100vh;
     body {
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
+      padding:40px 0;
     }
     
 .form-box{
@@ -49,6 +50,7 @@ border-radius:28px;
 
 max-width:440px;
 width:calc(100% - 40px);
+height:auto;
 
 padding:36px 28px;
 
@@ -217,10 +219,14 @@ box-shadow:
     @media (max-width: 768px) {
 
   .form-box {
-    width: calc(100% - 32px);
+    width: calc(100% - 48px);
+    max-width: 340px;
+
     padding: 24px 20px;
+
     border-radius: 22px;
   }
+
 
   .step-icon {
     width: 64px;
