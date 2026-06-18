@@ -6,25 +6,25 @@
   <title>PAINEL DO WIDGET</title>
   <style>
     html, body {
-  background:
+
+background:
 radial-gradient(
 circle at top center,
-rgba(167,130,255,.18),
-transparent 35%
+rgba(124,58,237,.12) 0%,
+transparent 30%
 ),
 
 linear-gradient(
 180deg,
 #ffffff 0%,
-#faf8ff 45%,
-#f4efff 100%
+#fcfbff 40%,
+#f5f3ff 100%
 );
-    
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  color: white;
+
+font-family:'Segoe UI',sans-serif;
+margin:0;
+padding:0;
+min-height:100vh;
     }
     
     body {
@@ -33,181 +33,179 @@ linear-gradient(
       align-items: center;
     }
     
-    .form-box {
-  background:
-rgba(255,255,255,.55);
+.form-box{
 
-backdrop-filter:
-blur(24px);
+position:relative;
+
+background:
+rgba(255,255,255,.82);
+
+backdrop-filter:blur(28px);
 
 border:
-1px solid rgba(255,255,255,.7);
-  border-radius: 28px;
+1px solid rgba(255,255,255,.9);
 
-  box-shadow:
-    0 0 40px rgba(128,87,255,.15),
-    0 20px 60px rgba(0,0,0,.6);
+border-radius:28px;
 
-  max-width: 420px;
-  width: calc(100% - 32px);
+max-width:440px;
+width:calc(100% - 40px);
 
-  padding: 28px 22px;
+padding:36px 28px;
 
-  border-radius: 24px;
-      
-    }
+box-shadow:
+0 20px 50px rgba(124,58,237,.12),
+0 5px 20px rgba(0,0,0,.04);
 
-.form-box::before {
-  content: '';
-
-  position: absolute;
-  inset: -1px;
-
-  border-radius: 28px;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(109,61,255,.6),
-      rgba(255,95,197,.3)
-    );
-
-  z-index: -1;
-
-  filter: blur(20px);
 }
-    
-.step-icon {
-  width: 64px;
-  height: 64px;
 
-  margin: 0 auto 20px;
+.step-icon{
 
-  border-radius: 50%;
+width:78px;
+height:78px;
 
-  background:
-rgba(255,255,255,.65);
+background:white;
 
-backdrop-filter:
-blur(20px);
-  
-  border: 1px solid rgba(128,87,255,.3);
+border:
+1px solid rgba(124,58,237,.15);
 
-  color: #b889ff;
+color:#8b5cf6;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+box-shadow:
+0 10px 30px rgba(124,58,237,.12);
 
-  box-shadow:
-    0 0 30px rgba(128,87,255,.25);
-      }
+}
     
     h2 {
   text-align: center;
   margin: 0 0 12px;
-  font-size: 30px;
-  line-height: 1.1;
+  font-size: 42px;
+  line-height: 1.05;
   font-weight: 800;
   color:#111827;
   }
 
 h2 span{
+
 background:
 linear-gradient(
 135deg,
 #7c3aed,
-#a855f7
+#9d5cff
 );
 
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+
 }
     
-    p.subtitulo {
-  text-align: center;
-  color: rgba(255,255,255,.7);
-  font-size: 15px;
-  line-height: 1.5;
-  margin-bottom: 22px;
-    }
-    
-    label {
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  display: block;
-  margin-top: 14px;
-      
-    }
-    
-    input {
-  width: 100%;
-  padding: 14px;
+.subtitulo{
 
-  background:
-rgba(255,255,255,.6);
+color:#6b7280;
 
-border:
-1px solid rgba(124,58,237,.12);
+font-size:16px;
 
-  border-radius: 14px;
+line-height:1.6;
 
-  color: white;
+margin-bottom:28px;
 
-  margin-top: 8px;
-
-  transition: .25s;
-}
-
-input::placeholder {
-  color: rgba(255,255,255,.35);
-}
-
-input:focus {
-  outline: none;
-
-  border-color: #9f63ff;
-
-  box-shadow:
-0 0 0 4px rgba(124,58,237,.08);
   }
     
-    button {
-  width: 100%;
+label{
 
-  border: none;
+color:#111827;
 
-  border-radius: 16px;
+font-size:14px;
 
-  padding: 15px;
+font-weight:600;
 
-  color: white;
+display:block;
 
-  font-weight: 700;
-  font-size: 16px;
+margin-top:16px;
 
-  background:
-linear-gradient(
-135deg,
-#ffffff,
-#d8c5ff,
-#9f67ff
-);
+margin-bottom:8px;
 
-  box-shadow:
-    0 12px 35px rgba(149,72,255,.35);
+      }
+    
+input{
 
-  transition: .3s;
+width:100%;
+
+padding:16px;
+
+background:white;
+
+border:
+1px solid #e5e7eb;
+
+border-radius:14px;
+
+font-size:15px;
+
+color:#111827;
+
+transition:.25s;
+
+box-sizing:border-box;
+
 }
 
-button:hover {
-  transform: translateY(-2px);
+input::placeholder{
 
-  box-shadow:
-    0 15px 45px rgba(149,72,255,.5);
-                         }
+color:#9ca3af;
+
+}
+
+input:focus{
+
+outline:none;
+
+border-color:#8b5cf6;
+
+box-shadow:
+0 0 0 4px rgba(139,92,246,.12);
+
+}
+    
+button{
+
+width:100%;
+
+margin-top:26px;
+
+padding:17px;
+
+border:none;
+
+border-radius:16px;
+
+font-size:16px;
+
+font-weight:700;
+
+color:white;
+
+background:
+linear-gradient(
+135deg,
+#7c3aed,
+#8b5cf6
+);
+
+box-shadow:
+0 12px 24px rgba(124,58,237,.25);
+
+transition:.25s;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 16px 30px rgba(124,58,237,.35);
+
+}
 
     .error-message {
       color: red;
