@@ -538,8 +538,11 @@ stroke-linejoin="round">
     const form = document.getElementById('widgetForm');
 const urlParams = new URLSearchParams(window.location.search);
 const realClientId = urlParams.get("clientId");
-form.realClientId.value = realClientId;
-    const fields = form.querySelectorAll('input[name]');
+form.querySelector('input[name="realClientId"]'
+).value = realClientId || '';
+    const fields = 
+form.querySelectorAll('input[name]:not([type="hidden"])'
+);
 
     fields.forEach((field, index) => {
       field.addEventListener('input', () => {
