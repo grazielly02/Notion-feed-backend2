@@ -623,7 +623,7 @@ error.style.display = 'none';
         let customError = '';
 
         if (!value) {
-          customError = 'Este campo é obrigatório.';
+          customError = '⚠ Este campo é obrigatório';
         } else if (field.name === 'token') {
           if (value.length !== 50) {
             customError = 'O token deve ter exatamente 50 caracteres.';
