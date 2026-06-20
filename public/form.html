@@ -202,7 +202,7 @@ box-sizing:border-box;
 
 height:58px;
 
-padding:0 52px 0 48px;
+padding:0 18px 0 48px;
 
 background:#fff;
 
@@ -271,7 +271,11 @@ color:#7c3aed;
 transition:.25s;
 
 }
-    
+
+#token{
+padding-right:52px;
+}
+  
 button{
 
 width:100%;
@@ -415,41 +419,57 @@ margin-left:4px;
 position:absolute;
 
 right:16px;
-
 top:50%;
 
 transform:translateY(-50%);
 
-background:none;
+display:flex;
+align-items:center;
+justify-content:center;
 
-border:none;
-
-box-shadow:none;
-
-width:auto;
-
-height:auto;
+width:24px;
+height:24px;
 
 padding:0;
+margin:0;
 
-font-size:18px;
+background:none !important;
+border:none;
+
+box-shadow:none !important;
 
 cursor:pointer;
 
 color:#9ca3af;
 
+z-index:3;
+
+}
+
+.toggle-password::before{
+display:none !important;
+content:none !important;
 }
 
 .toggle-password:hover{
 
+color:#7c3aed;
+
 transform:translateY(-50%);
 
-box-shadow:none;
-
-color:#7c3aed;
+box-shadow:none !important;
 
   }
 
+.toggle-password svg{
+
+width:20px;
+height:20px;
+
+display:block;
+
+}
+    
 @media(max-width:768px){
 
 .form-box{
@@ -603,12 +623,14 @@ id="token"
 name="token"
 required
 placeholder="ntn_••••••••••••••••••••"
-maxlength="60">
+maxlength="50">
 
 <button
 type="button"
 class="toggle-password"
 onclick="toggleToken()">
+
+<span id="eyeOpen">
 
 <svg
 width="20"
@@ -621,10 +643,35 @@ stroke-linecap="round"
 stroke-linejoin="round">
 
 <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
-
 <circle cx="12" cy="12" r="3"/>
 
 </svg>
+
+</span>
+
+<span
+id="eyeClosed"
+style="display:none">
+
+<svg
+width="20"
+height="20"
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round">
+
+<path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.8 21.8 0 0 1 5.06-5.94"/>
+
+<path d="M1 1l22 22"/>
+
+<path d="M9.9 4.24A10.94 10.94 0 0 1 12 5c7 0 11 7 11 7a21.77 21.77 0 0 1-4.06 4.94"/>
+
+</svg>
+
+</span>
 
 </button>
      
@@ -797,10 +844,29 @@ error.style.display = 'none';
 const token =
 document.getElementById('token');
 
-token.type =
-token.type === 'password'
-? 'text'
-: 'password';
+const eyeOpen =
+document.getElementById('eyeOpen');
+
+const eyeClosed =
+document.getElementById('eyeClosed');
+
+if(token.type === 'password'){
+
+token.type = 'text';
+
+eyeOpen.style.display = 'none';
+
+eyeClosed.style.display = 'block';
+
+}else{
+
+token.type = 'password';
+
+eyeOpen.style.display = 'block';
+
+eyeClosed.style.display = 'none';
+
+}
 
     }
     
