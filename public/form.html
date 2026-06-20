@@ -69,13 +69,19 @@ width:100%;
     
 .brand{
 
-text-align:center;
+position:absolute;
 
-font-size:15px;
+top:24px;
 
-font-weight:800;
+left:50%;
 
-letter-spacing:2px;
+transform:translateX(-50%);
+
+font-size:18px;
+
+font-weight:900;
+
+letter-spacing:1px;
 
 background:
 linear-gradient(
@@ -86,8 +92,6 @@ linear-gradient(
 
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-
-margin-bottom:24px;
 
 }
     
@@ -398,6 +402,58 @@ padding-top:0;
 
   }
 
+.field-tip{
+
+font-size:12px;
+
+color:#9ca3af;
+
+margin-top:6px;
+
+margin-left:4px;
+
+}
+
+.toggle-password{
+
+position:absolute;
+
+right:16px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+background:none;
+
+border:none;
+
+box-shadow:none;
+
+width:auto;
+
+height:auto;
+
+padding:0;
+
+font-size:18px;
+
+cursor:pointer;
+
+color:#9ca3af;
+
+}
+
+.toggle-password:hover{
+
+transform:translateY(-50%);
+
+box-shadow:none;
+
+color:#7c3aed;
+
+  }
+
 @media(max-width:768px){
 
 .form-box{
@@ -545,11 +601,30 @@ rx="2"/>
 
 </svg>
       
-      <input type="text" name="token" required placeholder="ntn_000000000000..." maxlength="60">
+      <input
+type="password"
+id="token"
+name="token"
+required
+placeholder="ntn_••••••••••••••••••••"
+maxlength="60">
+
+<button
+type="button"
+class="toggle-password"
+onclick="toggleToken()">
+👁
+</button>
      
       </div>
-      
-      <div class="error-message">Este campo é obrigatório.</div>
+
+<div class="field-tip">
+Token iniciado por ntn_ • 50 caracteres
+</div>
+
+<div class="error-message">
+Este campo é obrigatório.
+</div>
 
       <label>Database do Notion</label>
       <div class="input-group">
@@ -600,7 +675,10 @@ form.querySelectorAll('input[name]:not([type="hidden"])'
     fields.forEach((field, index) => {
       field.addEventListener('input', () => {
         const error =
-field.parentElement.nextElementSibling;
+const error =
+field.parentElement
+.nextElementSibling
+.nextElementSibling;
 
 error.style.display = 'none';
       });
@@ -627,7 +705,17 @@ error.style.display = 'none';
         if (!value) {
           customError = '⚠ Este campo é obrigatório';
         } else if (field.name === 'token') {
-          if (value.length !== 50) {
+          if (!value.startsWith('ntn_')) {
+
+customError =
+'O token deve começar com ntn_.';
+
+} else if (value.length !== 50) {
+
+customError =
+'O token deve ter exatamente 50 caracteres.';
+
+    }
             customError = 'O token deve ter exatamente 50 caracteres.';
           } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
             customError = 'O token deve conter apenas letras, números ou _.';
@@ -642,14 +730,19 @@ error.style.display = 'none';
 
         if (customError) {
           const error =
-field.parentElement.nextElementSibling;
-
+const error =
+field.parentElement
+.nextElementSibling
+.nextElementSibling;
 error.textContent = customError;
 error.style.display = 'block';
           isValid = false;
         } else {
           const error =
-field.parentElement.nextElementSibling;
+const error =
+field.parentElement
+.nextElementSibling
+.nextElementSibling;
 
 error.style.display = 'none';
         }
@@ -678,6 +771,19 @@ error.style.display = 'none';
         console.error(error);
       }
     });
+
+    function toggleToken(){
+
+const token =
+document.getElementById('token');
+
+token.type =
+token.type === 'password'
+? 'text'
+: 'password';
+
+    }
+    
   </script>
 </body>
 </html>
