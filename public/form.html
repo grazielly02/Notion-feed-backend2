@@ -479,9 +479,9 @@ transition:.25s;
 
 .field-tip.success{
 
-color:#22c55e;
+color:#7c3aed;
 
-font-weight:500;
+font-weight:600;
 
 }
 
@@ -701,7 +701,7 @@ type="password"
 id="token"
 name="token"
 required
-placeholder="ntn_••••••••••••••••••••"
+placeholder="ntn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 maxlength="50">
 
 <button
@@ -857,6 +857,7 @@ error.style.display = 'none';
 tokenInput.addEventListener('input', () => {
 
 const value = tokenInput.value.trim();
+
 const count = value.length;
 
 tokenStatus.classList.remove(
@@ -866,8 +867,7 @@ tokenStatus.classList.remove(
 
 if(!value){
 
-tokenStatus.textContent =
-'0/50';
+tokenStatus.textContent = '0/50';
 
 return;
 
@@ -878,30 +878,35 @@ if(
 ){
 
 tokenStatus.textContent =
-'Caracteres inválidos';
+'Use apenas letras, números e _';
 
-tokenStatus.classList.add(
-'error'
-);
+tokenStatus.classList.add('error');
 
 return;
 
-    }
-    
+}
+
 if(
-value.startsWith('ntn_')
-&&
-value.length === 50
-&&
-/^[a-zA-Z0-9_]+$/.test(value)
+!value.startsWith('ntn_')
 ){
 
 tokenStatus.textContent =
-'Token válido • 50/50';
+`Deve começar com ntn_ • ${count}/50`;
 
-tokenStatus.classList.add(
-'success'
-);
+tokenStatus.classList.add('error');
+
+return;
+
+}
+
+if(
+value.length === 50
+){
+
+tokenStatus.textContent =
+'Pronto para conectar';
+
+tokenStatus.classList.add('success');
 
 return;
 
