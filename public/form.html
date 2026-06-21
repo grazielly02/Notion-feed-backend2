@@ -874,9 +874,26 @@ return;
 }
 
 if(
+!/^[a-zA-Z0-9_]+$/.test(value)
+){
+
+tokenStatus.textContent =
+'Caracteres inválidos';
+
+tokenStatus.classList.add(
+'error'
+);
+
+return;
+
+    }
+    
+if(
 value.startsWith('ntn_')
 &&
 value.length === 50
+&&
+/^[a-zA-Z0-9_]+$/.test(value)
 ){
 
 tokenStatus.textContent =
