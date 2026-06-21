@@ -851,11 +851,8 @@ error.style.display = 'none';
 
 tokenInput.addEventListener('input', () => {
 
-const value =
-tokenInput.value.trim();
-
-const count =
-value.length;
+const value = tokenInput.value.trim();
+const count = value.length;
 
 tokenStatus.classList.remove(
 'success',
@@ -889,18 +886,7 @@ return;
 }
 
 tokenStatus.textContent =
-`🔒 Token seguro • ${count}/50`;
-
-tokenStatus.classList.add(
-'error'
-);
-
-return;
-
-}
-
-tokenStatus.textContent =
-`🔒 Dados protegidos • ${count}/50`;
+`🔒 Token protegido • ${count}/50`;
 
 });
     
