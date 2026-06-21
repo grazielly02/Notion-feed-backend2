@@ -789,7 +789,7 @@ stroke-linejoin="round">
 
       </svg>
         
-      <input type="text" name="databaseId" required placeholder="https://www.notion.so/..." maxlength="150">
+      <input type="text" name="databaseId" required placeholder="Cole o link compartilhado da database" maxlength="150">
      
       </div>
       
@@ -946,14 +946,17 @@ customError =
 
 }
 
-    } else if (field.name === 'databaseId') {
-          if (value.length < 104) {
-            customError = 'O link deve ter pelo menos 104 caracteres.';
-          } else if (!value.startsWith('https://www.notion.so/')) {
-            customError = 'O link deve começar com https://www.notion.so/';
-          }
-        }
+} else if (field.name === 'databaseId') {
 
+  const hasDatabaseId =
+    /[a-f0-9]{32}/i.test(value);
+
+  if (!hasDatabaseId) {
+    customError =
+      'Não foi possível identificar uma database do Notion nesse link.';
+  }
+
+    }
         if (customError) {
           const error =
 getErrorElement(field);
