@@ -228,16 +228,27 @@ height:58px;
 padding:0 18px 0 48px;
 
 background:
-rgba(255,255,255,.9);
-backdrop-filter:blur(12px);
+linear-gradient(
+180deg,
+rgba(255,255,255,.98),
+rgba(248,245,255,.95)
+);
 
-border:1px solid #e4def8;
+border:1px solid rgba(139,92,246,.12);
+    
+backdrop-filter:blur(12px);
 
 box-shadow:
 0 8px 24px rgba(15,23,42,.04);
 
 border-radius:18px;
 
+transition:
+border-color .25s,
+box-shadow .25s,
+transform .25s,
+background .25s;
+  
   }
     
 input:hover{
@@ -252,13 +263,17 @@ color:#9ca3af;
 
 input:focus{
 
-outline:none;
-
 border-color:#8b5cf6;
 
-box-shadow:
-0 0 0 4px rgba(139,92,246,.12);
+background:#fff;
 
+box-shadow:
+
+0 0 0 5px rgba(139,92,246,.10),
+
+0 10px 30px rgba(139,92,246,.08);
+  
+transform:translateY(-1px);
 }
 
 .input-group{
@@ -281,7 +296,8 @@ transform:translateY(-50%);
 width:18px;
 height:18px;
 
-color:#b1b1c0; 
+color:#a78bfa;
+opacity:.7;
 
 pointer-events:none;
 
@@ -292,7 +308,7 @@ z-index:2;
 .input-group:focus-within .input-icon{
 
 color:#7c3aed;
-
+opacity:1;
 transition:.25s;
 
 }
@@ -446,13 +462,31 @@ text-align:center;
 
 font-size:12px;
 
-color:#9ca3af;
-
 margin-top:6px;
 
 margin-left:4px;
 
+color:#9ca3af;
+
+transition:.25s;
+
 }
+
+.field-tip.success{
+
+color:#16a34a;
+
+font-weight:600;
+
+}
+
+.field-tip.error{
+
+color:#dc2626;
+
+font-weight:600;
+
+    }
 
 .toggle-password{
 
@@ -717,8 +751,12 @@ stroke-linejoin="round">
      
       </div>
 
-<div class="field-tip">
-Token iniciado por ntn_ • 50 caracteres
+<div
+class="field-tip"
+id="tokenStatus">
+
+🔒 Dados protegidos • 0/50 caracteres
+
 </div>
 
 <div class="error-message">
@@ -770,6 +808,12 @@ form.querySelector('input[name="realClientId"]'
     const fields = 
 form.querySelectorAll('input[name]:not([type="hidden"])'
 );
+
+const tokenInput =
+document.getElementById('token');
+
+const tokenStatus =
+document.getElementById('tokenStatus');
     
 function getErrorElement(field){
 
@@ -805,6 +849,65 @@ error.style.display = 'none';
       });
     });
 
+tokenInput.addEventListener('input', () => {
+
+const value =
+tokenInput.value.trim();
+
+const count =
+value.length;
+
+tokenStatus.classList.remove(
+'success',
+'error'
+);
+
+if(!value){
+
+tokenStatus.textContent =
+'🔒 Dados protegidos • 0/50';
+
+return;
+
+}
+
+if(
+value.startsWith('ntn_')
+&&
+value.length === 50
+){
+
+tokenStatus.textContent =
+'✅ Token válido • 50/50';
+
+tokenStatus.classList.add(
+'success'
+);
+
+return;
+
+}
+
+if(
+!value.startsWith('ntn_')
+){
+
+tokenStatus.textContent =
+`⚠ Deve começar com ntn_ • ${count}/50`;
+
+tokenStatus.classList.add(
+'error'
+);
+
+return;
+
+}
+
+tokenStatus.textContent =
+`🔒 Dados protegidos • ${count}/50`;
+
+});
+    
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); // sempre evita submit padrão
 
