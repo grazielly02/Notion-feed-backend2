@@ -464,7 +464,7 @@ font-size:12px;
 
 margin-top:6px;
 
-margin-left:4px;
+text-align:right;
 
 color:#9ca3af;
 
@@ -474,9 +474,9 @@ transition:.25s;
 
 .field-tip.success{
 
-color:#16a34a;
+color:#22c55e;
 
-font-weight:600;
+font-weight:500;
 
 }
 
@@ -862,7 +862,7 @@ tokenStatus.classList.remove(
 if(!value){
 
 tokenStatus.textContent =
-'🔒 Dados protegidos • 0/50';
+'0/50';
 
 return;
 
@@ -875,7 +875,7 @@ value.length === 50
 ){
 
 tokenStatus.textContent =
-'✅ Token válido • 50/50';
+'Token válido • 50/50';
 
 tokenStatus.classList.add(
 'success'
@@ -886,7 +886,7 @@ return;
 }
 
 tokenStatus.textContent =
-`🔒 Token protegido • ${count}/50`;
+`${count}/50`;
 
 });
     
