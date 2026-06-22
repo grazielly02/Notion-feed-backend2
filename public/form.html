@@ -213,7 +213,7 @@ display:block;
 
 margin-top:20px;
 
-margin-bottom:6px;
+margin-bottom:10px;
 
       }
     
@@ -268,10 +268,8 @@ border-color:#8b5cf6;
 background:#fff;
 
 box-shadow:
-
-0 0 0 5px rgba(139,92,246,.10),
-
-0 10px 30px rgba(139,92,246,.08);
+0 0 0 4px rgba(139,92,246,.10),
+0 8px 20px rgba(139,92,246,.08);
   
 transform:translateY(-1px);
 }
@@ -393,10 +391,9 @@ margin-top:8px;
 
 border-radius:12px;
 
-background:#fef2f2;
-
-border:1px solid #fecaca;
-
+background:#fff7f7;
+border:1px solid #fee2e2;
+  
 color:#dc2626;
 
 font-size:12px;
@@ -459,22 +456,15 @@ text-align:center;
 }
     
 .field-tip{
-
 display:flex;
 align-items:center;
-
-height:18px;
-
+min-height:18px;
 margin-top:8px;
 margin-left:4px;
-
 font-size:12px;
 font-weight:500;
-
 color:#9ca3af;
-
 transition:.25s;
-
 }
 
 .field-tip.success{
@@ -760,8 +750,6 @@ stroke-linejoin="round">
 class="field-tip"
 id="tokenStatus">
 
-0/50
-
 </div>
 
 <div class="error-message">
@@ -867,7 +855,7 @@ tokenStatus.classList.remove(
 
 if(!value){
 
-tokenStatus.textContent = '0/50';
+tokenStatus.textContent = '';
 
 return;
 
@@ -891,7 +879,7 @@ if(
 ){
 
 tokenStatus.textContent =
-`Deve começar com ntn_ • ${count}/50`;
+`Deve começar com ntn_`;
 
 tokenStatus.classList.add('error');
 
@@ -904,7 +892,7 @@ value.length === 50
 ){
 
 tokenStatus.textContent =
-'Pronto para conectar';
+'✓ Pronto para conectar';
 
 tokenStatus.classList.add('success');
 
@@ -912,8 +900,7 @@ return;
 
 }
 
-tokenStatus.textContent =
-`${count}/50`;
+tokenStatus.textContent = '';
 
 });
     
