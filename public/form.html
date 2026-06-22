@@ -224,6 +224,8 @@ width:100%;
 box-sizing:border-box;
 
 height:58px;
+  line-height:58px;
+  font-size:16px;
 
 padding:0 18px 0 48px;
 
@@ -241,13 +243,17 @@ backdrop-filter:blur(12px);
 box-shadow:
 0 8px 24px rgba(15,23,42,.04);
 
-border-radius:18px;
+border-radius:20px;
 
 transition:
 border-color .25s,
 box-shadow .25s,
 transform .25s,
 background .25s;
+  
+  outline:none;
+  -webkit-appearance:none;
+  appearance:none;
   
   }
     
@@ -262,16 +268,14 @@ color:#9ca3af;
 }
 
 input:focus{
+  outline:none;
+  border-color:#8b5cf6;
 
-border-color:#8b5cf6;
+  box-shadow:
+  0 0 0 3px rgba(139,92,246,.10),
+  0 8px 20px rgba(139,92,246,.08);
 
-background:#fff;
-
-box-shadow:
-0 0 0 4px rgba(139,92,246,.10),
-0 8px 20px rgba(139,92,246,.08);
-  
-transform:translateY(-1px);
+  transform:none;
 }
 
 .input-group{
@@ -291,8 +295,8 @@ top:50%;
 
 transform:translateY(-50%);
 
-width:18px;
-height:18px;
+width:20px;
+height:20px;
 
 color:#a78bfa;
 opacity:.7;
@@ -456,7 +460,7 @@ text-align:center;
 }
     
 .field-tip{
-display:flex;
+display:none;
 align-items:center;
 min-height:18px;
 margin-top:8px;
@@ -777,7 +781,7 @@ stroke-linejoin="round">
 
       </svg>
         
-      <input type="text" name="databaseId" required placeholder="Cole o link compartilhado da database" maxlength="150">
+      <input type="text" name="databaseId" required placeholder="Cole o link da database" maxlength="150">
      
       </div>
       
