@@ -468,6 +468,7 @@ margin-left:4px;
 font-size:12px;
 font-weight:500;
 color:#9ca3af;
+opacity:0;
 transition:.25s;
 }
 
@@ -850,8 +851,6 @@ tokenInput.addEventListener('input', () => {
 
 const value = tokenInput.value.trim();
 
-const count = value.length;
-
 tokenStatus.classList.remove(
 'success',
 'error'
@@ -860,10 +859,13 @@ tokenStatus.classList.remove(
 if(!value){
 
 tokenStatus.textContent = '';
+tokenStatus.style.opacity = '0';
 
 return;
 
 }
+
+tokenStatus.style.opacity = '1';
 
 if(
 !/^[a-zA-Z0-9_]+$/.test(value)
@@ -883,7 +885,7 @@ if(
 ){
 
 tokenStatus.textContent =
-`Deve começar com ntn_`;
+'Deve começar com ntn_';
 
 tokenStatus.classList.add('error');
 
@@ -905,6 +907,7 @@ return;
 }
 
 tokenStatus.textContent = '';
+tokenStatus.style.opacity = '0';
 
 });
     
