@@ -451,18 +451,32 @@ margin:0 auto 20px;
 
       }
 
-      .security-note{
+.security-note{
 
-text-align:center;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+
+margin-top:20px;
 
 font-size:12px;
+font-weight:500;
 
 color:#9ca3af;
 
-margin-top:16px;
-padding-top:0;
+}
 
-  }
+.security-note svg{
+
+width:14px;
+height:14px;
+
+color:#9ca3af;
+
+flex-shrink:0;
+
+}
 
 .security-box{
 
@@ -811,9 +825,25 @@ stroke-linejoin="round">
 
       <button type="submit">GERAR MEU WIDGET</button>
 
-<p class="security-note">
-🔒 Seus dados são utilizados apenas para conectar seu widget ao Notion.
-</p>
+<div class="security-note">
+
+<svg
+width="14"
+height="14"
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round">
+
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+
+</svg>
+
+<span>Conexão segura com o Notion</span>
+
+</div>
       
     </form>
   </div>
