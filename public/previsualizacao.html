@@ -6,44 +6,100 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="previsualizacao">
-  <div class="preview-header">
-    <h1>CRIADO!</h1>
-    <p>Visualize abaixo a prévia do seu feed. Caso sua database ainda não tenha conteúdo, o feed aparecerá vazio. Copie o link para integrar no Notion.</p>
+
+<div class="page">
+
+  <div class="brand">
+    VISUALFEED
   </div>
 
-  <iframe id="previewFrame" loading="lazy"></iframe>
+  <div class="preview-card">
 
-  <div class="link-box">
-    <div class="link-container">
-      <span class="link-icon">🔗</span>
-      <input type="text" id="embedLink" readonly aria-label="Link do widget" />
-      <button id="copyBtn" aria-label="Copiar link do widget" title="Copiar link">Copiar</button>
+    <div class="badge">
+      ● ETAPA 3 DE 3
     </div>
-    <div class="tooltip" id="tooltip">Link copiado</div>
+
+    <div class="preview-header">
+
+      <h1>
+        Seu <span>VisualFeed</span> está pronto
+      </h1>
+
+      <p>
+        Visualize abaixo seu feed em tempo real e copie o link para incorporar no Notion.
+      </p>
+
+    </div>
+
+    <div class="success-pill">
+      ✓ Conectado ao Notion
+    </div>
+
+    <div class="widget-preview">
+      <iframe id="previewFrame" loading="lazy"></iframe>
+    </div>
+
+    <div class="embed-card">
+
+      <div class="embed-header">
+        Link para incorporar
+      </div>
+
+      <div class="link-container">
+
+        <input
+          type="text"
+          id="embedLink"
+          readonly
+          aria-label="Link do widget"
+        />
+
+        <button
+          id="copyBtn"
+          aria-label="Copiar link do widget"
+          title="Copiar link"
+        >
+          Copiar
+        </button>
+
+      </div>
+
+      <div class="tooltip" id="tooltip">
+        Link copiado
+      </div>
+
+    </div>
+
   </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const clientId = params.get("clientId") || "CLIENTE_PADRAO";
-    const finalLink = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
+</div>
 
-    document.getElementById("previewFrame").src = finalLink;
-    document.getElementById("embedLink").value = finalLink;
+<script>
+const params = new URLSearchParams(window.location.search);
+const clientId = params.get("clientId") || "CLIENTE_PADRAO";
+const finalLink = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
 
-    if (window.self !== window.top) {
-      document.querySelector(".link-box").style.display = "none";
-    }
+document.getElementById("previewFrame").src = finalLink;
+document.getElementById("embedLink").value = finalLink;
 
-    document.getElementById("copyBtn").addEventListener("click", () => {
-      const input = document.getElementById("embedLink");
-      input.select();
-      input.setSelectionRange(0, 99999);
-      document.execCommand("copy");
+if (window.self !== window.top) {
+  document.querySelector(".embed-card").style.display = "none";
+}
 
-      const tooltip = document.getElementById("tooltip");
-      tooltip.style.opacity = 1;
-      setTimeout(() => { tooltip.style.opacity = 0; }, 2000);
-    });
-  </script>
-</body>
+document.getElementById("copyBtn").addEventListener("click", () => {
+
+  navigator.clipboard.writeText(finalLink);
+
+  const tooltip = document.getElementById("tooltip");
+
+  tooltip.style.opacity = "1";
+
+  setTimeout(() => {
+    tooltip.style.opacity = "0";
+  }, 2000);
+
+});
+</script>
+
+  </body>
 </html>
