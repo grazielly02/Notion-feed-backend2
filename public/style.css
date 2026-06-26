@@ -1008,105 +1008,7 @@ opacity: 0.8;
   opacity: 1;
 }
 
-/* ===== NOVO: Estilo para página de pré-visualização ===== */
-.preview-header {
-  text-align: center;
-  margin: 40px 0 20px;
-}
 
-.preview-header h1 {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.preview-header p {
-  font-size: 14px;
-  color: #555; /* contraste melhor */
-  max-width: 90%;
-  margin: 0 auto;
-}
-
-/* Iframe */
-#previewFrame {
-  width: 100%;
-  max-width: 900px;
-  height: 1100px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin: 30px auto;
-  display: block;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* profundidade */
-}
-
-/* Caixa copiar link */
-.link-box {
-  display: flex;
-  justify-content: center;
-  margin: 40px auto 25px;
-  position: relative;
-}
-
-.link-container {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 900px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 0 3px rgba(0,0,0,0.1);
-}
-
-.link-icon {
-  padding: 0 8px;
-  font-size: 16px;
-  color: #888;
-}
-
-#embedLink {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 10px;
-  font-size: 14px;
-  background: #fafafa;
-}
-
-#copyBtn {
-  background: black;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
-  font-size: 13px;
-  height: 100%;
-  border-radius: 0 8px 8px 0; /* cantos arredondados do lado direito */
-  transition: background 0.3s ease;
-  max-width: 80px;
-}
-
-#copyBtn:hover {
-  background: #222;
-}
-
-/* Tooltip balão "Link copiado" */
-.tooltip {
-  position: absolute;
-  top: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.85);
-  color: white;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  white-space: nowrap; /* evita quebrar texto */
-}
 
 #formBody {
   margin: 40px auto;
@@ -1132,11 +1034,6 @@ body.form-page {
   box-sizing: border-box;
 }
 
-/* Correção para fundo claro na página de pré-visualização */
-body.previsualizacao {
-  background: #fff !important;
-  color: #000 !important;
-}
 
 #filterBtn {
   background: transparent;
