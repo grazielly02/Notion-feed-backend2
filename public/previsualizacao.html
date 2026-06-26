@@ -1,105 +1,137 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Pré-visualização do Widget</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pré-visualização do Widget</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body class="previsualizacao">
 
 <div class="page">
 
-  <div class="brand">
-    VISUALFEED
-  </div>
+    <div class="preview-card">
 
-  <div class="preview-card">
+        <div style="text-align:center;">
 
-    <div class="badge">
-      ● ETAPA 3 DE 3
+            <div class="badge">
+                ● ETAPA 3 DE 3
+            </div>
+
+        </div>
+
+        <div class="preview-header">
+
+            <h1>
+                Seu <span>VisualFeed</span> está pronto
+            </h1>
+
+            <p>
+                Visualize abaixo seu feed em tempo real e copie o link para incorporar no Notion.
+            </p>
+
+        </div>
+
+        <div class="success-pill">
+            ✓ Conectado ao Notion
+        </div>
+
+        <div class="widget-preview">
+
+            <iframe
+                id="previewFrame"
+                loading="lazy">
+            </iframe>
+
+        </div>
+
+        <div class="embed-card">
+
+            <div class="embed-header">
+                Link para incorporar
+            </div>
+
+            <div class="link-container">
+
+                <input
+                    type="text"
+                    id="embedLink"
+                    readonly
+                    aria-label="Link do widget"
+                />
+
+                <button
+                    id="copyBtn"
+                    aria-label="Copiar link do widget"
+                    title="Copiar link"
+                >
+                    Copiar Link
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
-
-    <div class="preview-header">
-
-      <h1>
-        Seu <span>VisualFeed</span> está pronto
-      </h1>
-
-      <p>
-        Visualize abaixo seu feed em tempo real e copie o link para incorporar no Notion.
-      </p>
-
-    </div>
-
-    <div class="success-pill">
-      ✓ Conectado ao Notion
-    </div>
-
-    <div class="widget-preview">
-      <iframe id="previewFrame" loading="lazy"></iframe>
-    </div>
-
-    <div class="embed-card">
-
-      <div class="embed-header">
-        Link para incorporar
-      </div>
-
-      <div class="link-container">
-
-        <input
-          type="text"
-          id="embedLink"
-          readonly
-          aria-label="Link do widget"
-        />
-
-        <button
-          id="copyBtn"
-          aria-label="Copiar link do widget"
-          title="Copiar link"
-        >
-          Copiar
-        </button>
-
-      </div>
-
-      <div class="tooltip" id="tooltip">
-        Link copiado
-      </div>
-
-    </div>
-
-  </div>
 
 </div>
 
+<!-- Toast de sucesso -->
+<div id="copyToast">
+    ✓ Link copiado com sucesso
+</div>
+
 <script>
+
 const params = new URLSearchParams(window.location.search);
-const clientId = params.get("clientId") || "CLIENTE_PADRAO";
-const finalLink = `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
+
+const clientId =
+params.get("clientId") || "CLIENTE_PADRAO";
+
+const finalLink =
+`https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
 
 document.getElementById("previewFrame").src = finalLink;
+
 document.getElementById("embedLink").value = finalLink;
 
 if (window.self !== window.top) {
-  document.querySelector(".embed-card").style.display = "none";
+
+    document.querySelector(".embed-card").style.display = "none";
+
 }
 
-document.getElementById("copyBtn").addEventListener("click", () => {
+document.getElementById("copyBtn")
+.addEventListener("click", async () => {
 
-  navigator.clipboard.writeText(finalLink);
+    try {
 
-  const tooltip = document.getElementById("tooltip");
+        await navigator.clipboard.writeText(finalLink);
 
-  tooltip.style.opacity = "1";
+        const toast =
+        document.getElementById("copyToast");
 
-  setTimeout(() => {
-    tooltip.style.opacity = "0";
-  }, 2000);
+        toast.classList.add("show");
+
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2500);
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
 
 });
+
 </script>
 
-  </body>
+</body>
 </html>
