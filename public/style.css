@@ -1411,8 +1411,8 @@ margin:0;
 .preview-card{
 
 width:100%;
-max-width:1100px;
-
+max-width:860px;
+margin:0 auto;
 background:white;
 
 padding:24px;
