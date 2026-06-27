@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pré-visualização do Widget</title>
+<title>VisualFeed • Widget Criado</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body class="previsualizacao">
@@ -16,12 +16,8 @@
 
     <div class="preview-card">
 
-        <div style="text-align:center;">
-
-            <div class="badge">
-                ● ETAPA 3 DE 3
-            </div>
-
+        <div class="badge">
+            ✓ WIDGET CRIADO
         </div>
 
         <div class="preview-header">
@@ -31,13 +27,14 @@
             </h1>
 
             <p>
-                Visualize abaixo seu feed em tempo real e copie o link para incorporar no Notion.
+                O widget foi conectado com sucesso.
+                Visualize o resultado abaixo e copie seu link de incorporação.
             </p>
 
         </div>
 
         <div class="success-pill">
-            ✓ Conectado ao Notion
+            ✓ Preview funcionando
         </div>
 
         <div class="widget-preview">
@@ -52,7 +49,7 @@
         <div class="embed-card">
 
             <div class="embed-header">
-                Link para incorporar
+                Incorporar no Notion
             </div>
 
             <div class="link-container">
@@ -61,14 +58,9 @@
                     type="text"
                     id="embedLink"
                     readonly
-                    aria-label="Link do widget"
-                />
-
-                <button
-                    id="copyBtn"
-                    aria-label="Copiar link do widget"
-                    title="Copiar link"
                 >
+
+                <button id="copyBtn">
                     Copiar Link
                 </button>
 
@@ -80,7 +72,6 @@
 
 </div>
 
-<!-- Toast de sucesso -->
 <div id="copyToast">
     ✓ Link copiado com sucesso
 </div>
@@ -95,20 +86,23 @@ params.get("clientId") || "CLIENTE_PADRAO";
 const finalLink =
 `https://meu-widget-feed.netlify.app/widget/${clientId}/view`;
 
-document.getElementById("previewFrame").src = finalLink;
+document.getElementById("previewFrame").src =
+finalLink;
 
-document.getElementById("embedLink").value = finalLink;
+document.getElementById("embedLink").value =
+finalLink;
 
-if (window.self !== window.top) {
+if(window.self !== window.top){
 
-    document.querySelector(".embed-card").style.display = "none";
+    document.querySelector(".embed-card")
+    .style.display = "none";
 
 }
 
 document.getElementById("copyBtn")
 .addEventListener("click", async () => {
 
-    try {
+    try{
 
         await navigator.clipboard.writeText(finalLink);
 
@@ -121,11 +115,11 @@ document.getElementById("copyBtn")
 
             toast.classList.remove("show");
 
-        }, 2500);
+        },2500);
 
-    } catch (error) {
+    }catch(err){
 
-        console.error(error);
+        console.error(err);
 
     }
 
