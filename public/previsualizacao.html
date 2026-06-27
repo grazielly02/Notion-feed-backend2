@@ -16,37 +16,70 @@
 
 <div class="page">
 
-    <div class="preview-card">
+    <!-- HERO DE SUCESSO -->
 
-        <div class="preview-header">
+    <section class="success-hero">
 
-            <h1>
-                Seu <span>VisualFeed</span> está pronto
-            </h1>
-
-            <p>
-                Seu widget foi criado com sucesso.
-                Visualize o resultado abaixo e copie o link para incorporar onde desejar.
-            </p>
-
+        <div class="success-icon">
+            ✓
         </div>
 
-        <div class="widget-preview">
+        <h1>
+            Widget criado com <span>sucesso</span>
+        </h1>
 
-            <iframe
-                id="previewFrame"
-                loading="lazy">
-            </iframe>
+        <p>
+            Seu VisualFeed está pronto para ser incorporado.
+        </p>
 
-        </div>
+    </section>
 
-        <div class="embed-card">
 
-            <div class="embed-header">
-                Copie seu link
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <section class="dashboard-card">
+
+        <!-- PREVIEW -->
+
+        <div class="preview-column">
+
+            <div class="section-title">
+
+                <h2>
+                    Preview do seu feed
+                </h2>
+
+                <span>
+                    Veja exatamente como aparecerá para seus visitantes.
+                </span>
+
             </div>
 
-            <div class="link-container">
+            <div class="widget-preview">
+
+                <iframe
+                    id="previewFrame"
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAINEL LATERAL -->
+
+        <aside class="side-panel">
+
+            <div class="panel-block">
+
+                <h3>
+                    Copie o link de incorporação
+                </h3>
+
+                <p>
+                    Cole este link no bloco Embed do Notion.
+                </p>
 
                 <input
                     type="text"
@@ -64,15 +97,27 @@
 
             </div>
 
-        </div>
+            <div class="panel-tip">
 
-    </div>
+                <strong>Dica</strong>
+
+                <p>
+                    O link é permanente. Você pode reutilizá-lo sempre que precisar.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </section>
 
 </div>
+
 
 <div id="copyToast">
     ✓ Link copiado com sucesso
 </div>
+
 
 <script>
 
@@ -92,8 +137,12 @@ finalLink;
 
 if (window.self !== window.top) {
 
-    document.querySelector(".embed-card")
-        .style.display = "none";
+    const panel =
+    document.querySelector(".side-panel");
+
+    if(panel){
+        panel.style.display = "none";
+    }
 
 }
 
