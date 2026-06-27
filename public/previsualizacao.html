@@ -12,116 +12,71 @@
 
 </head>
 
-<body class="previsualizacao">
+<body class="previsualizacao"><div class="page"><section class="success-hero">
 
-<div class="page">
+    <div class="success-icon">✓</div>
 
-    <!-- HERO DE SUCESSO -->
+    <h1>
+        Widget criado com <span>sucesso</span>
+    </h1>
 
-    <section class="success-hero">
+    <p>
+        Seu VisualFeed está pronto para ser incorporado.
+    </p>
 
-        <div class="success-icon">
-            ✓
-        </div>
+</section>
 
-        <h1>
-            Widget criado com <span>sucesso</span>
-        </h1>
+<section class="preview-card">
 
-        <p>
-            Seu VisualFeed está pronto para ser incorporado.
-        </p>
+    <div class="section-title">
 
-    </section>
+        <h2>Preview do seu feed</h2>
 
+        <span>
+            Veja exatamente como aparecerá para seus visitantes.
+        </span>
 
-    <!-- CONTEÚDO PRINCIPAL -->
+    </div>
 
-    <section class="dashboard-card">
+    <div class="widget-preview">
 
-        <!-- PREVIEW -->
+        <iframe
+            id="previewFrame"
+            loading="lazy">
+        </iframe>
 
-        <div class="preview-column">
+    </div>
 
-            <div class="section-title">
+</section>
 
-                <h2>
-                    Preview do seu feed
-                </h2>
+<section class="embed-card">
 
-                <span>
-                    Veja exatamente como aparecerá para seus visitantes.
-                </span>
+    <h3>Incorporar no Notion</h3>
 
-            </div>
+    <p>
+        Copie o link abaixo e cole em um bloco Embed.
+    </p>
 
-            <div class="widget-preview">
+    <input
+        type="text"
+        id="embedLink"
+        readonly
+    >
 
-                <iframe
-                    id="previewFrame"
-                    loading="lazy">
-                </iframe>
+    <button id="copyBtn">
 
-            </div>
+        Copiar Link
 
-        </div>
+    </button>
 
+</section>
 
-        <!-- PAINEL LATERAL -->
+</div><div id="copyToast">
+✓ Link copiado com sucesso
+</div><script>
 
-        <aside class="side-panel">
-
-            <div class="panel-block">
-
-                <h3>
-                    Copie o link de incorporação
-                </h3>
-
-                <p>
-                    Cole este link no bloco Embed do Notion.
-                </p>
-
-                <input
-                    type="text"
-                    id="embedLink"
-                    readonly
-                    aria-label="Link do widget"
-                >
-
-                <button
-                    id="copyBtn"
-                    aria-label="Copiar link"
-                >
-                    Copiar Link
-                </button>
-
-            </div>
-
-            <div class="panel-tip">
-
-                <strong>Dica</strong>
-
-                <p>
-                    O link é permanente. Você pode reutilizá-lo sempre que precisar.
-                </p>
-
-            </div>
-
-        </aside>
-
-    </section>
-
-</div>
-
-
-<div id="copyToast">
-    ✓ Link copiado com sucesso
-</div>
-
-
-<script>
-
-const params = new URLSearchParams(window.location.search);
+const params =
+new URLSearchParams(window.location.search);
 
 const clientId =
 params.get("clientId") || "CLIENTE_PADRAO";
@@ -135,45 +90,27 @@ finalLink;
 document.getElementById("embedLink").value =
 finalLink;
 
-if (window.self !== window.top) {
-
-    const panel =
-    document.querySelector(".side-panel");
-
-    if(panel){
-        panel.style.display = "none";
-    }
-
-}
-
 document
 .getElementById("copyBtn")
 .addEventListener("click", async () => {
 
-    try {
+    await navigator.clipboard.writeText(finalLink);
 
-        await navigator.clipboard.writeText(finalLink);
+    const toast =
+    document.getElementById("copyToast");
 
-        const toast =
-        document.getElementById("copyToast");
+    toast.classList.add("show");
 
-        toast.classList.add("show");
+    setTimeout(() => {
 
-        setTimeout(() => {
+        toast.classList.remove("show");
 
-            toast.classList.remove("show");
-
-        }, 2500);
-
-    } catch (error) {
-
-        console.error(error);
-
-    }
+    }, 2500);
 
 });
 
 </script>
 
 </body>
+    
 </html>
