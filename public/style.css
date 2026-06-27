@@ -1331,41 +1331,18 @@ z-index:2;
 
 }
 
-.brand{
-
-text-align:center;
-
-font-size:15px;
-
-font-weight:800;
-
-letter-spacing:2px;
-
-background:
-linear-gradient(
-135deg,
-#7c3aed,
-#9d5cff
-);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-
-margin-bottom:24px;
-
-}
 
 .preview-header{
 
 text-align:center;
 
-margin-bottom:40px;
+margin-bottom:28px;
 
 }
 
 .preview-header h1{
 
-font-size:48px;
+font-size:56px;
 
 line-height:1.05;
 
@@ -1407,7 +1384,7 @@ color:#6b7280;
 .preview-card{
 
 width:100%;
-max-width:950px;
+max-width:1200px;
 
 background:
 rgba(255,255,255,.82);
@@ -1431,71 +1408,10 @@ box-shadow:
 
 }
 
-.preview-card h3{
-
-margin:0 0 18px;
-
-font-size:18px;
-
-font-weight:700;
-
-color:#111827;
-
-}
-
-.badge{
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-width:max-content;
-
-padding:10px 18px;
-
-border-radius:999px;
-
-background:
-rgba(124,58,237,.08);
-
-color:#7c3aed;
-
-font-size:14px;
-
-font-weight:700;
-
-margin:0 auto 22px;
-
-}
-
-.success-pill{
-
-display:flex;
-align-items:center;
-gap:8px;
-
-padding:12px 18px;
-
-border-radius:999px;
-
-background:rgba(124,58,237,.08);
-
-border:1px solid rgba(124,58,237,.15);
-
-color:#7c3aed;
-
-font-size:14px;
-font-weight:600;
-
-width:max-content;
-margin:0 auto 24px;
-
-}
-
 .widget-preview{
 
 margin-bottom:24px;
-
+padding:16px;
 border-radius:24px;
 
 overflow:hidden;
@@ -1505,7 +1421,10 @@ border:
 
 background:white;
 
-  }
+box-shadow:
+0 20px 60px rgba(0,0,0,.06);
+
+}
 
 .embed-card{
 
@@ -1521,9 +1440,11 @@ border:
 
 border-radius:24px;
 
-padding:24px;
+padding:18px;
+margin-top:18px;
 
 }
+
 .embed-header{
 
 font-size:16px;
@@ -1541,7 +1462,7 @@ margin-bottom:18px;
 
 width:100%;
 
-height:900px;
+height:560px;
 
 border:none;
 
@@ -1596,12 +1517,7 @@ border:none;
 
 border-radius:18px;
 
-background:
-linear-gradient(
-135deg,
-#7c3aed,
-#9d5cff
-);
+background:#111827;
 
 color:white;
 
@@ -1624,72 +1540,14 @@ box-shadow .25s;
 
 #copyBtn:hover{
 
+background:#000;
+  
 transform:translateY(-2px);
 
 box-shadow:
 0 18px 40px rgba(124,58,237,.35);
 
   }
-
-.helper-box{
-
-background:#faf7ff;
-
-border:1px solid #ede9fe;
-
-padding:16px;
-
-border-radius:18px;
-
-font-size:14px;
-
-line-height:1.6;
-
-color:#6b7280;
-
-}
-
-.tooltip{
-
-position:fixed;
-
-top:24px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-background:#111827;
-
-color:white;
-
-padding:12px 18px;
-
-border-radius:12px;
-
-font-size:14px;
-
-font-weight:600;
-
-opacity:0;
-
-z-index:9999;
-
-transition:.3s;
-
-}
-
-.preview-footer{
-
-text-align:center;
-
-margin-top:40px;
-
-font-size:13px;
-
-color:#9ca3af;
-
-}
 
 /* Toast */
 
@@ -1705,7 +1563,7 @@ transform:
 translateX(-50%)
 translateY(20px);
 
-background:#10b981;
+background:#111827;
 
 color:white;
 
@@ -1744,7 +1602,7 @@ translateY(0);
 
 .preview-header h1{
 
-font-size:38px;
+font-size:42px;
 
 }
 
@@ -1756,7 +1614,7 @@ grid-template-columns:1fr;
 
 #previewFrame{
 
-height:650px;
+height:450px;
 
 }
 
