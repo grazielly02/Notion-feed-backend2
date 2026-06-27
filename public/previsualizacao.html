@@ -2,12 +2,14 @@
 <html lang="pt-BR">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VisualFeed • Widget Criado</title>
+<title>VisualFeed • Widget Pronto</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body class="previsualizacao">
@@ -16,10 +18,6 @@
 
     <div class="preview-card">
 
-        <div class="badge">
-            ✓ WIDGET CRIADO
-        </div>
-
         <div class="preview-header">
 
             <h1>
@@ -27,14 +25,10 @@
             </h1>
 
             <p>
-                O widget foi conectado com sucesso.
-                Visualize o resultado abaixo e copie seu link de incorporação.
+                Seu widget foi criado com sucesso.
+                Visualize o resultado abaixo e copie o link para incorporar onde desejar.
             </p>
 
-        </div>
-
-        <div class="success-pill">
-            ✓ Preview funcionando
         </div>
 
         <div class="widget-preview">
@@ -49,7 +43,7 @@
         <div class="embed-card">
 
             <div class="embed-header">
-                Incorporar no Notion
+                Copie seu link
             </div>
 
             <div class="link-container">
@@ -58,9 +52,13 @@
                     type="text"
                     id="embedLink"
                     readonly
+                    aria-label="Link do widget"
                 >
 
-                <button id="copyBtn">
+                <button
+                    id="copyBtn"
+                    aria-label="Copiar link"
+                >
                     Copiar Link
                 </button>
 
@@ -92,17 +90,18 @@ finalLink;
 document.getElementById("embedLink").value =
 finalLink;
 
-if(window.self !== window.top){
+if (window.self !== window.top) {
 
     document.querySelector(".embed-card")
-    .style.display = "none";
+        .style.display = "none";
 
 }
 
-document.getElementById("copyBtn")
+document
+.getElementById("copyBtn")
 .addEventListener("click", async () => {
 
-    try{
+    try {
 
         await navigator.clipboard.writeText(finalLink);
 
@@ -115,11 +114,11 @@ document.getElementById("copyBtn")
 
             toast.classList.remove("show");
 
-        },2500);
+        }, 2500);
 
-    }catch(err){
+    } catch (error) {
 
-        console.error(err);
+        console.error(error);
 
     }
 
