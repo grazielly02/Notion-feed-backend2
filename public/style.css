@@ -1478,11 +1478,11 @@ color:#6b7280;
 .preview-card{
 
 width:100%;
-max-width:700px;
+max-width:720px;
 margin:0 auto;
 background:white;
 
-padding:18px;
+padding:16px;
 
 border-radius:24px;
 
@@ -1566,17 +1566,19 @@ box-shadow:
 
 .section-title{
 
-margin-bottom:20px;
+margin-bottom:12px;
 
 }
 
 .section-title h2{
 
-margin:0 0 6px;
-
-font-size:28px;
+font-size:22px;
 
 font-weight:700;
+
+line-height:1.2;
+
+margin:0;
 
 }
 
@@ -1630,9 +1632,9 @@ border-top:
 
 1px solid rgba(0,0,0,.06);
 
-padding-top:26px;
+padding-top:20px;
 
-margin-top:26px;
+margin-top:20px;
 
   }
 
@@ -1664,7 +1666,7 @@ grid-template-columns:
 
 1fr
 
-130px;
+150px;
 
 gap:12px;
 
@@ -1695,7 +1697,7 @@ display:block;
 
 #copyBtn{
 
-width:135px;
+width:155px;
 
 flex-shrink:0;
 
@@ -1703,7 +1705,7 @@ height:50px;
 
 margin:0;
 
-padding:0;
+padding:0 22px;
 
 border:none;
 
@@ -1718,9 +1720,9 @@ linear-gradient(
 
 color:#fff;
 
-font-size:14px;
+font-size:15px;
 
-font-weight:700;
+font-weight:600;
 
 cursor:pointer;
 
