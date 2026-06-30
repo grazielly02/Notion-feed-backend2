@@ -1266,6 +1266,19 @@ body.light-mode #vf-branding a:hover {
 /*            PÁGINA PREMIUM DE PRÉ-VISUALIZAÇÃO     */
 /* ================================================= */
 
+*{
+
+box-sizing:border-box;
+
+}
+
+html,
+body{
+
+overflow-x:hidden;
+
+}
+
 body.previsualizacao{
 
 background:
@@ -1580,13 +1593,17 @@ color:#6b7280;
 
 display:flex;
 
-align-items:stretch;
+align-items:center;
+
+justify-content:space-between;
 
 gap:12px;
 
 width:100%;
 
-}
+box-sizing:border-box;
+
+  }
 
 #embedLink{
 
@@ -1611,7 +1628,9 @@ display:block;
 
 #copyBtn{
 
-width:150px;
+width:140px;
+
+flex-shrink:0;
 
 height:56px;
 
