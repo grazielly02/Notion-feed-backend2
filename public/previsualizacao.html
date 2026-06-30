@@ -29,9 +29,7 @@
     </h1>
 
     <p>
-        Seu feed foi conectado com sucesso.
-
-Agora basta copiar o link abaixo e incorporá-lo ao Notion em poucos segundos.
+        Seu widget já está pronto para ser incorporado ao Notion.
     </p>
 
 </section>
@@ -40,11 +38,7 @@ Agora basta copiar o link abaixo e incorporá-lo ao Notion em poucos segundos.
 
     <div class="section-title">
 
-        <h2>Preview do widget</h2>
-
-        <span>
-            Confira como seu VisualFeed ficará depois de incorporado.
-        </span>
+        <h2>Pré-visualização</h2>
 
     </div>
 
@@ -62,11 +56,11 @@ Agora basta copiar o link abaixo e incorporá-lo ao Notion em poucos segundos.
         <div class="embed-info">
 
             <h3>
-                Incorporar no Notion
+                Link de incorporação
             </h3>
 
             <p>
-                Use este endereço em um bloco Embed para adicionar seu VisualFeed.
+                Cole este link em um bloco Embed do Notion.
             </p>
 
         </div>
@@ -80,7 +74,7 @@ Agora basta copiar o link abaixo e incorporá-lo ao Notion em poucos segundos.
             >
 
             <button id="copyBtn">
-                Copiar URL
+                Copiar link
             </button>
 
         </div>
@@ -89,9 +83,9 @@ Agora basta copiar o link abaixo e incorporá-lo ao Notion em poucos segundos.
 
 </section>
 
-</div><div id="copyToast">
-✓ Link copiado
-</div><script>
+</div>
+    
+    <script>
 
 const params =
 new URLSearchParams(window.location.search);
@@ -108,26 +102,28 @@ finalLink;
 document.getElementById("embedLink").value =
 finalLink;
 
-document
-.getElementById("copyBtn")
-.addEventListener("click", async () => {
+const copyBtn =
+document.getElementById("copyBtn");
+
+copyBtn.addEventListener("click", async () => {
 
     await navigator.clipboard.writeText(finalLink);
 
-    const toast =
-    document.getElementById("copyToast");
+    copyBtn.classList.add("copied");
 
-    toast.classList.add("show");
+    copyBtn.innerHTML = "✓ Link copiado";
 
     setTimeout(() => {
 
-        toast.classList.remove("show");
+        copyBtn.classList.remove("copied");
 
-    }, 2500);
+        copyBtn.innerHTML = "Copiar link";
+
+    },2000);
 
 });
 
-</script>
+    </script>
 
 </body>
     
