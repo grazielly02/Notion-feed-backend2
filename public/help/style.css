@@ -1,6 +1,6 @@
-/* ================================================= */
-/*             CENTRAL DE AJUDA - VISUALFEED          */
-/* ================================================= */
+/* ==========================================
+   DASHBOARD
+========================================== */
 
 *{
 margin:0;
@@ -13,92 +13,94 @@ body{
 
 overflow-x:hidden;
 
-font-family:
-Inter,
-system-ui,
-sans-serif;
-
 }
 
-body.help{
+body.dashboard{
+
+font-family:
+Inter,
+sans-serif;
 
 background:
 
 radial-gradient(
-circle at top center,
-rgba(124,58,237,.12),
-transparent 32%
+circle at top,
+rgba(124,58,237,.10),
+transparent 35%
 ),
 
 linear-gradient(
 180deg,
-#ffffff 0%,
+#ffffff,
 #fcfbff 45%,
-#f5f3ff 100%
+#f5f3ff
 );
 
 min-height:100vh;
 
-padding:60px 20px 90px;
+padding:60px 20px 80px;
 
 color:#111827;
 
 }
 
-body.help::before{
+body.dashboard::before{
 
 content:"";
 
 position:fixed;
 
-top:-220px;
 left:50%;
+top:-240px;
 
 transform:translateX(-50%);
 
-width:720px;
-height:720px;
+width:700px;
+height:700px;
 
 background:
 
 radial-gradient(
 circle,
-rgba(124,58,237,.14),
+rgba(124,58,237,.10),
 transparent 70%
 );
 
 pointer-events:none;
 
-z-index:0;
-
 }
 
-.page{
 
-position:relative;
+/* ==========================================
+   CONTAINER
+========================================== */
 
-z-index:2;
+.dashboard-page{
 
 width:100%;
-
-max-width:1050px;
+max-width:1180px;
 
 margin:auto;
 
+position:relative;
+z-index:2;
+
 }
 
 
-/* HERO */
+/* ==========================================
+   HERO
+========================================== */
 
-.help-hero{
+.dashboard-hero{
 
 text-align:center;
 
-margin-bottom:52px;
+margin-bottom:54px;
 
 }
 
-.help-badge{
+.hero-badge{
 
 display:inline-flex;
 
@@ -106,7 +108,7 @@ align-items:center;
 
 gap:8px;
 
-padding:8px 14px;
+padding:8px 16px;
 
 border-radius:999px;
 
@@ -114,15 +116,15 @@ background:
 rgba(124,58,237,.08);
 
 border:
-1px solid rgba(124,58,237,.12);
-
-color:#6d28d9;
+1px solid rgba(124,58,237,.14);
 
 font-size:13px;
 
 font-weight:700;
 
-margin-bottom:22px;
+color:#6d28d9;
+
+margin-bottom:24px;
 
 }
 
@@ -136,27 +138,23 @@ border-radius:50%;
 background:#8b5cf6;
 
 box-shadow:
-0 0 0 6px rgba(139,92,246,.10);
+0 0 0 5px rgba(139,92,246,.15);
 
 }
 
-.help-hero h1{
+.dashboard-hero h1{
 
-font-size:54px;
+font-size:56px;
 
 font-weight:800;
 
-line-height:1.08;
-
 letter-spacing:-1px;
 
-max-width:700px;
-
-margin:auto auto 18px;
+margin-bottom:16px;
 
 }
 
-.help-hero h1 span{
+.dashboard-hero span{
 
 background:
 
@@ -171,13 +169,13 @@ linear-gradient(
 
 }
 
-.help-hero p{
+.dashboard-hero p{
 
-max-width:620px;
+max-width:520px;
 
 margin:auto;
 
-font-size:18px;
+font-size:17px;
 
 line-height:1.7;
 
@@ -186,214 +184,92 @@ color:#6b7280;
 }
 
 
-/* CARDS */
+/* ==========================================
+   PROGRESSO
+========================================== */
 
-.overview-card,
-.flow-card,
-.steps-card{
+.setup-progress{
+
+position:relative;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin:0 auto 60px;
+
+max-width:900px;
+
+}
+
+.progress-line{
+
+position:absolute;
+
+left:8%;
+
+right:8%;
+
+height:2px;
 
 background:
 
-rgba(255,255,255,.86);
+linear-gradient(
+90deg,
+#e9ddff,
+#e9ddff
+);
 
-backdrop-filter:
-blur(24px);
+top:18px;
 
-border-radius:28px;
-
-padding:34px;
-
-margin-bottom:24px;
-
-border:
-1px solid rgba(255,255,255,.9);
-
-box-shadow:
-
-0 20px 60px rgba(124,58,237,.08),
-
-0 8px 25px rgba(15,23,42,.04);
+z-index:1;
 
 }
 
+.progress-step{
 
-/* OVERVIEW */
+position:relative;
 
-.overview-card{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:20px;
-
-}
-
-.overview-item{
+z-index:2;
 
 display:flex;
 
-gap:18px;
-
-align-items:flex-start;
-
-}
-
-.overview-item span{
-
-font-size:30px;
-
-}
-
-.overview-item strong{
-
-display:block;
-
-font-size:17px;
-
-margin-bottom:4px;
-
-}
-
-.overview-item small{
-
-display:block;
-
-font-size:14px;
-
-line-height:1.6;
-
-color:#6b7280;
-
-}
-
-
-/* FLOW */
-
-.flow-card h2,
-.steps-card h2{
-
-font-size:28px;
-
-margin-bottom:10px;
-
-}
-
-.flow-card p,
-.steps-card p{
-
-font-size:15px;
-
-color:#6b7280;
-
-margin-bottom:28px;
-
-line-height:1.7;
-
-}
-
-.flow{
-
-display:flex;
-
-justify-content:center;
+flex-direction:column;
 
 align-items:center;
 
-gap:18px;
-
-flex-wrap:wrap;
+gap:12px;
 
 }
 
-.flow-box{
+.step-circle{
 
-padding:18px 28px;
-
-background:white;
-
-border-radius:18px;
-
-border:
-1px solid rgba(139,92,246,.12);
-
-font-weight:700;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.04);
-
-}
-
-.flow-arrow{
-
-font-size:22px;
-
-color:#8b5cf6;
-
-}
-
-
-/* STEPS */
-
-.steps{
-
-display:grid;
-
-gap:18px;
-
-}
-
-.step{
-
-display:flex;
-
-align-items:center;
-
-gap:20px;
-
-padding:20px;
-
-border-radius:20px;
-
-background:white;
-
-text-decoration:none;
-
-color:#111827;
-
-border:
-1px solid rgba(139,92,246,.10);
-
-transition:.25s;
-
-box-shadow:
-0 8px 24px rgba(0,0,0,.04);
-
-}
-
-.step:hover{
-
-transform:
-translateY(-3px);
-
-box-shadow:
-
-0 18px 40px rgba(124,58,237,.10);
-
-}
-
-.number{
-
-width:48px;
-height:48px;
+width:38px;
+height:38px;
 
 border-radius:50%;
 
 display:flex;
 
 align-items:center;
+
 justify-content:center;
+
+font-size:15px;
+
+font-weight:700;
+
+background:white;
+
+border:
+
+2px solid #ddd;
+
+}
+
+.progress-step.active .step-circle{
 
 background:
 
@@ -403,66 +279,187 @@ linear-gradient(
 #9d5cff
 );
 
+border:none;
+
 color:white;
 
-font-size:18px;
-
-font-weight:700;
-
-flex-shrink:0;
-
 }
 
-.step strong{
+.progress-step span{
 
-display:block;
+font-size:13px;
 
-font-size:17px;
-
-margin-bottom:4px;
-
-}
-
-.step small{
-
-font-size:14px;
+font-weight:600;
 
 color:#6b7280;
 
-line-height:1.6;
+}
+
+
+/* ==========================================
+   GRID
+========================================== */
+
+.steps-grid{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(2,1fr);
+
+gap:24px;
 
 }
 
 
-/* BOTÃO */
+/* ==========================================
+   CARD
+========================================== */
 
-.help-footer{
+.step-card{
 
-margin-top:40px;
+background:
 
-text-align:center;
+rgba(255,255,255,.82);
+
+backdrop-filter:blur(24px);
+
+padding:34px;
+
+border-radius:26px;
+
+border:
+
+1px solid rgba(255,255,255,.8);
+
+box-shadow:
+
+0 20px 55px rgba(124,58,237,.08);
+
+transition:.25s;
+
+display:flex;
+
+flex-direction:column;
+
+height:100%;
 
 }
 
-.next-btn{
+.step-card:hover{
 
-display:inline-flex;
+transform:translateY(-6px);
+
+box-shadow:
+
+0 30px 70px rgba(124,58,237,.15);
+
+}
+
+
+/* ==========================================
+   ÍCONE
+========================================== */
+
+.step-icon{
+
+width:62px;
+height:62px;
+
+display:flex;
 
 align-items:center;
 
 justify-content:center;
 
-padding:18px 34px;
-
 border-radius:18px;
 
-text-decoration:none;
+background:
 
-font-size:16px;
+linear-gradient(
+135deg,
+#f3ebff,
+#faf8ff
+);
+
+margin-bottom:22px;
+
+}
+
+.step-icon svg{
+
+width:30px;
+
+height:30px;
+
+stroke:#7c3aed;
+
+}
+
+
+/* ==========================================
+   TEXTO
+========================================== */
+
+.step-number{
+
+font-size:13px;
 
 font-weight:700;
 
-color:white;
+color:#7c3aed;
+
+margin-bottom:10px;
+
+}
+
+.step-card h2{
+
+font-size:25px;
+
+font-weight:700;
+
+margin-bottom:14px;
+
+}
+
+.step-card p{
+
+font-size:15px;
+
+line-height:1.7;
+
+color:#6b7280;
+
+margin-bottom:28px;
+
+flex:1;
+
+}
+
+
+/* ==========================================
+   BOTÃO
+========================================== */
+
+.step-button{
+
+height:52px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+text-decoration:none;
+
+font-weight:700;
+
+font-size:15px;
+
+border-radius:16px;
 
 background:
 
@@ -472,89 +469,97 @@ linear-gradient(
 #9d5cff
 );
 
+color:white;
+
 box-shadow:
-0 16px 35px rgba(124,58,237,.22);
+
+0 12px 30px rgba(124,58,237,.20);
 
 transition:.25s;
 
 }
 
-.next-btn:hover{
+.step-button:hover{
 
-transform:
-translateY(-3px);
+transform:translateY(-2px);
 
 box-shadow:
-0 22px 45px rgba(124,58,237,.30);
+
+0 18px 36px rgba(124,58,237,.28);
 
 }
 
 
-/* MOBILE */
+/* ==========================================
+   FOOTER
+========================================== */
+
+.dashboard-footer{
+
+margin-top:60px;
+
+text-align:center;
+
+font-size:14px;
+
+color:#9ca3af;
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media(max-width:900px){
 
-body.help{
+.dashboard-hero{
 
-padding:40px 18px 70px;
-
-}
-
-.help-hero{
-
-margin-bottom:36px;
+margin-bottom:42px;
 
 }
 
-.help-hero h1{
+.dashboard-hero h1{
 
 font-size:38px;
 
 }
 
-.help-hero p{
+.dashboard-hero p{
 
-font-size:16px;
+font-size:15px;
 
 }
 
-.overview-card{
+.setup-progress{
+
+margin-bottom:42px;
+
+}
+
+.steps-grid{
 
 grid-template-columns:1fr;
 
 }
 
-.overview-card,
-.flow-card,
-.steps-card{
+.step-card{
 
-padding:24px;
-
-border-radius:22px;
+padding:26px;
 
 }
 
-.flow{
+.progress-step span{
 
-flex-direction:column;
-
-}
-
-.flow-arrow{
-
-transform:rotate(90deg);
+display:none;
 
 }
 
-.step{
+.progress-line{
 
-padding:18px;
+left:10%;
 
-}
-
-.next-btn{
-
-width:100%;
+right:10%;
 
 }
 
