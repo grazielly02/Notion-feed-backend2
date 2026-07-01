@@ -4,23 +4,24 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>VisualFeed • Central de Ajuda</title>
+<title>Central de Ajuda • VisualFeed</title>
 
 <link rel="stylesheet" href="style.css">
 
 </head>
 
-<body class="help-page">
+<body class="help">
 
 <div class="page">
 
     <!-- HERO -->
 
-    <section class="hero">
+    <section class="help-hero">
 
-        <div class="hero-badge">
+        <div class="help-badge">
 
             <span class="badge-dot"></span>
 
@@ -30,235 +31,305 @@
 
         <h1>
 
-            Bem-vindo ao <span>VisualFeed</span>
+            Configure seu
+            <span>VisualFeed</span>
+
+            em poucos minutos.
 
         </h1>
 
         <p>
 
-            Tudo o que você precisa para configurar, conectar e utilizar seu widget.
+            Siga o passo a passo abaixo para conectar sua database,
+            gerar seu widget e começar a publicar seu feed.
 
         </p>
 
     </section>
 
-    <!-- BUSCA -->
 
-    <section class="search-box">
+    <!-- RESUMO -->
 
-        <input
-            type="text"
-            placeholder="Pesquisar ajuda (em breve)"
-            disabled
-        >
+    <section class="overview-card">
+
+        <div class="overview-item">
+
+            <span>⏱</span>
+
+            <div>
+
+                <strong>
+                    Tempo médio
+                </strong>
+
+                <small>
+                    Aproximadamente 5 minutos
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="overview-item">
+
+            <span>✨</span>
+
+            <div>
+
+                <strong>
+                    Nível
+                </strong>
+
+                <small>
+                    Fácil
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="overview-item">
+
+            <span>📋</span>
+
+            <div>
+
+                <strong>
+                    Você precisará
+                </strong>
+
+                <small>
+
+                    Conta no Notion,
+                    uma database
+                    e navegador.
+
+                </small>
+
+            </div>
+
+        </div>
 
     </section>
 
-    <!-- CATEGORIAS -->
 
-    <section class="cards">
+    <!-- COMO FUNCIONA -->
 
-        <a href="database.html" class="card">
-
-            <div class="icon">
-
-                🗂
-
-            </div>
-
-            <div class="content">
-
-                <h2>
-
-                    Criar a database
-
-                </h2>
-
-                <p>
-
-                    Monte corretamente a estrutura da sua base no Notion.
-
-                </p>
-
-            </div>
-
-            <span class="arrow">
-
-                →
-
-            </span>
-
-        </a>
-
-        <a href="integracao.html" class="card">
-
-            <div class="icon">
-
-                🔐
-
-            </div>
-
-            <div class="content">
-
-                <h2>
-
-                    Conectar ao Notion
-
-                </h2>
-
-                <p>
-
-                    Gere o Token Secreto e autorize sua database.
-
-                </p>
-
-            </div>
-
-            <span class="arrow">
-
-                →
-
-            </span>
-
-        </a>
-
-        <a href="painel.html" class="card">
-
-            <div class="icon">
-
-                ⚙️
-
-            </div>
-
-            <div class="content">
-
-                <h2>
-
-                    Configurar o widget
-
-                </h2>
-
-                <p>
-
-                    Gere seu VisualFeed utilizando o Token e a Database.
-
-                </p>
-
-            </div>
-
-            <span class="arrow">
-
-                →
-
-            </span>
-
-        </a>
-
-        <a href="usar-widget.html" class="card">
-
-            <div class="icon">
-
-                ✨
-
-            </div>
-
-            <div class="content">
-
-                <h2>
-
-                    Utilizar o VisualFeed
-
-                </h2>
-
-                <p>
-
-                    Descubra todos os recursos disponíveis no widget.
-
-                </p>
-
-            </div>
-
-            <span class="arrow">
-
-                →
-
-            </span>
-
-        </a>
-
-    </section>
-
-    <!-- FAQ -->
-
-    <section class="faq">
+    <section class="flow-card">
 
         <h2>
 
-            Perguntas frequentes
+            Como funciona
 
         </h2>
 
-        <div class="faq-item">
+        <p>
 
-            <strong>
+            O VisualFeed conecta sua database do Notion
+            e gera um widget atualizado automaticamente.
 
-                Meu feed não atualizou.
+        </p>
 
-            </strong>
+        <div class="flow">
 
-            <p>
+            <div class="flow-box">
 
-                Clique em Atualizar no widget e confirme se a integração possui acesso à database.
+                Database
 
-            </p>
+            </div>
 
-        </div>
+            <div class="flow-arrow">
 
-        <div class="faq-item">
+                ↓
 
-            <strong>
+            </div>
 
-                O widget aparece vazio.
+            <div class="flow-box">
 
-            </strong>
+                VisualFeed
 
-            <p>
+            </div>
 
-                Verifique se existem posts cadastrados e se nenhum está oculto.
+            <div class="flow-arrow">
 
-            </p>
+                ↓
 
-        </div>
+            </div>
 
-        <div class="faq-item">
+            <div class="flow-box">
 
-            <strong>
+                Widget
 
-                O Notion não incorpora o widget.
+            </div>
 
-            </strong>
+            <div class="flow-arrow">
 
-            <p>
+                ↓
 
-                Utilize sempre um bloco Embed e cole o link gerado na página de configuração.
+            </div>
 
-            </p>
+            <div class="flow-box">
+
+                Notion
+
+            </div>
 
         </div>
 
     </section>
 
-    <!-- RODAPÉ -->
 
-    <footer class="footer">
+    <!-- ETAPAS -->
+
+    <section class="steps-card">
+
+        <h2>
+
+            Etapas da configuração
+
+        </h2>
 
         <p>
 
-            VisualFeed • Centro de Ajuda
+            Complete cada etapa apenas uma vez.
 
         </p>
 
-    </footer>
+        <div class="steps">
+
+            <a
+            href="database.html"
+            class="step">
+
+                <div class="number">
+
+                    1
+
+                </div>
+
+                <div>
+
+                    <strong>
+
+                        Criar a database
+
+                    </strong>
+
+                    <small>
+
+                        Estruture sua base no Notion.
+
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <a
+            href="integracao.html"
+            class="step">
+
+                <div class="number">
+
+                    2
+
+                </div>
+
+                <div>
+
+                    <strong>
+
+                        Autorizar o VisualFeed
+
+                    </strong>
+
+                    <small>
+
+                        Gere o Token e conecte sua integração.
+
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <a
+            href="painel.html"
+            class="step">
+
+                <div class="number">
+
+                    3
+
+                </div>
+
+                <div>
+
+                    <strong>
+
+                        Gerar o Widget
+
+                    </strong>
+
+                    <small>
+
+                        Configure seu projeto.
+
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <a
+            href="usar-widget.html"
+            class="step">
+
+                <div class="number">
+
+                    4
+
+                </div>
+
+                <div>
+
+                    <strong>
+
+                        Começar a usar
+
+                    </strong>
+
+                    <small>
+
+                        Aprenda todos os recursos.
+
+                    </small>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="help-footer">
+
+        <a
+        href="database.html"
+        class="next-btn">
+
+            Começar configuração →
+
+        </a>
+
+    </section>
 
 </div>
 
