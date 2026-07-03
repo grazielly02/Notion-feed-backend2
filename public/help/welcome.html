@@ -1,347 +1,174 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VisualFeed • Boas-vindas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>VisualFeed • Boas-vindas</title>
 
-<style>
+    <link rel="stylesheet" href="style.css">
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-body{
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    font-family:'Inter',sans-serif;
-
-    min-height:100vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    padding:40px 20px;
-
-    background:
-    radial-gradient(circle at top,#4f46e522,transparent 35%),
-    radial-gradient(circle at bottom right,#06b6d422,transparent 35%),
-    linear-gradient(135deg,#0b1120,#111827,#1f2937);
-
-    color:#fff;
-
-}
-
-.card{
-
-    width:100%;
-    max-width:760px;
-
-    background:rgba(255,255,255,.08);
-
-    backdrop-filter:blur(18px);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    border-radius:28px;
-
-    padding:55px;
-
-    box-shadow:0 25px 70px rgba(0,0,0,.35);
-
-}
-
-.logo{
-
-    width:68px;
-    height:68px;
-
-    border-radius:18px;
-
-    background:linear-gradient(135deg,#6366f1,#06b6d4);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:30px;
-
-    margin-bottom:35px;
-
-}
-
-h1{
-
-    font-size:38px;
-    font-weight:800;
-
-    margin-bottom:12px;
-
-}
-
-.subtitle{
-
-    color:#cbd5e1;
-
-    font-size:17px;
-
-    line-height:1.6;
-
-    margin-bottom:45px;
-
-}
-
-.flow{
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:18px;
-
-    margin-bottom:45px;
-
-}
-
-.step{
-
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:18px;
-
-    padding:22px 16px;
-
-    text-align:center;
-
-}
-
-.number{
-
-    width:36px;
-    height:36px;
-
-    border-radius:50%;
-
-    margin:auto;
-
-    margin-bottom:14px;
-
-    background:rgba(99,102,241,.2);
-
-    color:#8b5cf6;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-weight:700;
-
-}
-
-.step h3{
-
-    font-size:15px;
-
-    margin-bottom:6px;
-
-}
-
-.step p{
-
-    font-size:13px;
-
-    color:#94a3b8;
-
-}
-
-.info{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:30px;
-
-    flex-wrap:wrap;
-
-    margin-bottom:40px;
-
-}
-
-.box{
-
-    flex:1;
-
-    min-width:220px;
-
-}
-
-.box h4{
-
-    font-size:14px;
-
-    color:#94a3b8;
-
-    margin-bottom:12px;
-
-}
-
-.box ul{
-
-    list-style:none;
-
-}
-
-.box li{
-
-    margin-bottom:10px;
-
-    color:#e2e8f0;
-
-}
-
-.button{
-
-    width:100%;
-
-    border:none;
-
-    border-radius:16px;
-
-    padding:18px;
-
-    font-size:16px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    color:white;
-
-    background:linear-gradient(135deg,#6366f1,#06b6d4);
-
-    transition:.25s;
-
-}
-
-.button:hover{
-
-    transform:translateY(-2px);
-
-}
-
-@media(max-width:700px){
-
-.card{
-
-padding:35px 25px;
-
-}
-
-.flow{
-
-grid-template-columns:1fr;
-
-}
-
-.info{
-
-flex-direction:column;
-
-}
-
-h1{
-
-font-size:30px;
-
-}
-
-}
-
-</style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="card">
+<main class="welcome-container">
 
-<div class="logo">VF</div>
+    <section class="welcome-card">
 
-<h1>Bem-vindo ao VisualFeed</h1>
+        <div class="logo">
 
-<p class="subtitle">
-Configure seu widget em poucos minutos.
-</p>
+            <span>VF</span>
 
-<div class="flow">
+        </div>
 
-<div class="step">
-<div class="number">1</div>
-<h3>Preparar</h3>
-<p>Database do Notion</p>
-</div>
+        <span class="badge">
 
-<div class="step">
-<div class="number">2</div>
-<h3>Validar</h3>
-<p>E-mail da compra</p>
-</div>
+            ✨ Bem-vindo
 
-<div class="step">
-<div class="number">3</div>
-<h3>Configurar</h3>
-<p>Conectar o widget</p>
-</div>
+        </span>
 
-<div class="step">
-<div class="number">4</div>
-<h3>Publicar</h3>
-<p>Copiar o Embed</p>
-</div>
+        <h1>
 
-</div>
+            Bem-vindo ao <br>
+            <span>VisualFeed</span>
 
-<div class="info">
+        </h1>
 
-<div class="box">
+        <p class="subtitle">
 
-<h4>Tempo médio</h4>
+            Configure seu widget em poucos minutos.
 
-<ul>
-<li>⏱️ 5 minutos</li>
-</ul>
+        </p>
 
-</div>
+        <a href="docs.html" class="primary-btn">
 
-<div class="box">
+            Começar
 
-<h4>Você precisará</h4>
+        </a>
 
-<ul>
-<li>✓ Conta no Notion</li>
-<li>✓ Token da integração</li>
-<li>✓ Link da database</li>
-</ul>
+        <section class="timeline">
 
-</div>
+            <div class="timeline-item">
 
-</div>
+                <div class="timeline-number">
 
-<button class="button">
-Começar configuração
-</button>
+                    1
 
-</div>
+                </div>
+
+                <div>
+
+                    <h3>Preparar a Database</h3>
+
+                    <p>Monte sua estrutura no Notion.</p>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-number">
+
+                    2
+
+                </div>
+
+                <div>
+
+                    <h3>Validar a Compra</h3>
+
+                    <p>Confirme o e-mail utilizado.</p>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-number">
+
+                    3
+
+                </div>
+
+                <div>
+
+                    <h3>Configurar</h3>
+
+                    <p>Conecte sua database.</p>
+
+                </div>
+
+            </div>
+
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item">
+
+                <div class="timeline-number">
+
+                    4
+
+                </div>
+
+                <div>
+
+                    <h3>Publicar</h3>
+
+                    <p>Copie o Embed.</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="requirements">
+
+            <div>
+
+                <small>Tempo médio</small>
+
+                <strong>⏱ Cerca de 5 minutos</strong>
+
+            </div>
+
+            <div>
+
+                <small>Você precisará</small>
+
+                <ul>
+
+                    <li>✓ Conta no Notion</li>
+
+                    <li>✓ Token da Integração</li>
+
+                    <li>✓ Link da Database</li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
 
 </body>
+
 </html>
