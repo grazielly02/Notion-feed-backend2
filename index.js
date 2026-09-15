@@ -137,44 +137,56 @@ app.get("/config", (req, res) => {
 app.post("/save-config", async (req, res) => {
   const { clientId, realClientId, token, databaseId } = req.body;
 
-// clientId do form = nome do projeto
-const projectName = clientId;
-  
-  if (!clientId || !token || !databaseId) {
+  // clientId do form = nome do projeto
+  const projectName = clientId;
+
+  if (!clientId || !realClientId || !token || !databaseId) {
     return res.status(400).send("Todos os campos são obrigatórios.");
   }
 
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
+  if (!cleanDatabaseId) {
+    return res.status(400).send("Database ID inválido.");
+  }
+
   try {
-// clientId do form = licenseId
-const licenseId = req.body.realClientId;
+    // realClientId = clientId da licença
+    const licenseId = realClientId.trim();
 
-  // busca email do comprador 
-    const buyer = await db.query(
-  `SELECT email
-   FROM allowed_clients
-   WHERE "clientId" = $1
-   LIMIT 1`,
-  [licenseId]
-);
+    // Verificar se a licença pertence a um comprador autorizado
+    const buyer = await db.getAllowedClientByClientId(licenseId);
 
-const email =
-  buyer.rows.length > 0
-    ? buyer.rows[0].email
-    : null;
-    
-// gera widgetId novo
-const widgetId = generateRandomId(8);
+    if (!buyer) {
+      console.warn(
+        `⚠️ Tentativa de configuração com licença inválida: ${licenseId}`
+      );
 
-await db.saveConfig(widgetId, token, cleanDatabaseId, licenseId, projectName, email);
+      return res.status(403).send(
+        "Licença não autorizada. Verifique seu acesso antes de configurar o widget."
+      );
+    }
 
-console.log(
-  `✔️ Configuração salva: widgetId=${widgetId} | licenseId=${licenseId} | email=${email}`
-);
+    const email = buyer.email;
 
-const finalUrl =
-  `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(widgetId)}`;
+    // gera widgetId novo
+    const widgetId = generateRandomId(8);
+
+    await db.saveConfig(
+      widgetId,
+      token,
+      cleanDatabaseId,
+      licenseId,
+      projectName,
+      email
+    );
+
+    console.log(
+      `✔️ Configuração salva: widgetId=${widgetId} | licenseId=${licenseId} | email=${email}`
+    );
+
+    const finalUrl =
+      `https://meu-widget-feed.netlify.app/previsualizacao.html?clientId=${encodeURIComponent(widgetId)}`;
 
     res.send(`
       <!DOCTYPE html>
@@ -194,6 +206,7 @@ const finalUrl =
       </body>
       </html>
     `);
+
   } catch (error) {
     console.error("❌ Erro ao salvar:", error.message);
     res.status(500).send("Erro ao salvar configuração.");
