@@ -26,27 +26,35 @@ module.exports = {
     return res.rows[0];
   },
 
+  getAllowedClientByClientId: async (clientId) => {
+    const res = await pool.query(
+      `SELECT * FROM allowed_clients WHERE "clientId"=$1`,
+      [clientId.trim()]
+    );
+    return res.rows[0] || null;
+  },
+
   saveConfig: async (widgetId, token, databaseId, licenseId, projectName, email) => {
-  await pool.query(
-    `INSERT INTO configs ("clientId", token, "databaseId", "licenseId", projectname, email)
-     VALUES ($1, $2, $3, $4, $5, $6)
-     ON CONFLICT ("clientId")
-     DO UPDATE SET
-  token = EXCLUDED.token,
-  "databaseId" = EXCLUDED."databaseId",
-  "licenseId" = EXCLUDED."licenseId",
-  projectname = EXCLUDED.projectname,
-  email = EXCLUDED.email`, 
- [
-  widgetId.trim(),
-  token.trim(),
-  databaseId.trim(),
-  licenseId.trim(),
-  projectName.trim(),
-  email ? email.trim() : null
-]
-  );
-},
+    await pool.query(
+      `INSERT INTO configs ("clientId", token, "databaseId", "licenseId", projectname, email)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       ON CONFLICT ("clientId")
+       DO UPDATE SET
+         token = EXCLUDED.token,
+         "databaseId" = EXCLUDED."databaseId",
+         "licenseId" = EXCLUDED."licenseId",
+         projectname = EXCLUDED.projectname,
+         email = EXCLUDED.email`,
+      [
+        widgetId.trim(),
+        token.trim(),
+        databaseId.trim(),
+        licenseId.trim(),
+        projectName.trim(),
+        email ? email.trim() : null
+      ]
+    );
+  },
 
   getConfig: async (clientId) => {
     const res = await pool.query(
@@ -56,32 +64,32 @@ module.exports = {
     return res.rows[0];
   },
 
-  // FunÃ§Ã£o correta de log â€” compatÃ­vel com sua tabela access_logs
-logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
-  try {
-    console.log(">>> LOG ACCESS EXECUTANDO", { clientId, ip });
+  // Função correta de log — compatível com sua tabela access_logs
+  logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
+    try {
+      console.log(">>> LOG ACCESS EXECUTANDO", { clientId, ip });
 
-    const realClientId = extra.realClientId || null;
+      const realClientId = extra.realClientId || null;
 
-    await pool.query(
-      `INSERT INTO access_logs
-       (clientid, "realClientId", ip, user_agent, referrer, is_valid, extra)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [
-        clientId,
-        realClientId,
-        ip || null,
-        userAgent || null,
-        referrer || null,
-        isValid,
-        extra
-      ]
-    );
+      await pool.query(
+        `INSERT INTO access_logs
+         (clientid, "realClientId", ip, user_agent, referrer, is_valid, extra)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          clientId,
+          realClientId,
+          ip || null,
+          userAgent || null,
+          referrer || null,
+          isValid,
+          extra
+        ]
+      );
 
-    console.log(">>> SALVOU COM SUCESSO");
+      console.log(">>> SALVOU COM SUCESSO");
 
-  } catch (err) {
-    console.error("ERRO AO SALVAR LOG:", err);
+    } catch (err) {
+      console.error("ERRO AO SALVAR LOG:", err);
+    }
   }
-       }
 };
