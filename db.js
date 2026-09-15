@@ -1,10 +1,101 @@
 const { Pool } = require('pg');
+const crypto = require('crypto');
 require('dotenv').config();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
 });
+
+// =====================================================
+// CRIPTOGRAFIA DOS TOKENS DO NOTION
+// =====================================================
+
+function getEncryptionKey() {
+  const key = process.env.CONFIG_ENCRYPTION_KEY;
+
+  if (!key) {
+    throw new Error(
+      "CONFIG_ENCRYPTION_KEY não configurada no ambiente."
+    );
+  }
+
+  if (!/^[0-9a-fA-F]{64}$/.test(key)) {
+    throw new Error(
+      "CONFIG_ENCRYPTION_KEY deve conter exatamente 64 caracteres hexadecimais."
+    );
+  }
+
+  return Buffer.from(key, "hex");
+}
+
+function encryptToken(token) {
+  const key = getEncryptionKey();
+
+  const iv = crypto.randomBytes(12);
+
+  const cipher = crypto.createCipheriv(
+    "aes-256-gcm",
+    key,
+    iv
+  );
+
+  const encrypted = Buffer.concat([
+    cipher.update(token, "utf8"),
+    cipher.final()
+  ]);
+
+  const authTag = cipher.getAuthTag();
+
+  return [
+    "enc:v1",
+    iv.toString("hex"),
+    authTag.toString("hex"),
+    encrypted.toString("hex")
+  ].join(":");
+}
+
+function decryptToken(value) {
+  if (!value) {
+    return value;
+  }
+
+  // Tokens novos começam com "enc:v1".
+  // Se não tiver esse prefixo, tratamos como token antigo
+  // ainda armazenado em texto puro.
+  if (!value.startsWith("enc:v1:")) {
+    return value;
+  }
+
+  const parts = value.split(":");
+
+  if (parts.length !== 4) {
+    throw new Error("Token criptografado possui formato inválido.");
+  }
+
+  const [, ivHex, authTagHex, encryptedHex] = parts;
+
+  const key = getEncryptionKey();
+
+  const iv = Buffer.from(ivHex, "hex");
+  const authTag = Buffer.from(authTagHex, "hex");
+  const encrypted = Buffer.from(encryptedHex, "hex");
+
+  const decipher = crypto.createDecipheriv(
+    "aes-256-gcm",
+    key,
+    iv
+  );
+
+  decipher.setAuthTag(authTag);
+
+  const decrypted = Buffer.concat([
+    decipher.update(encrypted),
+    decipher.final()
+  ]);
+
+  return decrypted.toString("utf8");
+}
 
 module.exports = {
   query: (text, params) => pool.query(text, params),
@@ -23,6 +114,7 @@ module.exports = {
       `SELECT * FROM allowed_clients WHERE email=$1`,
       [email.trim()]
     );
+
     return res.rows[0];
   },
 
@@ -31,10 +123,20 @@ module.exports = {
       `SELECT * FROM allowed_clients WHERE "clientId"=$1`,
       [clientId.trim()]
     );
+
     return res.rows[0] || null;
   },
 
-  saveConfig: async (widgetId, token, databaseId, licenseId, projectName, email) => {
+  saveConfig: async (
+    widgetId,
+    token,
+    databaseId,
+    licenseId,
+    projectName,
+    email
+  ) => {
+    const encryptedToken = encryptToken(token.trim());
+
     await pool.query(
       `INSERT INTO configs ("clientId", token, "databaseId", "licenseId", projectname, email)
        VALUES ($1, $2, $3, $4, $5, $6)
@@ -47,7 +149,7 @@ module.exports = {
          email = EXCLUDED.email`,
       [
         widgetId.trim(),
-        token.trim(),
+        encryptedToken,
         databaseId.trim(),
         licenseId.trim(),
         projectName.trim(),
@@ -61,11 +163,30 @@ module.exports = {
       `SELECT * FROM configs WHERE "clientId"=$1`,
       [clientId.trim()]
     );
-    return res.rows[0];
+
+    const config = res.rows[0];
+
+    if (!config) {
+      return config;
+    }
+
+    // Descriptografa o token antes de devolvê-lo ao restante do backend.
+    if (config.token) {
+      config.token = decryptToken(config.token);
+    }
+
+    return config;
   },
 
   // Função correta de log — compatível com sua tabela access_logs
-  logAccess: async (clientId, ip, userAgent, referrer, isValid, extra = {}) => {
+  logAccess: async (
+    clientId,
+    ip,
+    userAgent,
+    referrer,
+    isValid,
+    extra = {}
+  ) => {
     try {
       console.log(">>> LOG ACCESS EXECUTANDO", { clientId, ip });
 
