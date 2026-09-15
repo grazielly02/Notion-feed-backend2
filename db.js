@@ -69,11 +69,11 @@ function decryptToken(value) {
 
   const parts = value.split(":");
 
-  if (parts.length !== 4) {
+  if (parts.length !== 5) {
     throw new Error("Token criptografado possui formato inválido.");
   }
 
-  const [, ivHex, authTagHex, encryptedHex] = parts;
+  const [, , ivHex, authTagHex, encryptedHex] = parts;
 
   const key = getEncryptionKey();
 
