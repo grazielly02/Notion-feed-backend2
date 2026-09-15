@@ -84,21 +84,27 @@ async function queryDatabase(token, databaseId) {
   }
 }
 
-// ROTA — gerar clientId
+// ROTA — validar cliente e liberar configuração
 app.post("/generate-client", async (req, res) => {
   const { email } = req.body;
 
-  if (!email) return res.status(400).json({ error: "Informe seu e-mail" });
+  if (!email) {
+    return res.status(400).json({
+      success: false,
+      error: "Informe seu e-mail"
+    });
+  }
 
   try {
-    // Buscar cliente existente
-    let client = await db.getAllowedClientByEmail(email);
+    // Buscar cliente previamente autorizado
+    const client = await db.getAllowedClientByEmail(email);
 
+    // Se o e-mail não estiver cadastrado, não liberar acesso
     if (!client) {
-      // Criar novo clientId
-      const clientId = generateRandomId(10);
-      await db.saveAllowedClient(email, clientId);
-      client = { email, clientId };
+      return res.status(403).json({
+        success: false,
+        error: "E-mail não encontrado. Verifique se está usando o mesmo e-mail informado na compra."
+      });
     }
 
     return res.json({
@@ -106,9 +112,14 @@ app.post("/generate-client", async (req, res) => {
       clientId: client.clientId,
       setupUrl: `https://meu-widget-feed.netlify.app/form.html?clientId=${client.clientId}`
     });
+
   } catch (error) {
-    console.error("❌ Erro ao gerar clientId:", error.message);
-    return res.status(500).json({ error: "Erro ao gerar link" });
+    console.error("❌ Erro ao validar cliente:", error.message);
+
+    return res.status(500).json({
+      success: false,
+      error: "Não foi possível validar o acesso. Tente novamente."
+    });
   }
 });
 
