@@ -54,7 +54,15 @@ ensureConfigsTable();
 ensureAllowedClientsTable();
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  "https://meu-widget-feed.netlify.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
