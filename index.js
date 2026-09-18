@@ -311,7 +311,13 @@ if (licenseId) {
 });
 
 // Buscar posts + registrar acesso
-app.get("/widget/:clientId/posts", async (req, res) => {
+app.get(
+  "/widget/:clientId/posts",
+  rateLimit({
+    windowMs: 60 * 1000,
+    max: 60
+  }),
+  async (req, res) => {
   const clientId = req.params.clientId;
 
 const rawIp =
