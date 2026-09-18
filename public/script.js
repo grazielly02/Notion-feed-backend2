@@ -22,23 +22,37 @@ if (!clientId) {
 const API_URL = `https://notion-feed-backend2.onrender.com/widget/${clientId}/posts`;
 
 function convertToEmbedUrl(url) {
-  // Se já for um embed gerado corretamente do Figma
-  if (url.includes("embed.figma.com/design")) {
+  try {
+    const parsed = new URL(url);
+    const hostname = parsed.hostname.toLowerCase();
+
+    // Figma: embed já pronto
+    if (hostname === "embed.figma.com") {
+      return url;
+    }
+
+    // Figma: URL normal
+    if (
+      hostname === "figma.com" ||
+      hostname === "www.figma.com"
+    ) {
+      return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
+    }
+
+    // Canva
+    if (
+      (hostname === "canva.com" || hostname === "www.canva.com") &&
+      parsed.pathname.includes("/view")
+    ) {
+      return `${url}${url.includes("?") ? "&" : "?"}embed`;
+    }
+
+    // Qualquer outro endereço
+    return url;
+
+  } catch {
     return url;
   }
-
-  // Figma normal
-  if (url.includes("figma.com")) {
-    return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`;
-  }
-
-  // Canva com /view
-  if (url.includes("canva.com") && url.includes("/view")) {
-    return `${url}?embed`;
-  }
-  
-// Default: retorna o link original
-return url;
 }
 
 function isEmbedUrl(url) {
