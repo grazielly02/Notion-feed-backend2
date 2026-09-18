@@ -613,11 +613,24 @@ function applyFilter() {
           // Overlay com editoria, título e data
           const overlay = document.createElement("div");
           overlay.className = "overlay";
-          overlay.innerHTML = `
-  ${post.editoria ? `<div class="editoria">${post.editoria}</div>` : ""}
-  <div class="title">${post.title || ""}</div>
-  ${post.date ? `<div class="date">${formatDate(post.date)}</div>` : ""}
-`;
+if (post.editoria) {
+  const editoria = document.createElement("div");
+  editoria.className = "editoria";
+  editoria.textContent = post.editoria;
+  overlay.appendChild(editoria);
+}
+
+const title = document.createElement("div");
+title.className = "title";
+title.textContent = post.title || "";
+overlay.appendChild(title);
+
+if (post.date) {
+  const date = document.createElement("div");
+  date.className = "date";
+  date.textContent = formatDate(post.date);
+  overlay.appendChild(date);
+                         }
           container.appendChild(overlay);
 
           // Ícones (fixado tem prioridade)
