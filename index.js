@@ -23,15 +23,18 @@ async function ensureConfigsTable() {
         clientId TEXT PRIMARY KEY,
         token TEXT NOT NULL,
         databaseId TEXT NOT NULL,
+        email TEXT,
         created_at TIMESTAMP DEFAULT now(),
-        updated_at TIMESTAMP
+        licenseId TEXT,
+        projectname TEXT
       );
     `);
+
     console.log("✔️ Tabela 'configs' verificada/criada.");
   } catch (error) {
     console.error("❌ Erro ao criar/verificar tabela configs:", error);
   }
-}
+  }
 
 // Garantir tabela allowed_clients
 async function ensureAllowedClientsTable() {
