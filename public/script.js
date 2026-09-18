@@ -185,6 +185,11 @@ posts = [...fixados, ...naoFixados];
           }
         } else {
           el = document.createElement("img");
+
+          if (!isSafeMediaUrl(mediaUrl)) {
+          return;
+        }
+
           el.src = mediaUrl;
         }
 
