@@ -180,15 +180,21 @@ posts = [...fixados, ...naoFixados];
           
         let el;
         if (isEmbed) {
-          el = document.createElement("iframe");
-          el.src = convertToEmbedUrl(mediaUrl);
-          el.width = "100%";
-          el.height = "100%";
-          el.style.border = "none";
-          el.setAttribute("allowfullscreen", "true");
-          el.setAttribute("loading", "lazy");
-          el.style.aspectRatio = "16/9";
-        } else if (isVideo) {
+  const embedUrl = convertToEmbedUrl(mediaUrl);
+
+  if (!isSafeMediaUrl(embedUrl) || !isEmbedUrl(embedUrl)) {
+    return;
+  }
+
+  el = document.createElement("iframe");
+  el.src = embedUrl;
+  el.width = "100%";
+  el.height = "100%";
+  el.style.border = "none";
+  el.setAttribute("allowfullscreen", "true");
+  el.setAttribute("loading", "lazy");
+  el.style.aspectRatio = "16/9";
+                    } else if (isVideo) {
           el = document.createElement("video");
 
           if (!isSafeMediaUrl(mediaUrl)) {
