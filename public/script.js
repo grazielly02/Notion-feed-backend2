@@ -42,10 +42,22 @@ return url;
 }
 
 function isEmbedUrl(url) {
-  return (
-    url.includes("embed.figma.com/design") ||
-    (url.includes("canva.com") && url.includes("/view"))
-  );
+  try {
+    const parsed = new URL(url);
+
+    const hostname = parsed.hostname.toLowerCase();
+
+    return (
+      hostname === "embed.figma.com" ||
+      hostname.endsWith(".figma.com") ||
+      hostname === "figma.com" ||
+      hostname === "www.figma.com" ||
+      hostname === "canva.com" ||
+      hostname.endsWith(".canva.com")
+    );
+  } catch {
+    return false;
+  }
 }
 
 async function loadPosts() {
