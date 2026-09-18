@@ -66,6 +66,36 @@ app.use(cors({
   origin: allowedOrigins
 }));
 
+const rateLimitStore = new Map();
+
+function rateLimit({ windowMs, max }) {
+  return (req, res, next) => {
+    const key = req.ip;
+    const now = Date.now();
+
+    let record = rateLimitStore.get(key);
+
+    if (!record || now - record.start >= windowMs) {
+      record = {
+        start: now,
+        count: 0
+      };
+    }
+
+    record.count += 1;
+    rateLimitStore.set(key, record);
+
+    if (record.count > max) {
+      return res.status(429).json({
+        success: false,
+        error: "Muitas tentativas. Aguarde alguns minutos e tente novamente."
+      });
+    }
+
+    next();
+  };
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -96,7 +126,13 @@ async function queryDatabase(token, databaseId) {
 }
 
 // ROTA — validar cliente e liberar configuração
-app.post("/generate-client", async (req, res) => {
+app.post(
+  "/generate-client",
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10
+  }),
+  async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
