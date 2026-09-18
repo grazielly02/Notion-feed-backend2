@@ -176,6 +176,11 @@ posts = [...fixados, ...naoFixados];
           el.style.aspectRatio = "16/9";
         } else if (isVideo) {
           el = document.createElement("video");
+
+          if (!isSafeMediaUrl(mediaUrl)) {
+          return;
+        }
+
           el.src = mediaUrl;
           el.muted = true;
           el.playsInline = true;
