@@ -60,6 +60,16 @@ function isEmbedUrl(url) {
   }
 }
 
+function isSafeMediaUrl(url) {
+  try {
+    const parsed = new URL(url);
+
+    return parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+  
 async function loadPosts() {
   try {
     const res = await fetch(`${API_URL}?t=${Date.now()}`);
