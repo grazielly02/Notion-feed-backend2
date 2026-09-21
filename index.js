@@ -100,9 +100,19 @@ app.use(express.static("public"));
 
 // Extrair databaseId do link do Notion
 function extractDatabaseId(input) {
-  const regex = /([a-f0-9]{32})/;
-  const match = input.match(regex);
-  return match ? match[1] : input;
+  if (!input || typeof input !== "string") {
+    return null;
+  }
+
+  const normalized = input.trim().replace(/-/g, "");
+
+  const match = normalized.match(/[a-f0-9]{32}/i);
+
+  if (!match) {
+    return null;
+  }
+
+  return match[0].toLowerCase();
 }
 
 // Consultar Notion
