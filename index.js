@@ -2,17 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const axios = require("axios");
+const crypto = require("crypto");
 require("dotenv").config();
 const db = require("./db");
 
 // Função para gerar clientId aleatório
 function generateRandomId(length = 8) {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
+  return crypto.randomBytes(length)
+    .toString("base64url")
+    .slice(0, length);
 }
 
 // Garantir tabela configs
