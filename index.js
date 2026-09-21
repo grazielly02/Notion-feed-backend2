@@ -261,7 +261,13 @@ app.post("/save-config", async (req, res) => {
 });
 
 // ROTA: Recebe logs do widget e registra no DB
-app.post("/track-access", async (req, res) => {
+app.post(
+  "/track-access",
+  rateLimit({
+    windowMs: 60 * 1000,
+    max: 30
+  }),
+  async (req, res) => {
   try {
     const { clientId, referrer } = req.body || {};
     if (!clientId) return res.status(400).json({ error: "clientId missing" });
@@ -302,7 +308,7 @@ if (licenseId) {
       forwarded_for: req.headers["x-forwarded-for"] || null
     });
 
-    return res.json({ ok: true, isValid });
+    return res.json({ ok: true });
 
   } catch (err) {
     console.error("track-access error:", err);
