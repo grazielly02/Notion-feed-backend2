@@ -366,6 +366,11 @@ if (realClientId) {
   );
   isValid = check.rows.length > 0;
 }
+  if (!isValid) {
+  return res.status(403).json({
+    error: "Licença não autorizada."
+  });
+  }
 
 // REGISTRA LOG (AGORA CORRETO)
 try {
