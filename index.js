@@ -205,6 +205,15 @@ app.post("/save-config", async (req, res) => {
     return res.status(400).send("Database ID inválido.");
   }
 
+  const cleanToken = typeof token === "string" ? token.trim() : "";
+
+if (
+  !cleanToken ||
+  (!cleanToken.startsWith("ntn_") && !cleanToken.startsWith("secret_"))
+) {
+  return res.status(400).send("Token do Notion inválido.");
+}
+
   try {
     // realClientId = clientId da licença
     const licenseId = realClientId.trim();
@@ -229,7 +238,7 @@ app.post("/save-config", async (req, res) => {
 
     await db.saveConfig(
       widgetId,
-      token,
+      cleanToken,
       cleanDatabaseId,
       licenseId,
       projectName,
