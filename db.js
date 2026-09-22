@@ -98,22 +98,26 @@ module.exports = {
   query: (text, params) => pool.query(text, params),
 
   saveAllowedClient: async (email, clientId) => {
+    const normalizedEmail = email.trim().toLowerCase();
+
     await pool.query(
-      `INSERT INTO allowed_clients (email, "clientId")
-       VALUES ($1, $2)
-       ON CONFLICT (email) DO NOTHING`,
-      [email.trim(), clientId.trim()]
+        `INSERT INTO allowed_clients (email, "clientId")
+        VALUES ($1, $2)
+        ON CONFLICT (email) DO NOTHING`,
+        [normalizedEmail, clientId.trim()]
     );
-  },
+},
 
   getAllowedClientByEmail: async (email) => {
+    const normalizedEmail = email.trim().toLowerCase();
+
     const res = await pool.query(
-      `SELECT * FROM allowed_clients WHERE email=$1`,
-      [email.trim()]
+        `SELECT * FROM allowed_clients WHERE email=$1`,
+        [normalizedEmail]
     );
 
     return res.rows[0];
-  },
+},
 
   getAllowedClientByClientId: async (clientId) => {
     const res = await pool.query(
