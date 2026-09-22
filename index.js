@@ -165,7 +165,7 @@ app.post(
     return res.json({
       success: true,
       clientId: client.clientId,
-      setupUrl: `https://meu-widget-feed.netlify.app/form.html?clientId=${client.clientId}`
+      setupUrl: `https://meu-widget-feed.netlify.app/form.html?clientId=${encodeURIComponent(client.clientId)}`
     });
 
   } catch (error) {
