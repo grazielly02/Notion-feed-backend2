@@ -594,11 +594,17 @@ document.addEventListener("click", (e) => {
 
 // Clique nas opções
 filterMenu?.addEventListener("click", (e) => {
-  if (e.target.dataset.filter) {
-    currentFilter = normalize(e.target.dataset.filter);
-    applyFilter();
-    filterMenu.style.display = "none";
-  }
+    if (e.target.dataset.filter) {
+        currentFilter = normalize(e.target.dataset.filter);
+
+        if (currentFilter === "all") {
+            loadPosts();
+        } else {
+            applyFilter();
+        }
+
+        filterMenu.style.display = "none";
+    }
 });
 
 document.addEventListener("keydown", function (event) {
@@ -620,10 +626,9 @@ function applyFilter() {
     .then((posts) => {
       
       const filtered = posts.filter((post) => {
-  // Solução robusta: aceita "todos", "all", nulo ou string vazia para resetar o feed
-  return !currentFilter || currentFilter === "todos" || currentFilter === "all" || normalize(post.formato) === normalize(currentFilter);
+    return currentFilter === "all" ||
+        normalize(post.formato) === normalize(currentFilter);
 });
-
 
       grid.innerHTML = "";
 
