@@ -315,12 +315,22 @@ dotsContainer.classList.toggle("video-slide", hasVideo);
 
   mediaUrls.forEach((url, index) => {
     const isVideo = url.endsWith(".mp4");
-    const isEmbed = isEmbedUrl(url);
+const isEmbed = isEmbedUrl(url);
 
-    let slide;
+if (!isSafeMediaUrl(url)) {
+    return;
+}
+
+let slide;
     if (isEmbed) {
-      slide = document.createElement("iframe");
-      slide.src = convertToEmbedUrl(url);
+    const embedUrl = convertToEmbedUrl(url);
+
+    if (!isSafeMediaUrl(embedUrl) || !isEmbedUrl(embedUrl)) {
+        return;
+    }
+
+    slide = document.createElement("iframe");
+    slide.src = embedUrl;
       slide.width = "100%";
       slide.height = "100%";
       slide.style.border = "none";
