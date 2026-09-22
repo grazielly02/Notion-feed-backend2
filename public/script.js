@@ -618,9 +618,12 @@ function applyFilter() {
   fetch(`${API_URL}?t=${Date.now()}`)
     .then((res) => res.json())
     .then((posts) => {
+      
       const filtered = posts.filter((post) => {
-        return currentFilter === "all" || normalize(post.formato) === normalize(currentFilter);
-      });
+  // Solução robusta: aceita "todos", "all", nulo ou string vazia para resetar o feed
+  return !currentFilter || currentFilter === "todos" || currentFilter === "all" || normalize(post.formato) === normalize(currentFilter);
+});
+
 
       grid.innerHTML = "";
 
