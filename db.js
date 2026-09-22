@@ -60,14 +60,11 @@ function decryptToken(value) {
     return value;
   }
 
-  // Tokens novos começam com "enc:v1".
-  // Se não tiver esse prefixo, tratamos como token antigo
-  // ainda armazenado em texto puro.
-  if (!value.startsWith("enc:v1:")) {
-    return value;
-  }
+const parts = value.split(":");
 
-  const parts = value.split(":");
+if (parts.length !== 5 || parts[0] !== "enc" || parts[1] !== "v1") {
+  throw new Error("Token criptografado possui formato inválido.");
+}
 
   if (parts.length !== 5) {
     throw new Error("Token criptografado possui formato inválido.");
