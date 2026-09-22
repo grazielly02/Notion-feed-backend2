@@ -644,31 +644,44 @@ function applyFilter() {
           container.dataset.type = normalize(post.formato);
 
           let el;
-          
-          if (isVideo || isReel) {
-            el = document.createElement("video");
-            el.src = mediaUrl;
-            el.muted = true;
-            el.playsInline = true;
-            el.preload = "metadata";
-            if (post.thumbnail) {
-              el.poster = post.thumbnail;
-            }
-          } else if (isImage || isCarousel) {
-         if
-            (mediaUrl.includes("canva.com")){
-            el = document.createElement("iframe");
-            el.src = convertToEmbedUrl(mediaUrl); // usa função de conversão
-            el.loading = "lazy";
-            el.allowFullscreen = true;
-            el.referrerPolicy = "no-referrer";
-            el.classList.add("canva-embed");
-            el.style.pointerEvents = "none";
-          } else {
-             el = document.createElement("img");
-            el.src = mediaUrl;
-          }
-          }
+
+if (!isSafeMediaUrl(mediaUrl)) {
+    return;
+}
+
+if (isVideo || isReel) {
+    el = document.createElement("video");
+    el.src = mediaUrl;
+    el.muted = true;
+    el.playsInline = true;
+    el.preload = "metadata";
+
+    if (post.thumbnail && isSafeMediaUrl(post.thumbnail)) {
+        el.poster = post.thumbnail;
+    }
+
+} else if (isImage || isCarrossel) {
+
+    if (isEmbed) {
+        const embedUrl = convertToEmbedUrl(mediaUrl);
+
+        if (!isSafeMediaUrl(embedUrl) || !isEmbedUrl(embedUrl)) {
+            return;
+        }
+
+        el = document.createElement("iframe");
+        el.src = embedUrl;
+        el.loading = "lazy";
+        el.allowFullscreen = true;
+        el.referrerPolicy = "no-referrer";
+        el.classList.add("canva-embed");
+        el.style.pointerEvents = "none";
+
+    } else {
+        el = document.createElement("img");
+        el.src = mediaUrl;
+    }
+  }
     
           container.appendChild(el);
 
