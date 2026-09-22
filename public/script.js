@@ -631,10 +631,12 @@ function applyFilter() {
 
         filtered.forEach((post) => {
           const mediaUrl = post.media[0];
-          const isVideo = post.formato === "vídeo" || post.formato === "video";
-          const isCarousel = post.formato === "carrossel";
-          const isReel = post.formato === "reels";
-          const isImage = post.formato === "imagem";
+          const formato = normalize(post.formato);
+
+const isVideo = formato === "video";
+const isCarousel = formato === "carrossel";
+const isReel = formato === "reels";
+const isImage = formato === "imagem";
 
           const isEmbed = isEmbedUrl(mediaUrl);
           
@@ -660,7 +662,7 @@ if (isVideo || isReel) {
         el.poster = post.thumbnail;
     }
 
-} else if (isImage || isCarrossel) {
+} else if (isImage || isCarousel) {
 
     if (isEmbed) {
         const embedUrl = convertToEmbedUrl(mediaUrl);
