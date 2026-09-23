@@ -93,6 +93,17 @@ function rateLimit({ windowMs, max }) {
     next();
   };
 }
+// Limpar registros antigos do rate limiter
+setInterval(() => {
+    const now = Date.now();
+        const maxAge = 15 * 60 * 1000;
+
+            for (const [key, record] of rateLimitStore.entries()) {
+                    if (now - record.start >= maxAge) {
+                                rateLimitStore.delete(key);
+                                        }
+                                            }
+                                            }, 15 * 60 * 1000);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
