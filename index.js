@@ -189,7 +189,13 @@ app.get("/config", (req, res) => {
 });
 
 // Salvar token/databaseId
-app.post("/save-config", async (req, res) => {
+app.post(
+  "/save-config",
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10
+  }),
+  async (req, res) => {
   const { clientId, realClientId, token, databaseId } = req.body;
 
   // clientId do form = nome do projeto
