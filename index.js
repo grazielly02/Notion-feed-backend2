@@ -198,13 +198,21 @@ app.post(
   async (req, res) => {
   const { clientId, realClientId, token, databaseId } = req.body;
 
-  // clientId do form = nome do projeto
-  const projectName = clientId;
+if (
+  typeof clientId !== "string" ||
+  typeof realClientId !== "string" ||
+  typeof token !== "string" ||
+  typeof databaseId !== "string"
+) {
+  return res.status(400).send("Dados de configuração inválidos.");
+}
 
-  if (!clientId || !realClientId || !token || !databaseId) {
-    return res.status(400).send("Todos os campos são obrigatórios.");
-  }
+const projectName = clientId;
 
+if (!clientId.trim() || !realClientId.trim() || !token.trim() || !databaseId.trim()) {
+  return res.status(400).send("Todos os campos são obrigatórios.");
+    }
+    
   const cleanDatabaseId = extractDatabaseId(databaseId);
 
   if (!cleanDatabaseId) {
