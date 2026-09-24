@@ -154,16 +154,19 @@ app.post(
   async (req, res) => {
   const { email } = req.body;
 
-  if (!email) {
+  if (typeof email !== "string" || !email.trim()) {
     return res.status(400).json({
       success: false,
       error: "Informe seu e-mail"
     });
   }
 
+const cleanEmail = email.trim();
+
   try {
     // Buscar cliente previamente autorizado
-    const client = await db.getAllowedClientByEmail(email);
+    const client = await
+    db.getAllowedClientByEmail(cleanEmail);
 
     // Se o e-mail não estiver cadastrado, não liberar acesso
     if (!client) {
