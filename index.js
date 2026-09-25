@@ -340,7 +340,7 @@ if (typeof clientId !== "string" || !clientId.trim()) {
     const userAgent = req.headers["user-agent"] || null;
 
     // busca config pelo widgetId
-const config = await db.getConfig(cleanClientId);
+const config = await db.getConfigLicense(cleanClientId);
 
 let licenseId = null;
 
