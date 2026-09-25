@@ -179,6 +179,15 @@ module.exports = {
     return config;
   },
 
+getConfigLicense: async (clientId) => {
+      const res = await pool.query(
+              `SELECT "licenseId" FROM configs WHERE "clientId"=$1`,
+                      [clientId.trim()]
+                          );
+
+                              return res.rows[0] || null;
+                              },
+
   // Função correta de log — compatível com sua tabela access_logs
   logAccess: async (
     clientId,
