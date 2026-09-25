@@ -315,8 +315,23 @@ app.post(
   async (req, res) => {
   try {
     const { clientId, referrer } = req.body || {};
-    if (!clientId) return res.status(400).json({ error: "clientId missing" });
 
+if (typeof clientId !== "string" || !clientId.trim()) {
+    return res.status(400).json({
+            error: "clientId missing"
+                });
+                }
+
+                if (referrer !== undefined && referrer !== null && typeof referrer !== "string") {
+                    return res.status(400).json({
+                            error: "referrer invalid"
+                                });
+                                }
+
+                                const cleanClientId = clientId.trim();
+                                const cleanReferrer = typeof referrer === "string"
+                                    ? referrer.trim()
+                                        : null;
     const rawIp = (req.headers["x-forwarded-for"] ||
         req.connection.remoteAddress ||
         "").split(",")[0].trim();
@@ -325,7 +340,7 @@ app.post(
     const userAgent = req.headers["user-agent"] || null;
 
     // busca config pelo widgetId
-const config = await db.getConfig(clientId);
+const config = await db.getConfig(cleanClientId);
 
 let licenseId = null;
 
@@ -349,7 +364,7 @@ if (licenseId) {
   isValid = check.rows.length > 0;
     }
 
-    await db.logAccess(clientId, ip, userAgent, referrer, isValid, {
+    await db.logAccess(cleanClientId, ip, userAgent, cleanReferrer, isValid, {
       forwarded_for: req.headers["x-forwarded-for"] || null
     });
 
