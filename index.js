@@ -384,7 +384,15 @@ app.get(
     max: 60
   }),
   async (req, res) => {
-  const clientId = req.params.clientId;
+    const clientId = req.params.clientId;
+
+    if (typeof clientId !== "string" || !clientId.trim()) {
+        return res.status(400).json({
+                error: "clientId inválido."
+                    });
+                    }
+
+                    const cleanClientId = clientId.trim();
 
 const rawIp =
   (req.headers["x-forwarded-for"] ||
@@ -410,16 +418,7 @@ if (!configRow) {
   return res.status(404).json({ error: "Configuração não encontrada." });
 }
 
-let realClientId = clientId; // fallback padrão
-
-if (configRow) {
-  realClientId =
-    configRow.licenseid ||
-    configRow.licenseId ||
-    configRow.clientid ||
-    configRow.clientId ||
-    clientId;
-  }
+const realClientId = configRow.licenseId;
 
 // REGISTRA LOG
 // valida se o licenseId existe na tabela allowed_clients
