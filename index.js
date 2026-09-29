@@ -515,8 +515,8 @@ const results = await queryDatabase(
     console.error("❌ Erro ao buscar posts:", err);
 
     db.logAccess(clientId, ip, userAgent, referrer, false, {
-      error: String(err),
-    });
+          error: "notion_query_failed"
+          });
 
     return res.status(500).json({
   error: "Não foi possível carregar os posts."
