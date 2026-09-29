@@ -198,8 +198,6 @@ getConfigLicense: async (clientId) => {
     extra = {}
   ) => {
     try {
-      console.log(">>> LOG ACCESS EXECUTANDO", { clientId, ip });
-
       const realClientId = extra.realClientId || null;
 
       await pool.query(
@@ -217,7 +215,6 @@ getConfigLicense: async (clientId) => {
         ]
       );
 
-      console.log(">>> SALVOU COM SUCESSO");
 
     } catch (err) {
       console.error("ERRO AO SALVAR LOG:", err);
