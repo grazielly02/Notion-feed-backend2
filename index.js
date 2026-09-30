@@ -342,16 +342,7 @@ if (typeof clientId !== "string" || !clientId.trim()) {
     // busca config pelo widgetId
 const config = await db.getConfigLicense(cleanClientId);
 
-let licenseId = null;
-
-if (config) {
-  licenseId =
-    config.licenseid ||
-    config.licenseId ||
-    config.clientid ||
-    config.clientId ||
-    null;
-}
+const licenseId = config?.licenseId || null;
 
 // valida pelo licenseId
 let isValid = false;
@@ -403,12 +394,6 @@ const ip = rawIp || null;
 const userAgent = req.headers["user-agent"] || null;
 const referrer = req.headers["referer"] || null;
 
-console.log(">>> ROTA /widget/:clientId/posts CHAMADA", {
-  clientId,
-  ip,
-  userAgent,
-  referrer,
-});
 
 try {
 
@@ -444,11 +429,6 @@ try {
     realClientId: realClientId
   });
 
-  console.log("<<< LOG INSERT OK", {
-    widgetId: clientId,
-    licenseId: realClientId,
-    isValid
-  });
 
 } catch (e) {
   console.error("!!! ERRO AO LOGAR:", e);
