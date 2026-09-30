@@ -97,17 +97,6 @@ if (parts.length !== 5 || parts[0] !== "enc" || parts[1] !== "v1") {
 module.exports = {
   query: (text, params) => pool.query(text, params),
 
-  saveAllowedClient: async (email, clientId) => {
-    const normalizedEmail = email.trim().toLowerCase();
-
-    await pool.query(
-        `INSERT INTO allowed_clients (email, "clientId")
-        VALUES ($1, $2)
-        ON CONFLICT (email) DO NOTHING`,
-        [normalizedEmail, clientId.trim()]
-    );
-},
-
   getAllowedClientByEmail: async (email) => {
     const normalizedEmail = email.trim().toLowerCase();
 
