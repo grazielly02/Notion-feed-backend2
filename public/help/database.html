@@ -831,6 +831,102 @@
 
 
     /* =========================================================
+       FINAL VERIFICATION
+    ========================================================= */
+
+    .verification {
+      margin-top: 27px;
+
+      padding:
+        21px
+        22px;
+
+      border:
+        1px solid var(--border-purple);
+
+      border-radius: var(--radius-lg);
+
+      background: var(--purple-soft);
+    }
+
+    .verification-intro {
+      color: var(--text-soft);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .verification-list {
+      display: grid;
+
+      gap: 11px;
+
+      margin-top: 18px;
+
+      list-style: none;
+    }
+
+    .verification-item {
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 10px;
+
+      color: var(--text);
+
+      font-size: 11px;
+
+      line-height: 1.5;
+    }
+
+    .verification-check {
+      width: 19px;
+      height: 19px;
+
+      flex:
+        0 0
+        19px;
+
+      display: grid;
+
+      place-items: center;
+
+      margin-top: 1px;
+
+      border-radius: 50%;
+
+      background: var(--green-bg);
+
+      color: var(--green);
+
+      font-size: 10px;
+
+      font-weight: 800;
+    }
+
+    .verification-note {
+      margin-top: 17px;
+
+      padding-top: 15px;
+
+      border-top:
+        1px solid var(--border-purple);
+
+      color: var(--text-soft);
+
+      font-size: 10px;
+
+      line-height: 1.55;
+    }
+
+    .verification-note strong {
+      color: var(--text);
+    }
+
+
+    /* =========================================================
        END / NEXT STEP
     ========================================================= */
 
@@ -1155,6 +1251,12 @@
           15px;
       }
 
+      .verification {
+        padding:
+          17px
+          18px;
+      }
+
       .ending {
         padding-top: 34px;
       }
@@ -1224,6 +1326,10 @@
       }
 
       .example {
+        border-radius: 14px;
+      }
+
+      .verification {
         border-radius: 14px;
       }
     }
@@ -1415,12 +1521,13 @@
             <div>
 
               <h3>
-                Adicione uma Database
+                Adicione uma Database inline
               </h3>
 
               <p>
-                Dentro da página, adicione uma Base de dados - in-line. É nela que ficarão seus
-                conteúdos.
+                Dentro da página, adicione uma
+                <strong>Database inline</strong>.
+                É nela que ficarão seus conteúdos.
               </p>
 
             </div>
@@ -1928,6 +2035,119 @@
             a necessidade de cada conteúdo.
           </p>
 
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           04 — VERIFICAÇÃO FINAL
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          04 · VERIFICAÇÃO FINAL
+        </span>
+
+        <h2 class="section-title">
+          Sua Database está pronta?
+        </h2>
+
+        <p class="section-description">
+          Antes de continuar, confira se a estrutura está
+          preparada para ser conectada ao VisualFeed.
+        </p>
+
+
+        <div class="verification">
+
+          <p class="verification-intro">
+            Confirme estes pontos:
+          </p>
+
+
+          <ul class="verification-list">
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                A Database foi criada
+                <strong>inline dentro da página do Notion</strong>.
+              </span>
+
+            </li>
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                A propriedade <strong>Mídia</strong> foi criada
+                como <strong>Arquivos e mídia</strong>.
+              </span>
+
+            </li>
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                A propriedade <strong>Post</strong> está configurada
+                como <strong>Título</strong>.
+              </span>
+
+            </li>
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                A propriedade <strong>Data de Publicação</strong>
+                está configurada como <strong>Data</strong>.
+              </span>
+
+            </li>
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                Você adicionou pelo menos
+                <strong>um conteúdo com uma imagem</strong>.
+              </span>
+
+            </li>
+
+
+          </ul>
+
+
+          <p class="verification-note">
+            <strong>Tudo certo?</strong>
+            Então sua Database está preparada para a próxima etapa.
+          </p>
 
         </div>
 
