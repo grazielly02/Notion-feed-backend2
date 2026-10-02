@@ -16,34 +16,40 @@
     :root {
       --purple: #7c3aed;
       --purple-light: #9d5cff;
-      --purple-soft: #f1eaff;
+      --purple-soft: #f2ecff;
       --purple-border: #e6dcff;
-      --text: #242329;
-      --text-soft: #6f6c78;
+      --text: #27242d;
+      --text-soft: #706c78;
       --background: #f8f6ff;
       --white: #ffffff;
-      --green: #22a06b;
-      --green-soft: #eaf9f2;
-      --shadow: 0 18px 45px rgba(91, 61, 140, 0.08);
+      --green: #27966a;
+      --green-soft: #edf9f4;
     }
 
     body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      padding: 42px 20px 60px;
       background:
         radial-gradient(
-          circle at top center,
+          circle at 50% 0%,
           rgba(157, 92, 255, 0.12),
           transparent 34%
         ),
         var(--background);
       color: var(--text);
-      min-height: 100vh;
-      padding: 48px 20px 64px;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
     }
 
     .page {
-      width: min(900px, 100%);
+      width: min(880px, 100%);
       margin: 0 auto;
     }
 
@@ -53,151 +59,157 @@
 
     .hero {
       text-align: center;
-      margin-bottom: 42px;
+      margin-bottom: 38px;
     }
 
     .hero-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 22px;
-      border-radius: 20px;
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 20px;
+      border-radius: 19px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: linear-gradient(
         135deg,
         var(--purple),
         var(--purple-light)
       );
-      display: flex;
-      align-items: center;
-      justify-content: center;
       box-shadow:
-        0 14px 30px rgba(124, 58, 237, 0.2);
+        0 14px 30px rgba(124, 58, 237, 0.18);
     }
 
     .hero-icon svg {
-      width: 30px;
-      height: 30px;
+      width: 29px;
+      height: 29px;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-block;
+      margin-bottom: 13px;
       padding: 7px 12px;
       border-radius: 999px;
       background: var(--purple-soft);
       color: var(--purple);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
+      letter-spacing: 0.1em;
     }
 
     .hero h1 {
-      font-size: clamp(28px, 5vw, 42px);
+      max-width: 680px;
+      margin: 0 auto 13px;
+      font-size: clamp(28px, 5vw, 40px);
       line-height: 1.1;
       letter-spacing: -0.035em;
       font-weight: 800;
-      margin-bottom: 14px;
     }
 
     .hero p {
-      max-width: 600px;
+      max-width: 590px;
       margin: 0 auto;
       color: var(--text-soft);
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.65;
     }
 
     /* =========================
-       MAIN CARD
+       MAIN
     ========================= */
 
-    .content-card {
+    .tutorial-card {
+      padding: 34px;
       background: var(--white);
       border: 1px solid rgba(124, 58, 237, 0.07);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      padding: 34px;
+      border-radius: 28px;
+      box-shadow:
+        0 18px 45px rgba(91, 61, 140, 0.08);
     }
 
     /* =========================
-       SECTIONS
+       TUTORIAL SECTIONS
     ========================= */
 
-    .tutorial-section {
-      padding: 30px 0;
+    .section {
+      padding: 29px 0;
     }
 
-    .tutorial-section:first-child {
-      padding-top: 4px;
+    .section:first-child {
+      padding-top: 3px;
     }
 
-    .tutorial-section + .tutorial-section {
-      border-top: 1px solid #eeeaf6;
+    .section + .section {
+      border-top: 1px solid #eeeaf5;
     }
 
-    .section-heading {
+    .section-header {
       display: flex;
       align-items: flex-start;
-      gap: 15px;
-      margin-bottom: 24px;
+      gap: 14px;
+      margin-bottom: 21px;
     }
 
     .section-number {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      border-radius: 13px;
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
       background: var(--purple-soft);
       color: var(--purple);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 800;
     }
 
-    .section-label {
+    .section-meta {
+      margin-bottom: 4px;
       color: var(--purple);
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 5px;
     }
 
-    .section-heading h2 {
-      font-size: 22px;
+    .section h2 {
+      font-size: 21px;
       line-height: 1.25;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
       font-weight: 800;
     }
 
+    .section-intro {
+      margin-bottom: 18px;
+      color: var(--text-soft);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
     /* =========================
-       STEPS
+       INSTRUCTION CONTENT
     ========================= */
 
-    .instruction-list {
+    .steps {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 9px;
     }
 
-    .instruction {
+    .step {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      padding: 17px 18px;
+      gap: 13px;
+      padding: 15px 16px;
       background: #fbfaff;
-      border: 1px solid #eeeaf7;
-      border-radius: 16px;
+      border: 1px solid #eeeaf6;
+      border-radius: 15px;
     }
 
-    .instruction-icon {
-      width: 26px;
-      height: 26px;
-      flex-shrink: 0;
+    .step-number {
+      flex: 0 0 auto;
+      width: 27px;
+      height: 27px;
       border-radius: 9px;
       background: var(--white);
       border: 1px solid var(--purple-border);
@@ -205,149 +217,141 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
     }
 
-    .instruction-content strong {
-      display: block;
-      font-size: 14px;
-      line-height: 1.4;
-      margin-bottom: 3px;
+    .step-text {
+      padding-top: 1px;
     }
 
-    .instruction-content span {
+    .step-text strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .step-text span {
       display: block;
       color: var(--text-soft);
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.55;
     }
 
     /* =========================
-       HIGHLIGHT BOX
+       NOTE
     ========================= */
 
-    .highlight {
-      margin-top: 18px;
-      padding: 18px 20px;
-      background: linear-gradient(
-        135deg,
-        #f7f2ff,
-        #fbf9ff
-      );
+    .note {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 15px;
+      background: #f8f4ff;
       border: 1px solid var(--purple-border);
-      border-radius: 17px;
     }
 
-    .highlight strong {
-      display: block;
+    .note-title {
+      margin-bottom: 4px;
       color: var(--purple);
-      font-size: 13px;
-      margin-bottom: 5px;
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    .highlight p {
+    .note p {
       color: var(--text-soft);
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.6;
     }
 
     /* =========================
-       CHECKLIST
+       FINAL CHECK
     ========================= */
 
-    .checklist {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+    .final-check {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
     }
 
-    .check-item {
+    .check {
       display: flex;
       align-items: center;
       gap: 11px;
-      padding: 15px 16px;
+      padding: 14px 15px;
+      border-radius: 14px;
       background: var(--green-soft);
-      border: 1px solid #d8f1e5;
-      border-radius: 15px;
-      color: #286c50;
-      font-size: 13px;
-      line-height: 1.4;
+      border: 1px solid #d8efe4;
+      color: #2a7055;
+      font-size: 12px;
       font-weight: 600;
     }
 
-    .check-icon {
-      width: 23px;
-      height: 23px;
-      flex-shrink: 0;
+    .check-mark {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: var(--green);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
     }
 
     /* =========================
-       FINAL TRANSITION
+       NEXT STEP
     ========================= */
 
-    .next-step {
-      margin-top: 32px;
-      padding: 28px;
-      border-radius: 22px;
-      background: linear-gradient(
-        135deg,
-        #f1eaff,
-        #faf8ff
-      );
+    .next {
+      margin-top: 28px;
+      padding: 27px 24px;
+      border-radius: 21px;
+      background:
+        linear-gradient(
+          135deg,
+          #f1eaff,
+          #faf8ff
+        );
       border: 1px solid var(--purple-border);
       text-align: center;
     }
 
-    .next-step-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: var(--white);
+    .next-label {
+      display: inline-block;
+      margin-bottom: 10px;
       color: var(--purple);
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 12px;
     }
 
-    .next-step h2 {
-      font-size: 22px;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
+    .next h2 {
+      margin-bottom: 7px;
+      font-size: 21px;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
     }
 
-    .next-step p {
-      max-width: 520px;
-      margin: 0 auto 20px;
+    .next p {
+      max-width: 510px;
+      margin: 0 auto 19px;
       color: var(--text-soft);
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.6;
     }
 
-    /* =========================
-       BUTTONS
-    ========================= */
-
-    .primary-btn {
+    .primary-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
-      min-height: 48px;
-      padding: 0 22px;
-      border-radius: 14px;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 21px;
+      border-radius: 13px;
       background: linear-gradient(
         135deg,
         var(--purple),
@@ -355,26 +359,28 @@
       );
       color: white;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      box-shadow: 0 10px 22px rgba(124, 58, 237, 0.2);
+      box-shadow:
+        0 9px 20px rgba(124, 58, 237, 0.19);
       transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
     }
 
-    .primary-btn:hover {
+    .primary-button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 13px 26px rgba(124, 58, 237, 0.25);
+      box-shadow:
+        0 12px 24px rgba(124, 58, 237, 0.23);
     }
 
     .back-link {
       display: block;
       width: fit-content;
-      margin: 22px auto 0;
+      margin: 20px auto 0;
       color: var(--text-soft);
       text-decoration: none;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
     }
 
@@ -387,8 +393,9 @@
     ========================= */
 
     @media (max-width: 640px) {
+
       body {
-        padding: 28px 14px 44px;
+        padding: 27px 14px 45px;
       }
 
       .hero {
@@ -396,15 +403,20 @@
       }
 
       .hero-icon {
-        width: 56px;
-        height: 56px;
+        width: 55px;
+        height: 55px;
+        margin-bottom: 17px;
         border-radius: 17px;
-        margin-bottom: 18px;
       }
 
       .hero-icon svg {
-        width: 27px;
-        height: 27px;
+        width: 26px;
+        height: 26px;
+      }
+
+      .eyebrow {
+        font-size: 9px;
+        padding: 6px 10px;
       }
 
       .hero h1 {
@@ -412,61 +424,86 @@
       }
 
       .hero p {
-        font-size: 14px;
-        line-height: 1.6;
-      }
-
-      .content-card {
-        border-radius: 22px;
-        padding: 22px 18px;
-      }
-
-      .tutorial-section {
-        padding: 25px 0;
-      }
-
-      .section-heading {
-        gap: 11px;
-        margin-bottom: 19px;
-      }
-
-      .section-number {
-        width: 36px;
-        height: 36px;
-        border-radius: 11px;
-        font-size: 11px;
-      }
-
-      .section-heading h2 {
-        font-size: 19px;
-      }
-
-      .instruction {
-        padding: 15px;
-        gap: 11px;
-      }
-
-      .instruction-content strong {
         font-size: 13px;
       }
 
-      .instruction-content span {
-        font-size: 12px;
+      .tutorial-card {
+        padding: 22px 17px;
+        border-radius: 22px;
       }
 
-      .checklist {
-        grid-template-columns: 1fr;
+      .section {
+        padding: 25px 0;
       }
 
-      .next-step {
-        padding: 23px 17px;
+      .section-header {
+        gap: 10px;
+        margin-bottom: 18px;
       }
 
-      .next-step h2 {
+      .section-number {
+        width: 35px;
+        height: 35px;
+        border-radius: 11px;
+        font-size: 10px;
+      }
+
+      .section h2 {
         font-size: 19px;
       }
 
-      .primary-btn {
+      .section-meta {
+        font-size: 9px;
+      }
+
+      .section-intro {
+        font-size: 12px;
+      }
+
+      .step {
+        padding: 14px;
+        gap: 10px;
+      }
+
+      .step-number {
+        width: 25px;
+        height: 25px;
+      }
+
+      .step-text strong {
+        font-size: 12px;
+      }
+
+      .step-text span {
+        font-size: 11px;
+      }
+
+      .note {
+        padding: 14px 15px;
+      }
+
+      .note-title {
+        font-size: 11px;
+      }
+
+      .note p {
+        font-size: 11px;
+      }
+
+      .check {
+        padding: 13px 14px;
+        font-size: 11px;
+      }
+
+      .next {
+        padding: 23px 16px;
+      }
+
+      .next h2 {
+        font-size: 19px;
+      }
+
+      .primary-button {
         width: 100%;
       }
     }
@@ -486,26 +523,28 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <rect
+            x="4"
+            y="4"
+            width="16"
+            height="16"
+            rx="4"
+            stroke="white"
+            stroke-width="1.8"
+          />
+
           <path
             d="M8 12H16"
             stroke="white"
             stroke-width="1.8"
             stroke-linecap="round"
           />
+
           <path
             d="M12 8V16"
             stroke="white"
             stroke-width="1.8"
             stroke-linecap="round"
-          />
-          <rect
-            x="3.5"
-            y="3.5"
-            width="17"
-            height="17"
-            rx="4"
-            stroke="white"
-            stroke-width="1.8"
           />
         </svg>
       </div>
@@ -515,33 +554,33 @@
       </div>
 
       <h1>
-        Conecte o Notion ao VisualFeed
+        Conecte sua Database ao VisualFeed
       </h1>
 
       <p>
-        Agora vamos criar a integração que permitirá ao VisualFeed
-        acessar os conteúdos da sua Database.
+        Agora vamos criar a integração no Notion e conectar
+        sua Database para que o VisualFeed possa acessar seus conteúdos.
       </p>
 
     </header>
 
 
-    <!-- CONTENT -->
-    <section class="content-card">
+    <!-- MAIN CARD -->
+    <section class="tutorial-card">
 
 
       <!-- 01 -->
-      <div class="tutorial-section">
+      <div class="section">
 
-        <div class="section-heading">
+        <div class="section-header">
 
           <div class="section-number">
             01
           </div>
 
           <div>
-            <div class="section-label">
-              Integração
+            <div class="section-meta">
+              INTEGRAÇÃO
             </div>
 
             <h2>
@@ -551,13 +590,17 @@
 
         </div>
 
+        <p class="section-intro">
+          A integração é o que permite que o VisualFeed
+          tenha acesso à sua Database.
+        </p>
 
-        <div class="instruction-list">
+        <div class="steps">
 
-          <div class="instruction">
-            <div class="instruction-icon">1</div>
+          <div class="step">
+            <div class="step-number">1</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Abra as integrações do Notion</strong>
 
               <span>
@@ -567,104 +610,107 @@
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">2</div>
+          <div class="step">
+            <div class="step-number">2</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Crie uma nova integração</strong>
 
               <span>
-                Clique em <strong>+ New integration</strong> para começar.
+                Clique em <strong>+ New integration</strong>.
               </span>
             </div>
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">3</div>
+          <div class="step">
+            <div class="step-number">3</div>
 
-            <div class="instruction-content">
-              <strong>Nomeie a integração como VISUALFEED</strong>
+            <div class="step-text">
+              <strong>Nomeie como VISUALFEED</strong>
 
               <span>
-                Use <strong>VISUALFEED</strong> como nome e selecione
-                o mesmo workspace onde está sua Database.
+                Use <strong>VISUALFEED</strong> como nome e
+                selecione o workspace onde está sua Database.
               </span>
             </div>
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">4</div>
+          <div class="step">
+            <div class="step-number">4</div>
 
-            <div class="instruction-content">
-              <strong>Escolha o tipo de integração</strong>
+            <div class="step-text">
+              <strong>Escolha o tipo Interna</strong>
 
               <span>
-                Selecione <strong>Interna</strong> e conclua a criação.
+                Selecione a opção de integração
+                <strong>Interna</strong> e conclua a criação.
               </span>
             </div>
           </div>
 
         </div>
 
-
-        <div class="highlight">
-
-          <strong>Importante</strong>
+        <div class="note">
+          <div class="note-title">
+            Atenção
+          </div>
 
           <p>
-            A integração deve estar no mesmo workspace em que
-            sua Database foi criada.
+            Use o mesmo workspace em que sua Database foi criada.
           </p>
-
         </div>
 
       </div>
 
 
       <!-- 02 -->
-      <div class="tutorial-section">
+      <div class="section">
 
-        <div class="section-heading">
+        <div class="section-header">
 
           <div class="section-number">
             02
           </div>
 
           <div>
-            <div class="section-label">
-              Token
+            <div class="section-meta">
+              TOKEN SECRETO
             </div>
 
             <h2>
-              Copie o token secreto
+              Copie o token da integração
             </h2>
           </div>
 
         </div>
 
+        <p class="section-intro">
+          Esse token será usado posteriormente para conectar
+          sua integração ao VisualFeed.
+        </p>
 
-        <div class="instruction-list">
+        <div class="steps">
 
-          <div class="instruction">
-            <div class="instruction-icon">1</div>
+          <div class="step">
+            <div class="step-number">1</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Abra as configurações da integração</strong>
 
               <span>
                 Entre nas configurações da integração
-                <strong>VISUALFEED</strong> que você acabou de criar.
+                <strong>VISUALFEED</strong>.
               </span>
             </div>
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">2</div>
+          <div class="step">
+            <div class="step-number">2</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Localize o Internal Integration Secret</strong>
 
               <span>
@@ -675,123 +721,125 @@
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">3</div>
+          <div class="step">
+            <div class="step-number">3</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Clique em Show</strong>
 
               <span>
-                Revele o token secreto para visualizar o código.
+                Revele o token para visualizar seu conteúdo.
               </span>
             </div>
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">4</div>
+          <div class="step">
+            <div class="step-number">4</div>
 
-            <div class="instruction-content">
-              <strong>Copie e guarde o token</strong>
+            <div class="step-text">
+              <strong>Copie o token</strong>
 
               <span>
-                Copie o token e mantenha-o em um local seguro.
-                Você precisará dele na configuração do VisualFeed.
+                Guarde-o em um local seguro. Você precisará
+                dele no painel do VisualFeed.
               </span>
             </div>
           </div>
 
         </div>
 
-
-        <div class="highlight">
-
-          <strong>⚠ Não compartilhe este token</strong>
+        <div class="note">
+          <div class="note-title">
+            Importante
+          </div>
 
           <p>
-            O token é uma credencial de acesso à sua integração.
-            Use-o somente no painel de configuração do VisualFeed.
+            Não compartilhe seu token. Ele funciona como uma
+            credencial de acesso à integração.
           </p>
-
         </div>
 
       </div>
 
 
       <!-- 03 -->
-      <div class="tutorial-section">
+      <div class="section">
 
-        <div class="section-heading">
+        <div class="section-header">
 
           <div class="section-number">
             03
           </div>
 
           <div>
-            <div class="section-label">
-              Conexão
+            <div class="section-meta">
+              CONEXÃO
             </div>
 
             <h2>
-              Conecte a integração à sua Database
+              Conecte a integração à Database
             </h2>
           </div>
 
         </div>
 
+        <p class="section-intro">
+          Agora precisamos autorizar a integração VISUALFEED
+          a acessar a Database que você preparou.
+        </p>
 
-        <div class="instruction-list">
+        <div class="steps">
 
-          <div class="instruction">
-            <div class="instruction-icon">1</div>
+          <div class="step">
+            <div class="step-number">1</div>
 
-            <div class="instruction-content">
-              <strong>Volte para a página da sua Database</strong>
+            <div class="step-text">
+              <strong>Volte para a página da Database</strong>
 
               <span>
-                Abra no Notion a página onde você criou sua
+                Abra no Notion a página onde está sua
                 <strong>Database inline</strong>.
               </span>
             </div>
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">2</div>
+          <div class="step">
+            <div class="step-number">2</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Abra o menu ⋯</strong>
 
               <span>
-                No canto superior direito da página, clique nos
-                três pontos para abrir as opções.
+                No canto superior direito, clique nos três pontos.
               </span>
             </div>
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">3</div>
+          <div class="step">
+            <div class="step-number">3</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Acesse Conexões</strong>
 
               <span>
-                Entre em <strong>Conexões</strong> e selecione
+                Selecione <strong>Conexões</strong> e depois
                 <strong>+ Adicionar conexão</strong>.
               </span>
             </div>
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">4</div>
+          <div class="step">
+            <div class="step-number">4</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Selecione VISUALFEED</strong>
 
               <span>
-                Procure pela integração <strong>VISUALFEED</strong>
+                Procure pela integração criada anteriormente
                 e confirme a conexão.
               </span>
             </div>
@@ -799,33 +847,21 @@
 
         </div>
 
-
-        <div class="highlight">
-
-          <strong>Por que isso é necessário?</strong>
-
-          <p>
-            Essa conexão permite que o VisualFeed tenha acesso
-            aos conteúdos da Database que você escolheu.
-          </p>
-
-        </div>
-
       </div>
 
 
       <!-- 04 -->
-      <div class="tutorial-section">
+      <div class="section">
 
-        <div class="section-heading">
+        <div class="section-header">
 
           <div class="section-number">
             04
           </div>
 
           <div>
-            <div class="section-label">
-              Link da Database
+            <div class="section-meta">
+              LINK DA DATABASE
             </div>
 
             <h2>
@@ -835,13 +871,17 @@
 
         </div>
 
+        <p class="section-intro">
+          Por último, copie o link completo da Database.
+          Ele será usado no painel de configuração.
+        </p>
 
-        <div class="instruction-list">
+        <div class="steps">
 
-          <div class="instruction">
-            <div class="instruction-icon">1</div>
+          <div class="step">
+            <div class="step-number">1</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Abra sua Database</strong>
 
               <span>
@@ -851,92 +891,90 @@
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">2</div>
+          <div class="step">
+            <div class="step-number">2</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Abra o menu ⋯</strong>
 
               <span>
-                Clique nos três pontos para abrir as opções da Database.
+                Clique nos três pontos para abrir as opções.
               </span>
             </div>
           </div>
 
 
-          <div class="instruction">
-            <div class="instruction-icon">3</div>
+          <div class="step">
+            <div class="step-number">3</div>
 
-            <div class="instruction-content">
+            <div class="step-text">
               <strong>Selecione Copiar link</strong>
 
               <span>
-                Copie o link completo da sua Database e guarde-o
-                junto com o token secreto.
+                Copie o link completo e guarde-o junto
+                com o token secreto.
               </span>
             </div>
           </div>
 
         </div>
 
-
-        <div class="highlight">
-
-          <strong>Você não precisa extrair o ID</strong>
+        <div class="note">
+          <div class="note-title">
+            Você não precisa extrair o ID
+          </div>
 
           <p>
-            No próximo passo, basta colar o
-            <strong>link completo da Database</strong>.
-            O VisualFeed identifica as informações necessárias automaticamente.
+            Basta copiar o <strong>link completo da Database</strong>.
+            O VisualFeed identifica as informações necessárias
+            automaticamente.
           </p>
-
         </div>
 
       </div>
 
 
-      <!-- CHECKLIST -->
-      <div class="tutorial-section">
+      <!-- FINAL CHECK -->
+      <div class="section">
 
-        <div class="section-heading">
+        <div class="section-header">
 
           <div class="section-number">
             ✓
           </div>
 
           <div>
-            <div class="section-label">
-              Verificação
+            <div class="section-meta">
+              VERIFICAÇÃO FINAL
             </div>
 
             <h2>
-              Antes de continuar
+              Está tudo pronto?
             </h2>
           </div>
 
         </div>
 
+        <div class="final-check">
 
-        <div class="checklist">
-
-          <div class="check-item">
-            <div class="check-icon">✓</div>
+          <div class="check">
+            <div class="check-mark">✓</div>
             <span>Integração VISUALFEED criada</span>
           </div>
 
-          <div class="check-item">
-            <div class="check-icon">✓</div>
+          <div class="check">
+            <div class="check-mark">✓</div>
             <span>Token secreto copiado</span>
           </div>
 
-          <div class="check-item">
-            <div class="check-icon">✓</div>
+          <div class="check">
+            <div class="check-mark">✓</div>
             <span>VISUALFEED conectado à Database</span>
           </div>
 
-          <div class="check-item">
-            <div class="check-icon">✓</div>
-            <span>Link da Database copiado</span>
+          <div class="check">
+            <div class="check-mark">✓</div>
+            <span>Link completo da Database copiado</span>
           </div>
 
         </div>
@@ -944,29 +982,27 @@
       </div>
 
 
-      <!-- NEXT -->
-      <div class="next-step">
+      <!-- NEXT STEP -->
+      <div class="next">
 
-        <div class="next-step-badge">
-          <span>✓</span>
-          Tudo pronto
+        <div class="next-label">
+          Próximo passo
         </div>
 
         <h2>
-          Sua conexão está preparada.
+          Sua Database está conectada.
         </h2>
 
         <p>
-          Agora você já tem as duas informações necessárias:
+          Agora você já tem tudo o que precisa para continuar:
           o token secreto e o link da sua Database.
-          No próximo passo, vamos acessar o painel do VisualFeed.
         </p>
 
         <a
           href="painel.html"
-          class="primary-btn"
+          class="primary-button"
         >
-          Acessar o painel
+          Continuar para o painel
           <span>→</span>
         </a>
 
@@ -985,4 +1021,4 @@
   </main>
 
 </body>
-  </html>
+</html>
