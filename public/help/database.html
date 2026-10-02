@@ -35,6 +35,7 @@
             height="30"
             viewBox="0 0 24 24"
             fill="none"
+            aria-hidden="true"
           >
             <path
               d="M4 5.5C4 4.67 4.67 4 5.5 4H18.5C19.33 4 20 4.67 20 5.5V18.5C20 19.33 19.33 20 18.5 20H5.5C4.67 20 4 19.33 4 18.5V5.5Z"
@@ -54,41 +55,389 @@
 
         <div class="welcome-badge">
           <span class="badge-dot"></span>
-          ETAPA 1 DE 3
+          PRIMEIRO PASSO
         </div>
 
         <h1>Prepare sua Database</h1>
 
         <p class="guide-intro">
-          A Database será a fonte de conteúdo do seu VisualFeed.
-          Prepare essa estrutura no Notion antes de seguir para a integração.
+          Sua Database será a fonte de conteúdo do VisualFeed.
+          Prepare-a no Notion antes de continuar.
         </p>
 
       </header>
 
 
-      <!-- ETAPA 01 -->
+      <!-- O ESSENCIAL -->
 
-      <section class="guide-section">
+      <section class="guide-section essential-section">
 
         <div class="guide-section-heading">
 
-          <div class="guide-section-number">
+          <div class="guide-section-number essential-number">
             01
           </div>
 
           <div>
-            <h2>Crie sua Database</h2>
+            <span class="section-label">ESSENCIAL</span>
+
+            <h2>Mídia</h2>
 
             <p>
-              Comece criando a base onde seus posts ficarão organizados.
+              É o conteúdo visual que será exibido no VisualFeed.
             </p>
           </div>
 
         </div>
 
 
+        <article class="highlight-property">
+
+          <div class="property-icon">
+
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="3"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+
+              <circle
+                cx="8.5"
+                cy="8.5"
+                r="1.5"
+                fill="currentColor"
+              />
+
+              <path
+                d="M4 17L9 12L13 16L15.5 13.5L20 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+          </div>
+
+          <div class="highlight-property-content">
+
+            <span class="property-type">
+              ARQUIVOS E MÍDIA
+            </span>
+
+            <strong>Mídia</strong>
+
+            <p>
+              Adicione as imagens ou vídeos que deseja exibir no seu feed.
+              Também é possível utilizar mídias externas quando aplicável.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <div class="guide-note important-note">
+
+          <strong>Importante:</strong>
+          cada conteúdo que você quiser exibir no VisualFeed precisa ter
+          uma mídia associada.
+
+        </div>
+
+      </section>
+
+
+      <!-- RECOMENDADO -->
+
+      <section class="guide-section recommended-section">
+
+        <div class="guide-section-heading">
+
+          <div class="guide-section-number recommended-number">
+            02
+          </div>
+
+          <div>
+
+            <span class="section-label">
+              RECOMENDADO
+            </span>
+
+            <h2>Organize seus conteúdos</h2>
+
+            <p>
+              Esses campos ajudam a deixar seu feed mais completo e organizado.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="property-list recommended-list">
+
+
+          <!-- POST -->
+
+          <article class="property-card featured-property">
+
+            <div class="property-card-top">
+
+              <span class="property-type">
+                TÍTULO
+              </span>
+
+              <span class="property-status recommended-status">
+                RECOMENDADO
+              </span>
+
+            </div>
+
+            <strong>Post</strong>
+
+            <p>
+              Nome ou título que identifica o conteúdo no VisualFeed.
+            </p>
+
+          </article>
+
+
+          <!-- DATA -->
+
+          <article class="property-card featured-property">
+
+            <div class="property-card-top">
+
+              <span class="property-type">
+                DATA
+              </span>
+
+              <span class="property-status recommended-status">
+                RECOMENDADO
+              </span>
+
+            </div>
+
+            <strong>Data de Publicação</strong>
+
+            <p>
+              Define a ordem dos conteúdos no feed.
+              Os posts mais recentes aparecem primeiro e os posts sem data
+              ficam no final.
+            </p>
+
+          </article>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- RECURSOS OPCIONAIS -->
+
+      <section class="guide-section">
+
+        <div class="guide-section-heading">
+
+          <div class="guide-section-number">
+            03
+          </div>
+
+          <div>
+
+            <span class="section-label">
+              RECURSOS OPCIONAIS
+            </span>
+
+            <h2>Escolha o que você quer usar</h2>
+
+            <p>
+              Adicione somente os recursos que fizerem sentido para o seu conteúdo.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="property-list optional-list">
+
+
+          <!-- OCULTAR -->
+
+          <article class="property-card">
+
+            <span class="property-type">
+              CAIXA DE SELEÇÃO
+            </span>
+
+            <strong>Ocultar Visualização</strong>
+
+            <p>
+              Esconde um conteúdo do VisualFeed sem precisar removê-lo da Database.
+            </p>
+
+          </article>
+
+
+          <!-- EDITORIA -->
+
+          <article class="property-card">
+
+            <span class="property-type">
+              SELECIONAR
+            </span>
+
+            <strong>Editoria</strong>
+
+            <p>
+              Organiza os conteúdos por categoria ou tema.
+            </p>
+
+          </article>
+
+
+          <!-- FORMATO -->
+
+          <article class="property-card">
+
+            <span class="property-type">
+              SELECIONAR
+            </span>
+
+            <strong>Formato</strong>
+
+            <p>
+              Identifica o tipo de conteúdo, como imagem, vídeo, carrossel ou reels.
+            </p>
+
+          </article>
+
+
+          <!-- FIXADO -->
+
+          <article class="property-card">
+
+            <span class="property-type">
+              NÚMERO
+            </span>
+
+            <strong>Fixado</strong>
+
+            <p>
+              Permite posicionar conteúdos em áreas de destaque do feed.
+            </p>
+
+          </article>
+
+
+          <!-- CAPA -->
+
+          <article class="property-card">
+
+            <span class="property-type">
+              ARQUIVOS E MÍDIA
+            </span>
+
+            <strong>Capa do Vídeo</strong>
+
+            <p>
+              Define a imagem de capa exibida para um vídeo.
+            </p>
+
+          </article>
+
+
+          <!-- LINK DA MÍDIA -->
+
+          <article class="property-card">
+
+            <span class="property-type">
+              URL
+            </span>
+
+            <strong>Link da Mídia</strong>
+
+            <p>
+              Permite fornecer uma mídia por meio de um link externo.
+            </p>
+
+          </article>
+
+
+          <!-- DESIGN INCORPORADO -->
+
+          <article class="property-card">
+
+            <span class="property-type">
+              URL
+            </span>
+
+            <strong>Design Incorporado</strong>
+
+            <p>
+              Permite incorporar designs externos, como conteúdos do Canva ou Figma.
+            </p>
+
+          </article>
+
+
+        </div>
+
+
+        <div class="guide-note">
+
+          <strong>Dica:</strong>
+          crie os nomes das propriedades exatamente como aparecem acima.
+          Assim, o VisualFeed consegue reconhecer cada informação corretamente.
+
+        </div>
+
+      </section>
+
+
+      <!-- COMO CRIAR -->
+
+      <section class="guide-section">
+
+        <div class="guide-section-heading">
+
+          <div class="guide-section-number">
+            04
+          </div>
+
+          <div>
+
+            <span class="section-label">
+              NO NOTION
+            </span>
+
+            <h2>Crie sua Database</h2>
+
+            <p>
+              Agora monte essa estrutura dentro do workspace onde você usará o VisualFeed.
+            </p>
+
+          </div>
+
+        </div>
+
+
         <div class="guide-steps">
+
 
           <div class="guide-step">
 
@@ -101,7 +450,7 @@
               <strong>Abra o Notion</strong>
 
               <p>
-                Acesse sua conta e entre no workspace onde deseja usar o VisualFeed.
+                Acesse o workspace onde deseja utilizar o VisualFeed.
               </p>
 
             </div>
@@ -136,10 +485,10 @@
 
             <div class="guide-step-content">
 
-              <strong>Adicione uma Database</strong>
+              <strong>Adicione uma base de dados in-line</strong>
 
               <p>
-                Crie uma tabela no Notion para organizar os conteúdos do seu feed.
+                Crie uma Database para organizar os conteúdos que serão exibidos no feed.
               </p>
 
             </div>
@@ -155,225 +504,64 @@
 
             <div class="guide-step-content">
 
-              <strong>Dê um nome para sua Database</strong>
+              <strong>Configure as propriedades</strong>
 
               <p>
-                Escolha um nome fácil de identificar, como “Posts do VisualFeed”.
+                Crie os campos essenciais e recomendados e adicione os recursos opcionais
+                que desejar utilizar.
               </p>
 
             </div>
 
           </div>
 
-        </div>
 
-      </section>
+          <div class="guide-step">
 
+            <div class="guide-step-number">
+              5
+            </div>
 
-      <!-- ETAPA 02 -->
+            <div class="guide-step-content">
 
-      <section class="guide-section">
+              <strong>Dê um nome para sua Database</strong>
 
-        <div class="guide-section-heading">
+              <p>
+                Escolha um nome que facilite a identificação da sua base no Notion.
+              </p>
 
-          <div class="guide-section-number">
-            02
+            </div>
+
           </div>
 
-          <div>
-            <h2>Adicione as propriedades</h2>
-
-            <p>
-              Essas são as informações que o VisualFeed utiliza para montar seu conteúdo.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div class="property-list">
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              TÍTULO
-            </span>
-
-            <strong>Post</strong>
-
-            <p>
-              Nome ou título do conteúdo.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              CAIXA DE SELEÇÃO
-            </span>
-
-            <strong>Ocultar Visualização</strong>
-
-            <p>
-              Oculta o post do VisualFeed quando marcada.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              DATA
-            </span>
-
-            <strong>Data de Publicação</strong>
-
-            <p>
-              Data associada ao conteúdo.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              ARQUIVOS E MÍDIA
-            </span>
-
-            <strong>Mídia</strong>
-
-            <p>
-              Imagens ou vídeos utilizados no post.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              URL
-            </span>
-
-            <strong>Link da Mídia</strong>
-
-            <p>
-              Link externo de uma mídia, quando necessário.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              SELECIONAR
-            </span>
-
-            <strong>Editoria</strong>
-
-            <p>
-              Categoria ou tema do conteúdo.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              ARQUIVOS E MÍDIA
-            </span>
-
-            <strong>Capa do Vídeo</strong>
-
-            <p>
-              Imagem utilizada como capa de um vídeo.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              URL
-            </span>
-
-            <strong>Design Incorporado</strong>
-
-            <p>
-              Link de um design que será incorporado ao conteúdo.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              SELECIONAR
-            </span>
-
-            <strong>Formato</strong>
-
-            <p>
-              Define o formato do conteúdo.
-            </p>
-
-          </article>
-
-
-          <article class="property-card">
-
-            <span class="property-type">
-              NÚMERO
-            </span>
-
-            <strong>Fixado</strong>
-
-            <p>
-              Define a posição de um conteúdo fixado.
-            </p>
-
-          </article>
-
-
-        </div>
-
-
-        <div class="guide-note">
-
-          <strong>Dica:</strong>
-          crie os nomes exatamente como aparecem acima.
-          Isso ajuda o VisualFeed a reconhecer cada informação corretamente.
 
         </div>
 
       </section>
 
 
-      <!-- ETAPA 03 -->
+      <!-- CHECKLIST -->
 
-      <section class="guide-section">
+      <section class="guide-section checklist-section">
 
         <div class="guide-section-heading">
 
           <div class="guide-section-number">
-            03
+            05
           </div>
 
           <div>
-            <h2>Deixe tudo pronto</h2>
+
+            <span class="section-label">
+              CONFERÊNCIA
+            </span>
+
+            <h2>Antes de continuar</h2>
 
             <p>
-              Uma última conferência antes de conectar o Notion.
+              Faça uma última conferência na sua Database.
             </p>
+
           </div>
 
         </div>
@@ -383,7 +571,9 @@
 
           <div class="check-item">
 
-            <span class="check-icon">✓</span>
+            <span class="check-icon">
+              ✓
+            </span>
 
             Database criada no Notion
 
@@ -392,27 +582,44 @@
 
           <div class="check-item">
 
-            <span class="check-icon">✓</span>
+            <span class="check-icon">
+              ✓
+            </span>
 
-            As propriedades foram adicionadas
-
-          </div>
-
-
-          <div class="check-item">
-
-            <span class="check-icon">✓</span>
-
-            Os nomes das propriedades foram conferidos
+            Propriedade <strong>Mídia</strong> criada
 
           </div>
 
 
           <div class="check-item">
 
-            <span class="check-icon">✓</span>
+            <span class="check-icon">
+              ✓
+            </span>
 
-            A Database está no workspace correto
+            Propriedades recomendadas configuradas
+
+          </div>
+
+
+          <div class="check-item">
+
+            <span class="check-icon">
+              ✓
+            </span>
+
+            Recursos opcionais adicionados, se desejados
+
+          </div>
+
+
+          <div class="check-item">
+
+            <span class="check-icon">
+              ✓
+            </span>
+
+            Nomes das propriedades conferidos
 
           </div>
 
@@ -434,8 +641,8 @@
         </h2>
 
         <p>
-          Na próxima etapa, você vai criar a integração,
-          obter seu token secreto e permitir o acesso à Database.
+          Na próxima etapa, você vai criar sua integração,
+          copiar o token secreto e conectá-la à Database.
         </p>
 
         <a
@@ -448,6 +655,8 @@
       </div>
 
 
+      <!-- VOLTAR -->
+
       <a
         href="welcome.html"
         class="guide-back"
@@ -455,11 +664,9 @@
         ← Voltar para o início
       </a>
 
-
     </section>
 
   </main>
 
 </body>
-
-  </html>
+          </html>
