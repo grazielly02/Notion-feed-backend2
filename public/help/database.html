@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f8f7f4">
 
   <title>VisualFeed • Prepare sua Database</title>
 
@@ -11,394 +11,455 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    .guide-content {
-      margin-top: 28px;
-      color: #383838;
-      line-height: 1.7;
-    }
-
-    .guide-content h2 {
-      margin: 0 0 12px;
-      font-size: 1.2rem;
-      line-height: 1.4;
-    }
-
-    .guide-content h3 {
-      margin: 22px 0 8px;
-      font-size: 1rem;
-    }
-
-    .guide-content p {
-      margin: 8px 0 14px;
-    }
-
-    .guide-content ol,
-    .guide-content ul {
-      padding-left: 22px;
-      margin: 10px 0 18px;
-    }
-
-    .guide-content li {
-      margin-bottom: 8px;
-    }
-
-    .guide-note {
-      margin: 22px 0;
-      padding: 16px;
-      border-radius: 12px;
-      background: #f3f0e9;
-      font-size: 0.94rem;
-    }
-
-    .guide-table-wrap {
-      width: 100%;
-      overflow-x: auto;
-      margin: 18px 0 24px;
-      border: 1px solid #e7e4dd;
-      border-radius: 12px;
-    }
-
-    .guide-table {
-      width: 100%;
-      min-width: 470px;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-
-    .guide-table th,
-    .guide-table td {
-      padding: 12px;
-      text-align: left;
-      vertical-align: top;
-      border-bottom: 1px solid #e7e4dd;
-    }
-
-    .guide-table th {
-      background: #f3f0e9;
-      font-weight: 700;
-    }
-
-    .guide-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .guide-checklist {
-      list-style: none;
-      padding-left: 0 !important;
-    }
-
-    .guide-checklist li {
-      position: relative;
-      padding-left: 28px;
-    }
-
-    .guide-checklist li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 5px;
-      width: 16px;
-      height: 16px;
-      border: 1px solid #b9b3a8;
-      border-radius: 4px;
-    }
-
-    .guide-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 26px;
-    }
-
-    .guide-secondary-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 20px;
-      border: 1px solid #dedad1;
-      border-radius: 10px;
-      color: inherit;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .guide-small {
-      color: #696969;
-      font-size: 0.88rem;
-    }
-
-    @media (max-width: 520px) {
-      .guide-content {
-        margin-top: 22px;
-      }
-
-      .guide-table {
-        font-size: 0.82rem;
-      }
-
-      .guide-table th,
-      .guide-table td {
-        padding: 10px;
-      }
-
-      .guide-actions > a {
-        width: 100%;
-        box-sizing: border-box;
-        text-align: center;
-      }
-    }
-  </style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 </head>
 
 <body class="welcome-page">
+
   <main class="welcome-container">
-    <section class="welcome-card">
 
-      <div class="welcome-badge">
-        <span class="badge-dot"></span>
-        ETAPA 1 DE 3
-      </div>
+    <section class="welcome-card guide-page">
 
-      <h1>Prepare sua Database no Notion</h1>
+      <!-- CABEÇALHO -->
 
-      <p class="hero-text">
-        Antes de configurar seu VisualFeed, você precisa criar uma Database
-        com as propriedades que o feed utiliza para organizar e exibir seus posts.
-        Siga este guia com calma.
-      </p>
+      <header class="guide-header">
 
-      <div class="quick-info">
-        <div class="info-box">
-          <small>Você vai precisar</small>
-          <strong>Uma conta no Notion</strong>
-          <p>Use o workspace em que deseja manter seus posts.</p>
+        <div class="welcome-icon">
+
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M4 5.5C4 4.67 4.67 4 5.5 4H18.5C19.33 4 20 4.67 20 5.5V18.5C20 19.33 19.33 20 18.5 20H5.5C4.67 20 4 19.33 4 18.5V5.5Z"
+              stroke="white"
+              stroke-width="1.8"
+            />
+
+            <path
+              d="M8 8H16M8 12H16M8 16H12"
+              stroke="white"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+
         </div>
 
-        <div class="info-box">
-          <small>O objetivo</small>
-          <strong>Uma Database pronta</strong>
-          <p>Ela será a fonte de conteúdo do seu VisualFeed.</p>
+        <div class="welcome-badge">
+          <span class="badge-dot"></span>
+          ETAPA 1 DE 3
         </div>
-      </div>
 
-      <div class="guide-content">
+        <h1>Prepare sua Database</h1>
 
-        <section>
-          <h2>1. Crie sua Database</h2>
+        <p class="guide-intro">
+          A Database será a fonte de conteúdo do seu VisualFeed.
+          Prepare essa estrutura no Notion antes de seguir para a integração.
+        </p>
 
-          <ol>
-            <li>
-              Acesse o
-              <a href="https://www.notion.so/" target="_blank" rel="noopener noreferrer">
-                Notion
-              </a>
-              e entre na sua conta.
-            </li>
-            <li>Abra o workspace em que deseja organizar os posts.</li>
-            <li>Crie uma página nova para o seu feed.</li>
-            <li>
-              Dentro da página, crie uma Database no formato de tabela.
-              Você pode usar a opção de tabela em linha ou uma tabela em página inteira.
-            </li>
-            <li>
-              Dê um nome fácil de reconhecer, como
-              <strong>Posts do VisualFeed</strong>.
-            </li>
-          </ol>
+      </header>
 
-          <div class="guide-note">
-            <strong>Importante:</strong> o VisualFeed lê os dados da Database.
-            Criar apenas uma tabela comum, sem as propriedades abaixo,
-            não é suficiente.
-          </div>
-        </section>
 
-        <section>
-          <h2>2. Configure as propriedades</h2>
+      <!-- ETAPA 01 -->
 
-          <p>
-            Agora, organize as colunas da sua Database. Os nomes e tipos abaixo
-            devem corresponder aos campos que o VisualFeed utiliza.
-          </p>
+      <section class="guide-section">
 
-          <div class="guide-table-wrap">
-            <table class="guide-table">
-              <thead>
-                <tr>
-                  <th>Tipo no Notion</th>
-                  <th>Nome da propriedade</th>
-                  <th>Para que serve</th>
-                </tr>
-              </thead>
+        <div class="guide-section-heading">
 
-              <tbody>
-                <tr>
-                  <td>Título</td>
-                  <td><strong>Post</strong></td>
-                  <td>Nome ou título do post. Renomeie a propriedade de título padrão para “Post”.</td>
-                </tr>
-                <tr>
-                  <td>Caixa de seleção</td>
-                  <td><strong>Ocultar Visualização</strong></td>
-                  <td>Permite ocultar um post do feed quando marcada.</td>
-                </tr>
-                <tr>
-                  <td>Data</td>
-                  <td><strong>Data de Publicação</strong></td>
-                  <td>Data associada ao post.</td>
-                </tr>
-                <tr>
-                  <td>Arquivos e mídia</td>
-                  <td><strong>Mídia</strong></td>
-                  <td>Permite adicionar arquivos de imagem ou vídeo.</td>
-                </tr>
-                <tr>
-                  <td>URL</td>
-                  <td><strong>Link da Mídia</strong></td>
-                  <td>Campo alternativo para um link externo de mídia.</td>
-                </tr>
-                <tr>
-                  <td>Selecionar</td>
-                  <td><strong>Editoria</strong></td>
-                  <td>Categoria ou tema do post.</td>
-                </tr>
-                <tr>
-                  <td>Arquivos e mídia</td>
-                  <td><strong>Capa do Vídeo</strong></td>
-                  <td>Imagem de capa para vídeos, quando aplicável.</td>
-                </tr>
-                <tr>
-                  <td>URL</td>
-                  <td><strong>Design Incorporado</strong></td>
-                  <td>Link de um design incorporável, como um projeto do Canva.</td>
-                </tr>
-                <tr>
-                  <td>Selecionar</td>
-                  <td><strong>Formato</strong></td>
-                  <td>Identifica o formato do conteúdo.</td>
-                </tr>
-                <tr>
-                  <td>Número</td>
-                  <td><strong>Fixado</strong></td>
-                  <td>Define a posição de um post fixado no feed.</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="guide-section-number">
+            01
           </div>
 
-          <h3>Como criar ou alterar uma propriedade</h3>
+          <div>
+            <h2>Crie sua Database</h2>
 
-          <ol>
-            <li>Na tabela, clique no nome de uma coluna.</li>
-            <li>Escolha a opção para editar ou alterar o tipo da propriedade, quando necessário.</li>
-            <li>Para criar uma nova coluna, use o botão de adicionar propriedade.</li>
-            <li>Digite o nome exatamente como aparece na tabela acima e selecione o tipo correspondente.</li>
-            <li>Repita até configurar todas as propriedades.</li>
-          </ol>
-
-          <div class="guide-note">
-            <strong>Atenção aos nomes:</strong> respeite os espaços e a grafia
-            indicados neste guia. Evite criar duas propriedades com a mesma função.
+            <p>
+              Comece criando a base onde seus posts ficarão organizados.
+            </p>
           </div>
-        </section>
 
-        <section>
-          <h2>3. Configure as opções de seleção</h2>
+        </div>
 
-          <p>
-            Nas propriedades do tipo <strong>Selecionar</strong>, você pode
-            criar opções para organizar seus conteúdos.
-          </p>
 
-          <h3>Na propriedade “Formato”</h3>
+        <div class="guide-steps">
 
-          <p>Crie as opções que correspondem aos formatos que pretende usar:</p>
+          <div class="guide-step">
 
-          <ul>
-            <li>Imagem</li>
-            <li>Vídeo</li>
-            <li>Carrossel</li>
-            <li>Reels</li>
-          </ul>
+            <div class="guide-step-number">
+              1
+            </div>
 
-          <h3>Na propriedade “Editoria”</h3>
+            <div class="guide-step-content">
 
-          <p>
-            Adicione as categorias que fizerem sentido para seu conteúdo.
-            Por exemplo: Bastidores, Educativo, Institucional ou Dicas.
-          </p>
+              <strong>Abra o Notion</strong>
 
-          <p class="guide-small">
-            As opções de Editoria são exemplos. Personalize-as de acordo com
-            a organização dos seus posts.
-          </p>
-        </section>
+              <p>
+                Acesse sua conta e entre no workspace onde deseja usar o VisualFeed.
+              </p>
 
-        <section>
-          <h2>4. Entenda os campos de mídia</h2>
+            </div>
 
-          <ul>
-            <li>
-              <strong>Mídia:</strong> use para adicionar um arquivo diretamente
-              à Database.
-            </li>
-            <li>
-              <strong>Link da Mídia:</strong> campo alternativo para informar
-              um endereço externo de mídia.
-            </li>
-            <li>
-              <strong>Capa do Vídeo:</strong> use quando precisar associar
-              uma imagem de capa ao vídeo.
-            </li>
-            <li>
-              <strong>Design Incorporado:</strong> use para informar o link
-              de um design que possa ser incorporado, como um design do Canva.
-            </li>
-          </ul>
-
-          <p>
-            Os campos de link e de incorporação são opcionais. Preencha-os
-            conforme o tipo de conteúdo que deseja exibir.
-          </p>
-        </section>
-
-        <section>
-          <h2>5. Confira antes de continuar</h2>
-
-          <p>Revise sua Database e confirme se você:</p>
-
-          <ul class="guide-checklist">
-            <li>Criou uma Database no Notion.</li>
-            <li>Configurou as dez propriedades indicadas.</li>
-            <li>Conferiu os nomes e os tipos das propriedades.</li>
-            <li>Adicionou as opções desejadas em “Formato”.</li>
-            <li>Salvou a página no workspace correto.</li>
-          </ul>
-
-          <div class="result-box">
-            <strong>Próxima etapa:</strong> agora você vai criar uma integração
-            no Notion, obter seu token secreto e permitir que ela acesse
-            a Database que acabou de preparar.
           </div>
-        </section>
 
-      </div>
 
-      <div class="guide-actions">
-        <a href="welcome.html" class="guide-secondary-btn">
-          Voltar
+          <div class="guide-step">
+
+            <div class="guide-step-number">
+              2
+            </div>
+
+            <div class="guide-step-content">
+
+              <strong>Crie uma nova página</strong>
+
+              <p>
+                Essa página será o espaço onde sua Database ficará armazenada.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="guide-step">
+
+            <div class="guide-step-number">
+              3
+            </div>
+
+            <div class="guide-step-content">
+
+              <strong>Adicione uma Database</strong>
+
+              <p>
+                Crie uma tabela no Notion para organizar os conteúdos do seu feed.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="guide-step">
+
+            <div class="guide-step-number">
+              4
+            </div>
+
+            <div class="guide-step-content">
+
+              <strong>Dê um nome para sua Database</strong>
+
+              <p>
+                Escolha um nome fácil de identificar, como “Posts do VisualFeed”.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ETAPA 02 -->
+
+      <section class="guide-section">
+
+        <div class="guide-section-heading">
+
+          <div class="guide-section-number">
+            02
+          </div>
+
+          <div>
+            <h2>Adicione as propriedades</h2>
+
+            <p>
+              Essas são as informações que o VisualFeed utiliza para montar seu conteúdo.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="property-list">
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              TÍTULO
+            </span>
+
+            <strong>Post</strong>
+
+            <p>
+              Nome ou título do conteúdo.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              CAIXA DE SELEÇÃO
+            </span>
+
+            <strong>Ocultar Visualização</strong>
+
+            <p>
+              Oculta o post do VisualFeed quando marcada.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              DATA
+            </span>
+
+            <strong>Data de Publicação</strong>
+
+            <p>
+              Data associada ao conteúdo.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              ARQUIVOS E MÍDIA
+            </span>
+
+            <strong>Mídia</strong>
+
+            <p>
+              Imagens ou vídeos utilizados no post.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              URL
+            </span>
+
+            <strong>Link da Mídia</strong>
+
+            <p>
+              Link externo de uma mídia, quando necessário.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              SELECIONAR
+            </span>
+
+            <strong>Editoria</strong>
+
+            <p>
+              Categoria ou tema do conteúdo.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              ARQUIVOS E MÍDIA
+            </span>
+
+            <strong>Capa do Vídeo</strong>
+
+            <p>
+              Imagem utilizada como capa de um vídeo.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              URL
+            </span>
+
+            <strong>Design Incorporado</strong>
+
+            <p>
+              Link de um design que será incorporado ao conteúdo.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              SELECIONAR
+            </span>
+
+            <strong>Formato</strong>
+
+            <p>
+              Define o formato do conteúdo.
+            </p>
+
+          </article>
+
+
+          <article class="property-card">
+
+            <span class="property-type">
+              NÚMERO
+            </span>
+
+            <strong>Fixado</strong>
+
+            <p>
+              Define a posição de um conteúdo fixado.
+            </p>
+
+          </article>
+
+
+        </div>
+
+
+        <div class="guide-note">
+
+          <strong>Dica:</strong>
+          crie os nomes exatamente como aparecem acima.
+          Isso ajuda o VisualFeed a reconhecer cada informação corretamente.
+
+        </div>
+
+      </section>
+
+
+      <!-- ETAPA 03 -->
+
+      <section class="guide-section">
+
+        <div class="guide-section-heading">
+
+          <div class="guide-section-number">
+            03
+          </div>
+
+          <div>
+            <h2>Deixe tudo pronto</h2>
+
+            <p>
+              Uma última conferência antes de conectar o Notion.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="check-list">
+
+          <div class="check-item">
+
+            <span class="check-icon">✓</span>
+
+            Database criada no Notion
+
+          </div>
+
+
+          <div class="check-item">
+
+            <span class="check-icon">✓</span>
+
+            As propriedades foram adicionadas
+
+          </div>
+
+
+          <div class="check-item">
+
+            <span class="check-icon">✓</span>
+
+            Os nomes das propriedades foram conferidos
+
+          </div>
+
+
+          <div class="check-item">
+
+            <span class="check-icon">✓</span>
+
+            A Database está no workspace correto
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FINAL -->
+
+      <div class="guide-finish">
+
+        <small>
+          Database pronta?
+        </small>
+
+        <h2>
+          Agora vamos conectar seu Notion.
+        </h2>
+
+        <p>
+          Na próxima etapa, você vai criar a integração,
+          obter seu token secreto e permitir o acesso à Database.
+        </p>
+
+        <a
+          href="integra%C3%A7%C3%A3o.html"
+          class="primary-btn"
+        >
+          Continuar para integração
         </a>
 
-        <a href="integra%C3%A7%C3%A3o.html" class="primary-btn">
-          Próxima etapa: integração
-        </a>
       </div>
+
+
+      <a
+        href="welcome.html"
+        class="guide-back"
+      >
+        ← Voltar para o início
+      </a>
+
 
     </section>
+
   </main>
+
 </body>
+
   </html>
