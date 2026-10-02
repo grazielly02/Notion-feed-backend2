@@ -8,41 +8,48 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
 
   <style>
+
+    /* =========================================================
+       BASE
+    ========================================================= */
+
     :root {
-      --vf-bg: #f8f7fc;
-      --vf-surface: #ffffff;
-      --vf-surface-soft: #f5f1ff;
+      --purple: #7c3aed;
+      --purple-light: #9d5cff;
+      --purple-dark: #6630c9;
 
-      --vf-purple: #7c3aed;
-      --vf-purple-dark: #6530c9;
-      --vf-purple-light: #9d5cff;
-      --vf-purple-pale: #eee7ff;
+      --purple-pale: #f1ebff;
+      --purple-soft: #f8f5ff;
 
-      --vf-text: #1f1b2d;
-      --vf-text-soft: #686374;
-      --vf-text-muted: #918c9f;
+      --text: #211d2d;
+      --text-soft: #686274;
+      --text-muted: #918b9d;
 
-      --vf-border: #ebe7f2;
-      --vf-border-purple: #ded1ff;
+      --border: #ebe7f1;
+      --border-purple: #ded3f7;
 
-      --vf-green: #18864b;
-      --vf-green-bg: #eaf8f0;
+      --green: #18864b;
+      --green-bg: #eaf8f0;
 
-      --vf-shadow:
-        0 20px 50px rgba(43, 28, 75, 0.07);
+      --background: #f9f8fc;
+      --white: #ffffff;
 
-      --vf-shadow-soft:
-        0 10px 30px rgba(43, 28, 75, 0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
 
-      --vf-radius-xl: 28px;
-      --vf-radius-lg: 20px;
-      --vf-radius-md: 14px;
+      --shadow:
+        0 20px 55px rgba(48, 31, 82, 0.07);
+
+      --shadow-soft:
+        0 10px 30px rgba(48, 31, 82, 0.05);
     }
 
     * {
@@ -57,15 +64,16 @@
 
     body {
       min-height: 100vh;
+
       background:
         radial-gradient(
-          circle at 50% -10%,
+          circle at 50% -12%,
           rgba(157, 92, 255, 0.12),
           transparent 38%
         ),
-        var(--vf-bg);
+        var(--background);
 
-      color: var(--vf-text);
+      color: var(--text);
 
       font-family:
         "Inter",
@@ -82,119 +90,34 @@
       text-decoration: none;
     }
 
-    .database-page {
-      width: 100%;
-    }
-
-    .database-container {
-      width: min(920px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 54px 0 70px;
-    }
 
     /* =========================================================
-       TOPO
+       CONTAINER
     ========================================================= */
 
-    .database-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 34px;
+    .page-container {
+      width: min(900px, calc(100% - 32px));
+
+      margin: 0 auto;
+
+      padding:
+        54px
+        0
+        70px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .brand-mark {
-      width: 28px;
-      height: 28px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 9px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--vf-purple),
-          var(--vf-purple-light)
-        );
-
-      box-shadow:
-        0 7px 16px rgba(124, 58, 237, 0.2);
-    }
-
-    .brand-mark svg {
-      width: 15px;
-      height: 15px;
-    }
-
-    .step-indicator {
-      color: var(--vf-text-muted);
-
-      font-size: 12px;
-      font-weight: 600;
-
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
 
     /* =========================================================
        HERO
     ========================================================= */
 
     .hero {
-      position: relative;
+      text-align: center;
 
-      padding: 48px 50px 50px;
-
-      overflow: hidden;
-
-      border:
-        1px solid rgba(222, 209, 255, 0.9);
-
-      border-radius: var(--vf-radius-xl);
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.98),
-          rgba(246, 241, 255, 0.96)
-        );
-
-      box-shadow: var(--vf-shadow);
-    }
-
-    .hero::after {
-      content: "";
-
-      position: absolute;
-
-      width: 260px;
-      height: 260px;
-
-      right: -110px;
-      top: -120px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(157, 92, 255, 0.15),
-          rgba(157, 92, 255, 0)
-        );
-
-      pointer-events: none;
+      padding:
+        12px
+        30px
+        48px;
     }
 
     .hero-badge {
@@ -202,14 +125,14 @@
       align-items: center;
       gap: 8px;
 
-      margin-bottom: 22px;
+      margin-bottom: 25px;
 
-      color: var(--vf-purple);
+      color: var(--purple);
 
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
 
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
@@ -219,82 +142,93 @@
 
       border-radius: 50%;
 
-      background: var(--vf-purple);
+      background: var(--purple);
     }
 
     .hero-icon {
-      width: 56px;
-      height: 56px;
+      width: 60px;
+      height: 60px;
 
       display: grid;
       place-items: center;
 
-      margin-bottom: 24px;
+      margin:
+        0 auto
+        23px;
 
-      border-radius: 17px;
+      border-radius: 18px;
 
       background:
         linear-gradient(
           135deg,
-          var(--vf-purple),
-          var(--vf-purple-light)
+          var(--purple),
+          var(--purple-light)
         );
 
       box-shadow:
-        0 12px 25px rgba(124, 58, 237, 0.2);
+        0 12px 28px rgba(124, 58, 237, 0.20);
     }
 
     .hero-icon svg {
-      width: 29px;
-      height: 29px;
+      width: 31px;
+      height: 31px;
     }
 
     .hero h1 {
-      max-width: 690px;
+      max-width: 700px;
 
-      font-size: clamp(30px, 5vw, 44px);
+      margin: 0 auto;
+
+      font-size: clamp(30px, 5vw, 43px);
+
       line-height: 1.08;
 
       letter-spacing: -0.045em;
+
       font-weight: 800;
     }
 
     .hero-description {
-      max-width: 640px;
+      max-width: 610px;
 
-      margin-top: 17px;
+      margin:
+        17px
+        auto
+        0;
 
-      color: var(--vf-text-soft);
+      color: var(--text-soft);
 
-      font-size: 16px;
+      font-size: 15px;
+
       line-height: 1.7;
     }
 
+
     /* =========================================================
-       CONTEÚDO PRINCIPAL
+       MAIN CONTENT
     ========================================================= */
 
     .content {
-      margin-top: 26px;
-
       overflow: hidden;
 
       border:
-        1px solid var(--vf-border);
+        1px solid var(--border);
 
-      border-radius: var(--vf-radius-xl);
+      border-radius: var(--radius-xl);
 
-      background: var(--vf-surface);
+      background: var(--white);
 
-      box-shadow: var(--vf-shadow-soft);
+      box-shadow: var(--shadow-soft);
     }
 
-    .content-section {
-      padding: 42px 46px;
+    .section {
+      padding:
+        42px
+        46px;
     }
 
-    .content-section + .content-section {
-      border-top: 1px solid var(--vf-border);
+    .section + .section {
+      border-top: 1px solid var(--border);
     }
 
     .section-kicker {
@@ -302,57 +236,65 @@
 
       margin-bottom: 10px;
 
-      color: var(--vf-purple);
+      color: var(--purple);
 
       font-size: 10px;
+
       font-weight: 800;
 
       letter-spacing: 0.13em;
+
       text-transform: uppercase;
     }
 
     .section-title {
       font-size: 24px;
+
       line-height: 1.2;
 
       letter-spacing: -0.03em;
+
       font-weight: 750;
     }
 
     .section-description {
-      max-width: 670px;
+      max-width: 660px;
 
       margin-top: 9px;
 
-      color: var(--vf-text-soft);
+      color: var(--text-soft);
 
-      font-size: 14px;
+      font-size: 13px;
+
       line-height: 1.65;
     }
 
+
     /* =========================================================
-       PASSOS
+       DATABASE CREATION STEPS
     ========================================================= */
 
-    .instruction-list {
-      margin-top: 28px;
+    .steps {
+      margin-top: 29px;
     }
 
-    .instruction {
-      display: grid;
-      grid-template-columns: 38px 1fr;
-      gap: 17px;
-
+    .step {
       position: relative;
 
-      padding-bottom: 27px;
+      display: grid;
+
+      grid-template-columns: 38px 1fr;
+
+      gap: 17px;
+
+      padding-bottom: 28px;
     }
 
-    .instruction:last-child {
+    .step:last-child {
       padding-bottom: 0;
     }
 
-    .instruction-number {
+    .step-number {
       width: 34px;
       height: 34px;
 
@@ -361,15 +303,16 @@
 
       border-radius: 50%;
 
-      background: var(--vf-purple-pale);
+      background: var(--purple-pale);
 
-      color: var(--vf-purple);
+      color: var(--purple);
 
-      font-size: 12px;
+      font-size: 11px;
+
       font-weight: 800;
     }
 
-    .instruction:not(:last-child)::after {
+    .step:not(:last-child)::after {
       content: "";
 
       position: absolute;
@@ -380,561 +323,694 @@
 
       width: 1px;
 
-      background: var(--vf-border-purple);
+      background: var(--border-purple);
     }
 
-    .instruction h3 {
+    .step h3 {
       padding-top: 2px;
 
-      font-size: 15px;
+      font-size: 14px;
+
       font-weight: 700;
 
       letter-spacing: -0.01em;
     }
 
-    .instruction p {
+    .step p {
+      max-width: 630px;
+
       margin-top: 5px;
 
-      max-width: 640px;
+      color: var(--text-soft);
 
-      color: var(--vf-text-soft);
+      font-size: 12px;
 
-      font-size: 13px;
       line-height: 1.6;
     }
+
 
     /* =========================================================
-       PROPRIEDADES
+       PROPERTY EXPLANATION
     ========================================================= */
 
-    .properties-intro {
-      margin-top: 30px;
+    .property-explanation {
+      display: grid;
 
-      padding: 18px 20px;
+      grid-template-columns: 1fr 1fr;
+
+      margin-top: 27px;
+
+      overflow: hidden;
 
       border:
-        1px solid var(--vf-border-purple);
+        1px solid var(--border-purple);
 
-      border-radius: var(--vf-radius-md);
+      border-radius: var(--radius-lg);
 
-      background: var(--vf-surface-soft);
+      background: var(--purple-soft);
+    }
 
-      color: var(--vf-text-soft);
+    .explanation-item {
+      padding: 21px 22px;
+    }
 
-      font-size: 13px;
+    .explanation-item + .explanation-item {
+      border-left: 1px solid var(--border-purple);
+    }
+
+    .explanation-label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: var(--purple);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.11em;
+
+      text-transform: uppercase;
+    }
+
+    .explanation-item strong {
+      display: block;
+
+      font-size: 14px;
+
+      line-height: 1.3;
+    }
+
+    .explanation-item p {
+      margin-top: 6px;
+
+      color: var(--text-soft);
+
+      font-size: 11px;
+
+      line-height: 1.55;
+    }
+
+    .explanation-example {
+      margin-top: 8px;
+
+      color: var(--text);
+
+      font-size: 11px;
+
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       PROPERTY INSTRUCTION
+    ========================================================= */
+
+    .property-instruction {
+      margin-top: 16px;
+
+      color: var(--text-soft);
+
+      font-size: 12px;
+
       line-height: 1.6;
     }
 
-    .property-area {
-      margin-top: 28px;
+    .property-instruction strong {
+      color: var(--text);
     }
 
-    .property-area + .property-area {
-      margin-top: 34px;
+
+    /* =========================================================
+       PROPERTY GROUP
+    ========================================================= */
+
+    .property-group {
+      margin-top: 30px;
     }
 
-    .property-area-heading {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .property-group + .property-group {
+      margin-top: 35px;
+    }
 
+    .group-heading {
       margin-bottom: 13px;
     }
 
-    .property-label {
-      display: inline-flex;
+    .group-heading-top {
+      display: flex;
+
       align-items: center;
 
-      padding: 6px 9px;
+      gap: 10px;
+    }
+
+    .group-badge {
+      display: inline-flex;
+
+      align-items: center;
+
+      padding:
+        6px
+        9px;
 
       border-radius: 7px;
 
       font-size: 9px;
+
       font-weight: 800;
 
       letter-spacing: 0.1em;
+
       text-transform: uppercase;
     }
 
-    .property-label.essential {
-      background: var(--vf-green-bg);
-      color: var(--vf-green);
+    .group-badge.essential {
+      color: var(--green);
+
+      background: var(--green-bg);
     }
 
-    .property-label.recommended {
-      background: var(--vf-purple-pale);
-      color: var(--vf-purple);
+    .group-badge.recommended {
+      color: var(--purple);
+
+      background: var(--purple-pale);
     }
 
-    .property-label.optional {
-      background: #f1eff4;
+    .group-badge.optional {
       color: #6f6978;
+
+      background: #f1eff4;
     }
 
-    .property-area-title {
+    .group-title {
       font-size: 14px;
+
       font-weight: 700;
     }
 
-    .property-area-description {
-      margin-bottom: 14px;
+    .group-description {
+      margin-top: 7px;
 
-      color: var(--vf-text-muted);
+      color: var(--text-muted);
 
-      font-size: 12px;
+      font-size: 11px;
+
       line-height: 1.55;
     }
 
-    /* Property rows */
+
+    /* =========================================================
+       PROPERTY TABLE
+    ========================================================= */
 
     .property-table {
       overflow: hidden;
 
       border:
-        1px solid var(--vf-border);
+        1px solid var(--border);
 
-      border-radius: var(--vf-radius-md);
+      border-radius: var(--radius-md);
+    }
+
+    .property-header {
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      background: #faf9fc;
+
+      border-bottom:
+        1px solid var(--border);
+    }
+
+    .property-header div {
+      padding:
+        10px
+        16px;
+
+      color: var(--text-muted);
+
+      font-size: 8px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.09em;
+
+      text-transform: uppercase;
+    }
+
+    .property-header div + div {
+      border-left:
+        1px solid var(--border);
     }
 
     .property-row {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
 
-      min-height: 62px;
+      grid-template-columns:
+        1fr
+        1fr;
 
-      background: #fff;
+      min-height: 66px;
+
+      background: var(--white);
     }
 
     .property-row + .property-row {
-      border-top: 1px solid var(--vf-border);
+      border-top:
+        1px solid var(--border);
     }
 
-    .property-row > div {
+    .property-cell {
       display: flex;
+
       flex-direction: column;
+
       justify-content: center;
 
-      padding: 13px 17px;
+      padding:
+        13px
+        16px;
     }
 
-    .property-row > div + div {
-      border-left: 1px solid var(--vf-border);
+    .property-cell + .property-cell {
+      border-left:
+        1px solid var(--border);
     }
 
     .property-name {
       font-size: 13px;
+
       font-weight: 700;
     }
 
     .property-purpose {
-      color: var(--vf-text-soft);
+      margin-top: 4px;
 
-      font-size: 12px;
+      color: var(--text-soft);
+
+      font-size: 10px;
+
       line-height: 1.45;
     }
 
     .property-type {
-      color: var(--vf-purple);
+      color: var(--purple);
 
       font-size: 11px;
+
       font-weight: 700;
     }
 
-    .property-note {
-      margin-top: 12px;
 
-      padding: 13px 15px;
+    /* =========================================================
+       DATE NOTE
+    ========================================================= */
+
+    .property-note {
+      margin-top: 11px;
+
+      padding:
+        13px
+        15px;
 
       border-radius: 10px;
 
       background: #faf9fc;
 
-      color: var(--vf-text-soft);
+      color: var(--text-soft);
 
-      font-size: 11px;
+      font-size: 10px;
+
       line-height: 1.55;
     }
 
     .property-note strong {
-      color: var(--vf-text);
+      color: var(--text);
     }
 
-    /* Optional chips */
+
+    /* =========================================================
+       OPTIONAL PROPERTIES
+    ========================================================= */
 
     .optional-list {
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 8px;
     }
 
     .optional-item {
       display: inline-flex;
+
       align-items: center;
+
       gap: 7px;
 
-      padding: 10px 12px;
+      padding:
+        10px
+        12px;
 
       border:
-        1px solid var(--vf-border);
+        1px solid var(--border);
 
       border-radius: 10px;
 
-      background: #fff;
+      background: var(--white);
 
-      color: var(--vf-text-soft);
+      color: var(--text);
 
       font-size: 11px;
+
       font-weight: 600;
     }
 
     .optional-item span {
-      color: var(--vf-text-muted);
+      color: var(--text-muted);
 
-      font-size: 10px;
+      font-size: 9px;
+
       font-weight: 500;
     }
 
+
     /* =========================================================
-       PRIMEIRO CONTEÚDO
+       FIRST CONTENT
     ========================================================= */
 
-    .first-content {
-      margin-top: 28px;
-
-      border:
-        1px solid var(--vf-border);
-
-      border-radius: var(--vf-radius-lg);
+    .example {
+      margin-top: 27px;
 
       overflow: hidden;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: var(--radius-lg);
     }
 
-    .first-content-head {
+    .example-heading {
       display: flex;
+
       align-items: center;
+
       gap: 12px;
 
-      padding: 18px 20px;
+      padding:
+        17px
+        19px;
+
+      border-bottom:
+        1px solid var(--border);
 
       background: #fbfaff;
-
-      border-bottom: 1px solid var(--vf-border);
     }
 
-    .first-content-icon {
+    .example-icon {
       width: 36px;
       height: 36px;
 
       display: grid;
+
       place-items: center;
 
       border-radius: 10px;
 
-      background: var(--vf-purple-pale);
+      background: var(--purple-pale);
 
-      color: var(--vf-purple);
+      color: var(--purple);
     }
 
-    .first-content-icon svg {
+    .example-icon svg {
       width: 18px;
       height: 18px;
     }
 
-    .first-content-head span {
+    .example-heading span {
       display: block;
 
-      color: var(--vf-text-muted);
+      color: var(--text-muted);
 
-      font-size: 9px;
+      font-size: 8px;
+
       font-weight: 800;
 
       letter-spacing: 0.1em;
+
       text-transform: uppercase;
     }
 
-    .first-content-head strong {
+    .example-heading strong {
       display: block;
 
-      margin-top: 2px;
+      margin-top: 3px;
 
       font-size: 13px;
     }
 
-    .content-fields {
+    .example-fields {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
     }
 
-    .content-field {
-      padding: 18px 19px;
+    .example-field {
+      padding:
+        18px
+        18px;
     }
 
-    .content-field + .content-field {
-      border-left: 1px solid var(--vf-border);
+    .example-field + .example-field {
+      border-left:
+        1px solid var(--border);
     }
 
-    .content-field span {
+    .example-field span {
       display: block;
 
-      color: var(--vf-text-muted);
+      color: var(--text-muted);
 
-      font-size: 9px;
-      font-weight: 700;
+      font-size: 8px;
 
-      letter-spacing: 0.07em;
+      font-weight: 800;
+
+      letter-spacing: 0.08em;
+
       text-transform: uppercase;
     }
 
-    .content-field strong {
+    .example-field strong {
       display: block;
 
       margin-top: 7px;
 
-      font-size: 12px;
+      font-size: 11px;
+
       line-height: 1.45;
     }
 
-    .first-content-note {
-      padding: 0 20px 18px;
+    .example-note {
+      padding:
+        0
+        18px
+        17px;
 
-      color: var(--vf-text-muted);
+      color: var(--text-muted);
 
-      font-size: 11px;
+      font-size: 10px;
+
       line-height: 1.5;
     }
 
+
     /* =========================================================
-       FINALIZAÇÃO
+       END / NEXT STEP
     ========================================================= */
 
-    .ready {
-      display: grid;
-      grid-template-columns: auto 1fr;
+    .ending {
+      padding-top: 39px;
 
-      gap: 17px;
+      text-align: center;
+    }
 
-      padding: 27px 28px;
+    .ending-line {
+      width: 48px;
+      height: 2px;
 
-      border:
-        1px solid var(--vf-border-purple);
+      margin:
+        0
+        auto
+        20px;
 
-      border-radius: var(--vf-radius-lg);
+      border-radius: 99px;
 
       background:
         linear-gradient(
-          135deg,
-          #fbfaff,
-          #f5f0ff
+          90deg,
+          var(--purple),
+          var(--purple-light)
         );
     }
 
-    .ready-icon {
-      width: 39px;
-      height: 39px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 12px;
-
-      background: var(--vf-purple);
-
-      color: white;
-    }
-
-    .ready-icon svg {
-      width: 19px;
-      height: 19px;
-    }
-
-    .ready h2 {
-      font-size: 17px;
-      line-height: 1.3;
-
-      letter-spacing: -0.02em;
-    }
-
-    .ready p {
-      margin-top: 5px;
-
-      color: var(--vf-text-soft);
-
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .ready-checks {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-
-      margin-top: 14px;
-    }
-
-    .ready-check {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-
-      color: var(--vf-text-soft);
-
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .ready-check::before {
-      content: "✓";
-
-      color: var(--vf-purple);
-
-      font-weight: 800;
-    }
-
-    /* =========================================================
-       PRÓXIMO PASSO
-    ========================================================= */
-
-    .next-step {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-
-      margin-top: 26px;
-      padding: 26px 28px;
-
-      border-radius: var(--vf-radius-lg);
-
-      background:
-        linear-gradient(
-          135deg,
-          #7c3aed,
-          #9858f4
-        );
-
-      color: white;
-
-      box-shadow:
-        0 16px 35px rgba(124, 58, 237, 0.18);
-    }
-
-    .next-step-label {
+    .ending-kicker {
       display: block;
 
-      margin-bottom: 6px;
-
-      color: rgba(255, 255, 255, 0.72);
+      color: var(--purple);
 
       font-size: 9px;
+
       font-weight: 800;
 
-      letter-spacing: 0.12em;
+      letter-spacing: 0.13em;
+
       text-transform: uppercase;
     }
 
-    .next-step h2 {
-      font-size: 18px;
-      line-height: 1.3;
+    .ending h2 {
+      margin-top: 8px;
 
-      letter-spacing: -0.025em;
+      font-size: 22px;
+
+      line-height: 1.25;
+
+      letter-spacing: -0.03em;
     }
 
-    .next-step p {
-      max-width: 530px;
+    .ending p {
+      max-width: 540px;
 
-      margin-top: 5px;
+      margin:
+        9px
+        auto
+        0;
 
-      color: rgba(255, 255, 255, 0.78);
+      color: var(--text-soft);
 
-      font-size: 11px;
-      line-height: 1.5;
+      font-size: 12px;
+
+      line-height: 1.6;
     }
 
-    .next-step-button {
-      flex-shrink: 0;
-
+    .next-button {
       display: inline-flex;
+
       align-items: center;
+
       justify-content: center;
+
       gap: 9px;
 
-      min-height: 43px;
-      padding: 0 17px;
+      margin-top: 21px;
+
+      min-height: 44px;
+
+      padding:
+        0
+        19px;
 
       border-radius: 11px;
 
-      background: white;
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--purple-light)
+        );
 
-      color: var(--vf-purple);
+      color: white;
 
       font-size: 12px;
+
       font-weight: 800;
 
       box-shadow:
-        0 7px 18px rgba(43, 28, 75, 0.13);
+        0 9px 22px rgba(124, 58, 237, 0.18);
 
       transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
     }
 
-    .next-step-button:hover {
+    .next-button:hover {
       transform: translateY(-1px);
 
       box-shadow:
-        0 10px 22px rgba(43, 28, 75, 0.17);
+        0 12px 27px rgba(124, 58, 237, 0.23);
     }
 
-    /* =========================================================
-       VOLTAR
-    ========================================================= */
-
-    .back {
+    .back-link {
       display: block;
 
       width: fit-content;
 
-      margin: 28px auto 0;
+      margin:
+        25px
+        auto
+        0;
 
-      color: var(--vf-text-muted);
+      color: var(--text-muted);
 
-      font-size: 12px;
+      font-size: 11px;
+
       font-weight: 600;
 
-      transition: color 0.2s ease;
+      transition:
+        color 0.2s ease;
     }
 
-    .back:hover {
-      color: var(--vf-purple);
+    .back-link:hover {
+      color: var(--purple);
     }
+
 
     /* =========================================================
-       RESPONSIVO
+       TABLET / MOBILE
     ========================================================= */
 
     @media (max-width: 720px) {
-      .database-container {
-        width: min(100% - 22px, 920px);
-        padding: 28px 0 45px;
-      }
 
-      .database-top {
-        margin-bottom: 24px;
-      }
+      .page-container {
+        width:
+          calc(100% - 22px);
 
-      .step-indicator {
-        font-size: 10px;
+        padding:
+          34px
+          0
+          48px;
       }
 
       .hero {
-        padding: 32px 25px 34px;
-        border-radius: 22px;
+        padding:
+          5px
+          18px
+          35px;
+      }
+
+      .hero-badge {
+        margin-bottom: 21px;
+
+        font-size: 9px;
       }
 
       .hero-icon {
-        width: 49px;
-        height: 49px;
+        width: 53px;
+        height: 53px;
+
         margin-bottom: 20px;
+
+        border-radius: 16px;
+      }
+
+      .hero-icon svg {
+        width: 27px;
+        height: 27px;
       }
 
       .hero h1 {
@@ -943,17 +1019,20 @@
 
       .hero-description {
         margin-top: 13px;
-        font-size: 13px;
+
+        font-size: 12px;
+
         line-height: 1.6;
       }
 
       .content {
-        margin-top: 17px;
         border-radius: 22px;
       }
 
-      .content-section {
-        padding: 30px 22px;
+      .section {
+        padding:
+          31px
+          22px;
       }
 
       .section-title {
@@ -961,52 +1040,78 @@
       }
 
       .section-description {
-        font-size: 12px;
-      }
-
-      .instruction {
-        grid-template-columns: 34px 1fr;
-        gap: 13px;
-      }
-
-      .instruction-number {
-        width: 31px;
-        height: 31px;
         font-size: 11px;
       }
 
-      .instruction:not(:last-child)::after {
+      .step {
+        grid-template-columns:
+          34px
+          1fr;
+
+        gap: 13px;
+      }
+
+      .step-number {
+        width: 31px;
+        height: 31px;
+      }
+
+      .step:not(:last-child)::after {
         left: 15px;
         top: 31px;
       }
 
-      .instruction h3 {
+      .step h3 {
         font-size: 13px;
       }
 
-      .instruction p {
-        font-size: 11px;
+      .step p {
+        font-size: 10px;
+      }
+
+      .property-explanation {
+        grid-template-columns: 1fr;
+      }
+
+      .explanation-item + .explanation-item {
+        border-left: 0;
+
+        border-top:
+          1px solid var(--border-purple);
+      }
+
+      .explanation-item {
+        padding:
+          17px
+          18px;
+      }
+
+      .property-header {
+        display: none;
       }
 
       .property-row {
         grid-template-columns: 1fr;
       }
 
-      .property-row > div + div {
+      .property-cell {
+        padding:
+          13px
+          14px;
+      }
+
+      .property-cell + .property-cell {
         border-left: 0;
-        border-top: 1px solid var(--vf-border);
+
+        border-top:
+          1px solid var(--border);
       }
 
-      .property-row > div {
-        padding: 12px 14px;
-      }
-
-      .property-name {
-        font-size: 12px;
-      }
-
-      .property-type,
       .property-purpose {
+        font-size: 9px;
+      }
+
+      .property-type {
         font-size: 10px;
       }
 
@@ -1015,161 +1120,121 @@
       }
 
       .optional-item {
-        padding: 9px 10px;
+        padding:
+          9px
+          10px;
+
         font-size: 10px;
       }
 
-      .content-fields {
+      .optional-item span {
+        font-size: 8px;
+      }
+
+      .example-fields {
         grid-template-columns: 1fr;
       }
 
-      .content-field + .content-field {
+      .example-field + .example-field {
         border-left: 0;
-        border-top: 1px solid var(--vf-border);
+
+        border-top:
+          1px solid var(--border);
       }
 
-      .content-field {
-        padding: 14px 16px;
+      .example-field {
+        padding:
+          14px
+          16px;
       }
 
-      .ready {
-        padding: 22px 20px;
-        grid-template-columns: 34px 1fr;
-        gap: 12px;
+      .example-note {
+        padding:
+          0
+          16px
+          15px;
       }
 
-      .ready-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: 10px;
+      .ending {
+        padding-top: 34px;
       }
 
-      .ready h2 {
-        font-size: 15px;
+      .ending h2 {
+        font-size: 20px;
       }
 
-      .ready p {
+      .ending p {
         font-size: 11px;
       }
 
-      .next-step {
-        align-items: flex-start;
-        flex-direction: column;
-
-        padding: 24px 21px;
-      }
-
-      .next-step h2 {
-        font-size: 16px;
-      }
-
-      .next-step-button {
+      .next-button {
         width: 100%;
       }
     }
 
+
     @media (max-width: 430px) {
-      .database-container {
-        width: calc(100% - 18px);
-        padding-top: 22px;
-      }
 
-      .brand {
-        font-size: 12px;
-      }
+      .page-container {
+        width:
+          calc(100% - 18px);
 
-      .brand-mark {
-        width: 25px;
-        height: 25px;
+        padding-top: 27px;
       }
 
       .hero {
-        padding: 27px 20px 29px;
-      }
-
-      .hero-badge {
-        margin-bottom: 17px;
-        font-size: 9px;
+        padding:
+          2px
+          12px
+          31px;
       }
 
       .hero h1 {
         font-size: 26px;
       }
 
-      .content-section {
-        padding: 27px 18px;
+      .hero-description {
+        max-width: 320px;
+
+        font-size: 11px;
+      }
+
+      .section {
+        padding:
+          28px
+          17px;
       }
 
       .section-title {
         font-size: 19px;
       }
 
-      .properties-intro {
-        padding: 14px;
-        font-size: 11px;
-      }
-
-      .property-area-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 7px;
-      }
-
-      .first-content {
+      .property-explanation {
         border-radius: 14px;
       }
 
-      .first-content-head {
-        padding: 15px;
+      .explanation-item {
+        padding:
+          15px
+          16px;
       }
 
-      .first-content-note {
-        padding: 0 15px 15px;
+      .property-table {
+        border-radius: 12px;
+      }
+
+      .example {
+        border-radius: 14px;
       }
     }
+
   </style>
 </head>
 
-<body class="database-page">
 
-  <main class="database-container">
+<body>
 
-    <!-- =====================================================
-         TOPO
-    ====================================================== -->
-
-    <div class="database-top">
-
-      <a href="welcome.html" class="brand" aria-label="Voltar para o início">
-
-        <span class="brand-mark">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 3L13.8 8.2L19 10L13.8 11.8L12 17L10.2 11.8L5 10L10.2 8.2L12 3Z"
-              fill="white"
-            />
-            <circle
-              cx="18.5"
-              cy="5"
-              r="1.1"
-              fill="white"
-            />
-          </svg>
-        </span>
-
-        VisualFeed
-
-      </a>
-
-      <span class="step-indicator">
-        Primeiro passo
-      </span>
-
-    </div>
+  <main class="page-container">
 
 
     <!-- =====================================================
@@ -1180,8 +1245,9 @@
 
       <div class="hero-badge">
         <span class="hero-badge-dot"></span>
-        Prepare sua Database
+        PRIMEIRO PASSO
       </div>
+
 
       <div class="hero-icon">
 
@@ -1190,6 +1256,7 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+
           <rect
             x="3"
             y="4"
@@ -1245,115 +1312,145 @@
             stroke-width="1.8"
             stroke-linecap="round"
           />
+
         </svg>
 
       </div>
+
 
       <h1>
         Prepare sua Database no Notion
       </h1>
 
+
       <p class="hero-description">
-        Antes de conectar o VisualFeed, vamos preparar a Database que
-        alimentará o seu feed. É nela que você vai cadastrar os conteúdos
-        que deseja exibir.
+        Antes de conectar o VisualFeed, vamos preparar a Database
+        que alimentará o seu feed.
       </p>
 
     </section>
 
 
     <!-- =====================================================
-         CONTEÚDO
+         MAIN CONTENT
     ====================================================== -->
 
     <div class="content">
 
 
       <!-- ===================================================
-           01 — CRIAR DATABASE
+           01 — DATABASE
       ==================================================== -->
 
-      <section class="content-section">
+      <section class="section">
 
         <span class="section-kicker">
-          01 • Começando pelo princípio
+          01 · DATABASE
         </span>
 
         <h2 class="section-title">
-          Primeiro, crie sua Database
+          Crie sua Database no Notion
         </h2>
 
         <p class="section-description">
           Se você ainda não possui uma Database para o VisualFeed,
-          siga estes passos no Notion.
+          siga estes passos para criar a estrutura onde seus
+          conteúdos ficarão armazenados.
         </p>
 
 
-        <div class="instruction-list">
+        <div class="steps">
 
-          <div class="instruction">
 
-            <div class="instruction-number">1</div>
+          <div class="step">
+
+            <div class="step-number">
+              1
+            </div>
 
             <div>
-              <h3>Abra o Notion</h3>
+
+              <h3>
+                Abra o Notion
+              </h3>
 
               <p>
-                Acesse sua conta e entre no workspace onde deseja
-                utilizar o VisualFeed.
+                Acesse sua conta do Notion e entre no workspace
+                onde deseja utilizar o VisualFeed.
               </p>
+
             </div>
 
           </div>
 
 
-          <div class="instruction">
+          <div class="step">
 
-            <div class="instruction-number">2</div>
+            <div class="step-number">
+              2
+            </div>
 
             <div>
-              <h3>Crie uma nova página</h3>
+
+              <h3>
+                Crie uma nova página
+              </h3>
 
               <p>
-                Crie uma página para organizar os conteúdos que
-                serão exibidos no seu feed.
+                Crie uma página para organizar os conteúdos
+                que serão exibidos no seu feed.
               </p>
+
             </div>
 
           </div>
 
 
-          <div class="instruction">
+          <div class="step">
 
-            <div class="instruction-number">3</div>
+            <div class="step-number">
+              3
+            </div>
 
             <div>
-              <h3>Adicione uma Database</h3>
+
+              <h3>
+                Adicione uma Database
+              </h3>
 
               <p>
-                Dentro da página, adicione uma Database em formato
-                de tabela. É nela que ficarão os seus conteúdos.
+                Dentro da página, adicione uma Database em
+                formato de tabela. É nela que ficarão seus
+                conteúdos.
               </p>
+
             </div>
 
           </div>
 
 
-          <div class="instruction">
+          <div class="step">
 
-            <div class="instruction-number">4</div>
+            <div class="step-number">
+              4
+            </div>
 
             <div>
-              <h3>Dê um nome para ela</h3>
+
+              <h3>
+                Dê um nome para ela
+              </h3>
 
               <p>
                 Escolha um nome que facilite sua identificação,
                 como <strong>VisualFeed</strong> ou
                 <strong>Conteúdos</strong>.
               </p>
+
             </div>
 
           </div>
+
 
         </div>
 
@@ -1364,57 +1461,129 @@
            02 — PROPRIEDADES
       ==================================================== -->
 
-      <section class="content-section">
+      <section class="section">
 
         <span class="section-kicker">
-          02 • Estrutura
+          02 · PROPRIEDADES
         </span>
 
         <h2 class="section-title">
-          Configure as propriedades
+          Configure os campos da sua Database
         </h2>
 
         <p class="section-description">
-          As propriedades são os campos da sua Database. Elas
-          determinam quais informações você poderá cadastrar
-          em cada conteúdo.
+          Agora vamos configurar as propriedades que serão
+          utilizadas pelo VisualFeed para organizar e exibir
+          seus conteúdos.
         </p>
 
 
-        <div class="properties-intro">
-          Você não precisa criar todos os campos abaixo.
-          Comece pelo essencial e adicione os recursos recomendados
-          ou opcionais conforme a forma como pretende usar o VisualFeed.
+        <!-- EXPLICAÇÃO PARA INICIANTES -->
+
+        <div class="property-explanation">
+
+
+          <div class="explanation-item">
+
+            <span class="explanation-label">
+              Nome da propriedade
+            </span>
+
+            <strong>
+              O nome que você dá ao campo
+            </strong>
+
+            <p>
+              É o texto que identifica aquela informação
+              dentro da sua Database.
+            </p>
+
+            <div class="explanation-example">
+              Exemplo: <strong>Mídia</strong>
+            </div>
+
+          </div>
+
+
+          <div class="explanation-item">
+
+            <span class="explanation-label">
+              Tipo da propriedade
+            </span>
+
+            <strong>
+              O tipo de informação que o campo aceita
+            </strong>
+
+            <p>
+              Define como aquela informação será preenchida
+              no Notion.
+            </p>
+
+            <div class="explanation-example">
+              Exemplo: <strong>Arquivos e mídia</strong>
+            </div>
+
+          </div>
+
+
         </div>
+
+
+        <p class="property-instruction">
+          <strong>Ao criar cada propriedade,</strong>
+          use exatamente o nome indicado e selecione o tipo
+          correspondente.
+        </p>
 
 
         <!-- ESSENCIAL -->
 
-        <div class="property-area">
+        <div class="property-group">
 
-          <div class="property-area-heading">
 
-            <span class="property-label essential">
-              Essencial
-            </span>
+          <div class="group-heading">
 
-            <h3 class="property-area-title">
-              Para o conteúdo aparecer
-            </h3>
+            <div class="group-heading-top">
+
+              <span class="group-badge essential">
+                ESSENCIAL
+              </span>
+
+              <h3 class="group-title">
+                Para o conteúdo aparecer
+              </h3>
+
+            </div>
+
+            <p class="group-description">
+              Esta propriedade é necessária para que o conteúdo
+              visual seja exibido no feed.
+            </p>
 
           </div>
-
-          <p class="property-area-description">
-            Esta propriedade é necessária para que o conteúdo visual
-            seja exibido no feed.
-          </p>
 
 
           <div class="property-table">
 
-            <div class="property-row">
+
+            <div class="property-header">
 
               <div>
+                Nome da propriedade
+              </div>
+
+              <div>
+                Tipo da propriedade
+              </div>
+
+            </div>
+
+
+            <div class="property-row">
+
+              <div class="property-cell">
+
                 <strong class="property-name">
                   Mídia
                 </strong>
@@ -1422,15 +1591,20 @@
                 <span class="property-purpose">
                   Imagem ou mídia principal do conteúdo.
                 </span>
+
               </div>
 
-              <div>
+
+              <div class="property-cell">
+
                 <span class="property-type">
                   Arquivos e mídia
                 </span>
+
               </div>
 
             </div>
+
 
           </div>
 
@@ -1439,31 +1613,51 @@
 
         <!-- RECOMENDADOS -->
 
-        <div class="property-area">
+        <div class="property-group">
 
-          <div class="property-area-heading">
 
-            <span class="property-label recommended">
-              Recomendado
-            </span>
+          <div class="group-heading">
 
-            <h3 class="property-area-title">
-              Para organizar melhor o feed
-            </h3>
+            <div class="group-heading-top">
+
+              <span class="group-badge recommended">
+                RECOMENDADO
+              </span>
+
+              <h3 class="group-title">
+                Para organizar melhor o feed
+              </h3>
+
+            </div>
+
+            <p class="group-description">
+              Não são indispensáveis para renderizar um conteúdo,
+              mas deixam o feed mais completo e organizado.
+            </p>
 
           </div>
-
-          <p class="property-area-description">
-            Não são indispensáveis para renderizar um conteúdo,
-            mas deixam o feed mais completo e organizado.
-          </p>
 
 
           <div class="property-table">
 
-            <div class="property-row">
+
+            <div class="property-header">
 
               <div>
+                Nome da propriedade
+              </div>
+
+              <div>
+                Tipo da propriedade
+              </div>
+
+            </div>
+
+
+            <div class="property-row">
+
+              <div class="property-cell">
+
                 <strong class="property-name">
                   Post
                 </strong>
@@ -1471,12 +1665,16 @@
                 <span class="property-purpose">
                   Nome ou título do conteúdo.
                 </span>
+
               </div>
 
-              <div>
+
+              <div class="property-cell">
+
                 <span class="property-type">
                   Título
                 </span>
+
               </div>
 
             </div>
@@ -1484,7 +1682,8 @@
 
             <div class="property-row">
 
-              <div>
+              <div class="property-cell">
+
                 <strong class="property-name">
                   Data de Publicação
                 </strong>
@@ -1492,87 +1691,108 @@
                 <span class="property-purpose">
                   Define a ordem de exibição dos conteúdos.
                 </span>
+
               </div>
 
-              <div>
+
+              <div class="property-cell">
+
                 <span class="property-type">
                   Data
                 </span>
+
               </div>
 
             </div>
+
 
           </div>
 
 
           <div class="property-note">
+
             <strong>Como a data funciona:</strong>
-            conteúdos com data aparecem primeiro, do mais recente
-            para o mais antigo. Conteúdos sem data ficam no final
-            do feed.
+            os conteúdos com data aparecem primeiro,
+            do mais recente para o mais antigo.
+            Conteúdos sem data ficam no final do feed.
+
           </div>
+
 
         </div>
 
 
         <!-- OPCIONAIS -->
 
-        <div class="property-area">
+        <div class="property-group">
 
-          <div class="property-area-heading">
 
-            <span class="property-label optional">
-              Opcional
-            </span>
+          <div class="group-heading">
 
-            <h3 class="property-area-title">
-              Recursos adicionais
-            </h3>
+            <div class="group-heading-top">
+
+              <span class="group-badge optional">
+                OPCIONAL
+              </span>
+
+              <h3 class="group-title">
+                Recursos adicionais
+              </h3>
+
+            </div>
+
+            <p class="group-description">
+              Adicione somente os recursos que fizerem sentido
+              para a forma como você pretende utilizar o VisualFeed.
+            </p>
 
           </div>
 
-          <p class="property-area-description">
-            Adicione somente os recursos que fizerem sentido
-            para o seu uso.
-          </p>
-
 
           <div class="optional-list">
+
 
             <div class="optional-item">
               Ocultar Visualização
               <span>Caixa de seleção</span>
             </div>
 
+
             <div class="optional-item">
               Editoria
               <span>Selecionar</span>
             </div>
+
 
             <div class="optional-item">
               Formato
               <span>Selecionar</span>
             </div>
 
+
             <div class="optional-item">
               Fixado
               <span>Número</span>
             </div>
+
 
             <div class="optional-item">
               Capa do Vídeo
               <span>Arquivos e mídia</span>
             </div>
 
+
             <div class="optional-item">
               Link da Mídia
               <span>URL</span>
             </div>
 
+
             <div class="optional-item">
               Design Incorporado
               <span>URL</span>
             </div>
+
 
           </div>
 
@@ -1585,10 +1805,10 @@
            03 — PRIMEIRO CONTEÚDO
       ==================================================== -->
 
-      <section class="content-section">
+      <section class="section">
 
         <span class="section-kicker">
-          03 • Primeiro conteúdo
+          03 · PRIMEIRO CONTEÚDO
         </span>
 
         <h2 class="section-title">
@@ -1596,22 +1816,24 @@
         </h2>
 
         <p class="section-description">
-          Sua estrutura está pronta. Agora crie um primeiro registro
-          para confirmar que os campos estão funcionando.
+          Agora que sua Database está estruturada, crie um
+          primeiro registro para testar os campos principais.
         </p>
 
 
-        <div class="first-content">
+        <div class="example">
 
-          <div class="first-content-head">
 
-            <div class="first-content-icon">
+          <div class="example-heading">
+
+            <div class="example-icon">
 
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
+
                 <rect
                   x="3"
                   y="4"
@@ -1636,23 +1858,35 @@
                   r="1.5"
                   fill="currentColor"
                 />
+
               </svg>
 
             </div>
 
+
             <div>
-              <span>Exemplo</span>
-              <strong>Seu primeiro post</strong>
+
+              <span>
+                EXEMPLO
+              </span>
+
+              <strong>
+                Seu primeiro post
+              </strong>
+
             </div>
 
           </div>
 
 
-          <div class="content-fields">
+          <div class="example-fields">
 
-            <div class="content-field">
 
-              <span>Post</span>
+            <div class="example-field">
+
+              <span>
+                Post
+              </span>
 
               <strong>
                 Meu primeiro conteúdo
@@ -1661,9 +1895,11 @@
             </div>
 
 
-            <div class="content-field">
+            <div class="example-field">
 
-              <span>Mídia</span>
+              <span>
+                Mídia
+              </span>
 
               <strong>
                 Adicione uma imagem
@@ -1672,9 +1908,11 @@
             </div>
 
 
-            <div class="content-field">
+            <div class="example-field">
 
-              <span>Data de Publicação</span>
+              <span>
+                Data de Publicação
+              </span>
 
               <strong>
                 Escolha uma data
@@ -1682,13 +1920,15 @@
 
             </div>
 
+
           </div>
 
 
-          <p class="first-content-note">
-            Você poderá preencher os outros campos conforme a
-            necessidade de cada conteúdo.
+          <p class="example-note">
+            Os outros campos podem ser preenchidos conforme
+            a necessidade de cada conteúdo.
           </p>
+
 
         </div>
 
@@ -1696,90 +1936,34 @@
 
 
       <!-- ===================================================
-           FINALIZAÇÃO
+           FINAL / PRÓXIMO PASSO
       ==================================================== -->
 
-      <section class="content-section">
+      <section class="section">
 
-        <div class="ready">
+        <div class="ending">
 
-          <div class="ready-icon">
+          <div class="ending-line"></div>
 
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 12.5L9.2 16.5L19 7"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+          <span class="ending-kicker">
+            DATABASE PREPARADA
+          </span>
 
-          </div>
+          <h2>
+            Agora vamos conectá-la ao VisualFeed
+          </h2>
 
-          <div>
+          <p>
+            Na próxima etapa, você vai criar a integração no Notion,
+            copiar seu token secreto e conectar sua Database.
+          </p>
 
-            <h2>
-              Sua Database está pronta?
-            </h2>
-
-            <p>
-              Antes de continuar, confira rapidamente:
-            </p>
-
-            <div class="ready-checks">
-
-              <span class="ready-check">
-                Database criada
-              </span>
-
-              <span class="ready-check">
-                Mídia configurada
-              </span>
-
-              <span class="ready-check">
-                Campos recomendados configurados
-              </span>
-
-              <span class="ready-check">
-                Primeiro conteúdo adicionado
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="next-step">
-
-          <div>
-
-            <span class="next-step-label">
-              Próximo passo
-            </span>
-
-            <h2>
-              Crie sua integração no Notion
-            </h2>
-
-            <p>
-              Agora vamos criar a integração, copiar seu token
-              secreto e conectar a Database ao VisualFeed.
-            </p>
-
-          </div>
 
           <a
             href="integra%C3%A7%C3%A3o.html"
-            class="next-step-button"
+            class="next-button"
           >
-            Continuar
+            Continuar para a integração
             <span aria-hidden="true">→</span>
           </a>
 
@@ -1787,12 +1971,17 @@
 
       </section>
 
+
     </div>
 
 
-    <a href="welcome.html" class="back">
+    <a
+      href="welcome.html"
+      class="back-link"
+    >
       ← Voltar
     </a>
+
 
   </main>
 
