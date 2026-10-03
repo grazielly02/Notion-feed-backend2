@@ -1,1 +1,1223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>VisualFeed • Prepare sua configuração</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================================================
+       BASE
+    ========================================================= */
+
+    :root {
+      --purple: #7c3aed;
+      --purple-light: #9d5cff;
+      --purple-dark: #6630c9;
+
+      --purple-pale: #f1ebff;
+      --purple-soft: #f8f5ff;
+
+      --text: #211d2d;
+      --text-soft: #686274;
+      --text-muted: #918b9d;
+
+      --border: #ebe7f1;
+      --border-purple: #ded3f7;
+
+      --green: #18864b;
+      --green-bg: #eaf8f0;
+
+      --background: #f9f8fc;
+      --white: #ffffff;
+
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+
+      --shadow:
+        0 20px 55px rgba(48, 31, 82, 0.07);
+
+      --shadow-soft:
+        0 10px 30px rgba(48, 31, 82, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 50% -12%,
+          rgba(157, 92, 255, 0.12),
+          transparent 38%
+        ),
+        var(--background);
+
+      color: var(--text);
+
+      font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+    /* =========================================================
+       CONTAINER
+    ========================================================= */
+
+    .page-container {
+      width: min(900px, calc(100% - 32px));
+
+      margin: 0 auto;
+
+      padding:
+        54px
+        0
+        70px;
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      text-align: center;
+
+      padding:
+        12px
+        30px
+        48px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 25px;
+
+      color: var(--purple);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--purple);
+    }
+
+    .hero-icon {
+      width: 60px;
+      height: 60px;
+
+      display: grid;
+      place-items: center;
+
+      margin:
+        0 auto
+        23px;
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--purple-light)
+        );
+
+      box-shadow:
+        0 12px 28px rgba(124, 58, 237, 0.20);
+    }
+
+    .hero-icon svg {
+      width: 31px;
+      height: 31px;
+    }
+
+    .hero h1 {
+      max-width: 700px;
+
+      margin: 0 auto;
+
+      font-size: clamp(30px, 5vw, 43px);
+
+      line-height: 1.08;
+
+      letter-spacing: -0.045em;
+
+      font-weight: 800;
+    }
+
+    .hero-description {
+      max-width: 610px;
+
+      margin:
+        17px
+        auto
+        0;
+
+      color: var(--text-soft);
+
+      font-size: 15px;
+
+      line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       MAIN CONTENT
+    ========================================================= */
+
+    .content {
+      overflow: hidden;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: var(--radius-xl);
+
+      background: var(--white);
+
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section {
+      padding:
+        42px
+        46px;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-kicker {
+      display: block;
+
+      margin-bottom: 10px;
+
+      color: var(--purple);
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 24px;
+
+      line-height: 1.2;
+
+      letter-spacing: -0.03em;
+
+      font-weight: 750;
+    }
+
+    .section-description {
+      max-width: 660px;
+
+      margin-top: 9px;
+
+      color: var(--text-soft);
+
+      font-size: 13px;
+
+      line-height: 1.65;
+    }
+
+
+    /* =========================================================
+       CHECKLIST
+    ========================================================= */
+
+    .verification {
+      margin-top: 27px;
+
+      padding:
+        21px
+        22px;
+
+      border:
+        1px solid var(--border-purple);
+
+      border-radius: var(--radius-lg);
+
+      background: var(--purple-soft);
+    }
+
+    .verification-intro {
+      color: var(--text-soft);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .verification-list {
+      display: grid;
+
+      gap: 11px;
+
+      margin-top: 18px;
+
+      list-style: none;
+    }
+
+    .verification-item {
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 10px;
+
+      color: var(--text);
+
+      font-size: 11px;
+
+      line-height: 1.5;
+    }
+
+    .verification-check {
+      width: 19px;
+      height: 19px;
+
+      flex:
+        0 0
+        19px;
+
+      display: grid;
+
+      place-items: center;
+
+      margin-top: 1px;
+
+      border-radius: 50%;
+
+      background: var(--green-bg);
+
+      color: var(--green);
+
+      font-size: 10px;
+
+      font-weight: 800;
+    }
+
+    .verification-note {
+      margin-top: 17px;
+
+      padding-top: 15px;
+
+      border-top:
+        1px solid var(--border-purple);
+
+      color: var(--text-soft);
+
+      font-size: 10px;
+
+      line-height: 1.55;
+    }
+
+    .verification-note strong {
+      color: var(--text);
+    }
+
+
+    /* =========================================================
+       IMPORTANT NOTE
+    ========================================================= */
+
+    .important-note {
+      margin-top: 27px;
+
+      padding:
+        18px
+        20px;
+
+      border:
+        1px solid var(--border-purple);
+
+      border-radius: var(--radius-lg);
+
+      background: var(--purple-soft);
+    }
+
+    .important-note-label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: var(--purple);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.11em;
+
+      text-transform: uppercase;
+    }
+
+    .important-note p {
+      color: var(--text-soft);
+
+      font-size: 11px;
+
+      line-height: 1.6;
+    }
+
+    .important-note strong {
+      color: var(--text);
+    }
+
+
+    /* =========================================================
+       CONFIGURATION ITEMS
+    ========================================================= */
+
+    .config-items {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      margin-top: 27px;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--border-purple);
+
+      border-radius: var(--radius-lg);
+
+      background: var(--purple-soft);
+    }
+
+    .config-item {
+      padding:
+        21px
+        20px;
+    }
+
+    .config-item + .config-item {
+      border-left:
+        1px solid var(--border-purple);
+    }
+
+    .config-number {
+      width: 28px;
+      height: 28px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 9px;
+
+      background: var(--purple-pale);
+
+      color: var(--purple);
+
+      font-size: 10px;
+
+      font-weight: 800;
+    }
+
+    .config-item strong {
+      display: block;
+
+      margin-top: 12px;
+
+      font-size: 13px;
+
+      line-height: 1.3;
+    }
+
+    .config-item p {
+      margin-top: 6px;
+
+      color: var(--text-soft);
+
+      font-size: 10px;
+
+      line-height: 1.55;
+    }
+
+
+    /* =========================================================
+       ACTION BUTTON
+    ========================================================= */
+
+    .action-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+      margin-top: 24px;
+
+      min-height: 42px;
+
+      padding:
+        0
+        17px;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--purple-light)
+        );
+
+      color: white;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 9px 22px rgba(124, 58, 237, 0.16);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .action-button:hover {
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 12px 27px rgba(124, 58, 237, 0.21);
+    }
+
+
+    /* =========================================================
+       END / NEXT STEP
+    ========================================================= */
+
+    .ending {
+      padding-top: 5px;
+
+      text-align: center;
+    }
+
+    .ending-line {
+      width: 48px;
+      height: 2px;
+
+      margin:
+        0
+        auto
+        20px;
+
+      border-radius: 99px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--purple),
+          var(--purple-light)
+        );
+    }
+
+    .ending-kicker {
+      display: block;
+
+      color: var(--purple);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+    }
+
+    .ending h2 {
+      margin-top: 8px;
+
+      font-size: 22px;
+
+      line-height: 1.25;
+
+      letter-spacing: -0.03em;
+    }
+
+    .ending p {
+      max-width: 540px;
+
+      margin:
+        9px
+        auto
+        0;
+
+      color: var(--text-soft);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .next-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 9px;
+
+      margin-top: 21px;
+
+      min-height: 44px;
+
+      padding:
+        0
+        19px;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--purple-light)
+        );
+
+      color: white;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 9px 22px rgba(124, 58, 237, 0.18);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .next-button:hover {
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 12px 27px rgba(124, 58, 237, 0.23);
+    }
+
+    .back-link {
+      display: block;
+
+      width: fit-content;
+
+      margin:
+        25px
+        auto
+        0;
+
+      color: var(--text-muted);
+
+      font-size: 11px;
+
+      font-weight: 600;
+
+      transition:
+        color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--purple);
+    }
+
+
+    /* =========================================================
+       TABLET / MOBILE
+    ========================================================= */
+
+    @media (max-width: 720px) {
+
+      .page-container {
+        width:
+          calc(100% - 22px);
+
+        padding:
+          34px
+          0
+          48px;
+      }
+
+      .hero {
+        padding:
+          5px
+          18px
+          35px;
+      }
+
+      .hero-badge {
+        margin-bottom: 21px;
+
+        font-size: 9px;
+      }
+
+      .hero-icon {
+        width: 53px;
+        height: 53px;
+
+        margin-bottom: 20px;
+
+        border-radius: 16px;
+      }
+
+      .hero-icon svg {
+        width: 27px;
+        height: 27px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .hero-description {
+        margin-top: 13px;
+
+        font-size: 12px;
+
+        line-height: 1.6;
+      }
+
+      .content {
+        border-radius: 22px;
+      }
+
+      .section {
+        padding:
+          31px
+          22px;
+      }
+
+      .section-title {
+        font-size: 21px;
+      }
+
+      .section-description {
+        font-size: 11px;
+      }
+
+      .verification {
+        padding:
+          17px
+          18px;
+      }
+
+      .config-items {
+        grid-template-columns: 1fr;
+      }
+
+      .config-item + .config-item {
+        border-left: 0;
+
+        border-top:
+          1px solid var(--border-purple);
+      }
+
+      .config-item {
+        padding:
+          17px
+          18px;
+      }
+
+      .important-note {
+        padding:
+          17px
+          18px;
+      }
+
+      .action-button {
+        width: 100%;
+      }
+
+      .ending {
+        padding-top: 0;
+      }
+
+      .ending h2 {
+        font-size: 20px;
+      }
+
+      .ending p {
+        font-size: 11px;
+      }
+
+      .next-button {
+        width: 100%;
+      }
+    }
+
+
+    @media (max-width: 430px) {
+
+      .page-container {
+        width:
+          calc(100% - 18px);
+
+        padding-top: 27px;
+      }
+
+      .hero {
+        padding:
+          2px
+          12px
+          31px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .hero-description {
+        max-width: 320px;
+
+        font-size: 11px;
+      }
+
+      .section {
+        padding:
+          28px
+          17px;
+      }
+
+      .section-title {
+        font-size: 19px;
+      }
+
+      .verification {
+        border-radius: 14px;
+      }
+
+      .important-note {
+        border-radius: 14px;
+      }
+
+      .config-items {
+        border-radius: 14px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <main class="page-container">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        TERCEIRO PASSO
+      </div>
+
+
+      <div class="hero-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+
+          <path
+            d="M12 3L14.8 8.7L21 9.6L16.5 14L17.6 20.2L12 17.3L6.4 20.2L7.5 14L3 9.6L9.2 8.7L12 3Z"
+            stroke="white"
+            stroke-width="1.7"
+            stroke-linejoin="round"
+          />
+
+          <path
+            d="M9.5 12.2L11.2 13.9L14.8 10.3"
+            stroke="white"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+        </svg>
+
+      </div>
+
+
+      <h1>
+        Tudo pronto para configurar o VisualFeed
+      </h1>
+
+
+      <p class="hero-description">
+        Você já preparou sua Database e conectou o Notion.
+        Agora, confira os últimos itens e valide sua compra
+        para continuar para a configuração.
+      </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <div class="content">
+
+
+      <!-- ===================================================
+           01 — CHECKLIST
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          01 · CHECKLIST
+        </span>
+
+        <h2 class="section-title">
+          Confira se está tudo preparado
+        </h2>
+
+        <p class="section-description">
+          Antes de entrar na configuração, confirme se você
+          concluiu as etapas anteriores e tem tudo o que
+          precisará para configurar seu VisualFeed.
+        </p>
+
+
+        <div class="verification">
+
+          <p class="verification-intro">
+            Você já deve ter:
+          </p>
+
+
+          <ul class="verification-list">
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                A <strong>Database</strong> criada e preparada
+                no Notion.
+              </span>
+
+            </li>
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                A conexão
+                <strong>VISUALFEED</strong> criada.
+              </span>
+
+            </li>
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                O <strong>Token de API</strong> copiado.
+              </span>
+
+            </li>
+
+
+            <li class="verification-item">
+
+              <span class="verification-check">
+                ✓
+              </span>
+
+              <span>
+                O <strong>link da visualização da Database</strong>
+                copiado.
+              </span>
+
+            </li>
+
+
+          </ul>
+
+
+          <p class="verification-note">
+            <strong>Está com tudo isso em mãos?</strong>
+            Então você já pode seguir para a validação
+            da sua compra.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           02 — VALIDAÇÃO
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          02 · VALIDAÇÃO
+        </span>
+
+        <h2 class="section-title">
+          Valide sua compra
+        </h2>
+
+        <p class="section-description">
+          Para continuar para a configuração do VisualFeed,
+          você precisará validar o acesso utilizando o mesmo
+          e-mail informado no momento da compra.
+        </p>
+
+
+        <div class="important-note">
+
+          <span class="important-note-label">
+            Use o mesmo e-mail da compra
+          </span>
+
+          <p>
+            É por meio dele que o VisualFeed identifica
+            sua licença e libera o acesso à configuração.
+          </p>
+
+        </div>
+
+
+        <a
+          href="generate.html"
+          class="action-button"
+        >
+          Validar minha compra
+          <span aria-hidden="true">→</span>
+        </a>
+
+      </section>
+
+
+      <!-- ===================================================
+           03 — CONFIGURAÇÃO
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          03 · CONFIGURAÇÃO
+        </span>
+
+        <h2 class="section-title">
+          Continue para a configuração
+        </h2>
+
+        <p class="section-description">
+          Depois de validar sua compra, você poderá informar
+          os dados necessários para conectar sua Database
+          ao VisualFeed e configurar seu widget.
+        </p>
+
+
+        <div class="config-items">
+
+
+          <div class="config-item">
+
+            <div class="config-number">
+              01
+            </div>
+
+            <strong>
+              Token de API
+            </strong>
+
+            <p>
+              O token da conexão
+              <strong>VISUALFEED</strong>
+              criada no Notion.
+            </p>
+
+          </div>
+
+
+          <div class="config-item">
+
+            <div class="config-number">
+              02
+            </div>
+
+            <strong>
+              Database
+            </strong>
+
+            <p>
+              O link da visualização da
+              Database preparada no Notion.
+            </p>
+
+          </div>
+
+
+          <div class="config-item">
+
+            <div class="config-number">
+              03
+            </div>
+
+            <strong>
+              Projeto
+            </strong>
+
+            <p>
+              O nome que você deseja utilizar
+              para identificar seu VisualFeed.
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="important-note">
+
+          <span class="important-note-label">
+            Próxima etapa
+          </span>
+
+          <p>
+            Após a validação, o VisualFeed liberará
+            o acesso ao fluxo de configuração.
+            Você poderá preencher os dados e visualizar
+            seu widget antes de utilizá-lo.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           ENDING
+      ==================================================== -->
+
+      <section class="section">
+
+        <div class="ending">
+
+          <div class="ending-line"></div>
+
+          <span class="ending-kicker">
+            PRONTO PARA CONTINUAR
+          </span>
+
+          <h2>
+            Valide sua compra e configure seu VisualFeed
+          </h2>
+
+          <p>
+            O próximo passo é validar o e-mail utilizado
+            na compra para liberar sua configuração.
+          </p>
+
+
+          <a
+            href="generate.html"
+            class="next-button"
+          >
+            Validar e continuar
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+      </section>
+
+
+    </div>
+
+
+    <a
+      href="integração.html"
+      class="back-link"
+    >
+      ← Voltar para a integração
+    </a>
+
+
+  </main>
+
+</body>
+</html>
