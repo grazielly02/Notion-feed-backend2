@@ -1,1 +1,1424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>VisualFeed • Use seu widget</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================================================
+       BASE
+    ========================================================= */
+
+    :root {
+      --purple: #7c3aed;
+      --purple-light: #9d5cff;
+      --purple-dark: #6630c9;
+
+      --purple-pale: #f1ebff;
+      --purple-soft: #f8f5ff;
+
+      --text: #211d2d;
+      --text-soft: #686274;
+      --text-muted: #918b9d;
+
+      --border: #ebe7f1;
+      --border-purple: #ded3f7;
+
+      --green: #18864b;
+      --green-bg: #eaf8f0;
+
+      --background: #f9f8fc;
+      --white: #ffffff;
+
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+
+      --shadow:
+        0 20px 55px rgba(48, 31, 82, 0.07);
+
+      --shadow-soft:
+        0 10px 30px rgba(48, 31, 82, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 50% -12%,
+          rgba(157, 92, 255, 0.12),
+          transparent 38%
+        ),
+        var(--background);
+
+      color: var(--text);
+
+      font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+    /* =========================================================
+       CONTAINER
+    ========================================================= */
+
+    .page-container {
+      width: min(900px, calc(100% - 32px));
+
+      margin: 0 auto;
+
+      padding:
+        54px
+        0
+        70px;
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      text-align: center;
+
+      padding:
+        12px
+        30px
+        48px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 25px;
+
+      color: var(--purple);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--purple);
+    }
+
+    .hero-icon {
+      width: 60px;
+      height: 60px;
+
+      display: grid;
+      place-items: center;
+
+      margin:
+        0 auto
+        23px;
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--purple-light)
+        );
+
+      box-shadow:
+        0 12px 28px rgba(124, 58, 237, 0.20);
+    }
+
+    .hero-icon svg {
+      width: 31px;
+      height: 31px;
+    }
+
+    .hero h1 {
+      max-width: 700px;
+
+      margin: 0 auto;
+
+      font-size: clamp(30px, 5vw, 43px);
+
+      line-height: 1.08;
+
+      letter-spacing: -0.045em;
+
+      font-weight: 800;
+    }
+
+    .hero-description {
+      max-width: 610px;
+
+      margin:
+        17px
+        auto
+        0;
+
+      color: var(--text-soft);
+
+      font-size: 15px;
+
+      line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       MAIN CONTENT
+    ========================================================= */
+
+    .content {
+      overflow: hidden;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: var(--radius-xl);
+
+      background: var(--white);
+
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section {
+      padding:
+        42px
+        46px;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-kicker {
+      display: block;
+
+      margin-bottom: 10px;
+
+      color: var(--purple);
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 24px;
+
+      line-height: 1.2;
+
+      letter-spacing: -0.03em;
+
+      font-weight: 750;
+    }
+
+    .section-description {
+      max-width: 660px;
+
+      margin-top: 9px;
+
+      color: var(--text-soft);
+
+      font-size: 13px;
+
+      line-height: 1.65;
+    }
+
+
+    /* =========================================================
+       STEPS
+    ========================================================= */
+
+    .steps {
+      display: grid;
+
+      gap: 12px;
+
+      margin-top: 27px;
+    }
+
+    .step {
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 15px;
+
+      padding:
+        17px
+        18px;
+
+      border:
+        1px solid var(--border-purple);
+
+      border-radius: var(--radius-md);
+
+      background: var(--purple-soft);
+    }
+
+    .step-number {
+      width: 30px;
+      height: 30px;
+
+      flex:
+        0 0
+        30px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 9px;
+
+      background: var(--purple-pale);
+
+      color: var(--purple);
+
+      font-size: 10px;
+
+      font-weight: 800;
+    }
+
+    .step-content strong {
+      display: block;
+
+      font-size: 12px;
+
+      line-height: 1.35;
+    }
+
+    .step-content p {
+      margin-top: 5px;
+
+      color: var(--text-soft);
+
+      font-size: 10px;
+
+      line-height: 1.55;
+    }
+
+
+    /* =========================================================
+       IMPORTANT NOTE
+    ========================================================= */
+
+    .important-note {
+      margin-top: 27px;
+
+      padding:
+        18px
+        20px;
+
+      border:
+        1px solid var(--border-purple);
+
+      border-radius: var(--radius-lg);
+
+      background: var(--purple-soft);
+    }
+
+    .important-note-label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: var(--purple);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.11em;
+
+      text-transform: uppercase;
+    }
+
+    .important-note p {
+      color: var(--text-soft);
+
+      font-size: 11px;
+
+      line-height: 1.6;
+    }
+
+    .important-note strong {
+      color: var(--text);
+    }
+
+
+    /* =========================================================
+       CONTENT TYPES
+    ========================================================= */
+
+    .content-types {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      margin-top: 27px;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--border-purple);
+
+      border-radius: var(--radius-lg);
+
+      background: var(--purple-soft);
+    }
+
+    .content-type {
+      padding:
+        20px;
+
+      border-bottom:
+        1px solid var(--border-purple);
+    }
+
+    .content-type:nth-child(odd) {
+      border-right:
+        1px solid var(--border-purple);
+    }
+
+    .content-type:nth-child(3),
+    .content-type:nth-child(4) {
+      border-bottom: 0;
+    }
+
+    .content-type-icon {
+      width: 30px;
+      height: 30px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 9px;
+
+      background: var(--purple-pale);
+
+      color: var(--purple);
+    }
+
+    .content-type-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .content-type strong {
+      display: block;
+
+      margin-top: 11px;
+
+      font-size: 12px;
+
+      line-height: 1.35;
+    }
+
+    .content-type p {
+      margin-top: 5px;
+
+      color: var(--text-soft);
+
+      font-size: 10px;
+
+      line-height: 1.55;
+    }
+
+
+    /* =========================================================
+       ORGANIZATION
+    ========================================================= */
+
+    .organization-list {
+      display: grid;
+
+      gap: 10px;
+
+      margin-top: 27px;
+    }
+
+    .organization-item {
+      padding:
+        16px
+        18px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: var(--radius-md);
+
+      background: var(--white);
+    }
+
+    .organization-item strong {
+      display: block;
+
+      font-size: 12px;
+
+      line-height: 1.35;
+    }
+
+    .organization-item p {
+      margin-top: 5px;
+
+      color: var(--text-soft);
+
+      font-size: 10px;
+
+      line-height: 1.55;
+    }
+
+
+    /* =========================================================
+       FINISH
+    ========================================================= */
+
+    .ending {
+      padding-top: 5px;
+
+      text-align: center;
+    }
+
+    .ending-line {
+      width: 48px;
+      height: 2px;
+
+      margin:
+        0
+        auto
+        20px;
+
+      border-radius: 99px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--purple),
+          var(--purple-light)
+        );
+    }
+
+    .ending-kicker {
+      display: block;
+
+      color: var(--purple);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+    }
+
+    .ending h2 {
+      margin-top: 8px;
+
+      font-size: 22px;
+
+      line-height: 1.25;
+
+      letter-spacing: -0.03em;
+    }
+
+    .ending p {
+      max-width: 540px;
+
+      margin:
+        9px
+        auto
+        0;
+
+      color: var(--text-soft);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .back-link {
+      display: block;
+
+      width: fit-content;
+
+      margin:
+        25px
+        auto
+        0;
+
+      color: var(--text-muted);
+
+      font-size: 11px;
+
+      font-weight: 600;
+
+      transition:
+        color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--purple);
+    }
+
+
+    /* =========================================================
+       TABLET / MOBILE
+    ========================================================= */
+
+    @media (max-width: 720px) {
+
+      .page-container {
+        width:
+          calc(100% - 22px);
+
+        padding:
+          34px
+          0
+          48px;
+      }
+
+      .hero {
+        padding:
+          5px
+          18px
+          35px;
+      }
+
+      .hero-badge {
+        margin-bottom: 21px;
+
+        font-size: 9px;
+      }
+
+      .hero-icon {
+        width: 53px;
+        height: 53px;
+
+        margin-bottom: 20px;
+
+        border-radius: 16px;
+      }
+
+      .hero-icon svg {
+        width: 27px;
+        height: 27px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .hero-description {
+        margin-top: 13px;
+
+        font-size: 12px;
+
+        line-height: 1.6;
+      }
+
+      .content {
+        border-radius: 22px;
+      }
+
+      .section {
+        padding:
+          31px
+          22px;
+      }
+
+      .section-title {
+        font-size: 21px;
+      }
+
+      .section-description {
+        font-size: 11px;
+      }
+
+      .step {
+        padding:
+          15px
+          16px;
+      }
+
+      .content-types {
+        grid-template-columns: 1fr;
+      }
+
+      .content-type {
+        border-right: 0 !important;
+
+        border-bottom:
+          1px solid var(--border-purple);
+      }
+
+      .content-type:last-child {
+        border-bottom: 0;
+      }
+
+      .important-note {
+        padding:
+          17px
+          18px;
+      }
+
+      .ending {
+        padding-top: 0;
+      }
+
+      .ending h2 {
+        font-size: 20px;
+      }
+
+      .ending p {
+        font-size: 11px;
+      }
+    }
+
+
+    @media (max-width: 430px) {
+
+      .page-container {
+        width:
+          calc(100% - 18px);
+
+        padding-top: 27px;
+      }
+
+      .hero {
+        padding:
+          2px
+          12px
+          31px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .hero-description {
+        max-width: 320px;
+
+        font-size: 11px;
+      }
+
+      .section {
+        padding:
+          28px
+          17px;
+      }
+
+      .section-title {
+        font-size: 19px;
+      }
+
+      .important-note {
+        border-radius: 14px;
+      }
+
+      .content-types {
+        border-radius: 14px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <main class="page-container">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        QUARTO PASSO
+      </div>
+
+
+      <div class="hero-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+
+          <path
+            d="M4 6.5C4 5.67 4.67 5 5.5 5H18.5C19.33 5 20 5.67 20 6.5V17.5C20 18.33 19.33 19 18.5 19H5.5C4.67 19 4 18.33 4 17.5V6.5Z"
+            stroke="white"
+            stroke-width="1.7"
+          />
+
+          <path
+            d="M8 9H16"
+            stroke="white"
+            stroke-width="1.7"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M8 13H13"
+            stroke="white"
+            stroke-width="1.7"
+            stroke-linecap="round"
+          />
+
+        </svg>
+
+      </div>
+
+
+      <h1>
+        Use seu VisualFeed
+      </h1>
+
+
+      <p class="hero-description">
+        Seu widget já está configurado.
+        Agora, veja como utilizá-lo, alimentar seu feed
+        e manter seus conteúdos organizados pelo Notion.
+      </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <div class="content">
+
+
+      <!-- ===================================================
+           01 — INSTALAÇÃO
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          01 · INSTALAÇÃO
+        </span>
+
+        <h2 class="section-title">
+          Use seu VisualFeed
+        </h2>
+
+        <p class="section-description">
+          Depois de configurar e visualizar seu widget,
+          o próximo passo é utilizá-lo na página onde
+          você deseja exibir seus conteúdos.
+        </p>
+
+
+        <div class="steps">
+
+
+          <div class="step">
+
+            <div class="step-number">
+              01
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Acesse seu widget
+              </strong>
+
+              <p>
+                Utilize o widget gerado durante a configuração
+                para acessar sua visualização.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              02
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Copie o que será utilizado
+              </strong>
+
+              <p>
+                Utilize as informações disponibilizadas pelo
+                VisualFeed para inserir o widget na página desejada.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              03
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Adicione à sua página
+              </strong>
+
+              <p>
+                Insira o VisualFeed no local em que deseja
+                apresentar seu conteúdo.
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="important-note">
+
+          <span class="important-note-label">
+            Importante
+          </span>
+
+          <p>
+            A forma de inserir o widget pode variar de acordo
+            com a plataforma em que sua página foi criada.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           02 — CONTEÚDO
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          02 · CONTEÚDO
+        </span>
+
+        <h2 class="section-title">
+          Alimente seu feed pelo Notion
+        </h2>
+
+        <p class="section-description">
+          O conteúdo exibido no VisualFeed vem da Database
+          que você preparou no Notion. Para atualizar seu feed,
+          basta adicionar ou editar os conteúdos diretamente nela.
+        </p>
+
+
+        <div class="steps">
+
+
+          <div class="step">
+
+            <div class="step-number">
+              01
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Crie um novo conteúdo
+              </strong>
+
+              <p>
+                Adicione uma nova página ou item na sua Database
+                seguindo a estrutura preparada anteriormente.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              02
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Preencha as propriedades
+              </strong>
+
+              <p>
+                Informe os dados necessários, como título,
+                data, editora e demais campos utilizados pelo feed.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              03
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Atualize quando quiser
+              </strong>
+
+              <p>
+                Sempre que você editar ou adicionar conteúdos
+                na Database, o VisualFeed poderá refletir essas alterações.
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="important-note">
+
+          <span class="important-note-label">
+            Fluxo do conteúdo
+          </span>
+
+          <p>
+            <strong>Notion → Database → VisualFeed</strong>.
+            Você administra seus conteúdos no Notion e o widget
+            é responsável por exibi-los.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           03 — ORGANIZAÇÃO
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          03 · ORGANIZAÇÃO
+        </span>
+
+        <h2 class="section-title">
+          Controle o que aparece no feed
+        </h2>
+
+        <p class="section-description">
+          Algumas propriedades da Database ajudam a controlar
+          como cada conteúdo será utilizado dentro do VisualFeed.
+        </p>
+
+
+        <div class="organization-list">
+
+
+          <div class="organization-item">
+
+            <strong>
+              Conteúdo fixado
+            </strong>
+
+            <p>
+              Use a propriedade de fixação para destacar
+              conteúdos que devem receber maior evidência.
+            </p>
+
+          </div>
+
+
+          <div class="organization-item">
+
+            <strong>
+              Conteúdo oculto
+            </strong>
+
+            <p>
+              Utilize a opção de ocultar quando quiser manter
+              um conteúdo na Database sem exibi-lo no feed.
+            </p>
+
+          </div>
+
+
+          <div class="organization-item">
+
+            <strong>
+              Editoria
+            </strong>
+
+            <p>
+              Organize seus conteúdos por editorias para facilitar
+              a identificação e a navegação dentro do feed.
+            </p>
+
+          </div>
+
+
+          <div class="organization-item">
+
+            <strong>
+              Formato
+            </strong>
+
+            <p>
+              Identifique o tipo de conteúdo para que ele seja
+              apresentado de acordo com a estrutura configurada.
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           04 — PERSONALIZAÇÃO
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          04 · PERSONALIZAÇÃO
+        </span>
+
+        <h2 class="section-title">
+          Escolha como seu feed será exibido
+        </h2>
+
+        <p class="section-description">
+          O VisualFeed pode trabalhar com diferentes tipos
+          de conteúdo e formas de apresentação, permitindo
+          adaptar o feed à experiência que você deseja criar.
+        </p>
+
+
+        <div class="content-types">
+
+
+          <div class="content-type">
+
+            <div class="content-type-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+
+                <rect
+                  x="4"
+                  y="5"
+                  width="16"
+                  height="14"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+
+                <circle
+                  cx="9"
+                  cy="10"
+                  r="1.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+
+                <path
+                  d="M6.5 16L11 12L14 14.5L17.5 11L19 12.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+              </svg>
+
+            </div>
+
+            <strong>
+              Imagens
+            </strong>
+
+            <p>
+              Exiba conteúdos visuais diretamente no feed.
+            </p>
+
+          </div>
+
+
+          <div class="content-type">
+
+            <div class="content-type-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+
+                <rect
+                  x="4"
+                  y="5"
+                  width="16"
+                  height="14"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+
+                <path
+                  d="M10 9L15 12L10 15V9Z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+
+              </svg>
+
+            </div>
+
+            <strong>
+              Vídeos
+            </strong>
+
+            <p>
+              Utilize conteúdos em vídeo quando fizer sentido
+              para a estrutura do seu feed.
+            </p>
+
+          </div>
+
+
+          <div class="content-type">
+
+            <div class="content-type-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+
+                <path
+                  d="M5 6.5C5 5.67 5.67 5 6.5 5H17.5C18.33 5 19 5.67 19 6.5V17.5C19 18.33 18.33 19 17.5 19H6.5C5.67 19 5 18.33 5 17.5V6.5Z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+
+                <path
+                  d="M8 9H16"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M8 13H13"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+              </svg>
+
+            </div>
+
+            <strong>
+              Conteúdos incorporados
+            </strong>
+
+            <p>
+              Utilize conteúdos externos compatíveis,
+              quando disponíveis na configuração.
+            </p>
+
+          </div>
+
+
+          <div class="content-type">
+
+            <div class="content-type-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+
+                <path
+                  d="M6 8H18"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M6 12H18"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M6 16H14"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+              </svg>
+
+            </div>
+
+            <strong>
+              Filtros e visualização
+            </strong>
+
+            <p>
+              Organize a experiência de navegação de acordo
+              com as opções disponíveis no seu widget.
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="important-note">
+
+          <span class="important-note-label">
+            Dica
+          </span>
+
+          <p>
+            Antes de publicar ou compartilhar seu feed,
+            faça uma pré-visualização para conferir se os
+            conteúdos estão sendo exibidos como esperado.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           ENDING
+      ==================================================== -->
+
+      <section class="section">
+
+        <div class="ending">
+
+          <div class="ending-line"></div>
+
+          <span class="ending-kicker">
+            VISUALFEED PRONTO
+          </span>
+
+          <h2>
+            Seu feed está configurado
+          </h2>
+
+          <p>
+            Agora você já sabe como utilizar o VisualFeed,
+            alimentar seu conteúdo pelo Notion e organizar
+            a experiência do seu feed.
+          </p>
+
+        </div>
+
+      </section>
+
+
+    </div>
+
+
+    <a
+      href="painel.html"
+      class="back-link"
+    >
+      ← Voltar para a configuração
+    </a>
+
+
+  </main>
+
+</body>
+</html>
