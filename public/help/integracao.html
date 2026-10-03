@@ -348,9 +348,65 @@
       line-height: 1.6;
     }
 
+    .step p strong {
+      color: var(--text);
+    }
+
 
     /* =========================================================
-       INFORMATION BOX
+       ACTION BUTTON
+    ========================================================= */
+
+    .action-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+      margin-top: 24px;
+
+      min-height: 42px;
+
+      padding:
+        0
+        17px;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--purple-light)
+        );
+
+      color: white;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 9px 22px rgba(124, 58, 237, 0.16);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .action-button:hover {
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 12px 27px rgba(124, 58, 237, 0.21);
+    }
+
+
+    /* =========================================================
+       INFO BOX
     ========================================================= */
 
     .info-box {
@@ -410,6 +466,54 @@
       font-size: 11px;
 
       line-height: 1.55;
+    }
+
+
+    /* =========================================================
+       IMPORTANT NOTE
+    ========================================================= */
+
+    .important-note {
+      margin-top: 27px;
+
+      padding:
+        18px
+        20px;
+
+      border:
+        1px solid var(--border-purple);
+
+      border-radius: var(--radius-lg);
+
+      background: var(--purple-soft);
+    }
+
+    .important-note-label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: var(--purple);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.11em;
+
+      text-transform: uppercase;
+    }
+
+    .important-note p {
+      color: var(--text-soft);
+
+      font-size: 11px;
+
+      line-height: 1.6;
+    }
+
+    .important-note strong {
+      color: var(--text);
     }
 
 
@@ -859,6 +963,10 @@
         font-size: 10px;
       }
 
+      .action-button {
+        width: 100%;
+      }
+
       .info-box {
         grid-template-columns: 1fr;
       }
@@ -871,6 +979,12 @@
       }
 
       .info-item {
+        padding:
+          17px
+          18px;
+      }
+
+      .important-note {
         padding:
           17px
           18px;
@@ -962,6 +1076,10 @@
           16px;
       }
 
+      .important-note {
+        border-radius: 14px;
+      }
+
       .link-example {
         border-radius: 12px;
       }
@@ -1036,8 +1154,9 @@
 
 
       <p class="hero-description">
-        Agora vamos criar a integração, conectá-la à sua Database
-        e separar as informações que serão usadas na configuração.
+        Agora vamos criar uma conexão no Notion,
+        gerar seu token de API e conectá-la à Database
+        que você preparou no primeiro passo.
       </p>
 
     </section>
@@ -1051,23 +1170,50 @@
 
 
       <!-- ===================================================
-           01 — CRIAR INTEGRAÇÃO
+           01 — CRIAR CONEXÃO
       ==================================================== -->
 
       <section class="section">
 
         <span class="section-kicker">
-          01 · INTEGRAÇÃO
+          01 · CONEXÃO
         </span>
 
         <h2 class="section-title">
-          Crie uma integração no Notion
+          Crie uma conexão no Notion
         </h2>
 
         <p class="section-description">
-          A integração permite que o VisualFeed tenha acesso
-          à Database que você preparou no primeiro passo.
+          Primeiro, vamos criar a conexão que permitirá ao
+          VisualFeed acessar a Database que você preparou.
         </p>
+
+
+        <div class="important-note">
+
+          <span class="important-note-label">
+            Antes de começar
+          </span>
+
+          <p>
+            Verifique se você está conectado ao Notion
+            com a <strong>conta que possui o workspace
+            onde sua Database foi criada</strong>.
+            Faça esta etapa pelo navegador ou computador.
+          </p>
+
+        </div>
+
+
+        <a
+          href="https://app.notion.com/developers/connections"
+          class="action-button"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir ferramentas do desenvolvedor
+          <span aria-hidden="true">↗</span>
+        </a>
 
 
         <div class="steps">
@@ -1082,11 +1228,12 @@
             <div>
 
               <h3>
-                Abra as integrações do Notion
+                Abra as ferramentas do desenvolvedor
               </h3>
 
               <p>
-                Acesse a área de integrações da sua conta do Notion.
+                Clique no botão acima para abrir diretamente
+                a área de conexões do Notion.
               </p>
 
             </div>
@@ -1103,12 +1250,12 @@
             <div>
 
               <h3>
-                Crie uma nova integração
+                Clique em + Nova conexão
               </h3>
 
               <p>
-                Clique em <strong>+ New integration</strong>
-                para criar uma nova integração.
+                Na página que abrir, clique no botão azul
+                <strong>+ Nova conexão</strong>.
               </p>
 
             </div>
@@ -1125,13 +1272,12 @@
             <div>
 
               <h3>
-                Nomeie como VISUALFEED
+                Dê o nome VISUALFEED
               </h3>
 
               <p>
-                No campo de nome, informe
+                No campo de nome da conexão, informe
                 <strong>VISUALFEED</strong>.
-                Selecione o mesmo workspace onde sua Database foi criada.
               </p>
 
             </div>
@@ -1148,12 +1294,12 @@
             <div>
 
               <h3>
-                Escolha o tipo Interna
+                Selecione Token de API
               </h3>
 
               <p>
-                Selecione <strong>Interna</strong> como tipo
-                da integração e conclua a criação.
+                Na opção de tipo de conexão, selecione
+                <strong>Token de API</strong> e conclua a criação.
               </p>
 
             </div>
@@ -1169,7 +1315,7 @@
           <div class="info-item">
 
             <span class="info-label">
-              Nome
+              Nome da conexão
             </span>
 
             <strong>
@@ -1178,7 +1324,7 @@
 
             <p>
               Use esse nome para identificar facilmente
-              a integração quando for conectá-la à Database.
+              a conexão quando for adicioná-la à Database.
             </p>
 
           </div>
@@ -1191,12 +1337,12 @@
             </span>
 
             <strong>
-              O mesmo da Database
+              Confira o workspace correto
             </strong>
 
             <p>
-              A integração precisa estar no workspace
-              onde sua Database foi criada.
+              A conexão deve estar associada ao workspace
+              onde sua Database do VisualFeed está localizada.
             </p>
 
           </div>
@@ -1213,16 +1359,17 @@
       <section class="section">
 
         <span class="section-kicker">
-          02 · TOKEN SECRETO
+          02 · TOKEN DE API
         </span>
 
         <h2 class="section-title">
-          Copie o token da integração
+          Copie o token da conexão
         </h2>
 
         <p class="section-description">
-          Depois de criar a integração, o Notion disponibiliza
-          um token secreto. Você precisará dele mais adiante.
+          Depois de criar a conexão, o Notion abrirá
+          a página de informações dela. É lá que está
+          o token que você usará no VisualFeed.
         </p>
 
 
@@ -1238,12 +1385,13 @@
             <div>
 
               <h3>
-                Abra as configurações da integração
+                Localize o bloco Token de integração
               </h3>
 
               <p>
-                Entre novamente na integração
-                <strong>VISUALFEED</strong> que você criou.
+                Na página de informações da conexão,
+                procure o bloco chamado
+                <strong>Token de integração</strong>.
               </p>
 
             </div>
@@ -1260,12 +1408,12 @@
             <div>
 
               <h3>
-                Localize o Internal Integration Secret
+                Localize o Token de API
               </h3>
 
               <p>
-                Procure pelo campo
-                <strong>Internal Integration Secret</strong>.
+                Nesse bloco estará disponível o
+                <strong>Token de API</strong> da conexão.
               </p>
 
             </div>
@@ -1282,33 +1430,12 @@
             <div>
 
               <h3>
-                Clique em Show
+                Copie o token
               </h3>
 
               <p>
-                Revele o token para visualizar seu conteúdo.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="step">
-
-            <div class="step-number">
-              4
-            </div>
-
-            <div>
-
-              <h3>
-                Copie e guarde o token
-              </h3>
-
-              <p>
-                Copie o token e mantenha-o em um local seguro.
-                Você precisará dele no painel do VisualFeed.
+                Copie o token completo e mantenha-o
+                em um local seguro.
               </p>
 
             </div>
@@ -1321,8 +1448,9 @@
 
         <p class="token-note">
           <strong>Importante:</strong>
-          não compartilhe seu token. Ele funciona como uma
-          credencial de acesso à integração.
+          o token é uma credencial secreta.
+          Não compartilhe esse código com outras pessoas.
+          Você precisará dele no painel do VisualFeed.
         </p>
 
       </section>
@@ -1339,12 +1467,13 @@
         </span>
 
         <h2 class="section-title">
-          Conecte a integração à sua Database
+          Conecte a conexão à sua Database
         </h2>
 
         <p class="section-description">
-          Agora precisamos autorizar a integração VISUALFEED
-          a acessar a Database que você preparou.
+          Criar a conexão não dá acesso automático a todas
+          as suas páginas. Agora você precisa autorizar
+          o VISUALFEED na Database que preparou.
         </p>
 
 
@@ -1364,8 +1493,8 @@
               </h3>
 
               <p>
-                Abra no Notion a página onde está sua
-                <strong>Database inline</strong>.
+                Abra no Notion a página onde está a
+                <strong>Database</strong> que você preparou.
               </p>
 
             </div>
@@ -1430,8 +1559,8 @@
               </h3>
 
               <p>
-                Procure pela integração
-                <strong>VISUALFEED</strong> e confirme a conexão.
+                Procure pela conexão
+                <strong>VISUALFEED</strong> e confirme.
               </p>
 
             </div>
@@ -1455,8 +1584,8 @@
             </strong>
 
             <p>
-              Você está permitindo que a integração
-              acesse os conteúdos dessa Database.
+              Você está permitindo que a conexão
+              VISUALFEED acesse os conteúdos dessa Database.
             </p>
 
           </div>
@@ -1465,16 +1594,16 @@
           <div class="info-item">
 
             <span class="info-label">
-              O que vem depois
+              Atenção
             </span>
 
             <strong>
-              Configuração do VisualFeed
+              É a Database do VisualFeed
             </strong>
 
             <p>
-              No próximo fluxo, você informará o token
-              e o link da Database ao VisualFeed.
+              Confira se você está adicionando a conexão
+              à mesma Database preparada no primeiro passo.
             </p>
 
           </div>
@@ -1520,7 +1649,8 @@
               </h3>
 
               <p>
-                Acesse a Database que você preparou no primeiro passo.
+                Acesse a Database que você preparou
+                no primeiro passo.
               </p>
 
             </div>
@@ -1541,7 +1671,8 @@
               </h3>
 
               <p>
-                Clique nos três pontos para abrir as opções da Database.
+                Clique nos três pontos para abrir
+                as opções da Database.
               </p>
 
             </div>
@@ -1563,7 +1694,7 @@
 
               <p>
                 Copie o link completo da sua Database
-                e guarde-o junto com o token secreto.
+                e guarde-o junto com o token de API.
               </p>
 
             </div>
@@ -1605,33 +1736,11 @@
 
         </div>
 
-      </section>
-
-
-      <!-- ===================================================
-           FINAL VERIFICATION
-      ==================================================== -->
-
-      <section class="section">
-
-        <span class="section-kicker">
-          VERIFICAÇÃO FINAL
-        </span>
-
-        <h2 class="section-title">
-          Tudo pronto para continuar?
-        </h2>
-
-        <p class="section-description">
-          Confira se você concluiu os quatro pontos antes
-          de seguir para o painel.
-        </p>
-
 
         <div class="verification">
 
           <p class="verification-intro">
-            Você deve ter:
+            Antes de continuar, confira se você tem:
           </p>
 
 
@@ -1645,8 +1754,8 @@
               </span>
 
               <span>
-                Criado a integração
-                <strong>VISUALFEED</strong>.
+                A conexão
+                <strong>VISUALFEED</strong> criada.
               </span>
 
             </li>
@@ -1659,8 +1768,7 @@
               </span>
 
               <span>
-                Copiado o
-                <strong>Internal Integration Secret</strong>.
+                O <strong>Token de API</strong> copiado.
               </span>
 
             </li>
@@ -1673,8 +1781,8 @@
               </span>
 
               <span>
-                Conectado a integração
-                <strong>VISUALFEED</strong> à sua Database.
+                A conexão
+                <strong>VISUALFEED</strong> adicionada à Database.
               </span>
 
             </li>
@@ -1687,8 +1795,7 @@
               </span>
 
               <span>
-                Copiado o
-                <strong>link completo da Database</strong>.
+                O <strong>link completo da Database</strong> copiado.
               </span>
 
             </li>
@@ -1698,8 +1805,9 @@
 
 
           <p class="verification-note">
-            <strong>Tem tudo isso?</strong>
-            Então você está pronto para acessar o próximo passo.
+            <strong>Tudo certo?</strong>
+            Então você está pronto para seguir para o painel
+            e continuar a configuração do VisualFeed.
           </p>
 
         </div>
