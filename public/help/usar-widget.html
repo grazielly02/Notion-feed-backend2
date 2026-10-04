@@ -451,7 +451,10 @@
       height: 16px;
     }
 
-    .content-type strong {
+    /* CORREÇÃO:
+       somente o título direto do card fica em bloco.
+       Os <strong> dentro dos parágrafos permanecem inline. */
+    .content-type > strong {
       display: block;
 
       margin-top: 11px;
@@ -1134,9 +1137,9 @@
         </h2>
 
         <p class="section-description">
-          Além de adicionar conteúdos, você pode definir a
-          ordem, ocultar conteúdos e filtrar o que deseja
-          visualizar no seu VisualFeed.
+          Além de adicionar conteúdos, você pode destacar,
+          ocultar ou filtrar o que deseja visualizar no seu
+          VisualFeed.
         </p>
 
 
@@ -1153,56 +1156,8 @@
               Use o campo <strong>Fixado</strong> para destacar
               conteúdos importantes. Insira <strong>1</strong>,
               <strong>2</strong> ou <strong>3</strong> para definir
-              a posição: <strong>1</strong> à esquerda,
-              <strong>2</strong> ao centro e <strong>3</strong>
-              à direita.
-            </p>
-
-          </div>
-
-
-          <div class="organization-item">
-
-            <strong>
-              Um número de Fixado só pode ocupar uma posição
-            </strong>
-
-            <p>
-              Se você usar um número que já está atribuído a
-              outro conteúdo, o conteúdo mais recente substitui
-              o anterior naquela posição.
-            </p>
-
-          </div>
-
-
-          <div class="organization-item">
-
-            <strong>
-              Organize pela Data de Publicação
-            </strong>
-
-            <p>
-              A <strong>Data de Publicação</strong> também
-              determina a ordem dos conteúdos no feed. Quanto
-              mais recente for a data preenchida, mais acima
-              o conteúdo será exibido.
-            </p>
-
-          </div>
-
-
-          <div class="organization-item">
-
-            <strong>
-              E se o conteúdo não tiver data?
-            </strong>
-
-            <p>
-              Quando a <strong>Data de Publicação</strong> não
-              estiver preenchida, o conteúdo é enviado para o
-              final do feed e aparece com o aviso
-              <strong>Sem data</strong>.
+              a posição do conteúdo: 1 à esquerda, 2 ao centro
+              e 3 à direita.
             </p>
 
           </div>
@@ -1231,9 +1186,10 @@
             </strong>
 
             <p>
-              Use o botão de <strong>filtro</strong> no topo do
-              widget para visualizar conteúdos de um determinado
-              formato, como imagem, vídeo, carrossel ou reels.
+              Use o botão de <strong>Filtro</strong> no topo do
+              widget, ao lado do botão <strong>Atualizar</strong>,
+              para visualizar conteúdos de um determinado formato,
+              como imagem, vídeo, carrossel ou reels.
             </p>
 
           </div>
@@ -1245,14 +1201,13 @@
         <div class="important-note">
 
           <span class="important-note-label">
-            Importante
+            Fixado
           </span>
 
           <p>
-            Sempre que você criar, editar, ocultar ou alterar
-            conteúdos na Database, clique em
-            <strong>Atualizar</strong> no widget para visualizar
-            as mudanças.
+            Se dois conteúdos receberem o mesmo número no campo
+            <strong>Fixado</strong>, o conteúdo mais recente
+            substitui o anterior naquela posição.
           </p>
 
         </div>
@@ -1276,28 +1231,30 @@
 
 
       <!-- ===================================================
-           04 — PERSONALIZAÇÃO
+           04 — CONTROLES
       ==================================================== -->
 
       <section class="section">
 
         <span class="section-kicker">
-          04 · PERSONALIZAÇÃO
+          04 · CONTROLES
         </span>
 
         <h2 class="section-title">
-          Escolha o estilo de visualização
+          Escolha como visualizar seu feed
         </h2>
 
         <p class="section-description">
-          Escolha entre o modo claro ou escuro para adaptar
-          a aparência do VisualFeed à experiência que você
-          deseja criar.
+          Use os controles no topo do VisualFeed para escolher
+          o modo de visualização, atualizar os conteúdos e
+          filtrar o que deseja visualizar.
         </p>
 
 
         <div class="content-types">
 
+
+          <!-- MODO CLARO -->
 
           <div class="content-type">
 
@@ -1318,56 +1275,56 @@
                 />
 
                 <path
-                  d="M12 3V5"
+                  d="M12 2V4"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M12 19V21"
+                  d="M12 20V22"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M3 12H5"
+                  d="M4.93 4.93L6.34 6.34"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M19 12H21"
+                  d="M17.66 17.66L19.07 19.07"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M5.64 5.64L7.05 7.05"
+                  d="M2 12H4"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M16.95 16.95L18.36 18.36"
+                  d="M20 12H22"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M16.95 7.05L18.36 5.64"
+                  d="M4.93 19.07L6.34 17.66"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M5.64 18.36L7.05 16.95"
+                  d="M17.66 6.34L19.07 4.93"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
@@ -1378,16 +1335,18 @@
             </div>
 
             <strong>
-              ☀️ Modo claro
+              Modo claro
             </strong>
 
             <p>
-              Escolha o modo claro para uma aparência mais
-              leve e iluminada no seu VisualFeed.
+              Sol → escolha o modo claro para uma aparência
+              mais leve e iluminada no seu VisualFeed.
             </p>
 
           </div>
 
+
+          <!-- MODO ESCURO -->
 
           <div class="content-type">
 
@@ -1400,9 +1359,10 @@
               >
 
                 <path
-                  d="M20 15.2C18.95 15.7 17.78 16 16.54 16C12.38 16 9 12.62 9 8.46C9 7.22 9.3 6.05 9.8 5C6.96 5.86 5 8.39 5 11.38C5 15.23 8.12 18.35 11.97 18.35C14.96 18.35 17.49 16.39 18.35 13.55C18.86 14.05 19.42 14.61 20 15.2Z"
+                  d="M20 15.5C18.96 16.02 17.79 16.31 16.55 16.31C12.29 16.31 8.84 12.86 8.84 8.6C8.84 7.37 9.13 6.2 9.65 5.16C5.79 6.04 2.9 9.5 2.9 13.63C2.9 18.43 6.79 22.32 11.59 22.32C15.72 22.32 19.18 19.43 20 15.5Z"
                   stroke="currentColor"
                   stroke-width="1.7"
+                  stroke-linecap="round"
                   stroke-linejoin="round"
                 />
 
@@ -1411,16 +1371,18 @@
             </div>
 
             <strong>
-              🌙 Modo escuro
+              Modo escuro
             </strong>
 
             <p>
-              Escolha o modo escuro para uma aparência mais
-              sóbria e confortável em ambientes com pouca luz.
+              Lua → escolha o modo escuro para uma aparência
+              mais sóbria e confortável em ambientes com pouca luz.
             </p>
 
           </div>
 
+
+          <!-- ATUALIZAR -->
 
           <div class="content-type">
 
@@ -1433,14 +1395,29 @@
               >
 
                 <path
-                  d="M20 12C20 16.42 16.42 20 12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4"
+                  d="M20 11C19.52 7.61 16.61 5 13.1 5C9.75 5 6.94 7.38 6.23 10.56"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M12 8V12L14.5 14.5"
+                  d="M4 7V11H8"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <path
+                  d="M4 13C4.48 16.39 7.39 19 10.9 19C14.25 19 17.06 16.62 17.77 13.44"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M20 17V13H16"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
@@ -1456,13 +1433,15 @@
             </strong>
 
             <p>
-              Depois de alterar conteúdos na Database, use
-              <strong>Atualizar</strong> para carregar as
+              Depois de alterar conteúdos na Database, clique
+              em <strong>Atualizar</strong> para carregar as
               mudanças no widget.
             </p>
 
           </div>
 
+
+          <!-- FILTRO -->
 
           <div class="content-type">
 
@@ -1475,21 +1454,21 @@
               >
 
                 <path
-                  d="M5 7H19"
+                  d="M4 7H20"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M5 12H19"
+                  d="M4 12H20"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M5 17H19"
+                  d="M4 17H20"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
@@ -1499,21 +1478,27 @@
                   cx="9"
                   cy="7"
                   r="1.5"
-                  fill="currentColor"
+                  fill="var(--purple-soft)"
+                  stroke="currentColor"
+                  stroke-width="1.5"
                 />
 
                 <circle
                   cx="15"
                   cy="12"
                   r="1.5"
-                  fill="currentColor"
+                  fill="var(--purple-soft)"
+                  stroke="currentColor"
+                  stroke-width="1.5"
                 />
 
                 <circle
                   cx="11"
                   cy="17"
                   r="1.5"
-                  fill="currentColor"
+                  fill="var(--purple-soft)"
+                  stroke="currentColor"
+                  stroke-width="1.5"
                 />
 
               </svg>
@@ -1543,8 +1528,7 @@
 
           <p>
             No topo do VisualFeed, os controles aparecem nesta
-            ordem: <strong>Modo</strong> → <strong>Atualizar</strong>
-            → <strong>Filtro</strong>.
+            ordem: <strong>Modo → Atualizar → Filtro</strong>.
           </p>
 
         </div>
@@ -1563,102 +1547,67 @@
         </span>
 
         <h2 class="section-title">
-          Se algo não aparecer no feed
+          Antes de usar seu VisualFeed
         </h2>
 
         <p class="section-description">
-          O VisualFeed sempre reflete o que está na sua
-          Database. Se algum conteúdo não aparecer como
-          esperado, faça estas verificações:
+          Algumas regras importantes ajudam a manter seus
+          conteúdos organizados e garantir que as alterações
+          apareçam corretamente no widget.
         </p>
 
 
-        <div class="steps">
+        <div class="organization-list">
 
 
-          <div class="step">
+          <div class="organization-item">
 
-            <div class="step-number">
-              01
-            </div>
+            <strong>
+              A data influencia a ordem dos conteúdos
+            </strong>
 
-            <div class="step-content">
-
-              <strong>
-                Verifique a mídia
-              </strong>
-
-              <p>
-                Confirme se a foto, o vídeo ou o link direto
-                da mídia foi adicionado corretamente.
-              </p>
-
-            </div>
+            <p>
+              A <strong>Data de Publicação</strong> é usada para
+              ordenar a aparição dos conteúdos no feed. Quando
+              um conteúdo não possui data, ele aparece no final
+              do widget e é identificado como
+              <strong>Sem data</strong>.
+            </p>
 
           </div>
 
 
-          <div class="step">
+          <div class="organization-item">
 
-            <div class="step-number">
-              02
-            </div>
+            <strong>
+              Alterações precisam ser atualizadas
+            </strong>
 
-            <div class="step-content">
-
-              <strong>
-                Confira os campos
-              </strong>
-
-              <p>
-                Verifique se os campos do conteúdo foram
-                preenchidos corretamente, especialmente o
-                formato e a mídia.
-              </p>
-
-            </div>
+            <p>
+              Sempre que você criar, editar, ocultar ou organizar
+              conteúdos na Database, clique em
+              <strong>Atualizar</strong> no widget para carregar
+              as mudanças.
+            </p>
 
           </div>
 
 
-          <div class="step">
+          <div class="organization-item">
 
-            <div class="step-number">
-              03
-            </div>
+            <strong>
+              Se algo não aparecer
+            </strong>
 
-            <div class="step-content">
-
-              <strong>
-                Clique em Atualizar
-              </strong>
-
-              <p>
-                Depois de qualquer alteração feita na Database,
-                clique em <strong>Atualizar</strong> no topo do
-                widget para carregar os dados novamente.
-              </p>
-
-            </div>
+            <p>
+              Verifique se a <strong>mídia</strong> foi adicionada
+              corretamente, confirme se os campos do conteúdo
+              estão preenchidos e, depois, clique em
+              <strong>Atualizar</strong> no widget.
+            </p>
 
           </div>
 
-
-        </div>
-
-
-        <div class="important-note">
-
-          <span class="important-note-label">
-            Lembre-se
-          </span>
-
-          <p>
-            O conteúdo é administrado no <strong>Notion</strong>.
-            O VisualFeed apenas busca e exibe os dados da sua
-            Database conforme as configurações e informações
-            preenchidas.
-          </p>
 
         </div>
 
@@ -1685,8 +1634,8 @@
 
           <p>
             Agora você já sabe como utilizar o VisualFeed,
-            alimentar seu conteúdo pelo Notion, organizar
-            seus posts e personalizar a visualização do feed.
+            alimentar seu conteúdo pelo Notion e organizar
+            a experiência do seu feed.
           </p>
 
         </div>
