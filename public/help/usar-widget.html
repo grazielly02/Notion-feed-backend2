@@ -451,9 +451,6 @@
       height: 16px;
     }
 
-    /* CORREÇÃO:
-       somente o título direto do card fica em bloco.
-       Os <strong> dentro dos parágrafos permanecem inline. */
     .content-type > strong {
       display: block;
 
@@ -702,7 +699,13 @@
           1px solid var(--border-purple);
       }
 
-      .content-type:last-child {
+      /* Mantém o divisor entre Atualizar e Filtro */
+      .content-type:nth-child(3) {
+        border-bottom:
+          1px solid var(--border-purple);
+      }
+
+      .content-type:nth-child(4) {
         border-bottom: 0;
       }
 
@@ -1047,6 +1050,8 @@
                 <strong>Mídia</strong> → adicione uma foto ou vídeo
                 do seu dispositivo ou cole um link direto para
                 o arquivo de mídia.<br>
+                <strong>Canva</strong> → você também pode usar um
+                link de visualização do Canva como mídia do conteúdo.<br>
                 <strong>Formato</strong> → escolha entre imagem,
                 vídeo, carrossel ou reels.<br>
                 <strong>Capa do Vídeo</strong> → adicione a capa
@@ -1395,14 +1400,14 @@
               >
 
                 <path
-                  d="M20 11C19.52 7.61 16.61 5 13.1 5C9.75 5 6.94 7.38 6.23 10.56"
+                  d="M20 11a8 8 0 0 0-14.9-4"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M4 7V11H8"
+                  d="M4 4.5V8h3.5"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
@@ -1410,14 +1415,14 @@
                 />
 
                 <path
-                  d="M4 13C4.48 16.39 7.39 19 10.9 19C14.25 19 17.06 16.62 17.77 13.44"
+                  d="M4 13a8 8 0 0 0 14.9 4"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
                 />
 
                 <path
-                  d="M20 17V13H16"
+                  d="M20 19.5V16h-3.5"
                   stroke="currentColor"
                   stroke-width="1.7"
                   stroke-linecap="round"
