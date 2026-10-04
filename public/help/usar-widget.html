@@ -497,7 +497,10 @@
       background: var(--white);
     }
 
-    .organization-item strong {
+    /* CORREÇÃO:
+       somente o título do card fica em bloco.
+       Os <strong> dentro do parágrafo permanecem inline. */
+    .organization-item > strong {
       display: block;
 
       font-size: 12px;
