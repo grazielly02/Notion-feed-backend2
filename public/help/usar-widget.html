@@ -497,9 +497,6 @@
       background: var(--white);
     }
 
-    /* CORREÇÃO:
-       somente o título do card fica em bloco.
-       Os <strong> dentro do parágrafo permanecem inline. */
     .organization-item > strong {
       display: block;
 
@@ -1137,9 +1134,9 @@
         </h2>
 
         <p class="section-description">
-          Além de adicionar conteúdos, você pode destacar,
-          ocultar ou filtrar o que deseja visualizar no seu
-          VisualFeed.
+          Além de adicionar conteúdos, você pode definir a
+          ordem, ocultar conteúdos e filtrar o que deseja
+          visualizar no seu VisualFeed.
         </p>
 
 
@@ -1156,8 +1153,56 @@
               Use o campo <strong>Fixado</strong> para destacar
               conteúdos importantes. Insira <strong>1</strong>,
               <strong>2</strong> ou <strong>3</strong> para definir
-              a posição do conteúdo: 1 à esquerda, 2 ao centro
-              e 3 à direita.
+              a posição: <strong>1</strong> à esquerda,
+              <strong>2</strong> ao centro e <strong>3</strong>
+              à direita.
+            </p>
+
+          </div>
+
+
+          <div class="organization-item">
+
+            <strong>
+              Um número de Fixado só pode ocupar uma posição
+            </strong>
+
+            <p>
+              Se você usar um número que já está atribuído a
+              outro conteúdo, o conteúdo mais recente substitui
+              o anterior naquela posição.
+            </p>
+
+          </div>
+
+
+          <div class="organization-item">
+
+            <strong>
+              Organize pela Data de Publicação
+            </strong>
+
+            <p>
+              A <strong>Data de Publicação</strong> também
+              determina a ordem dos conteúdos no feed. Quanto
+              mais recente for a data preenchida, mais acima
+              o conteúdo será exibido.
+            </p>
+
+          </div>
+
+
+          <div class="organization-item">
+
+            <strong>
+              E se o conteúdo não tiver data?
+            </strong>
+
+            <p>
+              Quando a <strong>Data de Publicação</strong> não
+              estiver preenchida, o conteúdo é enviado para o
+              final do feed e aparece com o aviso
+              <strong>Sem data</strong>.
             </p>
 
           </div>
@@ -1187,13 +1232,28 @@
 
             <p>
               Use o botão de <strong>filtro</strong> no topo do
-              widget, ao lado do botão <strong>Atualizar</strong>,
-              para visualizar conteúdos de um determinado formato,
-              como imagem, vídeo, carrossel ou reels.
+              widget para visualizar conteúdos de um determinado
+              formato, como imagem, vídeo, carrossel ou reels.
             </p>
 
           </div>
 
+
+        </div>
+
+
+        <div class="important-note">
+
+          <span class="important-note-label">
+            Importante
+          </span>
+
+          <p>
+            Sempre que você criar, editar, ocultar ou alterar
+            conteúdos na Database, clique em
+            <strong>Atualizar</strong> no widget para visualizar
+            as mudanças.
+          </p>
 
         </div>
 
@@ -1226,13 +1286,13 @@
         </span>
 
         <h2 class="section-title">
-          Escolha como seu feed será exibido
+          Escolha o estilo de visualização
         </h2>
 
         <p class="section-description">
-          O VisualFeed pode trabalhar com diferentes tipos
-          de conteúdo e formas de apresentação, permitindo
-          adaptar o feed à experiência que você deseja criar.
+          Escolha entre o modo claro ou escuro para adaptar
+          a aparência do VisualFeed à experiência que você
+          deseja criar.
         </p>
 
 
@@ -1249,72 +1309,211 @@
                 xmlns="http://www.w3.org/2000/svg"
               >
 
-                <rect
-                  x="4"
-                  y="5"
-                  width="16"
-                  height="14"
-                  rx="2"
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="4"
                   stroke="currentColor"
                   stroke-width="1.7"
+                />
+
+                <path
+                  d="M12 3V5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M12 19V21"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M3 12H5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M19 12H21"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M5.64 5.64L7.05 7.05"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M16.95 16.95L18.36 18.36"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M16.95 7.05L18.36 5.64"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M5.64 18.36L7.05 16.95"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+              </svg>
+
+            </div>
+
+            <strong>
+              ☀️ Modo claro
+            </strong>
+
+            <p>
+              Escolha o modo claro para uma aparência mais
+              leve e iluminada no seu VisualFeed.
+            </p>
+
+          </div>
+
+
+          <div class="content-type">
+
+            <div class="content-type-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+
+                <path
+                  d="M20 15.2C18.95 15.7 17.78 16 16.54 16C12.38 16 9 12.62 9 8.46C9 7.22 9.3 6.05 9.8 5C6.96 5.86 5 8.39 5 11.38C5 15.23 8.12 18.35 11.97 18.35C14.96 18.35 17.49 16.39 18.35 13.55C18.86 14.05 19.42 14.61 20 15.2Z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+
+              </svg>
+
+            </div>
+
+            <strong>
+              🌙 Modo escuro
+            </strong>
+
+            <p>
+              Escolha o modo escuro para uma aparência mais
+              sóbria e confortável em ambientes com pouca luz.
+            </p>
+
+          </div>
+
+
+          <div class="content-type">
+
+            <div class="content-type-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+
+                <path
+                  d="M20 12C20 16.42 16.42 20 12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M12 8V12L14.5 14.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+              </svg>
+
+            </div>
+
+            <strong>
+              Atualizar
+            </strong>
+
+            <p>
+              Depois de alterar conteúdos na Database, use
+              <strong>Atualizar</strong> para carregar as
+              mudanças no widget.
+            </p>
+
+          </div>
+
+
+          <div class="content-type">
+
+            <div class="content-type-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+
+                <path
+                  d="M5 7H19"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M5 12H19"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M5 17H19"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
                 />
 
                 <circle
                   cx="9"
-                  cy="10"
+                  cy="7"
                   r="1.5"
-                  stroke="currentColor"
-                  stroke-width="1.5"
+                  fill="currentColor"
                 />
 
-                <path
-                  d="M6.5 16L11 12L14 14.5L17.5 11L19 12.5"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                <circle
+                  cx="15"
+                  cy="12"
+                  r="1.5"
+                  fill="currentColor"
                 />
 
-              </svg>
-
-            </div>
-
-            <strong>
-              Imagens
-            </strong>
-
-            <p>
-              Exiba conteúdos visuais diretamente no feed.
-            </p>
-
-          </div>
-
-
-          <div class="content-type">
-
-            <div class="content-type-icon">
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-
-                <rect
-                  x="4"
-                  y="5"
-                  width="16"
-                  height="14"
-                  rx="2"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                />
-
-                <path
-                  d="M10 9L15 12L10 15V9Z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linejoin="round"
+                <circle
+                  cx="11"
+                  cy="17"
+                  r="1.5"
+                  fill="currentColor"
                 />
 
               </svg>
@@ -1322,105 +1521,12 @@
             </div>
 
             <strong>
-              Vídeos
+              Filtro
             </strong>
 
             <p>
-              Utilize conteúdos em vídeo quando fizer sentido
-              para a estrutura do seu feed.
-            </p>
-
-          </div>
-
-
-          <div class="content-type">
-
-            <div class="content-type-icon">
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-
-                <path
-                  d="M5 6.5C5 5.67 5.67 5 6.5 5H17.5C18.33 5 19 5.67 19 6.5V17.5C19 18.33 18.33 19 17.5 19H6.5C5.67 19 5 18.33 5 17.5V6.5Z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                />
-
-                <path
-                  d="M8 9H16"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                />
-
-                <path
-                  d="M8 13H13"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                />
-
-              </svg>
-
-            </div>
-
-            <strong>
-              Conteúdos incorporados
-            </strong>
-
-            <p>
-              Utilize conteúdos externos compatíveis,
-              quando disponíveis na configuração.
-            </p>
-
-          </div>
-
-
-          <div class="content-type">
-
-            <div class="content-type-icon">
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-
-                <path
-                  d="M6 8H18"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                />
-
-                <path
-                  d="M6 12H18"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                />
-
-                <path
-                  d="M6 16H14"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                />
-
-              </svg>
-
-            </div>
-
-            <strong>
-              Filtros e visualização
-            </strong>
-
-            <p>
-              Organize a experiência de navegação de acordo
-              com as opções disponíveis no seu widget.
+              Use o filtro para escolher quais formatos de
+              conteúdo deseja visualizar no feed.
             </p>
 
           </div>
@@ -1432,13 +1538,126 @@
         <div class="important-note">
 
           <span class="important-note-label">
-            Dica
+            Controles do widget
           </span>
 
           <p>
-            Antes de usar ou compartilhar seu feed,
-            faça uma pré-visualização para conferir se os
-            conteúdos estão sendo exibidos como esperado.
+            No topo do VisualFeed, os controles aparecem nesta
+            ordem: <strong>Modo</strong> → <strong>Atualizar</strong>
+            → <strong>Filtro</strong>.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           05 — OBSERVAÇÕES FINAIS
+      ==================================================== -->
+
+      <section class="section">
+
+        <span class="section-kicker">
+          05 · OBSERVAÇÕES FINAIS
+        </span>
+
+        <h2 class="section-title">
+          Se algo não aparecer no feed
+        </h2>
+
+        <p class="section-description">
+          O VisualFeed sempre reflete o que está na sua
+          Database. Se algum conteúdo não aparecer como
+          esperado, faça estas verificações:
+        </p>
+
+
+        <div class="steps">
+
+
+          <div class="step">
+
+            <div class="step-number">
+              01
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Verifique a mídia
+              </strong>
+
+              <p>
+                Confirme se a foto, o vídeo ou o link direto
+                da mídia foi adicionado corretamente.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              02
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Confira os campos
+              </strong>
+
+              <p>
+                Verifique se os campos do conteúdo foram
+                preenchidos corretamente, especialmente o
+                formato e a mídia.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              03
+            </div>
+
+            <div class="step-content">
+
+              <strong>
+                Clique em Atualizar
+              </strong>
+
+              <p>
+                Depois de qualquer alteração feita na Database,
+                clique em <strong>Atualizar</strong> no topo do
+                widget para carregar os dados novamente.
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="important-note">
+
+          <span class="important-note-label">
+            Lembre-se
+          </span>
+
+          <p>
+            O conteúdo é administrado no <strong>Notion</strong>.
+            O VisualFeed apenas busca e exibe os dados da sua
+            Database conforme as configurações e informações
+            preenchidas.
           </p>
 
         </div>
@@ -1466,8 +1685,8 @@
 
           <p>
             Agora você já sabe como utilizar o VisualFeed,
-            alimentar seu conteúdo pelo Notion e organizar
-            a experiência do seu feed.
+            alimentar seu conteúdo pelo Notion, organizar
+            seus posts e personalizar a visualização do feed.
           </p>
 
         </div>
