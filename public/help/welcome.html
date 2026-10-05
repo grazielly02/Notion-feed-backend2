@@ -34,9 +34,15 @@ href="style.css">
 
   min-height: 100vh;
 
-  background: var(--background);
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(157, 92, 255, 0.12),
+      transparent 34%
+    ),
+    var(--background);
 
-  padding: 64px 24px;
+  padding: 48px 20px 60px;
 
 }
 
@@ -44,11 +50,15 @@ href="style.css">
 
   width: 100%;
 
-  max-width: 960px;
+  max-width: 900px;
 
   margin: 0 auto;
 
 }
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
 
 .welcome-card {
 
@@ -65,42 +75,43 @@ href="style.css">
 }
 
 /* =========================================================
-   HEADER
+   HERO
 ========================================================= */
 
-.welcome-header {
+.welcome-hero {
 
-  padding: 64px 68px 58px;
+  padding: 58px 64px 50px;
+
+  text-align: left;
 
   background:
-    radial-gradient(
-      circle at 82% 0%,
-      rgba(157, 92, 255, 0.09),
-      transparent 32%
-    ),
-    var(--white);
+    linear-gradient(
+      135deg,
+      rgba(241, 235, 255, 0.72),
+      rgba(255, 255, 255, 0.96) 55%
+    );
 
   border-bottom: 1px solid var(--border);
 
 }
 
-.welcome-header-top {
+.welcome-brand {
 
   display: flex;
 
   align-items: center;
 
-  gap: 14px;
+  gap: 13px;
 
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 
 }
 
 .welcome-icon {
 
-  width: 52px;
+  width: 48px;
 
-  height: 52px;
+  height: 48px;
 
   flex: 0 0 auto;
 
@@ -110,17 +121,43 @@ href="style.css">
 
   justify-content: center;
 
-  border-radius: 16px;
+  border-radius: 14px;
 
-  background: var(--purple-pale);
+  background: var(--white);
 
   color: var(--purple);
 
   border: 1px solid var(--border-purple);
 
+  box-shadow:
+    0 8px 22px
+    rgba(48, 31, 82, 0.07);
+
 }
 
-.welcome-label {
+.welcome-brand-copy {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+}
+
+.welcome-brand-copy strong {
+
+  color: var(--text);
+
+  font-size: 13px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+
+}
+
+.welcome-brand-copy span {
 
   color: var(--purple);
 
@@ -130,21 +167,21 @@ href="style.css">
 
   font-weight: 800;
 
-  letter-spacing: 0.10em;
+  letter-spacing: 0.09em;
 
   text-transform: uppercase;
 
 }
 
-.welcome-header h1 {
+.welcome-hero h1 {
 
-  max-width: 720px;
+  max-width: 680px;
 
   margin: 0;
 
   color: var(--text);
 
-  font-size: clamp(36px, 5vw, 52px);
+  font-size: clamp(34px, 5vw, 48px);
 
   line-height: 1.08;
 
@@ -154,11 +191,11 @@ href="style.css">
 
 }
 
-.welcome-header-description {
+.welcome-hero-description {
 
-  max-width: 650px;
+  max-width: 610px;
 
-  margin: 20px 0 0;
+  margin: 18px 0 0;
 
   color: var(--text-soft);
 
@@ -169,84 +206,68 @@ href="style.css">
 }
 
 /* =========================================================
-   INTRO NOTE
+   QUICK INFO
 ========================================================= */
 
-.welcome-intro {
+.welcome-meta {
 
   display: flex;
 
-  align-items: flex-start;
+  flex-wrap: wrap;
 
-  gap: 14px;
+  gap: 10px;
 
-  max-width: 720px;
-
-  margin-top: 30px;
-
-  padding: 18px 20px;
-
-  background: var(--purple-soft);
-
-  border: 1px solid var(--border-purple);
-
-  border-radius: var(--radius-md);
+  margin-top: 28px;
 
 }
 
-.welcome-intro-icon {
+.welcome-meta-item {
 
-  width: 26px;
-
-  height: 26px;
-
-  flex: 0 0 auto;
-
-  display: flex;
+  display: inline-flex;
 
   align-items: center;
 
-  justify-content: center;
+  gap: 7px;
 
-  border-radius: 8px;
+  padding: 8px 11px;
 
-  background: var(--purple-pale);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.85);
+
+  border: 1px solid var(--border-purple);
+
+  color: var(--text-soft);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+}
+
+.welcome-meta-item svg {
 
   color: var(--purple);
 
 }
 
-.welcome-intro p {
-
-  margin: 0;
-
-  color: var(--text-soft);
-
-  font-size: 12px;
-
-  line-height: 1.65;
-
-}
-
-.welcome-intro strong {
-
-  color: var(--text);
-
-  font-weight: 800;
-
-}
-
 /* =========================================================
-   MAIN CONTENT
+   CONTENT
 ========================================================= */
 
 .welcome-content {
 
-  padding: 54px 68px 62px;
+  padding: 48px 64px 54px;
 
 }
 
-.section-eyebrow {
+.welcome-section-heading {
+
+  margin-bottom: 28px;
+
+}
+
+.welcome-section-label {
 
   margin-bottom: 8px;
 
@@ -264,13 +285,13 @@ href="style.css">
 
 }
 
-.welcome-content h2 {
+.welcome-section-heading h2 {
 
   margin: 0;
 
   color: var(--text);
 
-  font-size: 25px;
+  font-size: 24px;
 
   line-height: 1.3;
 
@@ -280,11 +301,11 @@ href="style.css">
 
 }
 
-.section-description {
+.welcome-section-heading p {
 
   max-width: 620px;
 
-  margin: 10px 0 32px;
+  margin: 9px 0 0;
 
   color: var(--text-soft);
 
@@ -295,38 +316,62 @@ href="style.css">
 }
 
 /* =========================================================
-   JOURNEY GRID
+   JOURNEY
 ========================================================= */
 
-.welcome-steps {
+.welcome-journey {
 
-  display: grid;
+  position: relative;
 
-  grid-template-columns: repeat(2, 1fr);
+}
 
-  gap: 14px;
+.welcome-journey::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 17px;
+
+  top: 21px;
+
+  bottom: 21px;
+
+  width: 1px;
+
+  background: var(--border-purple);
 
 }
 
 .welcome-step {
 
-  min-height: 155px;
+  position: relative;
 
-  padding: 24px;
+  display: grid;
 
-  border: 1px solid var(--border);
+  grid-template-columns: 35px 1fr;
 
-  border-radius: var(--radius-lg);
+  gap: 17px;
 
-  background: var(--white);
+  padding: 0 0 25px;
+
+}
+
+.welcome-step:last-child {
+
+  padding-bottom: 0;
 
 }
 
 .welcome-step-number {
 
-  width: 34px;
+  position: relative;
 
-  height: 34px;
+  z-index: 1;
+
+  width: 35px;
+
+  height: 35px;
 
   display: flex;
 
@@ -334,11 +379,11 @@ href="style.css">
 
   justify-content: center;
 
-  margin-bottom: 20px;
+  border-radius: 11px;
 
-  border-radius: 10px;
+  background: var(--white);
 
-  background: var(--purple-pale);
+  border: 1px solid var(--border-purple);
 
   color: var(--purple);
 
@@ -348,9 +393,17 @@ href="style.css">
 
 }
 
-.welcome-step h3 {
+.welcome-step-content {
 
-  margin: 0 0 7px;
+  padding: 1px 0 0;
+
+}
+
+.welcome-step-content strong {
+
+  display: block;
+
+  margin-bottom: 5px;
 
   color: var(--text);
 
@@ -362,9 +415,9 @@ href="style.css">
 
 }
 
-.welcome-step p {
+.welcome-step-content p {
 
-  max-width: 350px;
+  max-width: 620px;
 
   margin: 0;
 
@@ -377,10 +430,10 @@ href="style.css">
 }
 
 /* =========================================================
-   FINAL AREA
+   START AREA
 ========================================================= */
 
-.welcome-final {
+.welcome-start {
 
   display: flex;
 
@@ -388,27 +441,27 @@ href="style.css">
 
   justify-content: space-between;
 
-  gap: 32px;
+  gap: 30px;
 
   margin-top: 42px;
 
-  padding-top: 30px;
+  padding: 26px 0 0;
 
   border-top: 1px solid var(--border);
 
 }
 
-.welcome-final-copy {
+.welcome-start-copy {
 
   max-width: 570px;
 
 }
 
-.welcome-final-copy strong {
+.welcome-start-copy strong {
 
   display: block;
 
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 
   color: var(--text);
 
@@ -420,7 +473,7 @@ href="style.css">
 
 }
 
-.welcome-final-copy p {
+.welcome-start-copy p {
 
   margin: 0;
 
@@ -434,23 +487,30 @@ href="style.css">
 
 .welcome-button {
 
-  flex: 0 0 auto;
-
   display: inline-flex;
 
   align-items: center;
 
   justify-content: center;
 
-  gap: 9px;
+  gap: 8px;
+
+  min-width: 142px;
 
   min-height: 46px;
 
-  padding: 0 21px;
+  padding: 0 19px;
+
+  flex: 0 0 auto;
 
   border-radius: 12px;
 
-  background: var(--purple);
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--purple-light)
+    );
 
   color: var(--white);
 
@@ -462,10 +522,9 @@ href="style.css">
 
   box-shadow:
     0 9px 22px
-    rgba(124, 58, 237, 0.16);
+    rgba(124, 58, 237, 0.18);
 
   transition:
-    background 0.2s ease,
     transform 0.2s ease,
     box-shadow 0.2s ease;
 
@@ -473,43 +532,69 @@ href="style.css">
 
 .welcome-button:hover {
 
-  background: var(--purple-dark);
-
   transform: translateY(-1px);
 
   box-shadow:
-    0 12px 25px
-    rgba(124, 58, 237, 0.21);
+    0 12px 27px
+    rgba(124, 58, 237, 0.22);
 
 }
 
 /* =========================================================
-   RESPONSIVE
+   MOBILE
 ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 680px) {
 
   .welcome-page {
 
-    padding: 22px 14px;
+    padding: 20px 12px 34px;
 
   }
 
-  .welcome-header {
+  .welcome-hero {
 
-    padding: 38px 24px 34px;
+    padding: 38px 24px 36px;
 
   }
 
-  .welcome-header h1 {
+  .welcome-brand {
+
+    margin-bottom: 27px;
+
+  }
+
+  .welcome-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+  }
+
+  .welcome-hero h1 {
 
     font-size: 34px;
 
   }
 
-  .welcome-header-description {
+  .welcome-hero-description {
 
     font-size: 14px;
+
+    line-height: 1.7;
+
+  }
+
+  .welcome-meta {
+
+    gap: 8px;
+
+  }
+
+  .welcome-meta-item {
+
+    font-size: 10px;
 
   }
 
@@ -519,23 +604,47 @@ href="style.css">
 
   }
 
-  .welcome-steps {
+  .welcome-section-heading h2 {
 
-    grid-template-columns: 1fr;
+    font-size: 22px;
 
   }
 
   .welcome-step {
 
-    min-height: auto;
+    grid-template-columns: 33px 1fr;
+
+    gap: 14px;
+
+    padding-bottom: 24px;
 
   }
 
-  .welcome-final {
+  .welcome-step-number {
+
+    width: 33px;
+
+    height: 33px;
+
+  }
+
+  .welcome-journey::before {
+
+    left: 16px;
+
+    top: 20px;
+
+    bottom: 20px;
+
+  }
+
+  .welcome-start {
+
+    align-items: stretch;
 
     flex-direction: column;
 
-    align-items: stretch;
+    gap: 20px;
 
   }
 
@@ -558,12 +667,12 @@ href="style.css">
 <section class="welcome-card">
 
 <!-- =====================================================
-     HEADER
+     HERO
 ===================================================== -->
 
-<header class="welcome-header">
+<header class="welcome-hero">
 
-<div class="welcome-header-top">
+<div class="welcome-brand">
 
 <div class="welcome-icon">
 
@@ -574,41 +683,57 @@ viewBox="0 0 24 24"
 fill="none"
 aria-hidden="true">
 
+<!-- janela do widget -->
+
 <rect
-x="4"
-y="3"
-width="16"
-height="18"
+x="3.5"
+y="4"
+width="17"
+height="16"
 rx="3"
 stroke="currentColor"
-stroke-width="1.8"/>
+stroke-width="1.7"/>
+
+<!-- barra superior -->
 
 <path
-d="M8 8h5"
+d="M4 8h16"
 stroke="currentColor"
-stroke-width="1.8"
+stroke-width="1.7"/>
+
+<!-- conteúdo do feed -->
+
+<rect
+x="7"
+y="11"
+width="4"
+height="4"
+rx="1"
+fill="currentColor"/>
+
+<path
+d="M13.5 11h3M13.5 13.5h3"
+stroke="currentColor"
+stroke-width="1.5"
 stroke-linecap="round"/>
-
-<path
-d="M8 12h8"
-stroke="currentColor"
-stroke-width="1.8"
-stroke-linecap="round"/>
-
-<path
-d="M8 16l1.5 1.5L12 15"
-stroke="currentColor"
-stroke-width="1.8"
-stroke-linecap="round"
-stroke-linejoin="round"/>
 
 </svg>
 
 </div>
 
-<div class="welcome-label">
+<div class="welcome-brand-copy">
 
-PRIMEIRO PASSO
+<strong>
+
+VisualFeed
+
+</strong>
+
+<span>
+
+Guia de configuração
+
+</span>
 
 </div>
 
@@ -616,23 +741,25 @@ PRIMEIRO PASSO
 
 <h1>
 
-Vamos preparar seu VisualFeed.
+Seu acesso está liberado.<br>
+Vamos configurar seu VisualFeed.
 
 </h1>
 
-<p class="welcome-header-description">
+<p class="welcome-hero-description">
 
-Antes de configurar o widget, vamos preparar a Database que será responsável por alimentar seu feed diretamente pelo Notion.
+Você está a poucos passos de ter um feed conectado ao Notion.
+Siga o guia na ordem indicada e configure tudo com tranquilidade.
 
 </p>
 
-<div class="welcome-intro">
+<div class="welcome-meta">
 
-<div class="welcome-intro-icon">
+<div class="welcome-meta-item">
 
 <svg
-width="14"
-height="14"
+width="13"
+height="13"
 viewBox="0 0 24 24"
 fill="none"
 aria-hidden="true">
@@ -645,27 +772,44 @@ stroke="currentColor"
 stroke-width="1.8"/>
 
 <path
-d="M12 10.5v5"
+d="M12 7v5l3 2"
 stroke="currentColor"
 stroke-width="1.8"
-stroke-linecap="round"/>
-
-<circle
-cx="12"
-cy="7.5"
-r="1"
-fill="currentColor"/>
+stroke-linecap="round"
+stroke-linejoin="round"/>
 
 </svg>
 
+Aproximadamente 5 minutos
+
 </div>
 
-<p>
+<div class="welcome-meta-item">
 
-<strong>Você vai seguir quatro etapas.</strong>
-O guia mostra o que fazer em cada uma delas e onde encontrar as informações necessárias.
+<svg
+width="13"
+height="13"
+viewBox="0 0 24 24"
+fill="none"
+aria-hidden="true">
 
-</p>
+<path
+d="M5 5.5h14v13H5z"
+stroke="currentColor"
+stroke-width="1.8"
+stroke-linejoin="round"/>
+
+<path
+d="M8 9h8M8 12h5"
+stroke="currentColor"
+stroke-width="1.6"
+stroke-linecap="round"/>
+
+</svg>
+
+4 etapas
+
+</div>
 
 </div>
 
@@ -677,25 +821,29 @@ O guia mostra o que fazer em cada uma delas e onde encontrar as informações ne
 
 <div class="welcome-content">
 
-<div class="section-eyebrow">
+<div class="welcome-section-heading">
 
-SEU CAMINHO
+<div class="welcome-section-label">
+
+COMO FUNCIONA
 
 </div>
 
 <h2>
 
-Da Database ao VisualFeed pronto.
+Seu caminho até o VisualFeed pronto.
 
 </h2>
 
-<p class="section-description">
+<p>
 
-Cada etapa prepara a próxima. Ao final, você terá um feed conectado ao Notion e pronto para incorporar nas suas páginas.
+Cada etapa prepara a próxima. Você verá exatamente o que precisa fazer antes de avançar.
 
 </p>
 
-<div class="welcome-steps">
+</div>
+
+<div class="welcome-journey">
 
 <div class="welcome-step">
 
@@ -705,17 +853,21 @@ Cada etapa prepara a próxima. Ao final, você terá um feed conectado ao Notion
 
 </div>
 
-<h3>
+<div class="welcome-step-content">
+
+<strong>
 
 Prepare sua Database
 
-</h3>
+</strong>
 
 <p>
 
-Crie a Database no Notion e configure os campos que serão utilizados pelo seu VisualFeed.
+Crie a Database no Notion e configure os campos que serão usados para alimentar seu feed.
 
 </p>
+
+</div>
 
 </div>
 
@@ -727,17 +879,21 @@ Crie a Database no Notion e configure os campos que serão utilizados pelo seu V
 
 </div>
 
-<h3>
+<div class="welcome-step-content">
 
-Conecte o Notion
+<strong>
 
-</h3>
+Conecte o Notion ao VisualFeed
+
+</strong>
 
 <p>
 
-Crie sua conexão, copie o token de API e autorize o acesso à página da Database.
+Crie a conexão, gere seu token de API e autorize o acesso à página que contém sua Database.
 
 </p>
+
+</div>
 
 </div>
 
@@ -749,17 +905,21 @@ Crie sua conexão, copie o token de API e autorize o acesso à página da Databa
 
 </div>
 
-<h3>
+<div class="welcome-step-content">
 
-Configure o VisualFeed
+<strong>
 
-</h3>
+Configure seu VisualFeed
+
+</strong>
 
 <p>
 
 Informe seu nome, token e link da Database para gerar a configuração do seu widget.
 
 </p>
+
+</div>
 
 </div>
 
@@ -771,15 +931,17 @@ Informe seu nome, token e link da Database para gerar a configuração do seu wi
 
 </div>
 
-<h3>
+<div class="welcome-step-content">
+
+<strong>
 
 Use seu VisualFeed
 
-</h3>
+</strong>
 
 <p>
 
-Copie o link gerado e incorpore o feed em qualquer página do Notion ou abra-o diretamente no navegador.
+Copie o link gerado e incorpore seu feed em qualquer página do Notion ou abra-o diretamente no navegador.
 
 </p>
 
@@ -787,9 +949,11 @@ Copie o link gerado e incorpore o feed em qualquer página do Notion ou abra-o d
 
 </div>
 
-<div class="welcome-final">
+</div>
 
-<div class="welcome-final-copy">
+<div class="welcome-start">
+
+<div class="welcome-start-copy">
 
 <strong>
 
@@ -799,7 +963,7 @@ Tudo pronto para começar?
 
 <p>
 
-Comece pela preparação da Database. No próximo passo, mostramos exatamente como estruturá-la no Notion.
+Vamos começar pela Database. No próximo passo, você verá como prepará-la no Notion.
 
 </p>
 
