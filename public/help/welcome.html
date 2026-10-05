@@ -27,27 +27,16 @@ href="style.css">
 <style>
 
 /* =========================================================
-   WELCOME PAGE
-   Visual alinhado ao restante do onboarding
+   WELCOME
 ========================================================= */
 
 .welcome-page {
 
   min-height: 100vh;
 
-  background:
-    radial-gradient(
-      circle at top left,
-      rgba(157, 92, 255, 0.10),
-      transparent 34%
-    ),
-    var(--background);
+  background: var(--background);
 
-  display: flex;
-
-  justify-content: center;
-
-  padding: 56px 20px;
+  padding: 48px 20px;
 
 }
 
@@ -55,11 +44,15 @@ href="style.css">
 
   width: 100%;
 
-  max-width: 920px;
+  max-width: 900px;
+
+  margin: 0 auto;
 
 }
 
 .welcome-card {
+
+  position: relative;
 
   background: var(--white);
 
@@ -69,56 +62,46 @@ href="style.css">
 
   box-shadow: var(--shadow);
 
-  padding: 52px;
-
-  position: relative;
-
   overflow: hidden;
 
 }
 
-.welcome-card::before {
+/* =========================================================
+   HERO
+========================================================= */
 
-  content: "";
+.welcome-hero {
 
-  position: absolute;
+  padding: 54px 56px 46px;
 
-  top: 0;
-
-  left: 0;
-
-  right: 0;
-
-  height: 4px;
+  text-align: center;
 
   background:
-    linear-gradient(
-      90deg,
-      var(--purple),
-      var(--purple-light)
+    radial-gradient(
+      circle at 50% -20%,
+      rgba(157, 92, 255, 0.10),
+      transparent 42%
     );
+
+  border-bottom: 1px solid var(--border);
 
 }
 
-.welcome-top {
+.welcome-mark {
+
+  width: 52px;
+
+  height: 52px;
+
+  margin: 0 auto 22px;
+
+  border-radius: 16px;
 
   display: flex;
 
   align-items: center;
 
-  gap: 12px;
-
-  margin-bottom: 28px;
-
-}
-
-.welcome-icon {
-
-  width: 48px;
-
-  height: 48px;
-
-  border-radius: 14px;
+  justify-content: center;
 
   background:
     linear-gradient(
@@ -127,19 +110,13 @@ href="style.css">
       var(--purple-light)
     );
 
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
   box-shadow:
-    0 10px 25px
-    rgba(124, 58, 237, 0.20);
+    0 12px 28px
+    rgba(124, 58, 237, 0.18);
 
 }
 
-.welcome-step {
+.welcome-label {
 
   display: inline-flex;
 
@@ -149,93 +126,111 @@ href="style.css">
 
   padding: 7px 11px;
 
+  margin-bottom: 16px;
+
   border-radius: 999px;
 
   background: var(--purple-pale);
 
   color: var(--purple);
 
-  font-size: 11px;
+  font-size: 10px;
+
+  line-height: 1;
 
   font-weight: 800;
 
-  letter-spacing: 0.08em;
+  letter-spacing: 0.10em;
 
   text-transform: uppercase;
 
 }
 
-.welcome-header {
+.welcome-hero h1 {
 
-  max-width: 700px;
+  max-width: 680px;
 
-}
-
-.welcome-header h1 {
-
-  margin: 0;
+  margin: 0 auto;
 
   color: var(--text);
 
-  font-size: clamp(32px, 5vw, 46px);
+  font-size: clamp(34px, 5vw, 48px);
 
   line-height: 1.08;
 
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
 
   font-weight: 800;
 
 }
 
-.welcome-header p {
+.welcome-hero p {
 
-  margin: 18px 0 0;
+  max-width: 590px;
 
-  max-width: 650px;
+  margin: 18px auto 0;
 
   color: var(--text-soft);
 
-  font-size: 16px;
+  font-size: 15px;
 
   line-height: 1.7;
 
 }
 
 /* =========================================================
-   INTRO
+   CONTENT
 ========================================================= */
 
-.welcome-intro {
+.welcome-content {
 
-  margin-top: 38px;
-
-  padding: 22px 24px;
-
-  background: var(--purple-soft);
-
-  border: 1px solid var(--border-purple);
-
-  border-radius: var(--radius-lg);
+  padding: 42px 56px 48px;
 
 }
 
-.welcome-intro strong {
+.welcome-introduction {
 
-  display: block;
+  max-width: 650px;
 
-  margin-bottom: 6px;
+  margin-bottom: 30px;
+
+}
+
+.welcome-introduction .eyebrow {
+
+  margin-bottom: 8px;
+
+  color: var(--purple);
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.10em;
+
+  text-transform: uppercase;
+
+}
+
+.welcome-introduction h2 {
+
+  margin: 0;
 
   color: var(--text);
 
-  font-size: 14px;
+  font-size: 23px;
+
+  line-height: 1.3;
+
+  letter-spacing: -0.025em;
 
   font-weight: 800;
 
 }
 
-.welcome-intro p {
+.welcome-introduction p {
 
-  margin: 0;
+  margin: 9px 0 0;
 
   color: var(--text-soft);
 
@@ -249,102 +244,41 @@ href="style.css">
    JOURNEY
 ========================================================= */
 
-.welcome-section {
-
-  margin-top: 42px;
-
-}
-
-.welcome-section-label {
-
-  margin-bottom: 8px;
-
-  color: var(--purple);
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  letter-spacing: 0.08em;
-
-  text-transform: uppercase;
-
-}
-
-.welcome-section h2 {
-
-  margin: 0;
-
-  color: var(--text);
-
-  font-size: 24px;
-
-  line-height: 1.25;
-
-  letter-spacing: -0.025em;
-
-}
-
-.welcome-section-description {
-
-  margin: 10px 0 24px;
-
-  color: var(--text-soft);
-
-  font-size: 14px;
-
-  line-height: 1.65;
-
-}
-
-/* =========================================================
-   STEPS
-========================================================= */
-
-.welcome-steps {
-
-  display: grid;
-
-  gap: 12px;
-
-}
-
-.welcome-step-card {
-
-  display: flex;
-
-  align-items: flex-start;
-
-  gap: 16px;
-
-  padding: 20px;
+.welcome-journey {
 
   border: 1px solid var(--border);
 
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
+
+  overflow: hidden;
 
   background: var(--white);
 
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+}
+
+.journey-item {
+
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns: 48px 1fr auto;
+
+  align-items: center;
+
+  gap: 17px;
+
+  padding: 22px 24px;
 
 }
 
-.welcome-step-card:hover {
+.journey-item + .journey-item {
 
-  border-color: var(--border-purple);
-
-  box-shadow: var(--shadow-soft);
-
-  transform: translateY(-1px);
+  border-top: 1px solid var(--border);
 
 }
 
-.welcome-step-number {
-
-  flex: 0 0 auto;
+.journey-number {
 
   width: 38px;
 
@@ -352,9 +286,91 @@ href="style.css">
 
   border-radius: 12px;
 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
   background: var(--purple-pale);
 
   color: var(--purple);
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+}
+
+.journey-copy strong {
+
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--text);
+
+  font-size: 13px;
+
+  line-height: 1.4;
+
+  font-weight: 800;
+
+}
+
+.journey-copy span {
+
+  display: block;
+
+  color: var(--text-soft);
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+}
+
+.journey-arrow {
+
+  color: var(--text-muted);
+
+  opacity: 0.7;
+
+}
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.welcome-note {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  margin-top: 18px;
+
+  padding: 16px 18px;
+
+  border-radius: var(--radius-md);
+
+  background: var(--purple-soft);
+
+  border: 1px solid var(--border-purple);
+
+}
+
+.welcome-note-icon {
+
+  flex: 0 0 auto;
+
+  width: 24px;
+
+  height: 24px;
+
+  border-radius: 8px;
 
   display: flex;
 
@@ -362,111 +378,37 @@ href="style.css">
 
   justify-content: center;
 
-  font-size: 13px;
+  background: var(--purple-pale);
 
-  font-weight: 800;
-
-}
-
-.welcome-step-content {
-
-  min-width: 0;
+  color: var(--purple);
 
 }
 
-.welcome-step-content strong {
-
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: var(--text);
-
-  font-size: 14px;
-
-  font-weight: 800;
-
-}
-
-.welcome-step-content p {
+.welcome-note p {
 
   margin: 0;
 
   color: var(--text-soft);
 
-  font-size: 13px;
+  font-size: 12px;
 
-  line-height: 1.55;
-
-}
-
-/* =========================================================
-   REQUIREMENTS
-========================================================= */
-
-.welcome-requirements {
-
-  margin-top: 24px;
-
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 12px;
+  line-height: 1.6;
 
 }
 
-.welcome-requirement {
-
-  padding: 18px;
-
-  border: 1px solid var(--border);
-
-  border-radius: var(--radius-md);
-
-  background: var(--white);
-
-}
-
-.welcome-requirement small {
-
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: var(--text-muted);
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.04em;
-
-}
-
-.welcome-requirement strong {
+.welcome-note strong {
 
   color: var(--text);
 
-  font-size: 13px;
-
-  font-weight: 700;
+  font-weight: 800;
 
 }
 
 /* =========================================================
-   FOOTER CTA
+   CTA
 ========================================================= */
 
 .welcome-footer {
-
-  margin-top: 42px;
-
-  padding-top: 28px;
-
-  border-top: 1px solid var(--border);
 
   display: flex;
 
@@ -476,41 +418,47 @@ href="style.css">
 
   gap: 24px;
 
+  margin-top: 34px;
+
+  padding-top: 26px;
+
+  border-top: 1px solid var(--border);
+
 }
 
-.welcome-footer-text {
+.welcome-footer-copy {
 
-  max-width: 520px;
+  max-width: 500px;
 
 }
 
-.welcome-footer-text strong {
+.welcome-footer-copy strong {
 
   display: block;
 
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 
   color: var(--text);
 
-  font-size: 14px;
+  font-size: 13px;
 
   font-weight: 800;
 
 }
 
-.welcome-footer-text p {
+.welcome-footer-copy span {
 
-  margin: 0;
+  display: block;
 
-  color: var(--text-soft);
+  color: var(--text-muted);
 
-  font-size: 13px;
+  font-size: 12px;
 
-  line-height: 1.55;
+  line-height: 1.5;
 
 }
 
-.welcome-primary-btn {
+.welcome-button {
 
   flex: 0 0 auto;
 
@@ -520,54 +468,44 @@ href="style.css">
 
   justify-content: center;
 
-  gap: 8px;
+  gap: 9px;
 
   min-height: 46px;
 
-  padding: 0 20px;
+  padding: 0 19px;
 
   border-radius: 12px;
 
-  background:
-    linear-gradient(
-      135deg,
-      var(--purple),
-      var(--purple-light)
-    );
+  background: var(--purple);
 
-  color: white;
+  color: var(--white);
 
   text-decoration: none;
 
-  font-size: 13px;
+  font-size: 12px;
 
   font-weight: 800;
 
   box-shadow:
-    0 10px 24px
-    rgba(124, 58, 237, 0.20);
+    0 8px 20px
+    rgba(124, 58, 237, 0.16);
 
   transition:
+    background 0.2s ease,
     transform 0.2s ease,
     box-shadow 0.2s ease;
 
 }
 
-.welcome-primary-btn:hover {
+.welcome-button:hover {
+
+  background: var(--purple-dark);
 
   transform: translateY(-1px);
 
   box-shadow:
-    0 14px 28px
-    rgba(124, 58, 237, 0.25);
-
-}
-
-.welcome-primary-btn svg {
-
-  width: 16px;
-
-  height: 16px;
+    0 11px 24px
+    rgba(124, 58, 237, 0.20);
 
 }
 
@@ -575,49 +513,71 @@ href="style.css">
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 680px) {
 
   .welcome-page {
 
-    padding: 24px 14px;
+    padding: 20px 12px;
 
   }
 
-  .welcome-card {
+  .welcome-hero {
 
-    padding: 30px 22px;
-
-    border-radius: 22px;
+    padding: 38px 22px 34px;
 
   }
 
-  .welcome-header h1 {
+  .welcome-hero h1 {
 
     font-size: 32px;
 
   }
 
-  .welcome-header p {
+  .welcome-hero p {
 
     font-size: 14px;
 
   }
 
-  .welcome-requirements {
+  .welcome-content {
 
-    grid-template-columns: 1fr;
+    padding: 30px 18px 32px;
+
+  }
+
+  .journey-item {
+
+    grid-template-columns: 40px 1fr;
+
+    gap: 13px;
+
+    padding: 18px;
+
+  }
+
+  .journey-number {
+
+    width: 34px;
+
+    height: 34px;
+
+  }
+
+  .journey-arrow {
+
+    display: none;
 
   }
 
   .welcome-footer {
 
-    align-items: stretch;
-
     flex-direction: column;
+
+    align-items: stretch;
 
   }
 
-  .welcome-primary-btn {
+  .welcome-button {
 
     width: 100%;
 
@@ -635,13 +595,17 @@ href="style.css">
 
 <section class="welcome-card">
 
-<div class="welcome-top">
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-<div class="welcome-icon">
+<header class="welcome-hero">
+
+<div class="welcome-mark">
 
 <svg
-width="25"
-height="25"
+width="26"
+height="26"
 viewBox="0 0 24 24"
 fill="none"
 aria-hidden="true">
@@ -666,80 +630,69 @@ fill="white"/>
 
 </div>
 
-<span class="welcome-step">
+<div class="welcome-label">
 
 PRIMEIRO PASSO
 
-</span>
-
 </div>
-
-<div class="welcome-header">
 
 <h1>
 
-Vamos configurar seu VisualFeed.
+Seu VisualFeed começa aqui.
 
 </h1>
 
 <p>
 
-Seu acesso está liberado. Agora vamos preparar o VisualFeed,
-conectar o Notion e deixar seu feed pronto para uso.
+Vamos preparar sua Database, conectar o Notion e configurar o seu feed para que ele esteja pronto para uso.
 
 </p>
 
-</div>
+</header>
 
-<div class="welcome-intro">
+<!-- =====================================================
+     CONTENT
+===================================================== -->
 
-<strong>
+<div class="welcome-content">
 
-Antes de começar
+<div class="welcome-introduction">
 
-</strong>
+<div class="eyebrow">
 
-<p>
-
-Você fará a configuração em quatro etapas simples.
-Siga a ordem indicada e avance somente quando concluir cada etapa.
-
-</p>
-
-</div>
-
-<div class="welcome-section">
-
-<div class="welcome-section-label">
-
-SEU CAMINHO
+COMO VAI FUNCIONAR
 
 </div>
 
 <h2>
 
-O que você vai fazer
+Uma configuração simples, em quatro etapas.
 
 </h2>
 
-<p class="welcome-section-description">
+<p>
 
-Todo o processo acontece entre o Notion e o VisualFeed.
-Você não precisa configurar tudo de uma vez.
+Siga o guia na ordem indicada. Cada etapa prepara o que será utilizado na próxima.
 
 </p>
 
-<div class="welcome-steps">
+</div>
 
-<div class="welcome-step-card">
+<!-- =====================================================
+     JOURNEY
+===================================================== -->
 
-<div class="welcome-step-number">
+<div class="welcome-journey">
+
+<div class="journey-item">
+
+<div class="journey-number">
 
 01
 
 </div>
 
-<div class="welcome-step-content">
+<div class="journey-copy">
 
 <strong>
 
@@ -747,51 +700,91 @@ Prepare sua Database
 
 </strong>
 
-<p>
+<span>
 
-Crie a Database no Notion e organize os campos que serão usados pelo seu feed.
+Crie e organize no Notion os campos que alimentarão seu VisualFeed.
 
-</p>
+</span>
+
+</div>
+
+<div class="journey-arrow">
+
+<svg
+width="17"
+height="17"
+viewBox="0 0 24 24"
+fill="none"
+aria-hidden="true">
+
+<path
+d="M9 18l6-6-6-6"
+stroke="currentColor"
+stroke-width="1.8"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+
+</svg>
 
 </div>
 
 </div>
 
-<div class="welcome-step-card">
+<div class="journey-item">
 
-<div class="welcome-step-number">
+<div class="journey-number">
 
 02
 
 </div>
 
-<div class="welcome-step-content">
+<div class="journey-copy">
 
 <strong>
 
-Conecte o Notion ao VisualFeed
+Conecte o Notion
 
 </strong>
 
-<p>
+<span>
 
-Crie a conexão, gere seu token de API e autorize o acesso à página da Database.
+Crie sua conexão, copie o token de API e autorize o acesso à Database.
 
-</p>
+</span>
+
+</div>
+
+<div class="journey-arrow">
+
+<svg
+width="17"
+height="17"
+viewBox="0 0 24 24"
+fill="none"
+aria-hidden="true">
+
+<path
+d="M9 18l6-6-6-6"
+stroke="currentColor"
+stroke-width="1.8"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+
+</svg>
 
 </div>
 
 </div>
 
-<div class="welcome-step-card">
+<div class="journey-item">
 
-<div class="welcome-step-number">
+<div class="journey-number">
 
 03
 
 </div>
 
-<div class="welcome-step-content">
+<div class="journey-copy">
 
 <strong>
 
@@ -799,25 +792,45 @@ Configure seu VisualFeed
 
 </strong>
 
-<p>
+<span>
 
 Informe seu nome, token e link da Database no painel de configuração.
 
-</p>
+</span>
+
+</div>
+
+<div class="journey-arrow">
+
+<svg
+width="17"
+height="17"
+viewBox="0 0 24 24"
+fill="none"
+aria-hidden="true">
+
+<path
+d="M9 18l6-6-6-6"
+stroke="currentColor"
+stroke-width="1.8"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+
+</svg>
 
 </div>
 
 </div>
 
-<div class="welcome-step-card">
+<div class="journey-item">
 
-<div class="welcome-step-number">
+<div class="journey-number">
 
 04
 
 </div>
 
-<div class="welcome-step-content">
+<div class="journey-copy">
 
 <strong>
 
@@ -825,113 +838,116 @@ Use seu VisualFeed
 
 </strong>
 
+<span>
+
+Copie o link gerado e incorpore o widget no Notion ou abra-o diretamente no navegador.
+
+</span>
+
+</div>
+
+<div class="journey-arrow">
+
+<svg
+width="17"
+height="17"
+viewBox="0 0 24 24"
+fill="none"
+aria-hidden="true">
+
+<path
+d="M9 18l6-6-6-6"
+stroke="currentColor"
+stroke-width="1.8"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     NOTE
+===================================================== -->
+
+<div class="welcome-note">
+
+<div class="welcome-note-icon">
+
+<svg
+width="14"
+height="14"
+viewBox="0 0 24 24"
+fill="none"
+aria-hidden="true">
+
+<circle
+cx="12"
+cy="12"
+r="9"
+stroke="currentColor"
+stroke-width="1.8"/>
+
+<path
+d="M12 10.5v5"
+stroke="currentColor"
+stroke-width="1.8"
+stroke-linecap="round"/>
+
+<circle
+cx="12"
+cy="7.5"
+r="1"
+fill="currentColor"/>
+
+</svg>
+
+</div>
+
 <p>
 
-Copie o link gerado e incorpore seu feed em qualquer página do Notion ou abra-o diretamente no navegador.
+<strong>Você não precisa memorizar tudo.</strong>
+O guia acompanha cada etapa e mostra exatamente onde encontrar as informações necessárias no Notion.
 
 </p>
 
 </div>
 
-</div>
-
-</div>
-
-</div>
-
-<div class="welcome-section">
-
-<div class="welcome-section-label">
-
-VOCÊ VAI PRECISAR DE
-
-</div>
-
-<h2>
-
-Tenha estes itens à mão
-
-</h2>
-
-<div class="welcome-requirements">
-
-<div class="welcome-requirement">
-
-<small>
-
-01
-
-</small>
-
-<strong>
-
-Uma conta no Notion
-
-</strong>
-
-</div>
-
-<div class="welcome-requirement">
-
-<small>
-
-02
-
-</small>
-
-<strong>
-
-Uma Database preparada
-
-</strong>
-
-</div>
-
-<div class="welcome-requirement">
-
-<small>
-
-03
-
-</small>
-
-<strong>
-
-Alguns minutos para configurar
-
-</strong>
-
-</div>
-
-</div>
-
-</div>
+<!-- =====================================================
+     CTA
+===================================================== -->
 
 <div class="welcome-footer">
 
-<div class="welcome-footer-text">
+<div class="welcome-footer-copy">
 
 <strong>
 
-Tudo pronto para começar?
+Vamos começar pela Database.
 
 </strong>
 
-<p>
+<span>
 
-No próximo passo, vamos preparar a Database que alimentará seu VisualFeed.
+Este é o primeiro passo para alimentar seu VisualFeed.
 
-</p>
+</span>
 
 </div>
 
 <a
 href="database.html"
-class="welcome-primary-btn">
+class="welcome-button">
 
-Começar pelo Notion
+Começar
 
 <svg
+width="16"
+height="16"
 viewBox="0 0 24 24"
 fill="none"
 aria-hidden="true">
@@ -946,6 +962,8 @@ stroke-linejoin="round"/>
 </svg>
 
 </a>
+
+</div>
 
 </div>
 
